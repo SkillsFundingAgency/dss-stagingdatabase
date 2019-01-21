@@ -14,7 +14,7 @@
     </RootPath>
     <RootNamespace>NCS.DSS.StagingDatabase</RootNamespace>
     <AssemblyName>NCS.DSS.StagingDatabase</AssemblyName>
-    <ModelCollation>1033, CI</ModelCollation>
+    <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -23,6 +23,8 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -57,5 +59,41 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\dss-actionplans.sql" />
+    <Build Include="dbo\Tables\dss-actions.sql" />
+    <Build Include="dbo\Tables\dss-addresses.sql" />
+    <Build Include="dbo\Tables\dss-adviserdetails.sql" />
+    <Build Include="dbo\Tables\dss-contacts.sql" />
+    <Build Include="dbo\Tables\dss-customers.sql" />
+    <Build Include="dbo\Tables\dss-diversitydetails.sql" />
+    <Build Include="dbo\Tables\dss-goals.sql" />
+    <Build Include="dbo\Tables\dss-interactions.sql" />
+    <Build Include="dbo\Tables\dss-outcomes.sql" />
+    <Build Include="dbo\Tables\dss-sessions.sql" />
+    <Build Include="dbo\Tables\dss-subscriptions.sql" />
+    <Build Include="dbo\Tables\dss-transfers.sql" />
+    <Build Include="dbo\Tables\dss-webchats.sql" />
+    <Build Include="dbo\Tables\dss-reference-data.sql" />
+    <Build Include="dbo\Stored Procedures\CreateReferenceData.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_customers.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_actionplans.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_addresses.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_adviserdetails.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_contacts.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_diversitydetails.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_goals.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_interactions.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_outcomes.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_sessions.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_subscriptions.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_transfers.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_webchats.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_actions.sql" />
   </ItemGroup>
 </Project>
