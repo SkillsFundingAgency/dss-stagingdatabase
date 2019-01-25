@@ -14,7 +14,7 @@ BEGIN
 		BEGIN
 			CREATE TABLE [dss-reference-data]
 			(
-						[resource] varchar(50) NULL,
+						[resource] VARCHAR(MAX) NULL,
 						[name] varchar(100) NULL,
 						[key] varchar(100) NULL,
 						[value] int NULL,

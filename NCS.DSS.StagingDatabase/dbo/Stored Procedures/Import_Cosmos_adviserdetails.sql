@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,12 +28,12 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#adviserdetails](
-						 [id] [varchar](50) NULL,
-						 [AdviserName] [varchar](50) NULL,
-						 [AdviserEmailAddress] [varchar](50) NULL,
-						 [AdviserContactNumber] [varchar](50) NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [AdviserName] [varchar](max) NULL,
+						 [AdviserEmailAddress] [varchar](max) NULL,
+						 [AdviserContactNumber] [varchar](max) NULL,
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -41,12 +41,12 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			AdviserName VARCHAR(50) '$.AdviserName',
-			AdviserEmailAddress VARCHAR(50) '$.AdviserEmailAddress',
-			AdviserContactNumber VARCHAR(50) '$.AdviserContactNumber',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			AdviserName VARCHAR(MAX) '$.AdviserName',
+			AdviserEmailAddress VARCHAR(MAX) '$.AdviserEmailAddress',
+			AdviserContactNumber VARCHAR(MAX) '$.AdviserContactNumber',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 	
@@ -58,11 +58,11 @@ BEGIN
 		BEGIN
 			CREATE TABLE [dss-adviserdetails](
 						 [id] uniqueidentifier NULL,
-						 [AdviserName] [varchar](50) NULL,
-						 [AdviserEmailAddress] [varchar](50) NULL,
-						 [AdviserContactNumber] [varchar](50) NULL,
+						 [AdviserName] [varchar](max) NULL,
+						 [AdviserEmailAddress] [varchar](max) NULL,
+						 [AdviserContactNumber] [varchar](max) NULL,
 						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END
 

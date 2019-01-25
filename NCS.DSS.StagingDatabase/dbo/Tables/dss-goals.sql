@@ -5,10 +5,10 @@
     [DateGoalCaptured]            DATETIME         NULL,
     [DateGoalShouldBeCompletedBy] DATETIME         NULL,
     [DateGoalAchieved]            DATETIME         NULL,
-    [GoalSummary]                 VARCHAR (50)     NULL,
+    [GoalSummary]                 VARCHAR (max)     NULL,
     [GoalType]                    INT              NULL,
     [GoalStatus]                  INT              NULL,
     [LastModifiedDate]            DATETIME         NULL,
-    [LastModifiedTouchpointId]    VARCHAR (10)     NULL
+    [LastModifiedTouchpointId]    VARCHAR (max)     NULL
 );
 

@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,15 +28,15 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#sessions](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [InteractionId] [varchar](50) NULL,
-						 [DateandTimeOfSession] [varchar](50) NULL,
-						 [VenuePostCode] [varchar](50) NULL,
-						 [SessionAttended] [varchar](50) NULL,
-						 [ReasonForNonAttendance] [varchar](50) NULL,					 
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [InteractionId] [varchar](max) NULL,
+						 [DateandTimeOfSession] [varchar](max) NULL,
+						 [VenuePostCode] [varchar](max) NULL,
+						 [SessionAttended] [varchar](max) NULL,
+						 [ReasonForNonAttendance] [varchar](max) NULL,					 
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -44,15 +44,15 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			InteractionId VARCHAR(50) '$.InteractionId',
-			DateandTimeOfSession VARCHAR(50) '$.DateandTimeOfSession',
-			VenuePostCode VARCHAR(50) '$.VenuePostCode',
-			SessionAttended VARCHAR(50) '$.SessionAttended',
-			ReasonForNonAttendance VARCHAR(50) '$.ReasonForNonAttendance',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			InteractionId VARCHAR(MAX) '$.InteractionId',
+			DateandTimeOfSession VARCHAR(MAX) '$.DateandTimeOfSession',
+			VenuePostCode VARCHAR(MAX) '$.VenuePostCode',
+			SessionAttended VARCHAR(MAX) '$.SessionAttended',
+			ReasonForNonAttendance VARCHAR(MAX) '$.ReasonForNonAttendance',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 
@@ -71,7 +71,7 @@ BEGIN
 						 [SessionAttended] bit NULL,
 						 [ReasonForNonAttendance] int NULL,					 
 						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END
 

@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,15 +28,15 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#contacts](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [PreferredContactMethod] [varchar](50) NULL,
-						 [MobileNumber] [varchar](50) NULL,
-						 [HomeNumber] [varchar](50) NULL,
-						 [AlternativeNumber] [varchar](50) NULL,
-						 [EmailAddress] [varchar](50) NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [PreferredContactMethod] [varchar](max) NULL,
+						 [MobileNumber] [varchar](max) NULL,
+						 [HomeNumber] [varchar](max) NULL,
+						 [AlternativeNumber] [varchar](max) NULL,
+						 [EmailAddress] [varchar](max) NULL,
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -44,15 +44,15 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			PreferredContactMethod VARCHAR(50) '$.PreferredContactMethod',
-			MobileNumber VARCHAR(50) '$.MobileNumber',
-			HomeNumber VARCHAR(50) '$.HomeNumber',
-			AlternativeNumber VARCHAR(50) '$.AlternativeNumber',
-			EmailAddress VARCHAR(50) '$.EmailAddress',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			PreferredContactMethod VARCHAR(MAX) '$.PreferredContactMethod',
+			MobileNumber VARCHAR(MAX) '$.MobileNumber',
+			HomeNumber VARCHAR(MAX) '$.HomeNumber',
+			AlternativeNumber VARCHAR(MAX) '$.AlternativeNumber',
+			EmailAddress VARCHAR(MAX) '$.EmailAddress',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 
@@ -67,12 +67,12 @@ BEGIN
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [PreferredContactMethod] int NULL,
-						 [MobileNumber] [varchar](50) NULL,
-						 [HomeNumber] [varchar](50) NULL,
-						 [AlternativeNumber] [varchar](50) NULL,
-						 [EmailAddress] [varchar](50) NULL,
+						 [MobileNumber] [varchar](max) NULL,
+						 [HomeNumber] [varchar](max) NULL,
+						 [AlternativeNumber] [varchar](max) NULL,
+						 [EmailAddress] [varchar](max) NULL,
 						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]		
 		END
 

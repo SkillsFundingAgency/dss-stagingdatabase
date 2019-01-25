@@ -5,12 +5,12 @@
     [DateActionAgreed]              DATETIME         NULL,
     [DateActionAimsToBeCompletedBy] DATETIME         NULL,
     [DateActionActuallyCompleted]   DATETIME         NULL,
-    [ActionSummary]                 VARCHAR (50)     NULL,
-    [SignpostedTo]                  VARCHAR (50)     NULL,
+    [ActionSummary]                 VARCHAR (max)     NULL,
+    [SignpostedTo]                  VARCHAR (max)     NULL,
     [ActionType]                    INT              NULL,
     [ActionStatus]                  INT              NULL,
     [PersonResponsible]             INT              NULL,
-    [LastModifiedDate]              VARCHAR (50)     NULL,
-    [LastModifiedTouchpointId]      VARCHAR (10)     NULL
+    [LastModifiedDate]              VARCHAR (max)     NULL,
+    [LastModifiedTouchpointId]      VARCHAR (max)     NULL
 );
 

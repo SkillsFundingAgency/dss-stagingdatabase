@@ -5,8 +5,8 @@
     [OutcomeType]              INT              NULL,
     [OutcomeClaimedDate]       DATETIME         NULL,
     [OutcomeEffectiveDate]     DATETIME         NULL,
-    [TouchpointId]             VARCHAR (10)     NULL,
+    [TouchpointId]             VARCHAR (max)     NULL,
     [LastModifiedDate]         DATETIME         NULL,
-    [LastModifiedTouchpointId] VARCHAR (50)     NULL
+    [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

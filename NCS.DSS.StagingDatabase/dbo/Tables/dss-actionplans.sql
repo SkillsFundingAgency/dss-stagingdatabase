@@ -9,8 +9,8 @@
     [ActionPlanDeliveryMethod]       INT              NULL,
     [DateActionPlanAcknowledged]     DATETIME         NULL,
     [PriorityCustomer]               INT              NULL,
-    [CurrentSituation]               VARCHAR (50)     NULL,
+    [CurrentSituation]               VARCHAR (MAX)     NULL,
     [LastModifiedDate]               DATETIME         NULL,
-    [LastModifiedTouchpointId]       VARCHAR (10)     NULL
+    [LastModifiedTouchpointId]       VARCHAR (MAX)     NULL
 );
 

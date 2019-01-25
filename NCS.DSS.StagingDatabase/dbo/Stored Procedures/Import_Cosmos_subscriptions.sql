@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,12 +28,12 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#subscriptions](
-						 [CustomerId] [varchar](50) NULL,
-						 [SubscriptionId] [varchar](50) NULL,
-						 [TouchPointId] [varchar](50) NULL,
-						 [Subscribe] [varchar](50) NULL,			 
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [CustomerId] [varchar](max) NULL,
+						 [SubscriptionId] [varchar](max) NULL,
+						 [TouchPointId] [varchar](max) NULL,
+						 [Subscribe] [varchar](max) NULL,			 
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -41,12 +41,12 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			CustomerId VARCHAR(50) '$.CustomerId',
-			SubscriptionId VARCHAR(50) '$.SubscriptionId',
-			TouchPointId VARCHAR(50) '$.TouchPointId',
-			Subscribe VARCHAR(50) '$.Subscribe',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			SubscriptionId VARCHAR(MAX) '$.SubscriptionId',
+			TouchPointId VARCHAR(MAX) '$.TouchPointId',
+			Subscribe VARCHAR(MAX) '$.Subscribe',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 
@@ -59,10 +59,10 @@ BEGIN
 			CREATE TABLE [dss-subscriptions](
 						 [CustomerId] uniqueidentifier NULL,
 						 [SubscriptionId] uniqueidentifier NULL,
-						 [TouchPointId] [varchar](10) NULL,
+						 [TouchPointId] [varchar](max) NULL,
 						 [Subscribe] bit NULL,			 
 						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END
 

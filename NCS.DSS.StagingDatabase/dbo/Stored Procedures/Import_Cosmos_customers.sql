@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,21 +28,21 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#customers](
-						 [id] [varchar](50) NULL,
-						 [DateOfRegistration] [varchar](50) NULL,
-						 [Title] [varchar](50) NULL,
-						 [GivenName] [varchar](50) NULL,
-						 [FamilyName] [varchar](50) NULL,
-						 [DateofBirth] [varchar](50) NULL,
-						 [Gender] [varchar](50) NULL,
-						 [UniqueLearnerNumber] [varchar](50) NULL,
-						 [OptInUserResearch] [varchar](50) NULL,
-						 [DateOfTermination] [varchar](50) NULL,
-						 [ReasonForTermination] [varchar](50) NULL,
-						 [IntroducedBy] [varchar](50) NULL,
-						 [IntroducedByAdditionalInfo] [varchar](50) NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [DateOfRegistration] [varchar](max) NULL,
+						 [Title] [varchar](max) NULL,
+						 [GivenName] [varchar](max) NULL,
+						 [FamilyName] [varchar](max) NULL,
+						 [DateofBirth] [varchar](max) NULL,
+						 [Gender] [varchar](max) NULL,
+						 [UniqueLearnerNumber] [varchar](max) NULL,
+						 [OptInUserResearch] [varchar](max) NULL,
+						 [DateOfTermination] [varchar](max) NULL,
+						 [ReasonForTermination] [varchar](max) NULL,
+						 [IntroducedBy] [varchar](max) NULL,
+						 [IntroducedByAdditionalInfo] [varchar](max) NULL,
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -50,21 +50,21 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			DateOfRegistration VARCHAR(50) '$.DateOfRegistration',
-			Title VARCHAR(50) '$.Title',
-			GivenName VARCHAR(50) '$.GivenName',
-			FamilyName VARCHAR(50) '$.FamilyName',
-			DateofBirth VARCHAR(50) '$.DateofBirth',
-			Gender VARCHAR(50) '$.Gender',
-			UniqueLearnerNumber VARCHAR(50) '$.UniqueLearnerNumber',
-			OptInUserResearch VARCHAR(50) '$.OptInUserResearch',
-			DateOfTermination VARCHAR(50) '$.DateOfTermination',
-			ReasonForTermination VARCHAR(50) '$.ReasonForTermination',
-			IntroducedBy VARCHAR(50) '$.IntroducedBy',
-			IntroducedByAdditionalInfo VARCHAR(50) '$.IntroducedByAdditionalInfo',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			DateOfRegistration VARCHAR(MAX) '$.DateOfRegistration',
+			Title VARCHAR(MAX) '$.Title',
+			GivenName VARCHAR(MAX) '$.GivenName',
+			FamilyName VARCHAR(MAX) '$.FamilyName',
+			DateofBirth VARCHAR(MAX) '$.DateofBirth',
+			Gender VARCHAR(MAX) '$.Gender',
+			UniqueLearnerNumber VARCHAR(MAX) '$.UniqueLearnerNumber',
+			OptInUserResearch VARCHAR(MAX) '$.OptInUserResearch',
+			DateOfTermination VARCHAR(MAX) '$.DateOfTermination',
+			ReasonForTermination VARCHAR(MAX) '$.ReasonForTermination',
+			IntroducedBy VARCHAR(MAX) '$.IntroducedBy',
+			IntroducedByAdditionalInfo VARCHAR(MAX) '$.IntroducedByAdditionalInfo',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 	IF OBJECT_ID('[dss-customers]', 'U') IS NOT NULL 
@@ -77,8 +77,8 @@ BEGIN
 						 [id] uniqueidentifier NULL,
 						 [DateOfRegistration] datetime NULL,
 						 [Title] int NULL,
-						 [GivenName] [varchar](50) NULL,
-						 [FamilyName] [varchar](50) NULL,
+						 [GivenName] [varchar](max) NULL,
+						 [FamilyName] [varchar](max) NULL,
 						 [DateofBirth] datetime NULL,
 						 [Gender] int NULL,
 						 [UniqueLearnerNumber] [varchar](15) NULL,
@@ -86,9 +86,9 @@ BEGIN
 						 [DateOfTermination] datetime NULL,
 						 [ReasonForTermination] int NULL,
 						 [IntroducedBy] int NULL,
-						 [IntroducedByAdditionalInfo] [varchar](50) NULL,
+						 [IntroducedByAdditionalInfo] [varchar](max) NULL,
 						 [LastModifiedDate] date NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]	
 		END
 

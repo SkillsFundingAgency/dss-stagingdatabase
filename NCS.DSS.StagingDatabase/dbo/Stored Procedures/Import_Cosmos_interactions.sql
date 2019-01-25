@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,15 +28,15 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#interactions](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [TouchpointId] [varchar](50) NULL,
-						 [AdviserDetailsId] [varchar](50) NULL,
-						 [DateandTimeOfInteraction] [varchar](50) NULL,
-						 [Channel] [varchar](50) NULL,
-						 [InteractionType] [varchar](50) NULL,					 
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [TouchpointId] [varchar](max) NULL,
+						 [AdviserDetailsId] [varchar](max) NULL,
+						 [DateandTimeOfInteraction] [varchar](max) NULL,
+						 [Channel] [varchar](max) NULL,
+						 [InteractionType] [varchar](max) NULL,					 
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -44,15 +44,15 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			TouchpointId VARCHAR(50) '$.TouchpointId',
-			AdviserDetailsId VARCHAR(50) '$.AdviserDetailsId',
-			DateandTimeOfInteraction VARCHAR(50) '$.DateandTimeOfInteraction',
-			Channel VARCHAR(50) '$.Channel',
-			InteractionType VARCHAR(50) '$.InteractionType',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			TouchpointId VARCHAR(MAX) '$.TouchpointId',
+			AdviserDetailsId VARCHAR(MAX) '$.AdviserDetailsId',
+			DateandTimeOfInteraction VARCHAR(MAX) '$.DateandTimeOfInteraction',
+			Channel VARCHAR(MAX) '$.Channel',
+			InteractionType VARCHAR(MAX) '$.InteractionType',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 
@@ -65,13 +65,13 @@ BEGIN
 			CREATE TABLE [dss-interactions](
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
-						 [TouchpointId] [varchar](10) NULL,
+						 [TouchpointId] [varchar](max) NULL,
 						 [AdviserDetailsId] uniqueidentifier NULL,
 						 [DateandTimeOfInteraction] datetime NULL,
 						 [Channel] int NULL,
 						 [InteractionType] int NULL,					 
 						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]	
 		END
 

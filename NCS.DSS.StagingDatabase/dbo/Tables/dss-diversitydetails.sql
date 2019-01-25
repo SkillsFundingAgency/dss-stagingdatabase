@@ -10,6 +10,6 @@
     [Ethnicity]                                 INT              NULL,
     [DateAndTimeEthnicityCollected]             DATETIME         NULL,
     [LastModifiedDate]                          DATETIME         NULL,
-    [LastModifiedTouchpointId]                  VARCHAR (10)     NULL
+    [LastModifiedTouchpointId]                  VARCHAR (max)     NULL
 );
 
