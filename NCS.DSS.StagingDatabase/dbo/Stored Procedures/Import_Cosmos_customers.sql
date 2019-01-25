@@ -75,19 +75,19 @@ BEGIN
 		BEGIN
 			CREATE TABLE [dss-customers](
 						 [id] uniqueidentifier NULL,
-						 [DateOfRegistration] datetime NULL,
+						 [DateOfRegistration] datetime2 NULL,
 						 [Title] int NULL,
 						 [GivenName] [varchar](max) NULL,
 						 [FamilyName] [varchar](max) NULL,
-						 [DateofBirth] datetime NULL,
+						 [DateofBirth] datetime2 NULL,
 						 [Gender] int NULL,
 						 [UniqueLearnerNumber] [varchar](15) NULL,
 						 [OptInUserResearch] bit NULL,
-						 [DateOfTermination] datetime NULL,
+						 [DateOfTermination] datetime2 NULL,
 						 [ReasonForTermination] int NULL,
 						 [IntroducedBy] int NULL,
 						 [IntroducedByAdditionalInfo] [varchar](max) NULL,
-						 [LastModifiedDate] date NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]	
 		END

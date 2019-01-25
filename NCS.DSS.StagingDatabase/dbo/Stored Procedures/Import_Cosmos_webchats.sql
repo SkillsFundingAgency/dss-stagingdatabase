@@ -72,13 +72,13 @@ BEGIN
 						 [CustomerId] uniqueidentifier NULL,
 						 [InteractionId] uniqueidentifier NULL,
 						 [DigitalReference] [varchar](max) NULL,
-						 [WebChatStartDateandTime] datetime NULL,	
-						 [WebChatEndDateandTime] datetime NULL,
+						 [WebChatStartDateandTime] datetime2 NULL,	
+						 [WebChatEndDateandTime] datetime2 NULL,
 						 [WebChatDuration] time NULL,
 						 [WebChatNarrative] [varchar](max) NULL,
 						 [SentToCustomer] bit NULL,
-						 [DateandTimeSentToCustomers] datetime NULL,
-						 [LastModifiedDate] datetime NULL,
+						 [DateandTimeSentToCustomers] datetime2 NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END

@@ -1,18 +1,18 @@
 ﻿CREATE TABLE [dbo].[dss-customers] (
     [id]                         UNIQUEIDENTIFIER NULL,
-    [DateOfRegistration]         DATETIME         NULL,
+    [DateOfRegistration]         datetime2         NULL,
     [Title]                      INT              NULL,
     [GivenName]                  VARCHAR (max)     NULL,
     [FamilyName]                 VARCHAR (max)     NULL,
-    [DateofBirth]                DATETIME         NULL,
+    [DateofBirth]                datetime2         NULL,
     [Gender]                     INT              NULL,
     [UniqueLearnerNumber]        VARCHAR (15)     NULL,
     [OptInUserResearch]          BIT              NULL,
-    [DateOfTermination]          DATETIME         NULL,
+    [DateOfTermination]          datetime2         NULL,
     [ReasonForTermination]       INT              NULL,
     [IntroducedBy]               INT              NULL,
     [IntroducedByAdditionalInfo] VARCHAR (max)     NULL,
-    [LastModifiedDate]           DATE             NULL,
+    [LastModifiedDate]           datetime2             NULL,
     [LastModifiedTouchpointId]   VARCHAR (max)     NULL
 );
 

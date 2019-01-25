@@ -10,9 +10,9 @@
     [AlternativePostCode]      VARCHAR (max)     NULL,
     [Longitude]                FLOAT (53)       NULL,
     [Latitude]                 FLOAT (53)       NULL,
-    [EffectiveFrom]            DATETIME         NULL,
-    [EffectiveTo]              DATETIME         NULL,
-    [LastModifiedDate]         DATETIME         NULL,
+    [EffectiveFrom]            datetime2         NULL,
+    [EffectiveTo]              datetime2         NULL,
+    [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

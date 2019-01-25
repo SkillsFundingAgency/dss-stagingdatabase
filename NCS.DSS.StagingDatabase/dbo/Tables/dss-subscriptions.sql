@@ -3,7 +3,7 @@
     [SubscriptionId]           UNIQUEIDENTIFIER NULL,
     [TouchPointId]             VARCHAR (max)     NULL,
     [Subscribe]                BIT              NULL,
-    [LastModifiedDate]         DATETIME         NULL,
+    [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

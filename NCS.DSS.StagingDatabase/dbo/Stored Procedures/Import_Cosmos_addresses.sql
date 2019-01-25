@@ -88,9 +88,9 @@ BEGIN
 						 [AlternativePostCode] [varchar](20) NULL,
 						 [Longitude] float NULL,
 						 [Latitude] float NULL,
-						 [EffectiveFrom] datetime NULL,
-						 [EffectiveTo] datetime NULL,
-						 [LastModifiedDate] datetime NULL,
+						 [EffectiveFrom] datetime2 NULL,
+						 [EffectiveTo] datetime2 NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max)) 
 						 ON [PRIMARY]							
 		END

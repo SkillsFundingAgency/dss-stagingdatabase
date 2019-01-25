@@ -5,11 +5,11 @@
     [LearningDifficultyOrDisabilityDeclaration] INT              NULL,
     [PrimaryLearningDifficultyOrDisability]     INT              NULL,
     [SecondaryLearningDifficultyOrDisability]   INT              NULL,
-    [DateAndTimeLLDDHealthConsentCollected]     DATETIME         NULL,
+    [DateAndTimeLLDDHealthConsentCollected]     datetime2         NULL,
     [ConsentToCollectEthnicity]                 BIT              NULL,
     [Ethnicity]                                 INT              NULL,
-    [DateAndTimeEthnicityCollected]             DATETIME         NULL,
-    [LastModifiedDate]                          DATETIME         NULL,
+    [DateAndTimeEthnicityCollected]             datetime2         NULL,
+    [LastModifiedDate]                          datetime2         NULL,
     [LastModifiedTouchpointId]                  VARCHAR (max)     NULL
 );
 

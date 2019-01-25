@@ -3,10 +3,10 @@
     [CustomerId]               UNIQUEIDENTIFIER NULL,
     [ActionPlanId]             UNIQUEIDENTIFIER NULL,
     [OutcomeType]              INT              NULL,
-    [OutcomeClaimedDate]       DATETIME         NULL,
-    [OutcomeEffectiveDate]     DATETIME         NULL,
+    [OutcomeClaimedDate]       datetime2         NULL,
+    [OutcomeEffectiveDate]     datetime2         NULL,
     [TouchpointId]             VARCHAR (max)     NULL,
-    [LastModifiedDate]         DATETIME         NULL,
+    [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

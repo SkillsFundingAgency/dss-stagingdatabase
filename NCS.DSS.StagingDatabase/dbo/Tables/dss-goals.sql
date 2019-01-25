@@ -2,13 +2,13 @@
     [id]                          UNIQUEIDENTIFIER NULL,
     [CustomerId]                  UNIQUEIDENTIFIER NULL,
     [ActionPlanId]                UNIQUEIDENTIFIER NULL,
-    [DateGoalCaptured]            DATETIME         NULL,
-    [DateGoalShouldBeCompletedBy] DATETIME         NULL,
-    [DateGoalAchieved]            DATETIME         NULL,
+    [DateGoalCaptured]            datetime2         NULL,
+    [DateGoalShouldBeCompletedBy] datetime2         NULL,
+    [DateGoalAchieved]            datetime2         NULL,
     [GoalSummary]                 VARCHAR (max)     NULL,
     [GoalType]                    INT              NULL,
     [GoalStatus]                  INT              NULL,
-    [LastModifiedDate]            DATETIME         NULL,
+    [LastModifiedDate]            datetime2         NULL,
     [LastModifiedTouchpointId]    VARCHAR (max)     NULL
 );
 

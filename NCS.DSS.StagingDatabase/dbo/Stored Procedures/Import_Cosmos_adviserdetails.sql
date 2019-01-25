@@ -61,7 +61,7 @@ BEGIN
 						 [AdviserName] [varchar](max) NULL,
 						 [AdviserEmailAddress] [varchar](max) NULL,
 						 [AdviserContactNumber] [varchar](max) NULL,
-						 [LastModifiedDate] datetime NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END

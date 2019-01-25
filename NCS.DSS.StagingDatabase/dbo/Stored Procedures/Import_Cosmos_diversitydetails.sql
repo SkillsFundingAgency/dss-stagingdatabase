@@ -75,11 +75,11 @@ BEGIN
 						 [LearningDifficultyOrDisabilityDeclaration] int NULL,
 						 [PrimaryLearningDifficultyOrDisability] int NULL,
 						 [SecondaryLearningDifficultyOrDisability] int NULL,
-						 [DateAndTimeLLDDHealthConsentCollected] datetime NULL,
+						 [DateAndTimeLLDDHealthConsentCollected] datetime2 NULL,
 						 [ConsentToCollectEthnicity] bit NULL,
 						 [Ethnicity] int NULL,
-						 [DateAndTimeEthnicityCollected] datetime NULL,
-						 [LastModifiedDate] datetime NULL,
+						 [DateAndTimeEthnicityCollected] datetime2 NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END

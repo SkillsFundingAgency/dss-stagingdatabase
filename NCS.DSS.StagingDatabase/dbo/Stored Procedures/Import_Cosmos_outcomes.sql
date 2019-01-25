@@ -68,10 +68,10 @@ BEGIN
 						 [CustomerId] uniqueidentifier NULL,
 						 [ActionPlanId] uniqueidentifier NULL,
 						 [OutcomeType] int NULL,
-						 [OutcomeClaimedDate] datetime NULL,
-						 [OutcomeEffectiveDate] datetime NULL,
+						 [OutcomeClaimedDate] datetime2 NULL,
+						 [OutcomeEffectiveDate] datetime2 NULL,
 						 [TouchpointId] [varchar](max) NULL,					 
-						 [LastModifiedDate] datetime NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END

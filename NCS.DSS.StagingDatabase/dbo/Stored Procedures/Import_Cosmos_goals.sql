@@ -69,13 +69,13 @@ BEGIN
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [ActionPlanId] uniqueidentifier NULL,
-						 [DateGoalCaptured] datetime NULL,
-						 [DateGoalShouldBeCompletedBy] datetime NULL,
-						 [DateGoalAchieved] datetime NULL,
+						 [DateGoalCaptured] datetime2 NULL,
+						 [DateGoalShouldBeCompletedBy] datetime2 NULL,
+						 [DateGoalAchieved] datetime2 NULL,
 						 [GoalSummary] [varchar](max) NULL,
 						 [GoalType] int NULL,
 						 [GoalStatus] int NULL,						 
-						 [LastModifiedDate] datetime NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END

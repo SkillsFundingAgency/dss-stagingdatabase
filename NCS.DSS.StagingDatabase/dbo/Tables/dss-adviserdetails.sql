@@ -3,7 +3,7 @@
     [AdviserName]              VARCHAR (max)     NULL,
     [AdviserEmailAddress]      VARCHAR (max)     NULL,
     [AdviserContactNumber]     VARCHAR (max)     NULL,
-    [LastModifiedDate]         DATETIME         NULL,
+    [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

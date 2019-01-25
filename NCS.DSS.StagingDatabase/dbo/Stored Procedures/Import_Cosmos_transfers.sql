@@ -75,11 +75,11 @@ BEGIN
 						 [OriginatingTouchpointId] [varchar](max) NULL,
 						 [TargetTouchpointId] [varchar](max) NULL,	
 						 [Context] [varchar](max) NULL,
-						 [DateandTimeOfTransfer] datetime NULL,
-						 [DateandTimeofTransferAccepted] datetime NULL,
-						 [RequestedCallbackTime] datetime NULL,
-						 [ActualCallbackTime] datetime NULL,
-						 [LastModifiedDate] datetime NULL,
+						 [DateandTimeOfTransfer] datetime2 NULL,
+						 [DateandTimeofTransferAccepted] datetime2 NULL,
+						 [RequestedCallbackTime] datetime2 NULL,
+						 [ActualCallbackTime] datetime2 NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END

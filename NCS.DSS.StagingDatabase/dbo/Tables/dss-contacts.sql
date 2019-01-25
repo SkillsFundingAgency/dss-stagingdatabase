@@ -6,7 +6,7 @@
     [HomeNumber]               VARCHAR (max)     NULL,
     [AlternativeNumber]        VARCHAR (max)     NULL,
     [EmailAddress]             VARCHAR (max)     NULL,
-    [LastModifiedDate]         DATETIME         NULL,
+    [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

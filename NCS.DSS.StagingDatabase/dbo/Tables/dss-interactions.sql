@@ -3,10 +3,10 @@
     [CustomerId]               UNIQUEIDENTIFIER NULL,
     [TouchpointId]             VARCHAR (max)     NULL,
     [AdviserDetailsId]         UNIQUEIDENTIFIER NULL,
-    [DateandTimeOfInteraction] DATETIME         NULL,
+    [DateandTimeOfInteraction] datetime2         NULL,
     [Channel]                  INT              NULL,
     [InteractionType]          INT              NULL,
-    [LastModifiedDate]         DATETIME         NULL,
+    [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

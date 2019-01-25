@@ -71,7 +71,7 @@ BEGIN
 						 [HomeNumber] [varchar](max) NULL,
 						 [AlternativeNumber] [varchar](max) NULL,
 						 [EmailAddress] [varchar](max) NULL,
-						 [LastModifiedDate] datetime NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]		
 		END

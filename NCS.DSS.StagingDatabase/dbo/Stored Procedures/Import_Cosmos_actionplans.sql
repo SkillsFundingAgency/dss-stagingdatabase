@@ -68,15 +68,15 @@ BEGIN
 						[id] uniqueidentifier NULL,
 						[CustomerId] uniqueidentifier NULL,
 						[InteractionId] uniqueidentifier NULL,
-						[DateActionPlanCreated] datetime NULL,
+						[DateActionPlanCreated] datetime2 NULL,
 						[CustomerCharterShownToCustomer] bit NULL,
 						[DateAndTimeCharterShown] datetime2 NULL,
-						[DateActionPlanSentToCustomer] datetime NULL,
+						[DateActionPlanSentToCustomer] datetime2 NULL,
 						[ActionPlanDeliveryMethod] int NULL,
-						[DateActionPlanAcknowledged] datetime NULL,
+						[DateActionPlanAcknowledged] datetime2 NULL,
 						[PriorityCustomer] int NULL,
 						[CurrentSituation] [varchar](max) NULL,
-						[LastModifiedDate] datetime NULL,
+						[LastModifiedDate] datetime2 NULL,
 						[LastModifiedTouchpointId] [varchar](max) NULL) 
 			ON [PRIMARY]
 		END

@@ -66,11 +66,11 @@ BEGIN
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [InteractionId] uniqueidentifier NULL,
-						 [DateandTimeOfSession] datetime NULL,
+						 [DateandTimeOfSession] datetime2 NULL,
 						 [VenuePostCode] [varchar](20) NULL,
 						 [SessionAttended] bit NULL,
 						 [ReasonForNonAttendance] int NULL,					 
-						 [LastModifiedDate] datetime NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END

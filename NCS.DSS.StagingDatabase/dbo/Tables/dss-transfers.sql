@@ -5,11 +5,11 @@
     [OriginatingTouchpointId]       VARCHAR (max)     NULL,
     [TargetTouchpointId]            VARCHAR (max)     NULL,
     [Context]                       VARCHAR (max)     NULL,
-    [DateandTimeOfTransfer]         DATETIME         NULL,
-    [DateandTimeofTransferAccepted] DATETIME         NULL,
-    [RequestedCallbackTime]         DATETIME         NULL,
-    [ActualCallbackTime]            DATETIME         NULL,
-    [LastModifiedDate]              DATETIME         NULL,
+    [DateandTimeOfTransfer]         datetime2         NULL,
+    [DateandTimeofTransferAccepted] datetime2         NULL,
+    [RequestedCallbackTime]         datetime2         NULL,
+    [ActualCallbackTime]            datetime2         NULL,
+    [LastModifiedDate]              datetime2         NULL,
     [LastModifiedTouchpointId]      VARCHAR (max)     NULL
 );
 

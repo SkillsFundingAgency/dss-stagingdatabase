@@ -67,10 +67,10 @@ BEGIN
 						 [CustomerId] uniqueidentifier NULL,
 						 [TouchpointId] [varchar](max) NULL,
 						 [AdviserDetailsId] uniqueidentifier NULL,
-						 [DateandTimeOfInteraction] datetime NULL,
+						 [DateandTimeOfInteraction] datetime2 NULL,
 						 [Channel] int NULL,
 						 [InteractionType] int NULL,					 
-						 [LastModifiedDate] datetime NULL,
+						 [LastModifiedDate] datetime2 NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]	
 		END
