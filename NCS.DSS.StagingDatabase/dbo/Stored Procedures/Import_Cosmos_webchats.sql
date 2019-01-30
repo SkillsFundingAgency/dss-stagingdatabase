@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,18 +28,18 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#webchats](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [InteractionId] [varchar](50) NULL,
-						 [DigitalReference] [varchar](50) NULL,
-						 [WebChatStartDateandTime] [varchar](50) NULL,	
-						 [WebChatEndDateandTime] [varchar](50) NULL,
-						 [WebChatDuration] [varchar](50) NULL,
-						 [WebChatNarrative] [varchar](50) NULL,
-						 [SentToCustomer] [varchar](50) NULL,
-						 [DateandTimeSentToCustomers] [varchar](50) NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [InteractionId] [varchar](max) NULL,
+						 [DigitalReference] [varchar](max) NULL,
+						 [WebChatStartDateandTime] [varchar](max) NULL,	
+						 [WebChatEndDateandTime] [varchar](max) NULL,
+						 [WebChatDuration] [varchar](max) NULL,
+						 [WebChatNarrative] [varchar](max) NULL,
+						 [SentToCustomer] [varchar](max) NULL,
+						 [DateandTimeSentToCustomers] [varchar](max) NULL,
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -47,18 +47,18 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id',
-			CustomerId VARCHAR(50) '$.CustomerId',
-			InteractionId VARCHAR(50) '$.InteractionId',
-			DigitalReference VARCHAR(50) '$.DigitalReference',
-			WebChatStartDateandTime VARCHAR(50) '$.WebChatStartDateandTime',
-			WebChatEndDateandTime VARCHAR(50) '$.WebChatEndDateandTime',
-			WebChatDuration VARCHAR(50) '$.WebChatDuration',
-			WebChatNarrative VARCHAR(50) '$.WebChatNarrative',
-			SentToCustomer VARCHAR(50) '$.SentToCustomer',
-			DateandTimeSentToCustomers VARCHAR(50) '$.DateandTimeSentToCustomers',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id',
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			InteractionId VARCHAR(MAX) '$.InteractionId',
+			DigitalReference VARCHAR(MAX) '$.DigitalReference',
+			WebChatStartDateandTime VARCHAR(MAX) '$.WebChatStartDateandTime',
+			WebChatEndDateandTime VARCHAR(MAX) '$.WebChatEndDateandTime',
+			WebChatDuration VARCHAR(MAX) '$.WebChatDuration',
+			WebChatNarrative VARCHAR(MAX) '$.WebChatNarrative',
+			SentToCustomer VARCHAR(MAX) '$.SentToCustomer',
+			DateandTimeSentToCustomers VARCHAR(MAX) '$.DateandTimeSentToCustomers',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 	IF OBJECT_ID('[dss-webchats]', 'U') IS NOT NULL 
@@ -71,15 +71,15 @@ BEGIN
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [InteractionId] uniqueidentifier NULL,
-						 [DigitalReference] [varchar](50) NULL,
-						 [WebChatStartDateandTime] datetime NULL,	
-						 [WebChatEndDateandTime] datetime NULL,
+						 [DigitalReference] [varchar](max) NULL,
+						 [WebChatStartDateandTime] datetime2 NULL,	
+						 [WebChatEndDateandTime] datetime2 NULL,
 						 [WebChatDuration] time NULL,
-						 [WebChatNarrative] [varchar](50) NULL,
+						 [WebChatNarrative] [varchar](max) NULL,
 						 [SentToCustomer] bit NULL,
-						 [DateandTimeSentToCustomers] datetime NULL,
-						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [DateandTimeSentToCustomers] datetime2 NULL,
+						 [LastModifiedDate] datetime2 NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END
 

@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[dss-subscriptions] (
     [CustomerId]               UNIQUEIDENTIFIER NULL,
     [SubscriptionId]           UNIQUEIDENTIFIER NULL,
-    [TouchPointId]             VARCHAR (10)     NULL,
+    [TouchPointId]             VARCHAR (max)     NULL,
     [Subscribe]                BIT              NULL,
-    [LastModifiedDate]         DATETIME         NULL,
-    [LastModifiedTouchpointId] VARCHAR (10)     NULL
+    [LastModifiedDate]         datetime2         NULL,
+    [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

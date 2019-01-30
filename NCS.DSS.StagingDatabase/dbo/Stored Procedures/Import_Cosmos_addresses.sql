@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,21 +28,21 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#addresses](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [Address1] [varchar](50) NULL,
-						 [Address2] [varchar](50) NULL,
-						 [Address3] [varchar](50) NULL,
-						 [Address4] [varchar](50) NULL,
-						 [Address5] [varchar](50) NULL,
-						 [PostCode] [varchar](50) NULL,
-						 [AlternativePostCode] [varchar](50) NULL,
-						 [Longitude] [varchar](50) NULL,
-						 [Latitude] [varchar](50) NULL,
-						 [EffectiveFrom] [varchar](50) NULL,
-						 [EffectiveTo] [varchar](50) NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [Address1] [varchar](max) NULL,
+						 [Address2] [varchar](max) NULL,
+						 [Address3] [varchar](max) NULL,
+						 [Address4] [varchar](max) NULL,
+						 [Address5] [varchar](max) NULL,
+						 [PostCode] [varchar](max) NULL,
+						 [AlternativePostCode] [varchar](max) NULL,
+						 [Longitude] [varchar](max) NULL,
+						 [Latitude] [varchar](max) NULL,
+						 [EffectiveFrom] [varchar](max) NULL,
+						 [EffectiveTo] [varchar](max) NULL,
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -50,21 +50,21 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			Address1 VARCHAR(50) '$.Address1',
-			Address2 VARCHAR(50) '$.Address2',
-			Address3 VARCHAR(50) '$.Address3',
-			Address4 VARCHAR(50) '$.Address4',
-			Address5 VARCHAR(50) '$.Address5',
-			PostCode VARCHAR(50) '$.PostCode',
-			AlternativePostCode VARCHAR(50) '$.AlternativePostCode',
-			Longitude VARCHAR(50) '$.Longitude',
-			Latitude VARCHAR(50) '$.Latitude',
-			EffectiveFrom VARCHAR(50) '$.EffectiveFrom',
-			EffectiveTo VARCHAR(50) '$.EffectiveTo',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			Address1 VARCHAR(MAX) '$.Address1',
+			Address2 VARCHAR(MAX) '$.Address2',
+			Address3 VARCHAR(MAX) '$.Address3',
+			Address4 VARCHAR(MAX) '$.Address4',
+			Address5 VARCHAR(MAX) '$.Address5',
+			PostCode VARCHAR(MAX) '$.PostCode',
+			AlternativePostCode VARCHAR(MAX) '$.AlternativePostCode',
+			Longitude VARCHAR(MAX) '$.Longitude',
+			Latitude VARCHAR(MAX) '$.Latitude',
+			EffectiveFrom VARCHAR(MAX) '$.EffectiveFrom',
+			EffectiveTo VARCHAR(MAX) '$.EffectiveTo',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 
@@ -79,19 +79,19 @@ BEGIN
 			CREATE TABLE [dss-addresses](
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
-						 [Address1] [varchar](50) NULL,
-						 [Address2] [varchar](50) NULL,
-						 [Address3] [varchar](50) NULL,
-						 [Address4] [varchar](50) NULL,
-						 [Address5] [varchar](50) NULL,
-						 [PostCode] [varchar](50) NULL,
+						 [Address1] [varchar](max) NULL,
+						 [Address2] [varchar](max) NULL,
+						 [Address3] [varchar](max) NULL,
+						 [Address4] [varchar](max) NULL,
+						 [Address5] [varchar](max) NULL,
+						 [PostCode] [varchar](max) NULL,
 						 [AlternativePostCode] [varchar](20) NULL,
 						 [Longitude] float NULL,
 						 [Latitude] float NULL,
-						 [EffectiveFrom] datetime NULL,
-						 [EffectiveTo] datetime NULL,
-						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10)) 
+						 [EffectiveFrom] datetime2 NULL,
+						 [EffectiveTo] datetime2 NULL,
+						 [LastModifiedDate] datetime2 NULL,
+						 [LastModifiedTouchpointId] [varchar](max)) 
 						 ON [PRIMARY]							
 		END
 

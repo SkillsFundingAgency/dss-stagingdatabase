@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,17 +28,17 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#goals](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [ActionPlanId] [varchar](50) NULL,
-						 [DateGoalCaptured] [varchar](50) NULL,
-						 [DateGoalShouldBeCompletedBy] [varchar](50) NULL,
-						 [DateGoalAchieved] [varchar](50) NULL,
-						 [GoalSummary] [varchar](50) NULL,
-						 [GoalType] [varchar](50) NULL,
-						 [GoalStatus] [varchar](50) NULL,						 
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [ActionPlanId] [varchar](max) NULL,
+						 [DateGoalCaptured] [varchar](max) NULL,
+						 [DateGoalShouldBeCompletedBy] [varchar](max) NULL,
+						 [DateGoalAchieved] [varchar](max) NULL,
+						 [GoalSummary] [varchar](max) NULL,
+						 [GoalType] [varchar](max) NULL,
+						 [GoalStatus] [varchar](max) NULL,						 
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -46,17 +46,17 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			ActionPlanId VARCHAR(50) '$.ActionPlanId',
-			DateGoalCaptured VARCHAR(50) '$.DateGoalCaptured',
-			DateGoalShouldBeCompletedBy VARCHAR(50) '$.DateGoalShouldBeCompletedBy',
-			DateGoalAchieved VARCHAR(50) '$.DateGoalAchieved',
-			GoalSummary VARCHAR(50) '$.GoalSummary',
-			GoalType VARCHAR(50) '$.GoalType',
-			GoalStatus VARCHAR(50) '$.GoalStatus',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			ActionPlanId VARCHAR(MAX) '$.ActionPlanId',
+			DateGoalCaptured VARCHAR(MAX) '$.DateGoalCaptured',
+			DateGoalShouldBeCompletedBy VARCHAR(MAX) '$.DateGoalShouldBeCompletedBy',
+			DateGoalAchieved VARCHAR(MAX) '$.DateGoalAchieved',
+			GoalSummary VARCHAR(MAX) '$.GoalSummary',
+			GoalType VARCHAR(MAX) '$.GoalType',
+			GoalStatus VARCHAR(MAX) '$.GoalStatus',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 	IF OBJECT_ID('[dss-goals]', 'U') IS NOT NULL 
@@ -69,14 +69,14 @@ BEGIN
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [ActionPlanId] uniqueidentifier NULL,
-						 [DateGoalCaptured] datetime NULL,
-						 [DateGoalShouldBeCompletedBy] datetime NULL,
-						 [DateGoalAchieved] datetime NULL,
-						 [GoalSummary] [varchar](50) NULL,
+						 [DateGoalCaptured] datetime2 NULL,
+						 [DateGoalShouldBeCompletedBy] datetime2 NULL,
+						 [DateGoalAchieved] datetime2 NULL,
+						 [GoalSummary] [varchar](max) NULL,
 						 [GoalType] int NULL,
 						 [GoalStatus] int NULL,						 
-						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [LastModifiedDate] datetime2 NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END
 

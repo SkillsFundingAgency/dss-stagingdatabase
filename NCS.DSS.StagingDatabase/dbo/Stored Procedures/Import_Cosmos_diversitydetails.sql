@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,18 +28,18 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#diversitydetails](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [ConsentToCollectLLDDHealth] [varchar](50) NULL,
-						 [LearningDifficultyOrDisabilityDeclaration] [varchar](50) NULL,
-						 [PrimaryLearningDifficultyOrDisability] [varchar](50) NULL,
-						 [SecondaryLearningDifficultyOrDisability] [varchar](50) NULL,
-						 [DateAndTimeLLDDHealthConsentCollected] [varchar](50) NULL,
-						 [ConsentToCollectEthnicity] [varchar](50) NULL,
-						 [Ethnicity] [varchar](50) NULL,
-						 [DateAndTimeEthnicityCollected] [varchar](50) NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [ConsentToCollectLLDDHealth] [varchar](max) NULL,
+						 [LearningDifficultyOrDisabilityDeclaration] [varchar](max) NULL,
+						 [PrimaryLearningDifficultyOrDisability] [varchar](max) NULL,
+						 [SecondaryLearningDifficultyOrDisability] [varchar](max) NULL,
+						 [DateAndTimeLLDDHealthConsentCollected] [varchar](max) NULL,
+						 [ConsentToCollectEthnicity] [varchar](max) NULL,
+						 [Ethnicity] [varchar](max) NULL,
+						 [DateAndTimeEthnicityCollected] [varchar](max) NULL,
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -47,18 +47,18 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			ConsentToCollectLLDDHealth VARCHAR(50) '$.ConsentToCollectLLDDHealth',
-			LearningDifficultyOrDisabilityDeclaration VARCHAR(50) '$.LearningDifficultyOrDisabilityDeclaration',
-			PrimaryLearningDifficultyOrDisability VARCHAR(50) '$.PrimaryLearningDifficultyOrDisability',
-			SecondaryLearningDifficultyOrDisability VARCHAR(50) '$.SecondaryLearningDifficultyOrDisability',
-			DateAndTimeLLDDHealthConsentCollected VARCHAR(50) '$.DateAndTimeLLDDHealthConsentCollected',
-			ConsentToCollectEthnicity VARCHAR(50) '$.ConsentToCollectEthnicity',
-			Ethnicity VARCHAR(50) '$.Ethnicity',
-			DateAndTimeEthnicityCollected VARCHAR(50) '$.DateAndTimeEthnicityCollected',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			ConsentToCollectLLDDHealth VARCHAR(MAX) '$.ConsentToCollectLLDDHealth',
+			LearningDifficultyOrDisabilityDeclaration VARCHAR(MAX) '$.LearningDifficultyOrDisabilityDeclaration',
+			PrimaryLearningDifficultyOrDisability VARCHAR(MAX) '$.PrimaryLearningDifficultyOrDisability',
+			SecondaryLearningDifficultyOrDisability VARCHAR(MAX) '$.SecondaryLearningDifficultyOrDisability',
+			DateAndTimeLLDDHealthConsentCollected VARCHAR(MAX) '$.DateAndTimeLLDDHealthConsentCollected',
+			ConsentToCollectEthnicity VARCHAR(MAX) '$.ConsentToCollectEthnicity',
+			Ethnicity VARCHAR(MAX) '$.Ethnicity',
+			DateAndTimeEthnicityCollected VARCHAR(MAX) '$.DateAndTimeEthnicityCollected',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 
@@ -75,12 +75,12 @@ BEGIN
 						 [LearningDifficultyOrDisabilityDeclaration] int NULL,
 						 [PrimaryLearningDifficultyOrDisability] int NULL,
 						 [SecondaryLearningDifficultyOrDisability] int NULL,
-						 [DateAndTimeLLDDHealthConsentCollected] datetime NULL,
+						 [DateAndTimeLLDDHealthConsentCollected] datetime2 NULL,
 						 [ConsentToCollectEthnicity] bit NULL,
 						 [Ethnicity] int NULL,
-						 [DateAndTimeEthnicityCollected] datetime NULL,
-						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [DateAndTimeEthnicityCollected] datetime2 NULL,
+						 [LastModifiedDate] datetime2 NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END
 

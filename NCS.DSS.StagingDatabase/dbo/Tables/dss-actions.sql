@@ -2,15 +2,15 @@
     [id]                            UNIQUEIDENTIFIER NULL,
     [CustomerId]                    UNIQUEIDENTIFIER NULL,
     [ActionPlanId]                  UNIQUEIDENTIFIER NULL,
-    [DateActionAgreed]              DATETIME         NULL,
-    [DateActionAimsToBeCompletedBy] DATETIME         NULL,
-    [DateActionActuallyCompleted]   DATETIME         NULL,
-    [ActionSummary]                 VARCHAR (50)     NULL,
-    [SignpostedTo]                  VARCHAR (50)     NULL,
+    [DateActionAgreed]              datetime2         NULL,
+    [DateActionAimsToBeCompletedBy] datetime2         NULL,
+    [DateActionActuallyCompleted]   datetime2         NULL,
+    [ActionSummary]                 VARCHAR (max)     NULL,
+    [SignpostedTo]                  VARCHAR (max)     NULL,
     [ActionType]                    INT              NULL,
     [ActionStatus]                  INT              NULL,
     [PersonResponsible]             INT              NULL,
-    [LastModifiedDate]              VARCHAR (50)     NULL,
-    [LastModifiedTouchpointId]      VARCHAR (10)     NULL
+    [LastModifiedDate]              VARCHAR (max)     NULL,
+    [LastModifiedTouchpointId]      VARCHAR (max)     NULL
 );
 

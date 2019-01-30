@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -22,19 +22,19 @@ BEGIN
 	EXEC sp_executesql @ORowSet, @ParmDef, @retvalOUT=@retvalue OUTPUT;
 
 	CREATE TABLE [#actionplans](
-				[id] [varchar](50) NULL,
-				[CustomerId] [varchar](50) NULL,
-				[InteractionId] [varchar](50) NULL,
-				[DateActionPlanCreated] [varchar](50) NULL,
-				[CustomerCharterShownToCustomer] [varchar](50) NULL,
-				[DateAndTimeCharterShown] [varchar](50) NULL,
-				[DateActionPlanSentToCustomer] [varchar](50) NULL,
-				[ActionPlanDeliveryMethod] [varchar](50) NULL,
-				[DateActionPlanAcknowledged] [varchar](50) NULL,
-				[PriorityCustomer] [varchar](50) NULL,
-				[CurrentSituation] [varchar](50) NULL,
-				[LastModifiedDate] [varchar](50) NULL,
-				[LastModifiedTouchpointId] [varchar](50) NULL
+				[id] [varchar](max) NULL,
+				[CustomerId] [varchar](max) NULL,
+				[InteractionId] [varchar](max) NULL,
+				[DateActionPlanCreated] [varchar](max) NULL,
+				[CustomerCharterShownToCustomer] [varchar](max) NULL,
+				[DateAndTimeCharterShown] [varchar](max) NULL,
+				[DateActionPlanSentToCustomer] [varchar](max) NULL,
+				[ActionPlanDeliveryMethod] [varchar](max) NULL,
+				[DateActionPlanAcknowledged] [varchar](max) NULL,
+				[PriorityCustomer] [varchar](max) NULL,
+				[CurrentSituation] [varchar](max) NULL,
+				[LastModifiedDate] [varchar](max) NULL,
+				[LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 
 
@@ -42,19 +42,19 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			InteractionId VARCHAR(50) '$.InteractionId',
-			DateActionPlanCreated VARCHAR(50) '$.DateActionPlanCreated',
-			CustomerCharterShownToCustomer VARCHAR(50) '$.CustomerCharterShownToCustomer',
-			DateAndTimeCharterShown VARCHAR(50) '$.DateAndTimeCharterShown',
-			DateActionPlanSentToCustomer VARCHAR(50) '$.DateActionPlanSentToCustomer',
-			ActionPlanDeliveryMethod VARCHAR(50) '$.ActionPlanDeliveryMethod',
-			DateActionPlanAcknowledged VARCHAR(50) '$.DateActionPlanAcknowledged',
-			PriorityCustomer VARCHAR(50) '$.PriorityCustomer',
-			CurrentSituation VARCHAR(50) '$.CurrentSituation',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			InteractionId VARCHAR(MAX) '$.InteractionId',
+			DateActionPlanCreated VARCHAR(MAX) '$.DateActionPlanCreated',
+			CustomerCharterShownToCustomer VARCHAR(MAX) '$.CustomerCharterShownToCustomer',
+			DateAndTimeCharterShown VARCHAR(MAX) '$.DateAndTimeCharterShown',
+			DateActionPlanSentToCustomer VARCHAR(MAX) '$.DateActionPlanSentToCustomer',
+			ActionPlanDeliveryMethod VARCHAR(MAX) '$.ActionPlanDeliveryMethod',
+			DateActionPlanAcknowledged VARCHAR(MAX) '$.DateActionPlanAcknowledged',
+			PriorityCustomer VARCHAR(MAX) '$.PriorityCustomer',
+			CurrentSituation VARCHAR(MAX) '$.CurrentSituation',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 	
@@ -68,16 +68,16 @@ BEGIN
 						[id] uniqueidentifier NULL,
 						[CustomerId] uniqueidentifier NULL,
 						[InteractionId] uniqueidentifier NULL,
-						[DateActionPlanCreated] datetime NULL,
+						[DateActionPlanCreated] datetime2 NULL,
 						[CustomerCharterShownToCustomer] bit NULL,
 						[DateAndTimeCharterShown] datetime2 NULL,
-						[DateActionPlanSentToCustomer] datetime NULL,
+						[DateActionPlanSentToCustomer] datetime2 NULL,
 						[ActionPlanDeliveryMethod] int NULL,
-						[DateActionPlanAcknowledged] datetime NULL,
+						[DateActionPlanAcknowledged] datetime2 NULL,
 						[PriorityCustomer] int NULL,
-						[CurrentSituation] [varchar](50) NULL,
-						[LastModifiedDate] datetime NULL,
-						[LastModifiedTouchpointId] [varchar](10) NULL) 
+						[CurrentSituation] [varchar](max) NULL,
+						[LastModifiedDate] datetime2 NULL,
+						[LastModifiedTouchpointId] [varchar](max) NULL) 
 			ON [PRIMARY]
 		END
 

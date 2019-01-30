@@ -1,12 +1,12 @@
 ﻿CREATE TABLE [dbo].[dss-interactions] (
     [id]                       UNIQUEIDENTIFIER NULL,
     [CustomerId]               UNIQUEIDENTIFIER NULL,
-    [TouchpointId]             VARCHAR (10)     NULL,
+    [TouchpointId]             VARCHAR (max)     NULL,
     [AdviserDetailsId]         UNIQUEIDENTIFIER NULL,
-    [DateandTimeOfInteraction] DATETIME         NULL,
+    [DateandTimeOfInteraction] datetime2         NULL,
     [Channel]                  INT              NULL,
     [InteractionType]          INT              NULL,
-    [LastModifiedDate]         DATETIME         NULL,
-    [LastModifiedTouchpointId] VARCHAR (10)     NULL
+    [LastModifiedDate]         datetime2         NULL,
+    [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

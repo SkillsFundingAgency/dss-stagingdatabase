@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,18 +28,18 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#transfers](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [InteractionId] [varchar](50) NULL,
-						 [OriginatingTouchpointId] [varchar](50) NULL,
-						 [TargetTouchpointId] [varchar](50) NULL,	
-						 [Context] [varchar](50) NULL,
-						 [DateandTimeOfTransfer] [varchar](50) NULL,
-						 [DateandTimeofTransferAccepted] [varchar](50) NULL,
-						 [RequestedCallbackTime] [varchar](50) NULL,
-						 [ActualCallbackTime] [varchar](50) NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [InteractionId] [varchar](max) NULL,
+						 [OriginatingTouchpointId] [varchar](max) NULL,
+						 [TargetTouchpointId] [varchar](max) NULL,	
+						 [Context] [varchar](max) NULL,
+						 [DateandTimeOfTransfer] [varchar](max) NULL,
+						 [DateandTimeofTransferAccepted] [varchar](max) NULL,
+						 [RequestedCallbackTime] [varchar](max) NULL,
+						 [ActualCallbackTime] [varchar](max) NULL,
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -47,18 +47,18 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id',
-			CustomerId VARCHAR(50) '$.CustomerId',
-			InteractionId VARCHAR(50) '$.InteractionId',
-			OriginatingTouchpointId VARCHAR(50) '$.OriginatingTouchpointId',
-			TargetTouchpointId VARCHAR(50) '$.TargetTouchpointId',
-			Context VARCHAR(50) '$.Context',
-			DateandTimeOfTransfer VARCHAR(50) '$.DateandTimeOfTransfer',
-			DateandTimeofTransferAccepted VARCHAR(50) '$.DateandTimeofTransferAccepted',
-			RequestedCallbackTime VARCHAR(50) '$.RequestedCallbackTime',
-			ActualCallbackTime VARCHAR(50) '$.ActualCallbackTime',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id',
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			InteractionId VARCHAR(MAX) '$.InteractionId',
+			OriginatingTouchpointId VARCHAR(MAX) '$.OriginatingTouchpointId',
+			TargetTouchpointId VARCHAR(MAX) '$.TargetTouchpointId',
+			Context VARCHAR(MAX) '$.Context',
+			DateandTimeOfTransfer VARCHAR(MAX) '$.DateandTimeOfTransfer',
+			DateandTimeofTransferAccepted VARCHAR(MAX) '$.DateandTimeofTransferAccepted',
+			RequestedCallbackTime VARCHAR(MAX) '$.RequestedCallbackTime',
+			ActualCallbackTime VARCHAR(MAX) '$.ActualCallbackTime',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 	
@@ -72,15 +72,15 @@ BEGIN
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [InteractionId] uniqueidentifier NULL,
-						 [OriginatingTouchpointId] [varchar](10) NULL,
-						 [TargetTouchpointId] [varchar](10) NULL,	
-						 [Context] [varchar](50) NULL,
-						 [DateandTimeOfTransfer] datetime NULL,
-						 [DateandTimeofTransferAccepted] datetime NULL,
-						 [RequestedCallbackTime] datetime NULL,
-						 [ActualCallbackTime] datetime NULL,
-						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [OriginatingTouchpointId] [varchar](max) NULL,
+						 [TargetTouchpointId] [varchar](max) NULL,	
+						 [Context] [varchar](max) NULL,
+						 [DateandTimeOfTransfer] datetime2 NULL,
+						 [DateandTimeofTransferAccepted] datetime2 NULL,
+						 [RequestedCallbackTime] datetime2 NULL,
+						 [ActualCallbackTime] datetime2 NULL,
+						 [LastModifiedDate] datetime2 NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END
 

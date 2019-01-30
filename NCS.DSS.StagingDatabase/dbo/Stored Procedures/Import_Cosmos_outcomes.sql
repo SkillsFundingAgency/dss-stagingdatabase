@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,15 +28,15 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#outcomes](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [ActionPlanId] [varchar](50) NULL,
-						 [OutcomeType] [varchar](50) NULL,
-						 [OutcomeClaimedDate] [varchar](50) NULL,
-						 [OutcomeEffectiveDate] [varchar](50) NULL,
-						 [TouchpointId] [varchar](50) NULL,					 
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [ActionPlanId] [varchar](max) NULL,
+						 [OutcomeType] [varchar](max) NULL,
+						 [OutcomeClaimedDate] [varchar](max) NULL,
+						 [OutcomeEffectiveDate] [varchar](max) NULL,
+						 [TouchpointId] [varchar](max) NULL,					 
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -44,15 +44,15 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			ActionPlanId VARCHAR(50) '$.ActionPlanId',
-			OutcomeType VARCHAR(50) '$.OutcomeType',
-			OutcomeClaimedDate VARCHAR(50) '$.OutcomeClaimedDate',
-			OutcomeEffectiveDate VARCHAR(50) '$.OutcomeEffectiveDate',
-			TouchpointId VARCHAR(50) '$.TouchpointId',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			ActionPlanId VARCHAR(MAX) '$.ActionPlanId',
+			OutcomeType VARCHAR(MAX) '$.OutcomeType',
+			OutcomeClaimedDate VARCHAR(MAX) '$.OutcomeClaimedDate',
+			OutcomeEffectiveDate VARCHAR(MAX) '$.OutcomeEffectiveDate',
+			TouchpointId VARCHAR(MAX) '$.TouchpointId',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 
@@ -68,11 +68,11 @@ BEGIN
 						 [CustomerId] uniqueidentifier NULL,
 						 [ActionPlanId] uniqueidentifier NULL,
 						 [OutcomeType] int NULL,
-						 [OutcomeClaimedDate] datetime NULL,
-						 [OutcomeEffectiveDate] datetime NULL,
-						 [TouchpointId] [varchar](10) NULL,					 
-						 [LastModifiedDate] datetime NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL) 
+						 [OutcomeClaimedDate] datetime2 NULL,
+						 [OutcomeEffectiveDate] datetime2 NULL,
+						 [TouchpointId] [varchar](max) NULL,					 
+						 [LastModifiedDate] datetime2 NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]
 		END
 

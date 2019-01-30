@@ -9,7 +9,7 @@ BEGIN
 	
 	DECLARE @ORowSet AS NVarchar(max)
 	DECLARE @retvalue NVarchar(max)  
-	DECLARE @ParmDef NVarchar(50);
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -28,19 +28,19 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#actions](
-						 [id] [varchar](50) NULL,
-						 [CustomerId] [varchar](50) NULL,
-						 [ActionPlanId] [varchar](50) NULL,
-						 [DateActionAgreed] [varchar](50) NULL,
-						 [DateActionAimsToBeCompletedBy] [varchar](50) NULL,
-						 [DateActionActuallyCompleted] [varchar](50) NULL,
-						 [ActionSummary] [varchar](50) NULL,
-						 [SignpostedTo] [varchar](50) NULL,
-						 [ActionType] [varchar](50) NULL,
-						 [ActionStatus] [varchar](50) NULL,
-						 [PersonResponsible] [varchar](50) NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](50) NULL
+						 [id] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,
+						 [ActionPlanId] [varchar](max) NULL,
+						 [DateActionAgreed] [varchar](max) NULL,
+						 [DateActionAimsToBeCompletedBy] [varchar](max) NULL,
+						 [DateActionActuallyCompleted] [varchar](max) NULL,
+						 [ActionSummary] [varchar](max) NULL,
+						 [SignpostedTo] [varchar](max) NULL,
+						 [ActionType] [varchar](max) NULL,
+						 [ActionStatus] [varchar](max) NULL,
+						 [PersonResponsible] [varchar](max) NULL,
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -48,19 +48,19 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(50) '$.id', 
-			CustomerId VARCHAR(50) '$.CustomerId',
-			ActionPlanId VARCHAR(50) '$.ActionPlanId',
-			DateActionAgreed VARCHAR(50) '$.DateActionAgreed',
-			DateActionAimsToBeCompletedBy VARCHAR(50) '$.DateActionAimsToBeCompletedBy',
-			DateActionActuallyCompleted VARCHAR(50) '$.DateActionActuallyCompleted',
-			ActionSummary VARCHAR(50) '$.ActionSummary',
-			SignpostedTo VARCHAR(50) '$.SignpostedTo',
-			ActionType VARCHAR(50) '$.ActionType',
-			ActionStatus VARCHAR(50) '$.ActionStatus',
-			PersonResponsible VARCHAR(50) '$.PersonResponsible',
-			LastModifiedDate VARCHAR(50) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(50) '$.LastModifiedTouchpointId'
+			id VARCHAR(MAX) '$.id', 
+			CustomerId VARCHAR(MAX) '$.CustomerId',
+			ActionPlanId VARCHAR(MAX) '$.ActionPlanId',
+			DateActionAgreed VARCHAR(MAX) '$.DateActionAgreed',
+			DateActionAimsToBeCompletedBy VARCHAR(MAX) '$.DateActionAimsToBeCompletedBy',
+			DateActionActuallyCompleted VARCHAR(MAX) '$.DateActionActuallyCompleted',
+			ActionSummary VARCHAR(MAX) '$.ActionSummary',
+			SignpostedTo VARCHAR(MAX) '$.SignpostedTo',
+			ActionType VARCHAR(MAX) '$.ActionType',
+			ActionStatus VARCHAR(MAX) '$.ActionStatus',
+			PersonResponsible VARCHAR(MAX) '$.PersonResponsible',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
 			) as Coll
 
 	
@@ -74,16 +74,16 @@ BEGIN
 						 [id] uniqueidentifier NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [ActionPlanId] uniqueidentifier NULL,
-						 [DateActionAgreed] datetime NULL,
-						 [DateActionAimsToBeCompletedBy] datetime NULL,
-						 [DateActionActuallyCompleted] datetime NULL,
-						 [ActionSummary] [varchar](50) NULL,
-						 [SignpostedTo] [varchar](50) NULL,
+						 [DateActionAgreed] datetime2 NULL,
+						 [DateActionAimsToBeCompletedBy] datetime2 NULL,
+						 [DateActionActuallyCompleted] datetime2 NULL,
+						 [ActionSummary] [varchar](max) NULL,
+						 [SignpostedTo] [varchar](max) NULL,
 						 [ActionType] int NULL,
 						 [ActionStatus] int NULL,
 						 [PersonResponsible] int NULL,
-						 [LastModifiedDate] [varchar](50) NULL,
-						 [LastModifiedTouchpointId] [varchar](10) NULL) 
+						 [LastModifiedDate] [varchar](max) NULL,
+						 [LastModifiedTouchpointId] [varchar](max) NULL) 
 						 ON [PRIMARY]					
 
 		END
