@@ -96,5 +96,6 @@
     <Build Include="dbo\Stored Procedures\Import_Cosmos_webchats.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_actions.sql" />
     <Build Include="dbo\Stored Procedures\Change_Feed_Upsert_Customer.sql" />
+    <Build Include="dbo\Stored Procedures\Change_Feed_Upsert_Session.sql" />
   </ItemGroup>
 </Project>
