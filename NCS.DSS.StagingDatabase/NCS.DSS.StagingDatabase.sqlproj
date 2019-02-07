@@ -63,6 +63,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="Security\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Stored Procedures\ChangeFeed" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\dss-actionplans.sql" />
@@ -95,6 +96,7 @@
     <Build Include="dbo\Stored Procedures\Import_Cosmos_transfers.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_webchats.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_actions.sql" />
-    <Build Include="dbo\Stored Procedures\Change_Feed_Upsert_Customer.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Customer.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Outcome.sql" />
   </ItemGroup>
 </Project>
