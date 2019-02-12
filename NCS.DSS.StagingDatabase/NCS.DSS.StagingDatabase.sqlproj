@@ -64,6 +64,7 @@
     <Folder Include="Security\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Stored Procedures\ChangeFeed" />
+    <Folder Include="dbo\Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\dss-actionplans.sql" />
@@ -98,5 +99,12 @@
     <Build Include="dbo\Stored Procedures\Import_Cosmos_actions.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Customer.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Outcome.sql" />
+    <Build Include="dbo\Functions\dcc-collections.sql" />
+    <Build Include="dbo\Functions\fnGetFiscalYearForDate.sql" />
+    <Build Include="dbo\Functions\fnGetParameterValueAsDate.sql" />
+    <Build Include="dbo\Functions\fnGetParameterValueAsInteger.sql" />
+    <Build Include="dbo\Functions\fnPriorityCustomer.sql" />
+    <Build Include="dbo\Functions\fnYearsOld.sql" />
+    <Build Include="dbo\Stored Procedures\CreateDataCollectionsParameterData.sql" />
   </ItemGroup>
 </Project>
