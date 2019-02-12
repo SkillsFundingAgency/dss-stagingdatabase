@@ -11,17 +11,17 @@ AS
 RETURN 
 (
 	select 
-	dssoutcomes.CustomerId as Outcomes_CustomerId,
-	dsscustomers.DateofBirth as Customers_DateofBirth,
-	dssaddresses.PostCode as Addresses_PostCode,
-	dssactionplans.id as ActionsPlans_ActionPlanId,
-	dsssessions.DateandTimeOfSession as Sessions_DateandTimeOfSession,
-	'SubContractorId' as Outcomes_SubContractorId,
-	dssadviserdetails.AdviserName as AdviserDetails_AdviserName,
-	dssoutcomes.id as Outcomes_OutcomeId,
-	dssoutcomes.OutcomeType as Outcomes_OutcomeType,
-	convert(varchar, dssoutcomes.OutcomeEffectiveDate, 101)   as Outcomes_OutcomeEffectiveDate,
-	dbo.fnPriorityCustomer(dssactionplans.PriorityCustomer) as ActionPlans_PriorityCustomer
+	dssoutcomes.CustomerId as Outcomes_CustomerId, -- uniqueidentifier
+	dsscustomers.DateofBirth as Customers_DateofBirth,  -- datetime2
+	dssaddresses.PostCode as Addresses_PostCode,  -- varchar(max)
+	dssactionplans.id as ActionsPlans_ActionPlanId,  -- uniqueidentifier
+	dsssessions.DateandTimeOfSession as Sessions_DateandTimeOfSession,  -- datetime2
+	'SubContractorId' as Outcomes_SubContractorId,  -- uniqueidentifier
+	dssadviserdetails.AdviserName as AdviserDetails_AdviserName, -- nvarchar(max)
+	dssoutcomes.id as Outcomes_OutcomeId, -- uniqueidentifier
+	dssoutcomes.OutcomeType as Outcomes_OutcomeType, -- int
+	convert(varchar, dssoutcomes.OutcomeEffectiveDate, 101)   as Outcomes_OutcomeEffectiveDate, -- nvarchar(10) mm/dd/yyyy
+	dbo.fnPriorityCustomer(dssactionplans.PriorityCustomer) as ActionPlans_PriorityCustomer -- char(1)
 	from [dss-outcomes] as dssoutcomes 
 		JOIN [dss-customers] as dsscustomers on dsscustomers.id = dssoutcomes.CustomerId
 		JOIN [dss-addresses] as dssaddresses on dssaddresses.CustomerId = dsscustomers.id
