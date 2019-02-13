@@ -11,7 +11,7 @@ AS
 RETURN 
 (
 	select 
-	dssoutcomes.CustomerId as Outcomes_CustomerId, -- uniqueidentifier
+	dssoutcomes.CustomerId as Outcomes_CustomerId, --uniqueidentifier
 	dsscustomers.DateofBirth as Customers_DateofBirth,  -- datetime2
 	dssaddresses.PostCode as Addresses_PostCode,  -- varchar(max)
 	dssactionplans.id as ActionsPlans_ActionPlanId,  -- uniqueidentifier
