@@ -5,4 +5,7 @@
     [value]       INT           NULL,
     [description] VARCHAR (MAX) NULL
 );
+GO
+
+EXEC [dbo].[CreateReferenceData]
 
