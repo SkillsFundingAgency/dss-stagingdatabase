@@ -1,10 +1,4 @@
-﻿IF OBJECT_ID('[dbo].[fnYearsOld]') IS NOT NULL
-BEGIN
-  DROP FUNCTION [dbo].[fnYearsOld]
-END
-GO
-
-CREATE FUNCTION [dbo].[fnYearsOld] (@DOB datetime, @CurrentDate datetime)
+﻿CREATE FUNCTION [dbo].[fnYearsOld] (@DOB datetime, @CurrentDate datetime)
 RETURNS varchar(3) AS 
 BEGIN 
 DECLARE @YearsOld varchar(3)

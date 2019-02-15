@@ -1,11 +1,4 @@
-﻿IF OBJECT_ID('[dbo].[fnGetFiscalYearForDate]') IS NOT NULL
-BEGIN
-  DROP FUNCTION [dbo].[fnGetFiscalYearForDate]
-END
-
-GO
-
-CREATE FUNCTION [dbo].[fnGetFiscalYearForDate]
+﻿CREATE FUNCTION [dbo].[fnGetFiscalYearForDate]
 (   
 @date       datetime
 )

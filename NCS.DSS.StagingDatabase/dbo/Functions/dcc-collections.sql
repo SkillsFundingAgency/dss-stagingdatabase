@@ -1,27 +1,20 @@
-﻿
-IF OBJECT_ID('[dbo].[dcc-collections]') IS NOT NULL
-BEGIN
-	DROP FUNCTION [dbo].[dcc-collections]
-END
-GO
-
-CREATE FUNCTION [dbo].[dcc-collections](@touchpointId varchar(max), @financialYear varchar(max))
+﻿CREATE FUNCTION [dbo].[dcc-collections](@touchpointId varchar(max), @financialYear varchar(max))
 	RETURNS TABLE
 AS
 RETURN 
 (
 	select 
-	dssoutcomes.CustomerId as Outcomes_CustomerId, -- uniqueidentifier
-	dsscustomers.DateofBirth as Customers_DateofBirth,  -- datetime2
-	dssaddresses.PostCode as Addresses_PostCode,  -- varchar(max)
-	dssactionplans.id as ActionsPlans_ActionPlanId,  -- uniqueidentifier
-	dsssessions.DateandTimeOfSession as Sessions_DateandTimeOfSession,  -- datetime2
-	'SubContractorId' as Outcomes_SubContractorId,  -- uniqueidentifier
-	dssadviserdetails.AdviserName as AdviserDetails_AdviserName, -- nvarchar(max)
-	dssoutcomes.id as Outcomes_OutcomeId, -- uniqueidentifier
-	dssoutcomes.OutcomeType as Outcomes_OutcomeType, -- int
-	convert(varchar, dssoutcomes.OutcomeEffectiveDate, 101)   as Outcomes_OutcomeEffectiveDate, -- nvarchar(10) mm/dd/yyyy
-	dbo.fnPriorityCustomer(dssactionplans.PriorityCustomer) as ActionPlans_PriorityCustomer -- char(1)
+	dssoutcomes.CustomerId as CustomerID, -- uniqueidentifier
+	CONVERT(DATE, CONVERT(VARCHAR, dsscustomers.DateofBirth, 101)) AS DateOfBirth,  -- date
+	dssaddresses.PostCode AS HomePostCode,  -- varchar(max)
+	dssactionplans.id AS ActionPlanID,  -- uniqueidentifier
+	CONVERT(DATE, CONVERT(VARCHAR, dsssessions.DateandTimeOfSession, 101)) AS SessionDate,  -- date
+	'SubContractorId' AS SubContractorId,  -- uniqueidentifier
+	dssadviserdetails.AdviserName AS AdviserName, -- nvarchar(max)
+	dssoutcomes.id AS OutcomeID, -- uniqueidentifier
+	dssoutcomes.OutcomeType AS OutcomeType, -- int
+	CONVERT(DATE, CONVERT(VARCHAR, dssoutcomes.OutcomeEffectiveDate, 101)) AS OutcomeEffectiveDate, -- date
+	dbo.fnPriorityCustomer(dssactionplans.PriorityCustomer) AS OutcomePriorityCustomer -- char(1)
 	from [dss-outcomes] as dssoutcomes 
 		JOIN [dss-customers] as dsscustomers on dsscustomers.id = dssoutcomes.CustomerId
 		JOIN [dss-addresses] as dssaddresses on dssaddresses.CustomerId = dsscustomers.id
