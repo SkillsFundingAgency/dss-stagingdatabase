@@ -23,19 +23,19 @@ RETURN
 		JOIN [dss-sessions] as dsssessions on dsssessions.InteractionId = dssinteractions.id
 		JOIN [dss-adviserdetails] as dssadviserdetails on dssadviserdetails.id = dssinteractions.AdviserDetailsId
 	where (dsssessions.DateandTimeOfSession >= dbo.fnGetParameterValueAsDate('ContractStartDate') AND
-       dsssessions.DateandTimeOfSession <= GETDATE())
+       dsssessions.DateandTimeOfSession <= dbo.fnDssDate())
 	   AND dssoutcomes.OutcomeEffectiveDate >  dbo.fnGetParameterValueAsDate('FeedStartDate')
-	   AND dssoutcomes.OutcomeEffectiveDate <= EOMONTH(GETDATE())
-	   AND dssoutcomes.OutcomeClaimedDate != NULL
-	   AND dbo.fnGetFiscalYearForDate(dssoutcomes.OutcomeClaimedDate) = dbo.fnGetFiscalYearForDate(GETDATE())
-	   AND dbo.fnYearsOld(dsscustomers.DateofBirth, GETDATE()) >= dbo.fnGetParameterValueAsInteger('MinAge')
-	   AND dbo.fnYearsOld(dsscustomers.DateofBirth, GETDATE()) <= dbo.fnGetParameterValueAsInteger('MaxAge')
-	   AND dsscustomers.DateofBirth != NULL
+	   AND dssoutcomes.OutcomeEffectiveDate <= EOMONTH(dbo.fnDssDate())
+	   AND dssoutcomes.OutcomeClaimedDate IS NOT NULL
+	   AND dbo.fnGetFiscalYearForDate(dssoutcomes.OutcomeClaimedDate) = dbo.fnGetFiscalYearForDate(dbo.fnDssDate())
+	   AND dbo.fnYearsOld(dsscustomers.DateofBirth, dbo.fnDssDate()) >= dbo.fnGetParameterValueAsInteger('MinAge')
+	   AND dbo.fnYearsOld(dsscustomers.DateofBirth, dbo.fnDssDate()) <= dbo.fnGetParameterValueAsInteger('MaxAge')
+	   AND dsscustomers.DateofBirth IS NOT NULL
 	   AND dsssessions.DateandTimeOfSession >= dbo.fnGetParameterValueAsDate('ContractStartDate')
-	   AND dsssessions.DateandTimeOfSession <= GETDATE()
+	   AND dsssessions.DateandTimeOfSession <= dbo.fnDssDate()
 	   AND dssoutcomes.OutcomeEffectiveDate >= dbo.fnGetParameterValueAsDate('FeedStartDate')
-	   AND dssoutcomes.OutcomeEffectiveDate <= EOMONTH(GETDATE())
-	   AND dbo.fnGetFiscalYearForDate(GETDATE()) = dbo.fnGetFiscalYearForDate(dssoutcomes.OutcomeClaimedDate)
-	   AND dssoutcomes.OutcomeEffectiveDate != NULL
+	   AND dssoutcomes.OutcomeEffectiveDate <= EOMONTH(dbo.fnDssDate())
+	   AND dbo.fnGetFiscalYearForDate(dbo.fnDssDate()) = dbo.fnGetFiscalYearForDate(dssoutcomes.OutcomeClaimedDate)
+	   AND dssoutcomes.OutcomeEffectiveDate IS NOT NULL
 	   AND dssoutcomes.LastModifiedTouchpointId = @touchpointId
 )

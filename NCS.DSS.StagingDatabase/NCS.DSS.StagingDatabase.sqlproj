@@ -108,6 +108,7 @@
     <Build Include="dbo\Functions\fnYearsOld.sql" />
     <Build Include="dbo\Stored Procedures\CreateDataCollectionsParameterData.sql" />
     <Build Include="dbo\Tables\dss-data-collections-params.sql" />
+    <Build Include="dbo\Functions\fnDssDate.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment1.sql" />
