@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[dss-data-collections-parameters](
+﻿CREATE TABLE [dbo].[dss-data-collections-params](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ParameterName] [nvarchar](50) NOT NULL,
 	[ParameterValue] [nvarchar](50) NOT NULL,
