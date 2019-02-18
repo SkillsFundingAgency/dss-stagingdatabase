@@ -106,5 +106,6 @@
     <Build Include="dbo\Functions\fnPriorityCustomer.sql" />
     <Build Include="dbo\Functions\fnYearsOld.sql" />
     <Build Include="dbo\Stored Procedures\CreateDataCollectionsParameterData.sql" />
+    <Build Include="dbo\Tables\dss-data-collections-parameters.sql" />
   </ItemGroup>
 </Project>
