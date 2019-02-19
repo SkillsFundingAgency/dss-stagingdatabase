@@ -10,5 +10,6 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
+DROP TABLE [dss-data-collections-parameters]
+TRUNCATE TABLE [dss-data-collections-params]
 exec [CreateDataCollectionsParameterData]
-exec [CreateReferenceData]
