@@ -23,7 +23,7 @@ RETURN
 		JOIN [dss-sessions] as dsssessions on dsssessions.InteractionId = dssinteractions.id
 		JOIN [dss-adviserdetails] as dssadviserdetails on dssadviserdetails.id = dssinteractions.AdviserDetailsId
 	where (dsssessions.DateandTimeOfSession >= dbo.fnGetParameterValueAsDate('ContractStartDate') AND
-       dsssessions.DateandTimeOfSession <= dbo.fnDssDate())
+           dsssessions.DateandTimeOfSession <= dbo.fnDssDate())
 	   AND dssoutcomes.OutcomeEffectiveDate >  dbo.fnGetParameterValueAsDate('FeedStartDate')
 	   AND dssoutcomes.OutcomeEffectiveDate <= EOMONTH(dbo.fnDssDate())
 	   AND dssoutcomes.OutcomeClaimedDate IS NOT NULL
