@@ -104,7 +104,6 @@
     <Build Include="dbo\Functions\fnGetFiscalYearForDate.sql" />
     <Build Include="dbo\Functions\fnGetParameterValueAsDate.sql" />
     <Build Include="dbo\Functions\fnGetParameterValueAsInteger.sql" />
-    <Build Include="dbo\Functions\fnPriorityCustomer.sql" />
     <Build Include="dbo\Functions\fnYearsOld.sql" />
     <Build Include="dbo\Stored Procedures\CreateDataCollectionsParameterData.sql" />
     <Build Include="dbo\Tables\dss-data-collections-params.sql" />
