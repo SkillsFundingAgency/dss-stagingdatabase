@@ -1,7 +1,8 @@
 ﻿CREATE FUNCTION [dbo].[dcc-collections](@touchpointId varchar(10), @startDate DATE, @endDate DATE)
-returns @Result table(CustomerID uniqueidentifier, DateOfBirth date, HomePostCode varchar(10), ActionPlanId uniqueidentifier, 
-				 SessionDate date, SubContractorId varchar(50), AdviserName varchar(100), OutcomeId uniqueidentifier,
-				 OutcomeType int, OutcomeEffectiveDate date, OutcomePriorityCustomer int)
+returns @Result table(CustomerID uniqueidentifier, DateOfBirth date, HomePostCode varchar(10), 
+						ActionPlanId uniqueidentifier, SessionDate date, SubContractorId varchar(50), 
+						AdviserName varchar(100), OutcomeId uniqueidentifier,
+						OutcomeType int, OutcomeEffectiveDate date, OutcomePriorityCustomer int)
 as
 begin
   INSERT INTO @Result
