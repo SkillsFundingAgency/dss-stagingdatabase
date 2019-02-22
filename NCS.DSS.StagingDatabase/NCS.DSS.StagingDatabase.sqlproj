@@ -101,13 +101,6 @@
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Customer.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Outcome.sql" />
     <Build Include="dbo\Functions\dcc-collections.sql" />
-    <Build Include="dbo\Functions\fnGetFiscalYearForDate.sql" />
-    <Build Include="dbo\Functions\fnGetParameterValueAsDate.sql" />
-    <Build Include="dbo\Functions\fnGetParameterValueAsInteger.sql" />
-    <Build Include="dbo\Functions\fnYearsOld.sql" />
-    <Build Include="dbo\Stored Procedures\CreateDataCollectionsParameterData.sql" />
-    <Build Include="dbo\Tables\dss-data-collections-params.sql" />
-    <Build Include="dbo\Functions\fnDssDate.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment1.sql" />

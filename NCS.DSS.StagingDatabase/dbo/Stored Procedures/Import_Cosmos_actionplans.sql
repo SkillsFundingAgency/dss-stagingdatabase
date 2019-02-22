@@ -25,6 +25,8 @@ BEGIN
 				[id] [varchar](max) NULL,
 				[CustomerId] [varchar](max) NULL,
 				[InteractionId] [varchar](max) NULL,
+				[SessionId] [VARCHAR](MAX) NULL,
+				[SubcontractorId] [VARCHAR] (MAX) NULL,
 				[DateActionPlanCreated] [varchar](max) NULL,
 				[CustomerCharterShownToCustomer] [varchar](max) NULL,
 				[DateAndTimeCharterShown] [varchar](max) NULL,
@@ -45,6 +47,8 @@ BEGIN
 			id VARCHAR(MAX) '$.id', 
 			CustomerId VARCHAR(MAX) '$.CustomerId',
 			InteractionId VARCHAR(MAX) '$.InteractionId',
+			SessionId VARCHAR(MAX) '$.SessionId',
+			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
 			DateActionPlanCreated VARCHAR(MAX) '$.DateActionPlanCreated',
 			CustomerCharterShownToCustomer VARCHAR(MAX) '$.CustomerCharterShownToCustomer',
 			DateAndTimeCharterShown VARCHAR(MAX) '$.DateAndTimeCharterShown',
@@ -65,27 +69,32 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-actionplans](
-						[id] uniqueidentifier NULL,
+						[id] uniqueidentifier,
 						[CustomerId] uniqueidentifier NULL,
 						[InteractionId] uniqueidentifier NULL,
-						[DateActionPlanCreated] datetime2 NULL,
-						[CustomerCharterShownToCustomer] bit NULL,
-						[DateAndTimeCharterShown] datetime2 NULL,
-						[DateActionPlanSentToCustomer] datetime2 NULL,
-						[ActionPlanDeliveryMethod] int NULL,
-						[DateActionPlanAcknowledged] datetime2 NULL,
-						[PriorityCustomer] int NULL,
-						[CurrentSituation] [varchar](max) NULL,
-						[LastModifiedDate] datetime2 NULL,
-						[LastModifiedTouchpointId] [varchar](max) NULL) 
+						[SessionId] UNIQUEIDENTIFIER NULL,
+						[SubcontractorId] [VARCHAR](50) NULL,
+						[DateActionPlanCreated] DATETIME2 NULL,
+						[CustomerCharterShownToCustomer] BIT NULL,
+						[DateAndTimeCharterShown] DATETIME2 NULL,
+						[DateActionPlanSentToCustomer] DATETIME2 NULL,
+						[ActionPlanDeliveryMethod] INT NULL,
+						[DateActionPlanAcknowledged] DATETIME2 NULL,
+						[PriorityCustomer] INT NULL,
+						[CurrentSituation] [VARCHAR](MAX) NULL,
+						[LastModifiedDate] DATETIME2 NULL,
+						[LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						CONSTRAINT [PK_dss-actionplans] PRIMARY KEY ([id])) 
 			ON [PRIMARY]
 		END
 
 		INSERT INTO [dss-actionplans] 
 			SELECT  
-			CONVERT(uniqueidentifier, [id]) as [id],
-			CONVERT(uniqueidentifier, [CustomerId]) as [CustomerId],
-			CONVERT(uniqueidentifier, [InteractionId]) as [InteractionId],
+			CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+			CONVERT(UNIQUEIDENTIFIER, [CustomerId]) AS [CustomerId],
+			CONVERT(UNIQUEIDENTIFIER, [InteractionId]) AS [InteractionId],
+			CONVERT(UNIQUEIDENTIFIER, [SessionId]) AS [SessionId],
+			[SubcontractorId],
 			CONVERT(datetime2, [DateActionPlanCreated]) as [DateActionPlanCreated],
 			CONVERT(bit, [CustomerCharterShownToCustomer]) as [CustomerCharterShownToCustomer],
 			CONVERT(datetime2, DateAndTimeCharterShown) as [DateAndTimeCharterShown],

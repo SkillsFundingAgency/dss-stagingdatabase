@@ -29,20 +29,21 @@ BEGIN
 		BEGIN
 			CREATE TABLE [#customers](
 						 [id] [varchar](max) NULL,
-						 [DateOfRegistration] [varchar](max) NULL,
-						 [Title] [varchar](max) NULL,
-						 [GivenName] [varchar](max) NULL,
-						 [FamilyName] [varchar](max) NULL,
-						 [DateofBirth] [varchar](max) NULL,
-						 [Gender] [varchar](max) NULL,
-						 [UniqueLearnerNumber] [varchar](max) NULL,
-						 [OptInUserResearch] [varchar](max) NULL,
-						 [DateOfTermination] [varchar](max) NULL,
-						 [ReasonForTermination] [varchar](max) NULL,
-						 [IntroducedBy] [varchar](max) NULL,
-						 [IntroducedByAdditionalInfo] [varchar](max) NULL,
-						 [LastModifiedDate] [varchar](max) NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL
+						 [SubcontractorId] [VARCHAR](MAX) NULL,
+						 [DateOfRegistration] [VARCHAR](MAX) NULL,
+						 [Title] [VARCHAR](MAX) NULL,
+						 [GivenName] [VARCHAR](MAX) NULL,
+						 [FamilyName] [VARCHAR](MAX) NULL,
+						 [DateofBirth] [VARCHAR](MAX) NULL,
+						 [Gender] [VARCHAR](MAX) NULL,
+						 [UniqueLearnerNumber] [VARCHAR](MAX) NULL,
+						 [OptInUserResearch] [VARCHAR](MAX) NULL,
+						 [DateOfTermination] [VARCHAR](MAX) NULL,
+						 [ReasonForTermination] [VARCHAR](MAX) NULL,
+						 [IntroducedBy] [VARCHAR](MAX) NULL,
+						 [IntroducedByAdditionalInfo] [VARCHAR](MAX) NULL,
+						 [LastModifiedDate] [VARCHAR](MAX) NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -51,6 +52,7 @@ BEGIN
 	FROM OPENJSON(@retvalue)
 		WITH (
 			id VARCHAR(MAX) '$.id', 
+			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
 			DateOfRegistration VARCHAR(MAX) '$.DateOfRegistration',
 			Title VARCHAR(MAX) '$.Title',
 			GivenName VARCHAR(MAX) '$.GivenName',
@@ -65,7 +67,7 @@ BEGIN
 			IntroducedByAdditionalInfo VARCHAR(MAX) '$.IntroducedByAdditionalInfo',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
 			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
-			) as Coll
+			) AS Coll
 
 	IF OBJECT_ID('[dss-customers]', 'U') IS NOT NULL 
 		BEGIN
@@ -74,27 +76,30 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-customers](
-						 [id] uniqueidentifier NULL,
-						 [DateOfRegistration] datetime2 NULL,
-						 [Title] int NULL,
-						 [GivenName] [varchar](max) NULL,
-						 [FamilyName] [varchar](max) NULL,
-						 [DateofBirth] datetime2 NULL,
-						 [Gender] int NULL,
-						 [UniqueLearnerNumber] [varchar](15) NULL,
-						 [OptInUserResearch] bit NULL,
-						 [DateOfTermination] datetime2 NULL,
-						 [ReasonForTermination] int NULL,
-						 [IntroducedBy] int NULL,
-						 [IntroducedByAdditionalInfo] [varchar](max) NULL,
-						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [id] UNIQUEIDENTIFIER,
+						 [SubcontractorId] VARCHAR(50) NULL,
+						 [DateOfRegistration] DATETIME2 NULL,
+						 [Title] INT NULL,
+						 [GivenName] [VARCHAR](MAX) NULL,
+						 [FamilyName] [VARCHAR](MAX) NULL,
+						 [DateofBirth] DATETIME2 NULL,
+						 [Gender] INT NULL,
+						 [UniqueLearnerNumber] [VARCHAR](15) NULL,
+						 [OptInUserResearch] BIT NULL,
+						 [DateOfTermination] DATETIME2 NULL,
+						 [ReasonForTermination] INT NULL,
+						 [IntroducedBy] INT NULL,
+						 [IntroducedByAdditionalInfo] [VARCHAR](MAX) NULL,
+						 [LastModifiedDate] DATETIME2 NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 CONSTRAINT [PK_dss-customers] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]	
 		END
 
 		INSERT INTO [dss-customers] 
 				SELECT
-				CONVERT(uniqueidentifier, [id]) as [id],
+				CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+				[SubcontractorId],
 				CONVERT(datetime2, [DateOfRegistration]) as [DateOfRegistration],
 				CONVERT(int, [Title]) as [Title],
 				[GivenName],

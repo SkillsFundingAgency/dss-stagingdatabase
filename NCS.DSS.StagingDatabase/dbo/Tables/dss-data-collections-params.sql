@@ -1,9 +1,0 @@
-﻿CREATE TABLE [dbo].[dss-data-collections-params](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[ParameterName] [nvarchar](50) NOT NULL,
-	[ParameterValue] [nvarchar](50) NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
-)
