@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[dss-sessions] (
-    [id]                       UNIQUEIDENTIFIER NOT NULL,
+    [id]                       UNIQUEIDENTIFIER NULL,
     [CustomerId]               UNIQUEIDENTIFIER NULL,
     [InteractionId]            UNIQUEIDENTIFIER NULL,
 	[SubcontractorId]		   VARCHAR(50) NULL,
@@ -8,7 +8,6 @@
     [SessionAttended]          BIT              NULL,
     [ReasonForNonAttendance]   INT              NULL,
     [LastModifiedDate]         datetime2         NULL,
-    [LastModifiedTouchpointId] VARCHAR (max)     NULL, 
-    CONSTRAINT [PK_dss-sessions] PRIMARY KEY ([id])
+    [LastModifiedTouchpointId] VARCHAR (max)     NULL
 );
 

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[dss-goals] (
-    [id]                          UNIQUEIDENTIFIER NOT NULL,
+    [id]                          UNIQUEIDENTIFIER NULL,
     [CustomerId]                  UNIQUEIDENTIFIER NULL,
     [ActionPlanId]                UNIQUEIDENTIFIER NULL,
 	[SubcontractorId]			  VARCHAR(50) NULL,
@@ -10,7 +10,6 @@
     [GoalType]                    INT              NULL,
     [GoalStatus]                  INT              NULL,
     [LastModifiedDate]            datetime2         NULL,
-    [LastModifiedTouchpointId]    VARCHAR (max)     NULL, 
-    CONSTRAINT [PK_dss-goals] PRIMARY KEY ([id])
+    [LastModifiedTouchpointId]    VARCHAR (max)     NULL
 );
 

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[dss-actions] (
-    [id]                            UNIQUEIDENTIFIER NOT NULL,
+    [id]                            UNIQUEIDENTIFIER NULL,
     [CustomerId]                    UNIQUEIDENTIFIER NULL,	
     [ActionPlanId]                  UNIQUEIDENTIFIER NULL,
 	[SubcontractorId]				VARCHAR(50) NULL,
@@ -12,7 +12,6 @@
     [ActionStatus]                  INT              NULL,
     [PersonResponsible]             INT              NULL,
     [LastModifiedDate]              VARCHAR (max)     NULL,
-    [LastModifiedTouchpointId]      VARCHAR (max)     NULL, 
-    CONSTRAINT [PK_dss-actions] PRIMARY KEY ([id])
+    [LastModifiedTouchpointId]      VARCHAR (max)     NULL
 );
 

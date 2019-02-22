@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[dss-customers] (
-    [id]                         UNIQUEIDENTIFIER NOT NULL,
+    [id]                         UNIQUEIDENTIFIER NULL,
 	[SubcontractorId]		     VARCHAR(50) NULL,
     [DateOfRegistration]         datetime2         NULL,
     [Title]                      INT              NULL,
@@ -14,7 +14,6 @@
     [IntroducedBy]               INT              NULL,
     [IntroducedByAdditionalInfo] VARCHAR (max)     NULL,
     [LastModifiedDate]           datetime2             NULL,
-    [LastModifiedTouchpointId]   VARCHAR (max)     NULL, 
-    CONSTRAINT [PK_dss-customers] PRIMARY KEY ([id])
+    [LastModifiedTouchpointId]   VARCHAR (max)     NULL
 );
 
