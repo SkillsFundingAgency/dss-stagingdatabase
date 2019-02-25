@@ -102,4 +102,7 @@
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Outcome.sql" />
     <Build Include="dbo\Functions\dcc-collections.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
+  </ItemGroup>
 </Project>
