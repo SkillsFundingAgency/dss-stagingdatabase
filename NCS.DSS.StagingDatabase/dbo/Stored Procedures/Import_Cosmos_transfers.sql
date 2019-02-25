@@ -69,7 +69,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-transfers](
-						 [id] uniqueidentifier NULL,
+						 [id] uniqueidentifier,
 						 [CustomerId] uniqueidentifier NULL,
 						 [InteractionId] uniqueidentifier NULL,
 						 [OriginatingTouchpointId] [varchar](max) NULL,
@@ -80,7 +80,8 @@ BEGIN
 						 [RequestedCallbackTime] datetime2 NULL,
 						 [ActualCallbackTime] datetime2 NULL,
 						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL,
+						 CONSTRAINT [PK_dss-transfers] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
 

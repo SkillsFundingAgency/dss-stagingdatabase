@@ -63,7 +63,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-interactions](
-						 [id] uniqueidentifier NULL,
+						 [id] uniqueidentifier,
 						 [CustomerId] uniqueidentifier NULL,
 						 [TouchpointId] [varchar](max) NULL,
 						 [AdviserDetailsId] uniqueidentifier NULL,
@@ -71,7 +71,8 @@ BEGIN
 						 [Channel] int NULL,
 						 [InteractionType] int NULL,					 
 						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL,
+						 CONSTRAINT [PK_dss-interactions] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]	
 		END
 

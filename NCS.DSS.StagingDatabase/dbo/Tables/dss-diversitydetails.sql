@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[dss-diversitydetails] (
-    [id]                                        UNIQUEIDENTIFIER NULL,
+    [id]                                        UNIQUEIDENTIFIER NOT NULL,
     [CustomerId]                                UNIQUEIDENTIFIER NULL,
     [ConsentToCollectLLDDHealth]                BIT              NULL,
     [LearningDifficultyOrDisabilityDeclaration] INT              NULL,
@@ -10,6 +10,7 @@
     [Ethnicity]                                 INT              NULL,
     [DateAndTimeEthnicityCollected]             datetime2         NULL,
     [LastModifiedDate]                          datetime2         NULL,
-    [LastModifiedTouchpointId]                  VARCHAR (max)     NULL
+    [LastModifiedTouchpointId]                  VARCHAR (max)     NULL, 
+    CONSTRAINT [PK_dss-diversitydetails] PRIMARY KEY ([id])
 );
 
