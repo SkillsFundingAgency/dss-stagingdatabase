@@ -19,12 +19,13 @@ begin
 	CONVERT(DATE, dssoutcomes.OutcomeEffectiveDate) AS OutcomeEffectiveDate, -- date
 	IIF (dssactionplans.PriorityCustomer > 6, 1, 0) AS OutcomePriorityCustomer	--int
 	FROM [dss-outcomes] as dssoutcomes 
-		INNER JOIN [dss-customers] AS dsscustomers ON dsscustomers.id = dssoutcomes.CustomerId
+		INNER JOIN [dss-customers] AS dsscustomers ON dsscustomers.id = dssoutcomes.CustomerId		
 		INNER JOIN [dss-addresses] AS dssaddresses ON dssaddresses.CustomerId = dsscustomers.id
 		INNER JOIN [dss-actionplans] AS dssactionplans ON dssactionplans.id = dssoutcomes.ActionPlanId		
 		INNER JOIN [dss-sessions] AS dsssessions ON dsssessions.id = dssactionplans.SessionId
 		INNER JOIN [dss-interactions] AS dssinteractions ON dssinteractions.id = dsssessions.InteractionId
 		INNER JOIN [dss-adviserdetails] as dssadviserdetails on dssadviserdetails.id = dssinteractions.AdviserDetailsId
+		CROSS APPLY [dbo].[GetCustomerClaimableOutcomes](@startDate, @endDate, @touchpointId, dssoutcomes.CustomerId)
 	where dsssessions.DateandTimeOfSession <= @endDate
 	   AND dssoutcomes.OutcomeEffectiveDate >  @startDate
 	   AND dssoutcomes.OutcomeEffectiveDate <= @endDate

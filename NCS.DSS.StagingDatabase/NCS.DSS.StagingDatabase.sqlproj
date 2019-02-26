@@ -101,6 +101,7 @@
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Customer.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Outcome.sql" />
     <Build Include="dbo\Functions\dcc-collections.sql" />
+    <Build Include="dbo\Functions\GetCustomerClaimableOutcomes.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
