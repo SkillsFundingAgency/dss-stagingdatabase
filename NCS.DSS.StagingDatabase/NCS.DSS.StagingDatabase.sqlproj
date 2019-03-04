@@ -101,6 +101,14 @@
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Customer.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Outcome.sql" />
     <Build Include="dbo\Functions\dcc-collections.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-actions.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-actionplans.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-addresses.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-adviserdetails.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-customers.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-goals.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-outcomes.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-sessions.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
