@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="4b744346-ac4a-4f2f-abe0-ee4e49712109" ChangeDateTime="03/04/2019 12:25:10">
+    <Property Name="ElementName" Value="[dbo].[dss-goals].[LastModifiedTouchpointId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[dss-goals]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LastModifiedBy" />
+  </Operation>
+</Operations>

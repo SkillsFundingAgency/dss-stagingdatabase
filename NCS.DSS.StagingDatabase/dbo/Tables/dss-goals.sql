@@ -9,6 +9,6 @@
     [GoalType]                    INT              NULL,
     [GoalStatus]                  INT              NULL,
     [LastModifiedDate]            datetime2         NULL,
-    [LastModifiedTouchpointId]    VARCHAR (max)     NULL
+    [LastModifiedBy]    VARCHAR (max)     NULL
 );
 
