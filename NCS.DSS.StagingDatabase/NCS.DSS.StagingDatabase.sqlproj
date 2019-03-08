@@ -98,8 +98,6 @@
     <Build Include="dbo\Stored Procedures\Import_Cosmos_transfers.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_webchats.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_actions.sql" />
-    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Customer.sql" />
-    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Upsert_Outcome.sql" />
     <Build Include="dbo\Functions\dcc-collections.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-actions.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-actionplans.sql" />
