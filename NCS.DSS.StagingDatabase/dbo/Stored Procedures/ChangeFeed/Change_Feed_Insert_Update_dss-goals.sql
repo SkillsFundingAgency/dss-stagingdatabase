@@ -65,4 +65,6 @@ BEGIN
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedBy
 				);
+
+	exec [dbo].[insert-dss-goals-history] @Json
 END

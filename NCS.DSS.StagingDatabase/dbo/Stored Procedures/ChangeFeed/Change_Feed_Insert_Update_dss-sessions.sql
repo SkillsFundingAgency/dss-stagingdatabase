@@ -57,4 +57,6 @@ BEGIN
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
 				);
+
+	exec [dbo].[insert-dss-sessions-history] @Json
 END

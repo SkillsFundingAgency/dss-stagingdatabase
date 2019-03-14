@@ -73,4 +73,6 @@ BEGIN
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
 				);
+
+	exec [insert-dss-actions-history] @Json
 END

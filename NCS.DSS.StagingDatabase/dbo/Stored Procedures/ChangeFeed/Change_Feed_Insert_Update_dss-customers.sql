@@ -81,4 +81,6 @@ BEGIN
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
 				);
+
+	exec [dbo].[insert-dss-customers-history] @Json
 END
