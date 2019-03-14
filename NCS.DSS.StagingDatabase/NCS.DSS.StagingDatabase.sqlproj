@@ -66,6 +66,7 @@
     <Folder Include="dbo\Stored Procedures\ChangeFeed" />
     <Folder Include="dbo\Functions" />
     <Folder Include="Scripts" />
+    <Folder Include="dbo\Stored Procedures\ChangeHistory" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\dss-actionplans.sql" />
@@ -107,6 +108,22 @@
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-goals.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-outcomes.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-sessions.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-actionplans-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-actions-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-addresses-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-adviserdetails-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-customers-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-goals-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-outcomes-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-sessions-history.sql" />
+    <Build Include="dbo\Tables\dss-actionplans-history.sql" />
+    <Build Include="dbo\Tables\dss-actions-history.sql" />
+    <Build Include="dbo\Tables\dss-addresses-history.sql" />
+    <Build Include="dbo\Tables\dss-adviserdetails-history.sql" />
+    <Build Include="dbo\Tables\dss-customers-history.sql" />
+    <Build Include="dbo\Tables\dss-goals-history.sql" />
+    <Build Include="dbo\Tables\dss-outcomes-history.sql" />
+    <Build Include="dbo\Tables\dss-sessions-history.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
