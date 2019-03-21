@@ -6,7 +6,7 @@ returns @Result table(CustomerID uniqueidentifier, DateOfBirth date, HomePostCod
 as
 begin  
   DECLARE @contractStartDate DATE
-  SET @contractStartDate = '2018/10/01'
+  SET @contractStartDate = '2018/10/01';
   
   WITH outcomes AS
 (
