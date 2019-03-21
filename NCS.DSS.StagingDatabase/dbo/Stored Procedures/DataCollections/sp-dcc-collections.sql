@@ -1,12 +1,12 @@
-﻿CREATE FUNCTION [dbo].[dcc-collections](@touchpointId varchar(10), @startDate DATE, @endDate DATE)
-returns @Result table(CustomerID uniqueidentifier, DateOfBirth date, HomePostCode varchar(10), 
-                                        ActionPlanId uniqueidentifier, SessionDate date, SubContractorId varchar(50), 
-                                        AdviserName varchar(100), OutcomeId uniqueidentifier,
-                                        OutcomeType int, OutcomeEffectiveDate date, OutcomePriorityCustomer int)
-as
-begin  
+﻿CREATE PROCEDURE [dbo].[sp-dcc-collections]
+	-- Add the parameters for the stored procedure here
+	@touchpointId VARCHAR(10),
+	@startDate DATE,
+	@endDate DATE
+AS
+BEGIN	 	
   DECLARE @contractStartDate DATE
-  SET @contractStartDate = '2018/10/01'
+  SET @contractStartDate = '2018/10/01';
   
   WITH outcomes AS
 (
@@ -53,13 +53,8 @@ WHERE dssoutcomes.OutcomeEffectiveDate BETWEEN DATEADD(YEAR, -1, @startDate) AND
       RANK () OVER   ( PARTITION BY o.CustomerId, o.SessionDate, o.LocalOutcomeType ORDER BY OutcomeEffectiveDate ASC) rk
      from sessionrank o
      where o.sr = 1 
-)
-       INSERT INTO @Result
+)       
        select CustomerID, DateOfBirth, HomePostCode, ActionPlanId, SessionDate, SubContractorId, AdviserName, OutcomeID, OutcomeType, OutcomeEffectiveDate, OutcomePriorityCustomer from outcomerank
        where rk = 1 
        order by CustomerId;
-
-  return
-end
-
-
+END
