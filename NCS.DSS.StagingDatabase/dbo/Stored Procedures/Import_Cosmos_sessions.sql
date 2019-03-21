@@ -31,12 +31,13 @@ BEGIN
 						 [id] [varchar](max) NULL,
 						 [CustomerId] [varchar](max) NULL,
 						 [InteractionId] [varchar](max) NULL,
-						 [DateandTimeOfSession] [varchar](max) NULL,
-						 [VenuePostCode] [varchar](max) NULL,
-						 [SessionAttended] [varchar](max) NULL,
-						 [ReasonForNonAttendance] [varchar](max) NULL,					 
-						 [LastModifiedDate] [varchar](max) NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL
+						 [SubcontractorId] [VARCHAR](MAX) NULL,
+						 [DateandTimeOfSession] [VARCHAR](MAX) NULL,
+						 [VenuePostCode] [VARCHAR](MAX) NULL,
+						 [SessionAttended] [VARCHAR](MAX) NULL,
+						 [ReasonForNonAttendance] [VARCHAR](MAX) NULL,					 
+						 [LastModifiedDate] [VARCHAR](MAX) NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -47,13 +48,14 @@ BEGIN
 			id VARCHAR(MAX) '$.id', 
 			CustomerId VARCHAR(MAX) '$.CustomerId',
 			InteractionId VARCHAR(MAX) '$.InteractionId',
+			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
 			DateandTimeOfSession VARCHAR(MAX) '$.DateandTimeOfSession',
 			VenuePostCode VARCHAR(MAX) '$.VenuePostCode',
 			SessionAttended VARCHAR(MAX) '$.SessionAttended',
 			ReasonForNonAttendance VARCHAR(MAX) '$.ReasonForNonAttendance',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
 			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
-			) as Coll
+			) AS Coll
 
 
 	IF OBJECT_ID('[dss-sessions]', 'U') IS NOT NULL 
@@ -63,23 +65,26 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-sessions](
-						 [id] uniqueidentifier NULL,
-						 [CustomerId] uniqueidentifier NULL,
-						 [InteractionId] uniqueidentifier NULL,
-						 [DateandTimeOfSession] datetime2 NULL,
-						 [VenuePostCode] [varchar](20) NULL,
-						 [SessionAttended] bit NULL,
-						 [ReasonForNonAttendance] int NULL,					 
-						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [id] UNIQUEIDENTIFIER,
+						 [CustomerId] UNIQUEIDENTIFIER NULL,
+						 [InteractionId] UNIQUEIDENTIFIER NULL,
+						 [SubcontractorId] varchar(50) NULL,
+						 [DateandTimeOfSession] DATETIME2 NULL,
+						 [VenuePostCode] [VARCHAR](20) NULL,
+						 [SessionAttended] BIT NULL,
+						 [ReasonForNonAttendance] INT NULL,					 
+						 [LastModifiedDate] DATETIME2 NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 CONSTRAINT [PK_dss-sessions] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
 
 		INSERT INTO [dss-sessions] 
 				SELECT
-				CONVERT(uniqueidentifier, [id]) as [id],
-				CONVERT(uniqueidentifier, [CustomerId]) as [CustomerId],
-				CONVERT(uniqueidentifier, [InteractionId]) as [InteractionId],
+				CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+				CONVERT(UNIQUEIDENTIFIER, [CustomerId]) AS [CustomerId],
+				CONVERT(UNIQUEIDENTIFIER, [InteractionId]) AS [InteractionId],
+				[SubContractorId],
 				CONVERT(datetime2, [DateandTimeOfSession]) as [DateandTimeOfSession],
 				[VenuePostCode],
 				CONVERT(bit, [SessionAttended]) as [SessionAttended],

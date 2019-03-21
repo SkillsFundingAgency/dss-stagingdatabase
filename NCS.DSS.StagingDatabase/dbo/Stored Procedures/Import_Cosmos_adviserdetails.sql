@@ -29,11 +29,12 @@ BEGIN
 		BEGIN
 			CREATE TABLE [#adviserdetails](
 						 [id] [varchar](max) NULL,
-						 [AdviserName] [varchar](max) NULL,
-						 [AdviserEmailAddress] [varchar](max) NULL,
-						 [AdviserContactNumber] [varchar](max) NULL,
-						 [LastModifiedDate] [varchar](max) NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL
+						 [SubcontractorId] [VARCHAR](MAX),
+						 [AdviserName] [VARCHAR](MAX) NULL,
+						 [AdviserEmailAddress] [VARCHAR](MAX) NULL,
+						 [AdviserContactNumber] [VARCHAR](MAX) NULL,
+						 [LastModifiedDate] [VARCHAR](MAX) NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -42,12 +43,13 @@ BEGIN
 	FROM OPENJSON(@retvalue)
 		WITH (
 			id VARCHAR(MAX) '$.id', 
+			SubcontractorId VARCHAR(50) '$.SubcontractorId',
 			AdviserName VARCHAR(MAX) '$.AdviserName',
 			AdviserEmailAddress VARCHAR(MAX) '$.AdviserEmailAddress',
 			AdviserContactNumber VARCHAR(MAX) '$.AdviserContactNumber',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
 			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
-			) as Coll
+			) AS Coll
 
 	
 	IF OBJECT_ID('[dss-adviserdetails]', 'U') IS NOT NULL 
@@ -57,18 +59,21 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-adviserdetails](
-						 [id] uniqueidentifier NULL,
-						 [AdviserName] [varchar](max) NULL,
-						 [AdviserEmailAddress] [varchar](max) NULL,
-						 [AdviserContactNumber] [varchar](max) NULL,
-						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [id] UNIQUEIDENTIFIER,
+						 [SubcontractorId] [VARCHAR](50) NULL,
+						 [AdviserName] [VARCHAR](MAX) NULL,
+						 [AdviserEmailAddress] [VARCHAR](MAX) NULL,
+						 [AdviserContactNumber] [VARCHAR](MAX) NULL,
+						 [LastModifiedDate] DATETIME2 NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 CONSTRAINT [PK_dss-adviserdetails] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
 
 		INSERT INTO [dss-adviserdetails] 
 				SELECT
-				CONVERT(uniqueidentifier, [id]) as [id],
+				CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+				[SubcontractorId],
 				[AdviserName],
 				[AdviserEmailAddress],
 				[AdviserContactNumber],

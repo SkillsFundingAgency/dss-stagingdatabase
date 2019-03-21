@@ -29,8 +29,9 @@ BEGIN
 		BEGIN
 			CREATE TABLE [#actions](
 						 [id] [varchar](max) NULL,
-						 [CustomerId] [varchar](max) NULL,
+						 [CustomerId] [varchar](max) NULL,						 
 						 [ActionPlanId] [varchar](max) NULL,
+						 [SubContractorId] [varchar](max) NULL,
 						 [DateActionAgreed] [varchar](max) NULL,
 						 [DateActionAimsToBeCompletedBy] [varchar](max) NULL,
 						 [DateActionActuallyCompleted] [varchar](max) NULL,
@@ -49,8 +50,9 @@ BEGIN
 	FROM OPENJSON(@retvalue)
 		WITH (
 			id VARCHAR(MAX) '$.id', 
-			CustomerId VARCHAR(MAX) '$.CustomerId',
+			CustomerId VARCHAR(MAX) '$.CustomerId',			
 			ActionPlanId VARCHAR(MAX) '$.ActionPlanId',
+			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
 			DateActionAgreed VARCHAR(MAX) '$.DateActionAgreed',
 			DateActionAimsToBeCompletedBy VARCHAR(MAX) '$.DateActionAimsToBeCompletedBy',
 			DateActionActuallyCompleted VARCHAR(MAX) '$.DateActionActuallyCompleted',
@@ -71,9 +73,10 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-actions](
-						 [id] uniqueidentifier NULL,
-						 [CustomerId] uniqueidentifier NULL,
+						 [id] uniqueidentifier,
+						 [CustomerId] uniqueidentifier NULL,						 
 						 [ActionPlanId] uniqueidentifier NULL,
+						 [SubcontractorId] varchar(50) NULL,
 						 [DateActionAgreed] datetime2 NULL,
 						 [DateActionAimsToBeCompletedBy] datetime2 NULL,
 						 [DateActionActuallyCompleted] datetime2 NULL,
@@ -83,16 +86,17 @@ BEGIN
 						 [ActionStatus] int NULL,
 						 [PersonResponsible] int NULL,
 						 [LastModifiedDate] [varchar](max) NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL,
+						 CONSTRAINT [PK_dss-actions] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]					
-
 		END
 
 		INSERT INTO [dss-actions] 
 				SELECT
 				CONVERT(uniqueidentifier, [id]) as [id],
-				CONVERT(uniqueidentifier, [CustomerId]) as [CustomerId],
+				CONVERT(uniqueidentifier, [CustomerId]) as [CustomerId],				
 				CONVERT(uniqueidentifier, [ActionPlanId]) as [ActionPlanId],
+				[SubcontractorId],
 				CONVERT(datetime2, [DateActionAgreed]) as [DateActionAgreed],
 				CONVERT(datetime2, [DateActionAimsToBeCompletedBy]) as [DateActionAimsToBeCompletedBy],
 				CONVERT(datetime2, [DateActionActuallyCompleted]) as [DateActionActuallyCompleted],

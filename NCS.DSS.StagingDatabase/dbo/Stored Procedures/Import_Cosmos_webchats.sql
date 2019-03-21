@@ -68,7 +68,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-webchats](
-						 [id] uniqueidentifier NULL,
+						 [id] uniqueidentifier,
 						 [CustomerId] uniqueidentifier NULL,
 						 [InteractionId] uniqueidentifier NULL,
 						 [DigitalReference] [varchar](max) NULL,
@@ -79,7 +79,8 @@ BEGIN
 						 [SentToCustomer] bit NULL,
 						 [DateandTimeSentToCustomers] datetime2 NULL,
 						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL,
+						 CONSTRAINT [PK_dss-webchats] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
 

@@ -5,4 +5,3 @@
     [value]       INT           NULL,
     [description] VARCHAR (MAX) NULL
 );
-

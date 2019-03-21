@@ -31,14 +31,15 @@ BEGIN
 						 [id] [varchar](max) NULL,
 						 [CustomerId] [varchar](max) NULL,
 						 [ActionPlanId] [varchar](max) NULL,
-						 [DateGoalCaptured] [varchar](max) NULL,
-						 [DateGoalShouldBeCompletedBy] [varchar](max) NULL,
-						 [DateGoalAchieved] [varchar](max) NULL,
-						 [GoalSummary] [varchar](max) NULL,
-						 [GoalType] [varchar](max) NULL,
-						 [GoalStatus] [varchar](max) NULL,						 
-						 [LastModifiedDate] [varchar](max) NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL
+						 [SubcontractorId] [VARCHAR](MAX) NULL,
+						 [DateGoalCaptured] [VARCHAR](MAX) NULL,
+						 [DateGoalShouldBeCompletedBy] [VARCHAR](MAX) NULL,
+						 [DateGoalAchieved] [VARCHAR](MAX) NULL,
+						 [GoalSummary] [VARCHAR](MAX) NULL,
+						 [GoalType] [VARCHAR](MAX) NULL,
+						 [GoalStatus] [VARCHAR](MAX) NULL,						 
+						 [LastModifiedDate] [VARCHAR](MAX) NULL,
+						 [LastModifiedBy] [VARCHAR](MAX) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -49,6 +50,7 @@ BEGIN
 			id VARCHAR(MAX) '$.id', 
 			CustomerId VARCHAR(MAX) '$.CustomerId',
 			ActionPlanId VARCHAR(MAX) '$.ActionPlanId',
+			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
 			DateGoalCaptured VARCHAR(MAX) '$.DateGoalCaptured',
 			DateGoalShouldBeCompletedBy VARCHAR(MAX) '$.DateGoalShouldBeCompletedBy',
 			DateGoalAchieved VARCHAR(MAX) '$.DateGoalAchieved',
@@ -56,8 +58,8 @@ BEGIN
 			GoalType VARCHAR(MAX) '$.GoalType',
 			GoalStatus VARCHAR(MAX) '$.GoalStatus',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
-			) as Coll
+			LastModifiedBy VARCHAR(MAX) '$.LastModifiedTouchpointId'
+			) AS Coll
 
 	IF OBJECT_ID('[dss-goals]', 'U') IS NOT NULL 
 		BEGIN
@@ -66,25 +68,28 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-goals](
-						 [id] uniqueidentifier NULL,
-						 [CustomerId] uniqueidentifier NULL,
-						 [ActionPlanId] uniqueidentifier NULL,
-						 [DateGoalCaptured] datetime2 NULL,
-						 [DateGoalShouldBeCompletedBy] datetime2 NULL,
-						 [DateGoalAchieved] datetime2 NULL,
-						 [GoalSummary] [varchar](max) NULL,
-						 [GoalType] int NULL,
-						 [GoalStatus] int NULL,						 
-						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [id] UNIQUEIDENTIFIER,
+						 [CustomerId] UNIQUEIDENTIFIER NULL,						 
+						 [ActionPlanId] UNIQUEIDENTIFIER NULL,
+						 [SubcontractorId] VARCHAR(50) NULL,
+						 [DateGoalCaptured] DATETIME2 NULL,
+						 [DateGoalShouldBeCompletedBy] DATETIME2 NULL,
+						 [DateGoalAchieved] DATETIME2 NULL,
+						 [GoalSummary] [VARCHAR](MAX) NULL,
+						 [GoalType] INT NULL,
+						 [GoalStatus] INT NULL,						 
+						 [LastModifiedDate] DATETIME2 NULL,
+						 [LastModifiedBy] [VARCHAR](MAX) NULL,
+						 CONSTRAINT [PK_dss-goals] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
 
 		INSERT INTO [dss-goals] 
 				SELECT
-				CONVERT(uniqueidentifier, [id]) as [id],
-				CONVERT(uniqueidentifier, [CustomerId]) as [CustomerId],
-				CONVERT(uniqueidentifier, [ActionPlanId]) as [ActionPlanId],
+				CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+				CONVERT(UNIQUEIDENTIFIER, [CustomerId]) AS [CustomerId],				
+				CONVERT(UNIQUEIDENTIFIER, [ActionPlanId]) AS [ActionPlanId],
+				[SubContractorId],
 				CONVERT(datetime2, [DateGoalCaptured]) as [DateGoalCaptured],
 				CONVERT(datetime2, [DateGoalShouldBeCompletedBy]) as [DateGoalShouldBeCompletedBy],
 				CONVERT(datetime2, [DateGoalAchieved]) as [DateGoalAchieved],
@@ -92,7 +97,7 @@ BEGIN
 				CONVERT(int, [GoalType]) as [GoalType],
 				CONVERT(int, [GoalStatus]) as [GoalStatus],
 				CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
-				[LastModifiedTouchpointId]
+				[LastModifiedBy]
 				FROM #goals
 
 		DROP TABLE #goals

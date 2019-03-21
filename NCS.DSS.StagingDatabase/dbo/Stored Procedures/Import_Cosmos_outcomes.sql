@@ -21,6 +21,10 @@ BEGIN
  
 	EXEC sp_executesql @ORowSet, @ParmDef, @retvalOUT=@retvalue OUTPUT;
 
+    SET @ParmDef = N'@retvalOUT NVARCHAR(MAX) OUTPUT';
+ 
+	EXEC sp_executesql @ORowSet, @ParmDef, @retvalOUT=@retvalue OUTPUT;
+
     IF OBJECT_ID('#outcomes', 'U') IS NOT NULL 
 		BEGIN
 			TRUNCATE TABLE #outcomes
@@ -31,12 +35,14 @@ BEGIN
 						 [id] [varchar](max) NULL,
 						 [CustomerId] [varchar](max) NULL,
 						 [ActionPlanId] [varchar](max) NULL,
-						 [OutcomeType] [varchar](max) NULL,
-						 [OutcomeClaimedDate] [varchar](max) NULL,
-						 [OutcomeEffectiveDate] [varchar](max) NULL,
-						 [TouchpointId] [varchar](max) NULL,					 
-						 [LastModifiedDate] [varchar](max) NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL
+						 [SubcontractorId] [VARCHAR](MAX) NULL,
+						 [OutcomeType] [VARCHAR](MAX) NULL,
+						 [OutcomeClaimedDate] [VARCHAR](MAX) NULL,
+						 [OutcomeEffectiveDate] [VARCHAR](MAX) NULL,
+						 [ClaimedPriorityGroup] VARCHAR(MAX) NULL,
+						 [TouchpointId] [VARCHAR](MAX) NULL,					 
+						 [LastModifiedDate] [VARCHAR](MAX) NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -47,14 +53,15 @@ BEGIN
 			id VARCHAR(MAX) '$.id', 
 			CustomerId VARCHAR(MAX) '$.CustomerId',
 			ActionPlanId VARCHAR(MAX) '$.ActionPlanId',
+			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
 			OutcomeType VARCHAR(MAX) '$.OutcomeType',
 			OutcomeClaimedDate VARCHAR(MAX) '$.OutcomeClaimedDate',
 			OutcomeEffectiveDate VARCHAR(MAX) '$.OutcomeEffectiveDate',
+			ClaimedPriorityGroup VARCHAR(MAX) '$.ClaimedPriorityGroup',
 			TouchpointId VARCHAR(MAX) '$.TouchpointId',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
 			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
-			) as Coll
-
+			) AS Coll
 
 
 	IF OBJECT_ID('[dss-outcomes]', 'U') IS NOT NULL 
@@ -64,27 +71,32 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-outcomes](
-						 [id] uniqueidentifier NULL,
-						 [CustomerId] uniqueidentifier NULL,
-						 [ActionPlanId] uniqueidentifier NULL,
-						 [OutcomeType] int NULL,
-						 [OutcomeClaimedDate] datetime2 NULL,
-						 [OutcomeEffectiveDate] datetime2 NULL,
-						 [TouchpointId] [varchar](max) NULL,					 
-						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [id] UNIQUEIDENTIFIER,
+						 [CustomerId] UNIQUEIDENTIFIER NULL,
+						 [ActionPlanId] UNIQUEIDENTIFIER NULL,
+						 [SubcontractorId] VARCHAR(50) NULL,
+						 [OutcomeType] INT NULL,
+						 [OutcomeClaimedDate] DATETIME2 NULL,
+						 [OutcomeEffectiveDate] DATETIME2 NULL,
+						 [ClaimedPriorityGroup] int NULL,
+						 [TouchpointId] [VARCHAR](MAX) NULL,					 
+						 [LastModifiedDate] DATETIME2 NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 CONSTRAINT [PK_dss-outcomes] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
 
 		INSERT INTO [dss-outcomes] 
 					SELECT
-					CONVERT(uniqueidentifier, [id]) as [id],
-					CONVERT(uniqueidentifier, [CustomerId]) as [CustomerId],
-					CONVERT(uniqueidentifier, [ActionPlanId]) as [ActionPlanId],
+					CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+					CONVERT(UNIQUEIDENTIFIER, [CustomerId]) AS [CustomerId],
+					CONVERT(UNIQUEIDENTIFIER, [ActionPlanId]) AS [ActionPlanId],
+					[SubcontractorId],
 					CONVERT(int, [OutcomeType]) as [OutcomeType],
 					CONVERT(datetime2, [OutcomeClaimedDate]) as [OutcomeClaimedDate],
 					CONVERT(datetime2, [OutcomeEffectiveDate]) as [OutcomeEffectiveDate],
-					[TouchpointId],
+					CONVERT(int, [ClaimedPriorityGroup]) as [ClaimedPriorityGroup],
+					[TouchpointId],					
 					CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
 					[LastModifiedTouchpointId]
 					FROM #outcomes 

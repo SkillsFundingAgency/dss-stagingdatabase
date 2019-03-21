@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[dss-webchats] (
-    [id]                         UNIQUEIDENTIFIER NULL,
+    [id]                         UNIQUEIDENTIFIER NOT NULL,
     [CustomerId]                 UNIQUEIDENTIFIER NULL,
     [InteractionId]              UNIQUEIDENTIFIER NULL,
     [DigitalReference]           VARCHAR (max)     NULL,
@@ -10,6 +10,7 @@
     [SentToCustomer]             BIT              NULL,
     [DateandTimeSentToCustomers] datetime2         NULL,
     [LastModifiedDate]           datetime2         NULL,
-    [LastModifiedTouchpointId]   VARCHAR (max)     NULL
+    [LastModifiedTouchpointId]   VARCHAR (max)     NULL, 
+    CONSTRAINT [PK_dss-webchats] PRIMARY KEY ([id])
 );
 

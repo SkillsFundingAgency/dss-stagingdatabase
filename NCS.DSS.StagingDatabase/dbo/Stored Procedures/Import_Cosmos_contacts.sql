@@ -64,15 +64,16 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-contacts](
-						 [id] uniqueidentifier NULL,
+						 [id] uniqueidentifier,
 						 [CustomerId] uniqueidentifier NULL,
 						 [PreferredContactMethod] int NULL,
 						 [MobileNumber] [varchar](max) NULL,
 						 [HomeNumber] [varchar](max) NULL,
 						 [AlternativeNumber] [varchar](max) NULL,
 						 [EmailAddress] [varchar](max) NULL,
-						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [LastModifiedDate] DATETIME2 NULL,
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 CONSTRAINT [PK_dss-contacts] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]		
 		END
 

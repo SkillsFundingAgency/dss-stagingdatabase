@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[dss-transfers] (
-    [id]                            UNIQUEIDENTIFIER NULL,
+    [id]                            UNIQUEIDENTIFIER NOT NULL,
     [CustomerId]                    UNIQUEIDENTIFIER NULL,
     [InteractionId]                 UNIQUEIDENTIFIER NULL,
     [OriginatingTouchpointId]       VARCHAR (max)     NULL,
@@ -10,6 +10,7 @@
     [RequestedCallbackTime]         datetime2         NULL,
     [ActualCallbackTime]            datetime2         NULL,
     [LastModifiedDate]              datetime2         NULL,
-    [LastModifiedTouchpointId]      VARCHAR (max)     NULL
+    [LastModifiedTouchpointId]      VARCHAR (max)     NULL, 
+    CONSTRAINT [PK_dss-transfers] PRIMARY KEY ([id])
 );
 

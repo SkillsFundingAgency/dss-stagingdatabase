@@ -69,7 +69,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-diversitydetails](
-						 [id] uniqueidentifier NULL,
+						 [id] uniqueidentifier,
 						 [CustomerId] uniqueidentifier NULL,
 						 [ConsentToCollectLLDDHealth] bit NULL,
 						 [LearningDifficultyOrDisabilityDeclaration] int NULL,
@@ -80,7 +80,8 @@ BEGIN
 						 [Ethnicity] int NULL,
 						 [DateAndTimeEthnicityCollected] datetime2 NULL,
 						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL) 
+						 [LastModifiedTouchpointId] [varchar](max) NULL,
+						 CONSTRAINT [PK_dss-diversitydetails] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
 
