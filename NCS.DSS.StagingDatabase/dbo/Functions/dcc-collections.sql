@@ -1,11 +1,17 @@
-﻿CREATE PROCEDURE [dbo].[sp-dcc-collections]
-	-- Add the parameters for the stored procedure here
-	@touchpointId VARCHAR(10),
-	@startDate DATE,
-	@endDate DATE
+﻿CREATE FUNCTION [dbo].[dcc-collections](@touchpointId VARCHAR(10), @startDate DATE, @endDate DATE)
+
+RETURNS @Result TABLE(CustomerID UNIQUEIDENTIFIER, DateOfBirth DATE, HomePostCode VARCHAR(10), 
+
+                                        ActionPlanId UNIQUEIDENTIFIER, SessionDate DATE, SubContractorId VARCHAR(50), 
+
+                                        AdviserName VARCHAR(100), OutcomeId UNIQUEIDENTIFIER,
+
+                                        OutcomeType INT, OutcomeEffectiveDate DATE, OutcomePriorityCustomer INT)
+
 AS
-BEGIN	 	
-  DECLARE @contractStartDate DATE
+
+BEGIN  
+DECLARE @contractStartDate DATE
   SET @contractStartDate = '2018/10/01';
   
 WITH outcomes AS
@@ -49,7 +55,8 @@ dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDate
   select o.*,
     RANK () OVER ( PARTITION BY o.CustomerId, o.SessionDate, o.LocalOutcomeType ORDER BY OutcomeEffectiveDate ASC) rk
    from outcomes o  
-)
+)	
+   INSERT INTO @Result
    select CustomerID, DateOfBirth, HomePostCode, ActionPlanId, SessionDate, SubContractorId, AdviserName, OutcomeID, OutcomeType, OutcomeEffectiveDate, OutcomePriorityCustomer
     from outcomerank ora
   where rk = 1
@@ -57,4 +64,6 @@ dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDate
                               where priorsession.CustomerId = ora.CustomerID
                                     and DATEADD(YEAR, 1, priorsession.DateandTimeOfSession ) > ora.DateandTimeOfSession
                                     and priorsession.DateandTimeOfSession < ora.DateandTimeOfSession )
+
+	return
 END

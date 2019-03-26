@@ -67,6 +67,7 @@
     <Folder Include="Scripts" />
     <Folder Include="dbo\Stored Procedures\ChangeHistory" />
     <Folder Include="dbo\Stored Procedures\DataCollections" />
+    <Folder Include="dbo\Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\dss-actionplans.sql" />
@@ -124,6 +125,7 @@
     <Build Include="dbo\Tables\dss-outcomes-history.sql" />
     <Build Include="dbo\Tables\dss-sessions-history.sql" />
     <Build Include="dbo\Stored Procedures\DataCollections\sp-dcc-collections.sql" />
+    <Build Include="dbo\Functions\dcc-collections.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
