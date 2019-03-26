@@ -233,14 +233,13 @@ IF OBJECT_ID('[dss-subscriptions]', 'U') IS NOT NULL
 			DROP TABLE [dss-subscriptions]
 		
 			CREATE TABLE [dbo].[dss-subscriptions] (
-							   [CustomerId] UNIQUEIDENTIFIER NOT NULL,
-							   [SubscriptionId] UNIQUEIDENTIFIER NULL,
-							   [TouchPointId] VARCHAR (max) NULL,
-							   [Subscribe] BIT NULL,
-							   [LastModifiedDate] datetime2 NULL,
-							   [LastModifiedTouchpointId] VARCHAR (max) NULL, 
-							   CONSTRAINT [PK_dss-subscriptions] PRIMARY KEY ([CustomerId]))
-							   ON [PRIMARY]
+							[CustomerId]               UNIQUEIDENTIFIER NOT NULL,
+							[SubscriptionId]           UNIQUEIDENTIFIER NOT NULL,
+							[TouchPointId]             VARCHAR (MAX)     NULL,
+							[Subscribe]                BIT              NULL,
+							[LastModifiedDate]         DATETIME2         NULL,
+							[LastModifiedTouchpointId] VARCHAR (MAX)     NULL, 
+							CONSTRAINT [PK_dss-subscriptions] PRIMARY KEY ([SubscriptionId]))
 		END
 
 IF OBJECT_ID('[dss-transfers]', 'U') IS NOT NULL 
