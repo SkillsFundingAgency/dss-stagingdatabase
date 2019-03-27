@@ -1,11 +1,8 @@
 ﻿CREATE FUNCTION [dbo].[dcc-collections](@touchpointId VARCHAR(10), @startDate DATE, @endDate DATE)
 
 RETURNS @Result TABLE(CustomerID UNIQUEIDENTIFIER, DateOfBirth DATE, HomePostCode VARCHAR(10), 
-
                                         ActionPlanId UNIQUEIDENTIFIER, SessionDate DATE, SubContractorId VARCHAR(50), 
-
                                         AdviserName VARCHAR(100), OutcomeId UNIQUEIDENTIFIER,
-
                                         OutcomeType INT, OutcomeEffectiveDate DATE, OutcomePriorityCustomer INT)
 
 AS
@@ -27,13 +24,13 @@ WITH outcomes AS
         CASE WHEN dssoutcomes.OutcomeType = 1 Then 1
             WHEN dssoutcomes.OutcomeType = 2 Then 2
             ELSE 3
-           END AS LocalOutcomeType,
+        END AS LocalOutcomeType,
         dssoutcomes.OutcomeType as OutcomeType, -- int
         CONVERT(DATE, dssoutcomes.OutcomeEffectiveDate) AS OutcomeEffectiveDate, -- date
         IIF (dssactionplans.PriorityCustomer > 6, 1, 0) AS OutcomePriorityCustomer,   --int
         dsssessions.id,
         dsssessions.DateandTimeOfSession,
-         dssoutcomes.TouchpointId
+        dssoutcomes.TouchpointId
 from [dss-customers] as dsscustomers
      LEFT OUTER JOIN [dss-addresses] as dssaddresses on dssaddresses.CustomerId = dsscustomers.id
      INNER JOIN [dss-interactions] as dssinteractions on dssinteractions.CustomerId = dsscustomers.id
@@ -45,9 +42,8 @@ WHERE
 dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDate
        AND ((dssoutcomes.OutcomeType = 3 AND dsssessions.DateandTimeOfSession >= DATEADD(mm, -13, dssoutcomes.OutcomeEffectiveDate)) OR
             (dssoutcomes.OutcomeType IN (1, 2, 4, 5) AND dsssessions.DateandTimeOfSession >= DATEADD(mm, -12, dssoutcomes.OutcomeEffectiveDate)))
-      AND dssoutcomes.OutcomeClaimedDate IS NOT NULL
-       AND
-        dssoutcomes.touchpointId = @touchpointId
+       AND dssoutcomes.OutcomeClaimedDate IS NOT NULL
+       AND dssoutcomes.touchpointId = @touchpointId
        AND dsssessions.DateandTimeOfSession BETWEEN @contractStartDate AND @endDate
 )
 ,outcomerank AS
@@ -60,7 +56,7 @@ dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDate
    select CustomerID, DateOfBirth, HomePostCode, ActionPlanId, SessionDate, SubContractorId, AdviserName, OutcomeID, OutcomeType, OutcomeEffectiveDate, OutcomePriorityCustomer
     from outcomerank ora
   where rk = 1
-  and     not exists ( select 1 from [dss-sessions] priorsession
+  and not exists ( select 1 from [dss-sessions] priorsession
                               where priorsession.CustomerId = ora.CustomerID
                                     and DATEADD(YEAR, 1, priorsession.DateandTimeOfSession ) > ora.DateandTimeOfSession
                                     and priorsession.DateandTimeOfSession < ora.DateandTimeOfSession )
