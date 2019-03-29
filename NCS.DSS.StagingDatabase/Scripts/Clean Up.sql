@@ -38,6 +38,11 @@ IF OBJECT_ID('[GetCustomerSatisfactionOutcomes]') IS NOT NULL
 			DROP FUNCTION [GetCustomerSatisfactionOutcomes]
 		END
 
+IF OBJECT_ID('[GetCustomerClaimableOutcomes]') IS NOT NULL 
+		BEGIN
+			DROP FUNCTION [GetCustomerClaimableOutcomes]
+		END
+
 IF OBJECT_ID('[Change_Feed_Upsert_actions]') IS NOT NULL 
 		BEGIN
 			DROP PROCEDURE [Change_Feed_Upsert_actions]

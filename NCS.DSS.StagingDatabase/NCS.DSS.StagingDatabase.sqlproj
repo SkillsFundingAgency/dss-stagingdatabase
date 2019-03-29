@@ -128,6 +128,7 @@
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
     <None Include="Scripts\Clean Up.sql" />
+    <None Include="Scripts\History Tables Drop and Recreate.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="NCS.DSS.StagingDatabase.refactorlog" />
