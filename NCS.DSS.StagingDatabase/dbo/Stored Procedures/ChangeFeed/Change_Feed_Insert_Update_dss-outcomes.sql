@@ -7,15 +7,16 @@ BEGIN
 		FROM OPENJSON(@Json) WITH (
 				id UNIQUEIDENTIFIER
 				,CustomerId UNIQUEIDENTIFIER
-				,ActionPlanId UNIQUEIDENTIFIER
-				,SubcontractorId VARCHAR(50)
+				,ActionPlanId UNIQUEIDENTIFIER				
+				,SessionId UNIQUEIDENTIFIER
+				,SubcontractorId VARCHAR(50)				
 				,OutcomeType INT
 				,OutcomeClaimedDate DATETIME2
 				,OutcomeEffectiveDate DATETIME2
-				,ClaimedPriorityGroup VARCHAR(max)
-				,TouchpointId VARCHAR(max)
+				,ClaimedPriorityGroup VARCHAR(MAX)
+				,TouchpointId VARCHAR(MAX)
 				,LastModifiedDate DATETIME2
-				,LastModifiedTouchpointId VARCHAR(max)
+				,LastModifiedTouchpointId VARCHAR(MAX)
 				)
 		) AS InputJSON
 		ON (outcomes.id = InputJSON.id)
@@ -24,8 +25,9 @@ BEGIN
 			UPDATE
 			SET outcomes.id = InputJSON.id
 				,outcomes.CustomerId = InputJSON.CustomerId
-				,outcomes.ActionPlanId = InputJSON.ActionPlanId
-				,outcomes.SubcontractorId = InputJSON.SubcontractorId
+				,outcomes.ActionPlanId = InputJSON.ActionPlanId		
+				,outcomes.SessionId = InputJSON.SessionId
+				,outcomes.SubcontractorId = InputJSON.SubcontractorId				
 				,outcomes.OutcomeType = InputJSON.OutcomeType
 				,outcomes.OutcomeClaimedDate = InputJSON.OutcomeClaimedDate
 				,outcomes.OutcomeEffectiveDate = InputJSON.OutcomeEffectiveDate
@@ -38,8 +40,9 @@ BEGIN
 			INSERT (
 				id
 				,CustomerId
-				,ActionPlanId
-				,SubcontractorId
+				,ActionPlanId	
+				,SessionId
+				,SubcontractorId				
 				,OutcomeType
 				,OutcomeClaimedDate
 				,OutcomeEffectiveDate
@@ -51,8 +54,9 @@ BEGIN
 			VALUES (
 				InputJSON.id
 				,InputJSON.CustomerId
-				,InputJSON.ActionPlanId
-				,InputJSON.SubcontractorId
+				,InputJSON.ActionPlanId		
+				,InputJSON.SessionId
+				,InputJSON.SubcontractorId				
 				,InputJSON.OutcomeType
 				,InputJSON.OutcomeClaimedDate
 				,InputJSON.OutcomeEffectiveDate
