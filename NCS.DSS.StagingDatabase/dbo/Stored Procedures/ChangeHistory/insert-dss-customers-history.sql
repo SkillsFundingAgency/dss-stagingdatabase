@@ -3,7 +3,7 @@ AS
 BEGIN
 	INSERT INTO [dss-customers-history]
 		SELECT DATEADD(MINUTE, _ts/60, DATEADD(SECOND, _ts%60, '19700101')) as CosmosTimeStamp, id, SubcontractorId, DateOfRegistration, Title, GivenName, FamilyName,
-		       DateofBirth, Gender, UniqueLearnerNumber, OptInUserResearch, DateOfTermination, ReasonForTermination, IntroducedBy,
+		       DateofBirth, Gender, UniqueLearnerNumber, OptInMarketResearch, OptInUserResearch, DateOfTermination, ReasonForTermination, IntroducedBy,
 			   IntroducedByAdditionalInfo, LastModifiedDate, LastModifiedTouchpointId
 			FROM OPENJSON(@Json) WITH (
 				_ts BIGINT
@@ -16,6 +16,7 @@ BEGIN
 				,DateofBirth DATETIME2
 				,Gender INT
 				,UniqueLearnerNumber VARCHAR(Max)
+				,OptInMarketResearch BIT
 				,OptInUserResearch BIT
 				,DateOfTermination DATETIME2
 				,ReasonForTermination INT

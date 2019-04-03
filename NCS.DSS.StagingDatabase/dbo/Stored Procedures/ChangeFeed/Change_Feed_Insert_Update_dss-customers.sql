@@ -14,6 +14,7 @@ BEGIN
 				,DateofBirth DATETIME2
 				,Gender INT
 				,UniqueLearnerNumber VARCHAR(Max)
+				,OptInMarketResearch BIT
 				,OptInUserResearch BIT
 				,DateOfTermination DATETIME2
 				,ReasonForTermination INT
@@ -36,6 +37,7 @@ BEGIN
 				,customers.DateofBirth = InputJSON.DateofBirth
 				,customers.Gender = InputJSON.Gender
 				,customers.UniqueLearnerNumber = InputJSON.UniqueLearnerNumber
+				,customers.OptInMarketResearch = InputJSON.OptInMarketResearch
 				,customers.OptInUserResearch = InputJSON.OptInUserResearch
 				,customers.DateOfTermination = InputJSON.DateOfTermination
 				,customers.ReasonForTermination = InputJSON.ReasonForTermination
@@ -55,6 +57,7 @@ BEGIN
 				,DateofBirth
 				,Gender
 				,UniqueLearnerNumber
+				,OptInMarketResearch
 				,OptInUserResearch
 				,DateOfTermination
 				,ReasonForTermination
@@ -73,6 +76,7 @@ BEGIN
 				,InputJSON.DateofBirth
 				,InputJSON.Gender
 				,InputJSON.UniqueLearnerNumber
+				,InputJSON.OptInMarketResearch
 				,InputJSON.OptInUserResearch
 				,InputJSON.DateOfTermination
 				,InputJSON.ReasonForTermination

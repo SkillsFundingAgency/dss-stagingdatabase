@@ -10,6 +10,7 @@
 	[DateofBirth] [datetime2](7) NULL,
 	[Gender] [int] NULL,
 	[UniqueLearnerNumber] [varchar](15) NULL,
+	[OptInMarketResearch] [bit] NULL,
 	[OptInUserResearch] [bit] NULL,
 	[DateOfTermination] [datetime2](7) NULL,
 	[ReasonForTermination] [int] NULL,
