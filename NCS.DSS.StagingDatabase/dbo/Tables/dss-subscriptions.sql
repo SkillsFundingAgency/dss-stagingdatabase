@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[dss-subscriptions] (
-    [CustomerId]               UNIQUEIDENTIFIER NOT NULL,
-    [SubscriptionId]           UNIQUEIDENTIFIER NOT NULL,
+    [id]			           UNIQUEIDENTIFIER NOT NULL,
+	[CustomerId]               UNIQUEIDENTIFIER NULL,
     [TouchPointId]             VARCHAR (max)     NULL,
     [Subscribe]                BIT              NULL,
     [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL, 
-    CONSTRAINT [PK_dss-subscriptions] PRIMARY KEY ([SubscriptionId]) 
+    CONSTRAINT [PK_dss-subscriptions] PRIMARY KEY ([id]) 
 );
 

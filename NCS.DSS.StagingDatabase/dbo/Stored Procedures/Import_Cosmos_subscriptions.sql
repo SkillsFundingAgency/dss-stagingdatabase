@@ -28,8 +28,8 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [#subscriptions](
+						 [id] [varchar](max) NULL,
 						 [CustomerId] [varchar](max) NULL,
-						 [SubscriptionId] [varchar](max) NULL,
 						 [TouchPointId] [varchar](max) NULL,
 						 [Subscribe] [varchar](max) NULL,			 
 						 [LastModifiedDate] [varchar](max) NULL,
@@ -41,8 +41,8 @@ BEGIN
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
+			id VARCHAR(MAX) '$.id', 
 			CustomerId VARCHAR(MAX) '$.CustomerId',
-			SubscriptionId VARCHAR(MAX) '$.SubscriptionId',
 			TouchPointId VARCHAR(MAX) '$.TouchPointId',
 			Subscribe VARCHAR(MAX) '$.Subscribe',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
@@ -57,8 +57,8 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-subscriptions](
+						 [id] uniqueidentifier,
 						 [CustomerId] uniqueidentifier NULL,
-						 [SubscriptionId] uniqueidentifier NULL,
 						 [TouchPointId] [varchar](max) NULL,
 						 [Subscribe] bit NULL,			 
 						 [LastModifiedDate] datetime2 NULL,
@@ -68,8 +68,8 @@ BEGIN
 
 		INSERT INTO [dss-subscriptions] 
 				SELECT
+				CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
 				CONVERT(uniqueidentifier, [CustomerId]) as [CustomerId],
-				CONVERT(uniqueidentifier, [SubscriptionId]) as [SubscriptionId],
 				[TouchPointId],
 				CONVERT(bit, [Subscribe]) as [Subscribe],
 				CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
