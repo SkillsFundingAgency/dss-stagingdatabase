@@ -65,7 +65,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-sessions](
-						 [id] UNIQUEIDENTIFIER,
+						 [id] UNIQUEIDENTIFIER NOT NULL,
 						 [CustomerId] UNIQUEIDENTIFIER NULL,
 						 [InteractionId] UNIQUEIDENTIFIER NULL,
 						 [SubcontractorId] varchar(50) NULL,

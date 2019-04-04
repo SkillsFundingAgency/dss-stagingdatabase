@@ -73,7 +73,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-outcomes](
-						 [id] UNIQUEIDENTIFIER,
+						 [id] UNIQUEIDENTIFIER NOT NULL,
 						 [CustomerId] UNIQUEIDENTIFIER NULL,
 						 [ActionPlanId] UNIQUEIDENTIFIER NULL,
 						 [SessionId] UNIQUEIDENTIFIER NULL,

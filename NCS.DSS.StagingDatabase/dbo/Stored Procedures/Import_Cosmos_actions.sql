@@ -73,7 +73,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-actions](
-						 [id] uniqueidentifier,
+						 [id] uniqueidentifier NOT NULL,
 						 [CustomerId] uniqueidentifier NULL,						 
 						 [ActionPlanId] uniqueidentifier NULL,
 						 [SubcontractorId] varchar(50) NULL,

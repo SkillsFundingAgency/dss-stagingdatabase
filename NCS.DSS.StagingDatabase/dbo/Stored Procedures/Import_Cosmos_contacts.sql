@@ -64,7 +64,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-contacts](
-						 [id] uniqueidentifier,
+						 [id] uniqueidentifier NOT NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [PreferredContactMethod] int NULL,
 						 [MobileNumber] [varchar](max) NULL,

@@ -69,7 +69,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-diversitydetails](
-						 [id] uniqueidentifier,
+						 [id] uniqueidentifier NOT NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [ConsentToCollectLLDDHealth] bit NULL,
 						 [LearningDifficultyOrDisabilityDeclaration] int NULL,

@@ -69,7 +69,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-actionplans](
-						[id] uniqueidentifier,
+						[id] uniqueidentifier NOT NULL,
 						[CustomerId] uniqueidentifier NULL,
 						[InteractionId] uniqueidentifier NULL,
 						[SessionId] UNIQUEIDENTIFIER NULL,

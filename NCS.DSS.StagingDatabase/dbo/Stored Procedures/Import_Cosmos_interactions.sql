@@ -63,7 +63,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-interactions](
-						 [id] uniqueidentifier,
+						 [id] uniqueidentifier NOT NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [TouchpointId] [varchar](max) NULL,
 						 [AdviserDetailsId] uniqueidentifier NULL,
