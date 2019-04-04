@@ -78,7 +78,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-customers](
-						 [id] UNIQUEIDENTIFIER,
+						 [id] UNIQUEIDENTIFIER NOT NULL,
 						 [SubcontractorId] VARCHAR(50) NULL,
 						 [DateOfRegistration] DATETIME2 NULL,
 						 [Title] INT NULL,

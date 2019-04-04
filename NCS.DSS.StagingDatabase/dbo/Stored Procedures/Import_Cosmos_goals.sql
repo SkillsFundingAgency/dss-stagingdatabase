@@ -68,7 +68,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-goals](
-						 [id] UNIQUEIDENTIFIER,
+						 [id] UNIQUEIDENTIFIER NOT NULL,
 						 [CustomerId] UNIQUEIDENTIFIER NULL,						 
 						 [ActionPlanId] UNIQUEIDENTIFIER NULL,
 						 [SubcontractorId] VARCHAR(50) NULL,

@@ -57,7 +57,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-subscriptions](
-						 [id] uniqueidentifier,
+						 [id] uniqueidentifier NOT NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [TouchPointId] [varchar](max) NULL,
 						 [Subscribe] bit NULL,			 

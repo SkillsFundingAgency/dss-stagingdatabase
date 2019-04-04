@@ -68,7 +68,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-webchats](
-						 [id] uniqueidentifier,
+						 [id] uniqueidentifier NOT NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [InteractionId] uniqueidentifier NULL,
 						 [DigitalReference] [varchar](max) NULL,

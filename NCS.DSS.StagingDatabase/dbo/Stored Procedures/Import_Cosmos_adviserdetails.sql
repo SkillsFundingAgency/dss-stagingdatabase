@@ -59,7 +59,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-adviserdetails](
-						 [id] UNIQUEIDENTIFIER,
+						 [id] UNIQUEIDENTIFIER NOT NULL,
 						 [SubcontractorId] [VARCHAR](50) NULL,
 						 [AdviserName] [VARCHAR](MAX) NULL,
 						 [AdviserEmailAddress] [VARCHAR](MAX) NULL,

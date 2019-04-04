@@ -69,7 +69,7 @@ BEGIN
 	ELSE
 		BEGIN
 			CREATE TABLE [dss-transfers](
-						 [id] uniqueidentifier,
+						 [id] uniqueidentifier NOT NULL,
 						 [CustomerId] uniqueidentifier NULL,
 						 [InteractionId] uniqueidentifier NULL,
 						 [OriginatingTouchpointId] [varchar](max) NULL,
