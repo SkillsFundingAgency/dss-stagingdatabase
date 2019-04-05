@@ -27,7 +27,7 @@ WITH outcomes AS
         END AS LocalOutcomeType,
         dssoutcomes.OutcomeType as OutcomeType, -- int
         CONVERT(DATE, dssoutcomes.OutcomeEffectiveDate) AS OutcomeEffectiveDate, -- date
-        IIF (dssactionplans.PriorityCustomer > 6, 1, 0) AS OutcomePriorityCustomer,   --int
+        IIF (dssoutcomes.ClaimedPriorityGroup < 99, 1, 0) AS OutcomePriorityCustomer,   --int
         dsssessions.id,
         dsssessions.DateandTimeOfSession,
         dssoutcomes.TouchpointId
