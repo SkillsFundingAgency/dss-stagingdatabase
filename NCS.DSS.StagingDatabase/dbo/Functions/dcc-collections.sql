@@ -34,7 +34,7 @@ WITH outcomes AS
 from [dss-customers] as dsscustomers
      LEFT OUTER JOIN [dss-addresses] as dssaddresses on dssaddresses.CustomerId = dsscustomers.id
      INNER JOIN [dss-interactions] as dssinteractions on dssinteractions.CustomerId = dsscustomers.id
-     INNER JOIN [dss-adviserdetails] as dssadviserdetails on dssadviserdetails.id = dssinteractions.AdviserDetailsId
+     LEFT JOIN [dss-adviserdetails] as dssadviserdetails on dssadviserdetails.id = dssinteractions.AdviserDetailsId
      INNER JOIN [dss-sessions] as dsssessions on dsssessions.interactionid = dssinteractions.id
      INNER JOIN [dss-actionplans] as dssactionplans on dssactionplans.SessionId = dsssessions.id  and dssactionplans.InteractionId = dssinteractions.id
      INNER JOIN [dss-outcomes] as dssoutcomes on dssoutcomes.ActionPlanId = dssactionplans.id and dssoutcomes.ActionPlanId = dssactionplans.id
