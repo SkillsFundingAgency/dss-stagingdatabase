@@ -16,6 +16,8 @@ WITH outcomes AS
   select dsscustomers.id as CustomerID, --uniqueidentifier
         dsscustomers.DateofBirth as DateOfBirth, --date
         dssaddresses.PostCode as HomePostCode, --varchar
+		dssaddresses.LastModifiedDate as AddressLastModified, --date
+		dssaddresses.id as AddressId, --date
         dssactionplans.id as ActionPlanId, --uniqueidentifier
         CONVERT(DATE, dsssessions.DateandTimeOfSession) AS SessionDate,  -- date
         dssoutcomes.SubcontractorId AS SubContractorId,  -- varchar(50)
@@ -53,7 +55,10 @@ dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDate
 ,outcomerank AS
 (
   select o.*,
-    RANK () OVER ( PARTITION BY o.CustomerId, o.SessionDate, o.LocalOutcomeType ORDER BY OutcomeEffectiveDate ASC, o.LastModifiedDate ASC) rk
+    RANK () OVER ( PARTITION BY o.CustomerId, o.SessionDate, o.LocalOutcomeType ORDER BY o.OutcomeEffectiveDate ASC
+																			            ,o.LastModifiedDate ASC
+																						,o.AddressLastModified ASC
+																						,o.AddressId) rk
    from outcomes o  
 )	
    INSERT INTO @Result
