@@ -57,6 +57,7 @@ dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDate
   select o.*,
     RANK () OVER ( PARTITION BY o.CustomerId, o.SessionDate, o.LocalOutcomeType ORDER BY o.OutcomeEffectiveDate ASC
 																			            ,o.LastModifiedDate ASC
+																						,o.OutcomeID
 																						,o.AddressLastModified ASC
 																						,o.AddressId) rk
    from outcomes o  
