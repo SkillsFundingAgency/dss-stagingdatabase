@@ -175,6 +175,31 @@ IF OBJECT_ID('[dss-goals-history]', 'U') IS NOT NULL
 					) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 		END
 
+IF OBJECT_ID('[dss-interactions-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-interactions-history]
+		
+			CREATE TABLE [dbo].[dss-interactions-history] (
+					[HistoryId] [INT] IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp] [DATETIME2](7) NOT NULL,
+					[id] UNIQUEIDENTIFIER NOT NULL,
+					[CustomerId] UNIQUEIDENTIFIER NULL,
+					[TouchpointId] VARCHAR (max)     NULL,
+					[AdviserDetailsId] UNIQUEIDENTIFIER NULL,
+					[DateandTimeOfInteraction] datetime2 NULL,
+					[Channel] INT NULL,
+					[InteractionType] INT NULL,
+					[LastModifiedDate] datetime2 NULL,
+					[LastModifiedTouchpointId] VARCHAR (max) NULL, 
+					CONSTRAINT [PK_dss-interactions-history] PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		END
+
 IF OBJECT_ID('[dss-outcomes-history]', 'U') IS NOT NULL 
 		BEGIN
 			DROP TABLE [dss-outcomes-history]
