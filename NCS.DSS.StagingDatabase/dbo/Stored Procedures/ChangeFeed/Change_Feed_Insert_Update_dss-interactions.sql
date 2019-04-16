@@ -44,6 +44,7 @@ BEGIN
 				)
 			VALUES (
 				 InputJSON.id
+				,InputJSON.CustomerId
 				,InputJSON.TouchpointId
 				,InputJSON.AdviserDetailsId
 				,InputJSON.DateandTimeOfInteraction
