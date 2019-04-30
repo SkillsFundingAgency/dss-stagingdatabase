@@ -69,7 +69,8 @@ dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDate
   and not exists ( select 1 from [dss-sessions] priorsession
                               where priorsession.CustomerId = ora.CustomerID
                                     and DATEADD(YEAR, 1, priorsession.DateandTimeOfSession ) > ora.DateandTimeOfSession
-                                    and priorsession.DateandTimeOfSession < ora.DateandTimeOfSession )
+                                    and priorsession.DateandTimeOfSession < ora.DateandTimeOfSession
+									and IsNull(priorsession.SessionAttended, 1) <> 0 )
 
 	return
 END
