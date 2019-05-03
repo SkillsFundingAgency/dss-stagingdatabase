@@ -12,7 +12,7 @@ DECLARE @contractStartDate DATE
 DECLARE @endDateTime DATETIME2
 
 SET @contractStartDate = '2018/10/01';
-SET @endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)))
+SET @endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
    
 WITH outcomes AS
 (
