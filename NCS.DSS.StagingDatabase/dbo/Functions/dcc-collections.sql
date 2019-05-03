@@ -9,7 +9,10 @@ AS
 
 BEGIN  
 DECLARE @contractStartDate DATE
-  SET @contractStartDate = '2018/10/01';
+DECLARE @endDateTime DATETIME2
+
+SET @contractStartDate = '2018/10/01';
+SET @endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
    
 WITH outcomes AS
 (
@@ -45,12 +48,12 @@ from [dss-customers] as dsscustomers
 	 LEFT JOIN [dss-adviserdetails] as dssadviserdetails on dssadviserdetails.id = dssinteractions.AdviserDetailsId
 
 WHERE
-dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDate
+dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDateTime
        AND ((dssoutcomes.OutcomeType = 3 AND dsssessions.DateandTimeOfSession >= DATEADD(mm, -13, dssoutcomes.OutcomeEffectiveDate)) OR
             (dssoutcomes.OutcomeType IN (1, 2, 4, 5) AND dsssessions.DateandTimeOfSession >= DATEADD(mm, -12, dssoutcomes.OutcomeEffectiveDate)))
        AND dssoutcomes.OutcomeClaimedDate IS NOT NULL
        AND dssoutcomes.touchpointId = @touchpointId
-       AND dsssessions.DateandTimeOfSession BETWEEN @contractStartDate AND @endDate
+       AND dsssessions.DateandTimeOfSession BETWEEN @contractStartDate AND @endDateTime
 )
 ,outcomerank AS
 (
