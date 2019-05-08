@@ -51,7 +51,7 @@ WHERE
 dssoutcomes.OutcomeEffectiveDate BETWEEN @startDate AND @endDateTime
        AND ((dssoutcomes.OutcomeType = 3 AND dsssessions.DateandTimeOfSession >= DATEADD(mm, -13, dssoutcomes.OutcomeEffectiveDate)) OR
             (dssoutcomes.OutcomeType IN (1, 2, 4, 5) AND dsssessions.DateandTimeOfSession >= DATEADD(mm, -12, dssoutcomes.OutcomeEffectiveDate)))
-       AND dssoutcomes.OutcomeClaimedDate IS NOT NULL
+       AND dssoutcomes.OutcomeClaimedDate BETWEEN @startDate AND @endDateTime
        AND dssoutcomes.touchpointId = @touchpointId
        AND dsssessions.DateandTimeOfSession BETWEEN @contractStartDate AND @endDateTime
 )
