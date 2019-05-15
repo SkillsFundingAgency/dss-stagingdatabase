@@ -37,7 +37,6 @@ BEGIN
 				InputJSON.id
 				,InputJSON.CustomerId
 				,InputJSON.TouchPointId
-				,InputJSON.DigitalReference
 				,InputJSON.Subscribe
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
