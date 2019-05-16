@@ -124,6 +124,24 @@
     <Build Include="dbo\Tables\dss-outcomes-history.sql" />
     <Build Include="dbo\Tables\dss-sessions-history.sql" />
     <Build Include="dbo\Functions\dcc-collections.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-contacts-history.sql" />
+    <Build Include="dbo\Tables\dss-contacts-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-contacts.sql" />
+    <Build Include="dbo\Tables\dss-interactions-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-interactions.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-interactions-history.sql" />
+    <Build Include="dbo\Tables\dss-diversitydetails-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-diversitydetails-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-diversity.sql" />
+    <Build Include="dbo\Tables\dss-transfers-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-transfers-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-transfers.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-webchats.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-webchats-history.sql" />
+    <Build Include="dbo\Tables\dss-webchats-history.sql" />
+    <Build Include="dbo\Tables\dss-subscriptions-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-subscriptions.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-subscriptions-history.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />

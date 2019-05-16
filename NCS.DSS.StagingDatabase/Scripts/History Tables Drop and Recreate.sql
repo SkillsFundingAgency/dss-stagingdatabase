@@ -114,6 +114,32 @@ IF OBJECT_ID('[dss-adviserdetails-history]', 'U') IS NOT NULL
 				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 		END
+		
+IF OBJECT_ID('[dss-contacts-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-contacts-history]
+
+			CREATE TABLE [dbo].[dss-contacts-history](
+					[HistoryId] [int] IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp] [datetime2](7) NOT NULL,
+					[id] [uniqueidentifier] NOT NULL,
+					[CustomerId]               UNIQUEIDENTIFIER NULL,
+					[PreferredContactMethod]   INT              NULL,
+					[MobileNumber]             VARCHAR (max)     NULL,
+					[HomeNumber]               VARCHAR (max)     NULL,
+					[AlternativeNumber]        VARCHAR (max)     NULL,
+					[EmailAddress]             VARCHAR (max)     NULL,
+					[LastModifiedDate]         datetime2         NULL,
+					[LastModifiedTouchpointId] VARCHAR (max)     NULL, 
+				 CONSTRAINT [PK_dss-contacts-history] PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+				
+		END
 
 IF OBJECT_ID('[dss-customers-history]', 'U') IS NOT NULL 
 		BEGIN
@@ -146,6 +172,34 @@ IF OBJECT_ID('[dss-customers-history]', 'U') IS NOT NULL
 					)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 					) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 		END
+		
+IF OBJECT_ID('[dss-diversitydetails-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-diversitydetails-history]
+
+			CREATE TABLE [dbo].[dss-diversitydetails-history](
+					[HistoryId]									[int] IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp]							[datetime2](7)		NOT NULL,
+					[id]										[uniqueidentifier]  NOT NULL,
+					[CustomerId]                                [UNIQUEIDENTIFIER]  NULL,
+					[ConsentToCollectLLDDHealth]                [BIT]               NULL,
+					[LearningDifficultyOrDisabilityDeclaration] [INT]               NULL,
+					[PrimaryLearningDifficultyOrDisability]     [INT]               NULL,
+					[SecondaryLearningDifficultyOrDisability]   [INT]               NULL,
+					[DateAndTimeLLDDHealthConsentCollected]     [datetime2]         NULL,
+					[ConsentToCollectEthnicity]                 [BIT]               NULL,
+					[Ethnicity]                                 [INT]               NULL,
+					[DateAndTimeEthnicityCollected]             [datetime2]         NULL,
+					[LastModifiedDate]                          [datetime2]         NULL,
+					[LastModifiedTouchpointId]                  [VARCHAR] (max)     NULL,
+				 CONSTRAINT [PK_dss-diversitydetails-history] PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		END
 
 IF OBJECT_ID('[dss-goals-history]', 'U') IS NOT NULL 
 		BEGIN
@@ -173,6 +227,31 @@ IF OBJECT_ID('[dss-goals-history]', 'U') IS NOT NULL
 						[id] ASC
 					)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 					) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		END
+
+IF OBJECT_ID('[dss-interactions-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-interactions-history]
+		
+			CREATE TABLE [dbo].[dss-interactions-history] (
+					[HistoryId] [INT] IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp] [DATETIME2](7) NOT NULL,
+					[id] UNIQUEIDENTIFIER NOT NULL,
+					[CustomerId] UNIQUEIDENTIFIER NULL,
+					[TouchpointId] VARCHAR (max)     NULL,
+					[AdviserDetailsId] UNIQUEIDENTIFIER NULL,
+					[DateandTimeOfInteraction] datetime2 NULL,
+					[Channel] INT NULL,
+					[InteractionType] INT NULL,
+					[LastModifiedDate] datetime2 NULL,
+					[LastModifiedTouchpointId] VARCHAR (max) NULL, 
+					CONSTRAINT [PK_dss-interactions-history] PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 		END
 
 IF OBJECT_ID('[dss-outcomes-history]', 'U') IS NOT NULL 
@@ -227,4 +306,84 @@ IF OBJECT_ID('[dss-sessions-history]', 'U') IS NOT NULL
 					[id] ASC
 				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		END
+
+IF OBJECT_ID('[dss-subscriptions-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-subscriptions-history]
+
+			CREATE TABLE [dbo].[dss-subscriptions-history] (
+					[HistoryId] [int]		   IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp]		   datetime2(7) NOT NULL,
+					[id]			           UNIQUEIDENTIFIER NOT NULL,
+					[CustomerId]               UNIQUEIDENTIFIER NULL,
+					[TouchPointId]             VARCHAR (max)     NULL,
+					[Subscribe]                BIT              NULL,
+					[LastModifiedDate]         datetime2         NULL,
+					[LastModifiedTouchpointId] VARCHAR (max)     NULL,
+				CONSTRAINT [PK_dss-subscriptions-history] PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+		END
+IF OBJECT_ID('[dss-transfers-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-transfers-history]
+
+			CREATE TABLE [dbo].[dss-transfers-history] (
+					[HistoryId] [int]				IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp]				datetime2(7) NOT NULL,
+					[id]                            UNIQUEIDENTIFIER NOT NULL,
+					[CustomerId]                    UNIQUEIDENTIFIER NULL,
+					[InteractionId]                 UNIQUEIDENTIFIER NULL,
+					[OriginatingTouchpointId]       VARCHAR (max)     NULL,
+					[TargetTouchpointId]            VARCHAR (max)     NULL,
+					[Context]                       VARCHAR (max)     NULL,
+					[DateandTimeOfTransfer]         datetime2         NULL,
+					[DateandTimeofTransferAccepted] datetime2         NULL,
+					[RequestedCallbackTime]         datetime2         NULL,
+					[ActualCallbackTime]            datetime2         NULL,
+					[LastModifiedDate]              datetime2         NULL,
+					[LastModifiedTouchpointId]      VARCHAR (max)     NULL,
+				PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+		END
+		
+IF OBJECT_ID('[dss-webchats-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-webchats-history]
+
+			CREATE TABLE [dbo].[dss-webchats-history] (
+					[HistoryId] [int]			 IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp]			 datetime2(7) NOT NULL,
+					[id]                         UNIQUEIDENTIFIER NOT NULL,
+					[CustomerId]                 UNIQUEIDENTIFIER NULL,
+					[InteractionId]              UNIQUEIDENTIFIER NULL,
+					[DigitalReference]           VARCHAR (max)     NULL,
+					[WebChatStartDateandTime]    datetime2         NULL,
+					[WebChatEndDateandTime]      datetime2         NULL,
+					[WebChatDuration]            TIME (7)         NULL,
+					[WebChatNarrative]           VARCHAR (max)     NULL,
+					[SentToCustomer]             BIT              NULL,
+					[DateandTimeSentToCustomers] datetime2         NULL,
+					[LastModifiedDate]           datetime2         NULL,
+					[LastModifiedTouchpointId]   VARCHAR (max)     NULL, 
+				PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
 		END
