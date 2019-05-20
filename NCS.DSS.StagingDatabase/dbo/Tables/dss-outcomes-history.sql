@@ -13,6 +13,7 @@
 	[TouchpointId] [varchar](max) NULL,
 	[LastModifiedDate] [datetime2](7) NULL,
 	[LastModifiedTouchpointId] [varchar](max) NULL,
+	[CreatedBy] [varchar](max) NULL,  
  CONSTRAINT [PK_dss-outcomes-history] PRIMARY KEY CLUSTERED 
 (
 	[HistoryId] ASC,

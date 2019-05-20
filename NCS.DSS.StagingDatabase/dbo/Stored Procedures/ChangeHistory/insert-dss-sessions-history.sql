@@ -3,7 +3,7 @@ AS
 BEGIN
 	INSERT INTO [dss-sessions-history]
 		SELECT DATEADD(MINUTE, _ts/60, DATEADD(SECOND, _ts%60, '19700101')) as CosmosTimeStamp, id, CustomerId, InteractionId, SubcontractorId, DateandTimeOfSession, 
-		       VenuePostCode, Longitude, Latitude, SessionAttended, ReasonForNonAttendance, LastModifiedDate, LastModifiedTouchpointId
+		       VenuePostCode, Longitude, Latitude, SessionAttended, ReasonForNonAttendance, LastModifiedDate, LastModifiedTouchpointId, CreatedBy
 			FROM OPENJSON(@Json) WITH (
 			    _ts BIGINT	
 				,id UNIQUEIDENTIFIER
@@ -18,5 +18,6 @@ BEGIN
 				,ReasonForNonAttendance INT
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(Max)
+				,CreatedBy VARCHAR(Max)
 				)
 END				

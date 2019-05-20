@@ -11,6 +11,7 @@
     [ReasonForNonAttendance]   INT              NULL,
     [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL, 
+	[CreatedBy]				   VARCHAR (MAX)     NULL, 
     CONSTRAINT [PK_dss-sessions] PRIMARY KEY ([id])
 );
 

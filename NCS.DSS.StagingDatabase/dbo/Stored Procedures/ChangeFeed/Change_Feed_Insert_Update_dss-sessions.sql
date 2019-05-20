@@ -17,6 +17,7 @@ BEGIN
 				,ReasonForNonAttendance INT
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(Max)
+				,CreatedBy VARCHAR(Max)
 				)
 		) AS InputJSON
 		ON (dsssessions.id = InputJSON.id)
@@ -35,6 +36,7 @@ BEGIN
 				,dsssessions.ReasonForNonAttendance = InputJSON.ReasonForNonAttendance
 				,dsssessions.LastModifiedDate = InputJSON.LastModifiedDate
 				,dsssessions.LastModifiedTouchpointId = InputJSON.LastModifiedTouchpointId
+				,dsssessions.CreatedBy = InputJSON.CreatedBy
 	WHEN NOT MATCHED
 		THEN
 			INSERT (
@@ -50,6 +52,7 @@ BEGIN
 				,ReasonForNonAttendance
 				,LastModifiedDate
 				,LastModifiedTouchpointId
+				,CreatedBy
 				)
 			VALUES (
 				InputJSON.id
@@ -64,6 +67,7 @@ BEGIN
 				,InputJSON.ReasonForNonAttendance
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
+				,InputJSON.CreatedBy
 				);
 
 	exec [dbo].[insert-dss-sessions-history] @Json
