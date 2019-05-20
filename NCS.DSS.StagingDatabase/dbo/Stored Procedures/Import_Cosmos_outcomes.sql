@@ -43,7 +43,8 @@ BEGIN
 						 [ClaimedPriorityGroup] VARCHAR(MAX) NULL,
 						 [TouchpointId] [VARCHAR](MAX) NULL,					 
 						 [LastModifiedDate] [VARCHAR](MAX) NULL,
-						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 [CreatedBy] [VARCHAR](MAX) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -62,7 +63,8 @@ BEGIN
 			ClaimedPriorityGroup VARCHAR(MAX) '$.ClaimedPriorityGroup',
 			TouchpointId VARCHAR(MAX) '$.TouchpointId',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId',
+			CreatedBy VARCHAR(MAX) '$.CreatedBy'
 			) AS Coll
 
 
@@ -85,6 +87,7 @@ BEGIN
 						 [TouchpointId] [VARCHAR](MAX) NULL,					 
 						 [LastModifiedDate] DATETIME2 NULL,
 						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 [CreatedBy] [VARCHAR](MAX) NULL,
 						 CONSTRAINT [PK_dss-outcomes] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
@@ -102,7 +105,8 @@ BEGIN
 					CONVERT(int, [ClaimedPriorityGroup]) as [ClaimedPriorityGroup],
 					[TouchpointId],					
 					CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
-					[LastModifiedTouchpointId]
+					[LastModifiedTouchpointId],
+					[CreatedBy]
 					FROM #outcomes 
 
 		DROP TABLE #outcomes
