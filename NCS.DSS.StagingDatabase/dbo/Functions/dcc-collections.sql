@@ -18,7 +18,17 @@ SET		@today = GETDATE()
 
 INSERT INTO @Result
 	SELECT
-	  *
+	  CustomerId,
+	  DateOfBirth,
+	  HomePostCode,
+	  ActionPlanId,
+	  SessionDate,
+	  SubContractorId,
+	  AdviserName,
+	  OutcomeId,
+	  OutcomeType,
+	  OutcomeEffectiveDate,
+	  OutcomePriorityCustomer
 	FROM
 	  (
 		SELECT
