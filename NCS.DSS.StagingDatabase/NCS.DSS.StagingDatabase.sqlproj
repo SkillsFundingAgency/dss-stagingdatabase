@@ -142,7 +142,6 @@
     <Build Include="dbo\Tables\dss-subscriptions-history.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-subscriptions.sql" />
     <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-subscriptions-history.sql" />
-    <Build Include="dbo\Functions\dcc-collections_old.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
