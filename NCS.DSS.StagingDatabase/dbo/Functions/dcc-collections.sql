@@ -40,7 +40,7 @@ INSERT INTO @Result
 			  o.SubcontractorId AS 'SubContractorId',
 			  adv.AdviserName AS 'AdviserName',
 			  o.id AS 'OutcomeID',
-			  IIF (o.OutcomeType < 3, o.OutcomeType, 3) AS 'OutcomeType',
+			  o.OutcomeType AS 'OutcomeType',
 			  o.OutcomeEffectiveDate AS 'OutcomeEffectiveDate',
 			  IIF (o.ClaimedPriorityGroup < 99, 1, 0) AS 'OutcomePriorityCustomer',
 			  o.OutcomeClaimedDate,
