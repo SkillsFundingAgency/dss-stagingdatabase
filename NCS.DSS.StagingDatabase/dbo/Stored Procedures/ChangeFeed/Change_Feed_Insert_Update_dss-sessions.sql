@@ -11,6 +11,8 @@ BEGIN
 				,SubcontractorId VARCHAR(50)
 				,DateandTimeOfSession DATETIME2
 				,VenuePostCode VARCHAR(Max)
+				,Longitude FLOAT
+				,Latitude FLOAT
 				,SessionAttended BIT
 				,ReasonForNonAttendance INT
 				,LastModifiedDate DATETIME2
@@ -27,6 +29,8 @@ BEGIN
 				,dsssessions.SubcontractorId = InputJSON.SubcontractorId
 				,dsssessions.DateandTimeOfSession = InputJSON.DateandTimeOfSession
 				,dsssessions.VenuePostCode = InputJSON.VenuePostCode
+				,dsssessions.Longitude = InputJSON.Longitude
+				,dsssessions.Latitude = InputJSON.Latitude
 				,dsssessions.SessionAttended = InputJSON.SessionAttended
 				,dsssessions.ReasonForNonAttendance = InputJSON.ReasonForNonAttendance
 				,dsssessions.LastModifiedDate = InputJSON.LastModifiedDate
@@ -40,6 +44,8 @@ BEGIN
 				,SubcontractorId
 				,DateandTimeOfSession
 				,VenuePostCode
+				,Longitude
+				,Latitude
 				,SessionAttended
 				,ReasonForNonAttendance
 				,LastModifiedDate
@@ -52,6 +58,8 @@ BEGIN
 				,InputJSON.SubcontractorId
 				,InputJSON.DateandTimeOfSession
 				,InputJSON.VenuePostCode
+				,InputJSON.Longitude
+				,InputJSON.Latitude
 				,InputJSON.SessionAttended
 				,InputJSON.ReasonForNonAttendance
 				,InputJSON.LastModifiedDate
