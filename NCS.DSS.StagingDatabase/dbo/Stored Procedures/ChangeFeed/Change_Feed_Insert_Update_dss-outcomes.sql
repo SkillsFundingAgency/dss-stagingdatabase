@@ -17,6 +17,7 @@ BEGIN
 				,TouchpointId VARCHAR(MAX)
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(MAX)
+				,CreatedBy VARCHAR(Max)
 				)
 		) AS InputJSON
 		ON (outcomes.id = InputJSON.id)
@@ -35,6 +36,7 @@ BEGIN
 				,outcomes.TouchpointId = InputJSON.TouchpointId
 				,outcomes.LastModifiedDate = InputJSON.LastModifiedDate
 				,outcomes.LastModifiedTouchpointId = InputJSON.LastModifiedTouchpointId
+				,outcomes.CreatedBy = InputJSON.CreatedBy
 	WHEN NOT MATCHED
 		THEN
 			INSERT (
@@ -50,6 +52,7 @@ BEGIN
 				,TouchpointId
 				,LastModifiedDate
 				,LastModifiedTouchpointId
+				,CreatedBy
 				)
 			VALUES (
 				InputJSON.id
@@ -64,6 +67,7 @@ BEGIN
 				,InputJSON.TouchpointId
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
+				,InputJSON.CreatedBy
 				);
 
 	exec [dbo].[insert-dss-outcomes-history] @Json

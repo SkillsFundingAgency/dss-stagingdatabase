@@ -37,7 +37,8 @@ BEGIN
 						 [SessionAttended] [VARCHAR](MAX) NULL,
 						 [ReasonForNonAttendance] [VARCHAR](MAX) NULL,					 
 						 [LastModifiedDate] [VARCHAR](MAX) NULL,
-						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL
+						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 [CreatedBy] [VARCHAR](MAX) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -54,7 +55,8 @@ BEGIN
 			SessionAttended VARCHAR(MAX) '$.SessionAttended',
 			ReasonForNonAttendance VARCHAR(MAX) '$.ReasonForNonAttendance',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId',
+			CreatedBy VARCHAR(MAX) '$.CreatedBy'
 			) AS Coll
 
 
@@ -75,6 +77,7 @@ BEGIN
 						 [ReasonForNonAttendance] INT NULL,					 
 						 [LastModifiedDate] DATETIME2 NULL,
 						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+						 [CreatedBy] [VARCHAR](MAX) NULL,
 						 CONSTRAINT [PK_dss-sessions] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
@@ -90,7 +93,8 @@ BEGIN
 				CONVERT(bit, [SessionAttended]) as [SessionAttended],
 				CONVERT(int, [ReasonForNonAttendance]) as [ReasonForNonAttendance],
 				CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
-				[LastModifiedTouchpointId]
+				[LastModifiedTouchpointId],
+				[CreatedBy]
 				FROM #sessions
 
 		DROP TABLE #sessions
