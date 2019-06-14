@@ -5,6 +5,8 @@
 	[SubcontractorId]		   VARCHAR(50) NULL,
     [DateandTimeOfSession]     datetime2         NULL,
     [VenuePostCode]            VARCHAR (max)     NULL,
+    [Longitude]                FLOAT (53)       NULL,
+    [Latitude]                 FLOAT (53)       NULL,
     [SessionAttended]          BIT              NULL,
     [ReasonForNonAttendance]   INT              NULL,
     [LastModifiedDate]         datetime2         NULL,

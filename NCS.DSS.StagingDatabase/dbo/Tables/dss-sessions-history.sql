@@ -7,6 +7,8 @@
 	[SubcontractorId] [varchar](50) NULL,
 	[DateandTimeOfSession] [datetime2](7) NULL,
 	[VenuePostCode] [varchar](max) NULL,
+    [Longitude] [FLOAT](53) NULL,
+    [Latitude] [FLOAT](53) NULL,
 	[SessionAttended] [bit] NULL,
 	[ReasonForNonAttendance] [int] NULL,
 	[LastModifiedDate] [datetime2](7) NULL,
