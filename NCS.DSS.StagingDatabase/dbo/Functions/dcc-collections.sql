@@ -88,7 +88,12 @@ FROM
 									WHEN 3 THEN	DATEADD(mm, 13, s.DateandTimeOfSession) 
 									ELSE DATEADD(mm, 12, s.DateandTimeOfSession) 
 								END
-							,DATEADD(mm, -12, s.DateandTimeOfSession) AS 'PriorSessionDate'		
+							,PriorSessionDate = 
+								CASE o.OutcomeType
+									WHEN 3 THEN	DATEADD(mm, -13, s.DateandTimeOfSession) 
+									ELSE DATEADD(mm, -12, s.DateandTimeOfSession) 
+								END
+							--,DATEADD(mm, -12, s.DateandTimeOfSession) AS 'PriorSessionDate'		
 							,RANK() OVER(PARTITION BY s.CustomerID, IIF (o.OutcomeType < 3, o.OutcomeType, 3) ORDER BY o.OutcomeEffectiveDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 		FROM				[dss-sessions] s
 		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
