@@ -88,11 +88,7 @@ FROM
 									WHEN 3 THEN	DATEADD(mm, 13, s.DateandTimeOfSession) 
 									ELSE DATEADD(mm, 12, s.DateandTimeOfSession) 
 								END
-							,PriorSessionDate = 
-								CASE o.OutcomeType
-									WHEN 3 THEN	DATEADD(mm, -13, s.DateandTimeOfSession) 
-									ELSE DATEADD(mm, -12, s.DateandTimeOfSession) 
-								END
+							,DATEADD(mm, -12, s.DateandTimeOfSession) AS 'PriorSessionDate'		
 							,RANK() OVER(PARTITION BY s.CustomerID, IIF (o.OutcomeType < 3, o.OutcomeType, 3) ORDER BY o.OutcomeEffectiveDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 		FROM				[dss-sessions] s
 		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
@@ -117,12 +113,24 @@ FROM
 									INNER JOIN		[dss-outcomes] priorO ON priorS.id = priorO.SessionId
 									WHERE			priorS.id <> o.SessionID
 									AND				priorO.id <> o.OutcomeID
-									AND				priorO.OutcomeEffectiveDate IS NOT NULL		-- ensure the previous outcomes are effective
+									--AND				priorO.OutcomeEffectiveDate IS NOT NULL		-- ensure the previous outcomes are effective
 									AND				priorO.OutcomeClaimedDate IS NOT NULL		-- and claimed
 									AND				priorO.CustomerId = o.CustomerId			-- and they belong to the same customer
 									AND				priorO.TouchpointId <> '0000000999'			-- and touchpoint is not helpline
 									AND				priorS.DateandTimeOfSession > o.PriorSessionDate	-- and the prior session date is more then 12/13 months
 									AND				(
+														( 
+															OutcomeType = 3						-- the previous outcome should have been claimed within 13 months of the previous session date for Outcome Type 3
+															AND
+															DATEADD(mm, 13, priorS.DateandTimeOfSession)  >= priorO.OutcomeEffectiveDate 
+														)
+														OR									    -- the previous outcome should have been claimed within 12 months of the previous session date for Outcome Types 1,2,4,5
+														(
+															DATEADD(mm, 12, priorS.DateandTimeOfSession)  >= priorO.OutcomeEffectiveDate 
+														)
+													)
+									AND				
+													(
 														(							-- Check there are no Outcomes of the same type (CSO and CMO)
 															o.OutcomeType IN (1,2)
 															AND	
