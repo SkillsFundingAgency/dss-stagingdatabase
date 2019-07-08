@@ -17,16 +17,22 @@ SET		@today = GETDATE()
 
 
   -- if table exists, drop it
-IF OBJECT_ID('tempdb..#Sessions') IS NOT NULL
+/*IF OBJECT_ID('tempdb..#Sessions') IS NOT NULL
 BEGIN
     drop table #Sessions 
 END
-
+*/
 
 --This is to ensure that any outcomes claimed or effice on the last day of the period gets included.
 SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));  
 
 
+/* *********** attempt to buiidl resulted in:
+
+Error SQL72014: .Net SqlClient Data Provider: Msg 2772, Level 16, State 1, Procedure dcc-collections, Line 23 Cannot access temporary tables from within a function.
+Error SQL72045: Script execution error.  The executed scrip
+
+So commmenting this section and reverting to full table query 
 -- select ALL relevant records in to a temp table.
 SELECT				s.id AS 'SessionID'
 					,o.id AS 'OutcomeID'
@@ -47,6 +53,8 @@ WHERE				o.OutcomeClaimedDate IS NOT NULL
 AND					o.OutcomeEffectiveDate IS NOT NULL
 
 
+*/
+
 
 
 SELECT				CustomerID
@@ -63,50 +71,47 @@ SELECT				CustomerID
 FROM
 	(
 		SELECT				s.CustomerID									AS 'CustomerID'
-							,s.SessionID									AS 'SessionID'
+							,s.id									AS 'SessionID'
 							,c.DateofBirth									AS 'DateOfBirth'
 							,a.PostCode										AS 'HomePostCode'
-							,s.ActionPlanID									AS 'ActionPlanId' 
+							,ap.id									AS 'ActionPlanId' 
 							,CONVERT(DATE, s.DateandTimeOfSession)			AS 'SessionDate'
 							,s.SubcontractorID								AS 'SubContractorId' 
 							,adv.AdviserName								AS 'AdviserName'
-							,s.OutcomeID									AS 'OutcomeID'
-							,s.OutcomeType									AS 'OutcomeType'
-							,s.OutcomeEffectiveDate							AS 'OutcomeEffectiveDate'
-							,IIF(s.ClaimedPriorityGroup < 99, 1, 0)			AS 'OutcomePriorityCustomer'
-							,s.OutcomeClaimedDate							AS 'OutcomeClaimedDate'
+							,o.id									AS 'OutcomeID'
+							,o.OutcomeType									AS 'OutcomeType'
+							,o.OutcomeEffectiveDate							AS 'OutcomeEffectiveDate'
+							,IIF(o.ClaimedPriorityGroup < 99, 1, 0)			AS 'OutcomePriorityCustomer'
+							,o.OutcomeClaimedDate							AS 'OutcomeClaimedDate'
 							,SessionClosureDate = 
-								CASE s.OutcomeType
+								CASE o.OutcomeType
 									WHEN 3 THEN	DATEADD(mm, 13, s.DateandTimeOfSession) 
 									ELSE DATEADD(mm, 12, s.DateandTimeOfSession) 
 								END
-							,PriorSessionDate = 
-								CASE o.OutcomeType
-									WHEN 3 THEN	DATEADD(mm, -13, s.DateandTimeOfSession) 
-									ELSE DATEADD(mm, -12, s.DateandTimeOfSession) 
-								END
+							,DATEADD(mm, -12, s.DateandTimeOfSession) AS 'PriorSessionDate'		
 							,RANK() OVER(PARTITION BY s.CustomerID, IIF (o.OutcomeType < 3, o.OutcomeType, 3) ORDER BY o.OutcomeEffectiveDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 		FROM				[dss-sessions] s
 		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
-		INNER JOIN			[dss-actionplans] ap							ON ap.id = s.ActionPlanId
+		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
 		INNER JOIN			[dss-interactions] i							ON i.id = ap.InteractionId
+		INNER JOIN			[dss-outcomes] o							ON o.ActionPlanId = ap.id
 		OUTER APPLY			(	SELECT TOP 1	PostCode
 								FROM			[dss-addresses] a
 								WHERE			a.CustomerId = s.CustomerId											-- Get the latest address for the customer record
 								AND				@today BETWEEN ISNULL(a.EffectiveFrom, DATEADD(dd,-1,@today)) AND ISNULL(a.EffectiveTo, DATEADD(dd,1,@today))
 							) AS a
 		LEFT JOIN			[dss-adviserdetails] adv ON adv.id = i.AdviserDetailsId									-- join to get adviser details
-		WHERE				s.OutcomeEffectiveDate	BETWEEN @startDate AND @endDateTime								-- effective between period start and end date and time
-		AND					s.OutcomeClaimedDate	BETWEEN @startDate AND @endDateTime								-- claimed between period start and end date and time
-		AND					s.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
+		WHERE				o.OutcomeEffectiveDate	BETWEEN @startDate AND @endDateTime								-- effective between period start and end date and time
+		AND					o.OutcomeClaimedDate	BETWEEN @startDate AND @endDateTime								-- claimed between period start and end date and time
+		AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
 	) o
 	WHERE					o.Rank = 1																				-- only send through 1 of each type of outcome	
 	AND						o.OutcomeEffectiveDate <= o.SessionClosureDate											-- within 12 or 13 months of the session date date
 	AND						NOT EXISTS (
 									SELECT			priorO.id
-									FROM			#Sessions priorS
-									INNER JOIN		[dss-outcomes] priorO ON priorS.OutcomeID = priorO.id
-									WHERE			priorS.SessionID <> o.SessionID
+									FROM			[dss-sessions]  priorS
+									INNER JOIN		[dss-outcomes] priorO ON priorS.id = priorO.SessionId
+									WHERE			priorS.id <> o.SessionID
 									AND				priorO.id <> o.OutcomeID
 									AND				priorO.OutcomeEffectiveDate IS NOT NULL		-- ensure the previous outcomes are effective
 									AND				priorO.OutcomeClaimedDate IS NOT NULL		-- and claimed
