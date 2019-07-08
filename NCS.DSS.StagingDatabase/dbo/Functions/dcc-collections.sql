@@ -57,18 +57,20 @@ AND					o.OutcomeEffectiveDate IS NOT NULL
 
 
 
-SELECT				CustomerID
-					,DateOfBirth
-					,HomePostCode
-					,ActionPlanId
-					,SessionDate
-					,SubContractorId
-					,AdviserName
-					,OutcomeID
-					,OutcomeType
-					,OutcomeEffectiveDate
-					,OutcomePriorityCustomer
-FROM
+INSERT INTO @Result
+	SELECT			
+		 CustomerID
+		,DateOfBirth
+		,HomePostCode
+		,ActionPlanId
+		,SessionDate
+		,SubContractorId
+		,AdviserName
+		,OutcomeID
+		,OutcomeType
+		,OutcomeEffectiveDate
+		,OutcomePriorityCustomer
+	FROM
 	(
 		SELECT				s.CustomerID									AS 'CustomerID'
 							,s.id									AS 'SessionID'
