@@ -15,46 +15,8 @@ DECLARE @endDateTime DATETIME2		-- date and time the period ends.
 DECLARE	@today DATE;
 SET		@today = GETDATE()
 
-
-  -- if table exists, drop it
-/*IF OBJECT_ID('tempdb..#Sessions') IS NOT NULL
-BEGIN
-    drop table #Sessions 
-END
-*/
-
 --This is to ensure that any outcomes claimed or effice on the last day of the period gets included.
 SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));  
-
-
-/* *********** attempt to buiidl resulted in:
-
-Error SQL72014: .Net SqlClient Data Provider: Msg 2772, Level 16, State 1, Procedure dcc-collections, Line 23 Cannot access temporary tables from within a function.
-Error SQL72045: Script execution error.  The executed scrip
-
-So commmenting this section and reverting to full table query 
--- select ALL relevant records in to a temp table.
-SELECT				s.id AS 'SessionID'
-					,o.id AS 'OutcomeID'
-					,s.CustomerId AS 'CustomerID'
-					,ap.id AS 'ActionPlanID'
-					,o.OutcomeClaimedDate AS 'OutcomeClaimedDate'
-					,o.OutcomeEffectiveDate AS 'OutcomeEffectiveDate'
-					,s.DateandTimeOfSession AS 'DateandTimeOfSession'
-					,o.SubcontractorId AS 'SubcontractorID'
-					,o.OutcomeType AS 'OutcomeType'
-					,o.ClaimedPriorityGroup AS 'ClaimedPriorityGroup'
-					,o.TouchpointId AS 'TouchpointID'
-INTO				#Sessions
-FROM				[dss-sessions] s
-INNER JOIN			[dss-actionplans] ap ON ap.SessionId = s.id
-INNER JOIN			[dss-outcomes] o ON o.ActionPlanId = ap.id
-WHERE				o.OutcomeClaimedDate IS NOT NULL
-AND					o.OutcomeEffectiveDate IS NOT NULL
-
-
-*/
-
 
 
 INSERT INTO @Result
@@ -115,11 +77,23 @@ INSERT INTO @Result
 									INNER JOIN		[dss-outcomes] priorO ON priorS.id = priorO.SessionId
 									WHERE			priorS.id <> o.SessionID
 									AND				priorO.id <> o.OutcomeID
-									AND				priorO.OutcomeEffectiveDate IS NOT NULL		-- ensure the previous outcomes are effective
 									AND				priorO.OutcomeClaimedDate IS NOT NULL		-- and claimed
 									AND				priorO.CustomerId = o.CustomerId			-- and they belong to the same customer
 									AND				priorO.TouchpointId <> '0000000999'			-- and touchpoint is not helpline
 									AND				priorS.DateandTimeOfSession > o.PriorSessionDate	-- and the prior session date is more then 12/13 months
+									AND				(											-- check validity of the previous outcomes we are considering
+														( 
+															OutcomeType = 3							-- the previous outcome should have been claimed within 13 months of the previous session date for Outcome Type 3
+															AND
+															DATEADD(mm, 13, priorS.DateandTimeOfSession)  >= priorO.OutcomeEffectiveDate 
+														)
+														OR											-- the previous outcome should have been claimed within 12 months of the previous session date for Outcome Types 1,2,4,5
+														(
+															OutcomeType IN ( 1,2,4,5 )			
+															AND
+															DATEADD(mm, 12, priorS.DateandTimeOfSession)  >= priorO.OutcomeEffectiveDate 
+														)
+													)
 									AND				(
 														(							-- Check there are no Outcomes of the same type (CSO and CMO)
 															o.OutcomeType IN (1,2)
