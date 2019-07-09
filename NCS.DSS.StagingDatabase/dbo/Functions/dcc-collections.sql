@@ -75,8 +75,7 @@ INSERT INTO @Result
 									SELECT			priorO.id
 									FROM			[dss-sessions]  priorS
 									INNER JOIN		[dss-outcomes] priorO ON priorS.id = priorO.SessionId
-									WHERE			priorS.id <> o.SessionID
-									AND				priorO.id <> o.OutcomeID
+									WHERE			priorO.id <> o.OutcomeID
 									AND				priorO.OutcomeClaimedDate IS NOT NULL		-- and claimed
 									AND				priorO.CustomerId = o.CustomerId			-- and they belong to the same customer
 									AND				priorO.TouchpointId <> '0000000999'			-- and touchpoint is not helpline
