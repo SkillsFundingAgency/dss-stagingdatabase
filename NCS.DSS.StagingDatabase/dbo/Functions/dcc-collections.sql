@@ -70,7 +70,7 @@ INSERT INTO @Result
 		AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
 	) o
 	WHERE					o.Rank = 1																				-- only send through 1 of each type of outcome	
-	AND						o.OutcomeEffectiveDate <= o.SessionClosureDate											-- within 12 or 13 months of the session date date
+	AND						CONVERT(DATE,o.OutcomeEffectiveDate) <= o.SessionClosureDate											-- within 12 or 13 months of the session date date
 	AND						NOT EXISTS (
 									SELECT			priorO.id
 									FROM			[dss-sessions]  priorS
@@ -85,13 +85,13 @@ INSERT INTO @Result
 														( 
 															OutcomeType = 3							-- the previous outcome should have been claimed within 13 months of the previous session date for Outcome Type 3
 															AND
-															DATEADD(mm, 13, priorS.DateandTimeOfSession)  >= priorO.OutcomeEffectiveDate 
+															DATEADD(mm, 13, priorS.DateandTimeOfSession)  >= CONVERT(DATE,priorO.OutcomeEffectiveDate)
 														)
 														OR											-- the previous outcome should have been claimed within 12 months of the previous session date for Outcome Types 1,2,4,5
 														(
 															OutcomeType IN ( 1,2,4,5 )			
 															AND
-															DATEADD(mm, 12, priorS.DateandTimeOfSession)  >= priorO.OutcomeEffectiveDate 
+															DATEADD(mm, 12, priorS.DateandTimeOfSession)  >= CONVERT(DATE,priorO.OutcomeEffectiveDate)
 														)
 													)
 									AND				(
