@@ -52,7 +52,7 @@ INSERT INTO @Result
 									WHEN 3 THEN	DATEADD(mm, 13, s.DateandTimeOfSession) 
 									ELSE DATEADD(mm, 12, s.DateandTimeOfSession) 
 								END
-							,DATEADD(mm, -12, s.DateandTimeOfSession) AS 'PriorSessionDate'		
+							,DATEADD(mm, -12, CONVERT(DATE,s.DateandTimeOfSession)) AS 'PriorSessionDate'		
 							,RANK() OVER(PARTITION BY s.CustomerID, IIF (o.OutcomeType < 3, o.OutcomeType, 3) ORDER BY o.OutcomeEffectiveDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 		FROM				[dss-sessions] s
 		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
@@ -80,7 +80,7 @@ INSERT INTO @Result
 									AND				priorO.OutcomeClaimedDate IS NOT NULL		-- and claimed
 									AND				priorO.CustomerId = o.CustomerId			-- and they belong to the same customer
 									AND				priorO.TouchpointId <> '0000000999'			-- and touchpoint is not helpline
-									AND				priorS.DateandTimeOfSession > o.PriorSessionDate	-- and the prior session date is more then 12/13 months
+									AND				CONVERT(DATE,priorS.DateandTimeOfSession) >= o.PriorSessionDate	-- and the prior session date is more then 12 months before current session date
 									AND				(											-- check validity of the previous outcomes we are considering
 														( 
 															OutcomeType = 3							-- the previous outcome should have been claimed within 13 months of the previous session date for Outcome Type 3
