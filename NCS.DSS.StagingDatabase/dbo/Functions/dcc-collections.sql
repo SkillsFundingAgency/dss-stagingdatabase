@@ -53,7 +53,7 @@ INSERT INTO @Result
 									ELSE DATEADD(mm, 12, s.DateandTimeOfSession) 
 								END
 							,DATEADD(mm, -12, CONVERT(DATE,s.DateandTimeOfSession)) AS 'PriorSessionDate'		
-							,RANK() OVER(PARTITION BY s.CustomerID, IIF (o.OutcomeType < 3, o.OutcomeType, 3) ORDER BY o.OutcomeEffectiveDate, o.id) AS 'Rank'  -- we rank to remove duplicates
+							,RANK() OVER(PARTITION BY s.CustomerID, IIF (o.OutcomeType < 3, o.OutcomeType, 3) ORDER BY o.OutcomeEffectiveDate, o.LastModifiedDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 		FROM				[dss-sessions] s
 		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
 		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
@@ -85,13 +85,13 @@ INSERT INTO @Result
 														( 
 															OutcomeType = 3							-- the previous outcome should have been claimed within 13 months of the previous session date for Outcome Type 3
 															AND
-															DATEADD(mm, 13, priorS.DateandTimeOfSession)  >= CONVERT(DATE,priorO.OutcomeEffectiveDate)
+															DATEADD(mm, 13, Convert(DATE,priorS.DateandTimeOfSession))  >= CONVERT(DATE,priorO.OutcomeEffectiveDate)
 														)
 														OR											-- the previous outcome should have been claimed within 12 months of the previous session date for Outcome Types 1,2,4,5
 														(
 															OutcomeType IN ( 1,2,4,5 )			
 															AND
-															DATEADD(mm, 12, priorS.DateandTimeOfSession)  >= CONVERT(DATE,priorO.OutcomeEffectiveDate)
+															DATEADD(mm, 12, Convert(DATE,priorS.DateandTimeOfSession))  >= CONVERT(DATE,priorO.OutcomeEffectiveDate)
 														)
 													)
 									AND				(
