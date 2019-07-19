@@ -34,7 +34,7 @@ INSERT INTO @Result
 		,OutcomePriorityCustomer
 	FROM
 	(
-		SELECT				 o.id									AS 'CustomerID'
+		SELECT				o.CustomerId									AS 'CustomerID'
 							,s.id									AS 'SessionID'
 							,c.DateofBirth									AS 'DateOfBirth'
 							,a.PostCode										AS 'HomePostCode'
