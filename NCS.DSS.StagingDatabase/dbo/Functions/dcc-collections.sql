@@ -40,7 +40,7 @@ INSERT INTO @Result
 							,a.PostCode										AS 'HomePostCode'
 							,ap.id									AS 'ActionPlanId' 
 							,CONVERT(DATE, s.DateandTimeOfSession)			AS 'SessionDate'
-							,s.SubcontractorID								AS 'SubContractorId' 
+							,o.SubcontractorID								AS 'SubContractorId' 
 							,adv.AdviserName								AS 'AdviserName'
 							,o.id									AS 'OutcomeID'
 							,o.OutcomeType									AS 'OutcomeType'
