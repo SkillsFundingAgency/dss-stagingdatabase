@@ -1,7 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[Change_Feed_Insert_Update_dss-employmentprogression] (@Json NVARCHAR(MAX))
+﻿CREATE PROCEDURE [dbo].[Change_Feed_Insert_Update_dss-employmentprogressions] (@Json NVARCHAR(MAX))
 AS
 BEGIN
-	MERGE INTO [dss-employmentprogression] AS employmentprogression
+	MERGE INTO [dss-employmentprogressions] AS employmentprogression
 	USING (
 		SELECT *
 		FROM OPENJSON(@Json) WITH (
@@ -90,5 +90,5 @@ BEGIN
 				,InputJSON.CreatedBy
 				);
 
-	exec [insert-dss-employmentprogression-history] @Json  
+	exec [insert-dss-employmentprogressions-history] @Json  
 END

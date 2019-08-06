@@ -1,7 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[Change_Feed_Insert_Update_dss-learningprogression] (@Json NVARCHAR(MAX))
+﻿CREATE PROCEDURE [dbo].[Change_Feed_Insert_Update_dss-learningprogressions] (@Json NVARCHAR(MAX))
 AS
 BEGIN
-	MERGE INTO [dss-learningprogression] AS learningprogression
+	MERGE INTO [dss-learningprogressions] AS learningprogression
 	USING (
 		SELECT *
 		FROM OPENJSON(@Json) WITH (
@@ -66,5 +66,5 @@ BEGIN
 				,InputJSON.CreatedBy
 				);
 
-	exec [insert-dss-learningprogression-history] @Json  
+	exec [insert-dss-learningprogressions-history] @Json  
 END

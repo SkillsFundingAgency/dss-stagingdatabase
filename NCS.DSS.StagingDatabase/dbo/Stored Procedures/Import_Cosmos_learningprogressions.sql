@@ -21,7 +21,7 @@ BEGIN
  
 	EXEC sp_executesql @ORowSet, @ParmDef, @retvalOUT=@retvalue OUTPUT;
 
-	CREATE TABLE [#learningprogression](
+	CREATE TABLE [#learningprogressions](
 				[id] [varchar](max) NULL,
 				[CustomerId] [varchar](max) NULL,
 				[DateProgressionRecorded] [varchar](max) NULL,
@@ -37,7 +37,7 @@ BEGIN
 			) ON [PRIMARY]									
 
 
-	INSERT INTO [#learningprogression]
+	INSERT INTO [#learningprogressions]
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
@@ -58,7 +58,7 @@ BEGIN
 	
 	IF OBJECT_ID('[dss-learningprogression]', 'U') IS NOT NULL 
 		BEGIN
-			TRUNCATE TABLE [dss-learningprogression]
+			TRUNCATE TABLE [dss-learningprogressions]
 		END
 	ELSE
 		BEGIN
@@ -93,8 +93,8 @@ BEGIN
 			CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
 			[LastModifiedTouchpointId],
 			[CreatedBy]
-			FROM #learningprogression
+			FROM #learningprogressions
 
-		DROP TABLE #learningprogression
+		DROP TABLE #learningprogressions
 		
 END
