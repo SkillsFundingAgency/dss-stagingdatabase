@@ -142,6 +142,21 @@
     <Build Include="dbo\Tables\dss-subscriptions-history.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-subscriptions.sql" />
     <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-subscriptions-history.sql" />
+    <Build Include="dbo\Tables\dss-collections.sql" />
+    <Build Include="dbo\Tables\dss-collections-history.sql" />
+    <Build Include="dbo\Tables\dss-learningprogressions.sql" />
+    <Build Include="dbo\Tables\dss-learningprogressions-history.sql" />
+    <Build Include="dbo\Tables\dss-employmentprogressions.sql" />
+    <Build Include="dbo\Tables\dss-employmentprogressions-history.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_collections.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-collections-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-collections.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_employmentprogressions.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-employmentprogressions-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-employmentprogressions.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_learningprogressions.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-learningprogressions-history.sql" />
+    <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-learningprogressions.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />

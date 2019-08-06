@@ -115,6 +115,28 @@ IF OBJECT_ID('[dss-adviserdetails-history]', 'U') IS NOT NULL
 				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 		END
 		
+IF OBJECT_ID('[dss-collections-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-collections-history]
+
+			CREATE TABLE [dbo].[dss-collections-history](
+					[HistoryId] [int]	IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp]	DATETIME2(7) NOT NULL,
+					[id]				UNIQUEIDENTIFIER NOT NULL,
+					[CollectionReports] VARCHAR (max) NULL,
+					[TouchpointId]		VARCHAR (max) NULL,
+					[Ukprn]				VARCHAR (max) NULL,
+					[LastModifiedDate]	DATETIME2 (7) NULL,
+				 CONSTRAINT [PK_dss-collections-history] PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+				
+		END
+
 IF OBJECT_ID('[dss-contacts-history]', 'U') IS NOT NULL 
 		BEGIN
 			DROP TABLE [dss-contacts-history]
@@ -201,6 +223,40 @@ IF OBJECT_ID('[dss-diversitydetails-history]', 'U') IS NOT NULL
 				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 		END
 
+IF OBJECT_ID('[dss-employmentprogressions-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-employmentprogressions-history]
+
+			CREATE TABLE [dbo].[dss-employmentprogressions-history](
+					[HistoryId]						INT IDENTITY(1,1)	NOT NULL,
+					[CosmosTimeStamp]				DATETIME2(7)		NOT NULL,
+					[id]							UNIQUEIDENTIFIER	NOT NULL,
+					[CustomerId]                    UNIQUEIDENTIFIER	NULL,
+					[DateProgressionRecorded]       DATETIME2			NULL,
+					[CurrentEmploymentStatus]		INT					NULL,
+					[EconomicShockStatus]			INT					NULL,
+					[EconomicShockCode]				VARCHAR (50)		NULL,
+					[EmployerName]					VARCHAR (200)		NULL,
+					[EmployerAddress]				VARCHAR (500)		NULL,
+					[EmployerPostcode]              VARCHAR (10)		NULL,
+					[Longitude]						FLOAT (53)			NULL,
+					[Latitude]						FLOAT (53)			NULL,
+					[EmploymentHours]				INT					NULL,
+					[DateOfEmployment]				DATETIME2			NULL,
+					[DateOfLastEmployment]			DATETIME2			NULL,
+					[LengthOfUnemployment]			INT					NULL,
+					[LastModifiedDate]              DATETIME2			NULL,
+					[LastModifiedTouchpointId]      VARCHAR (MAX)		NULL, 
+					[CreatedBy]					    VARCHAR (MAX)		NULL, 
+				 CONSTRAINT [PK_dss-employmentprogressions-history] PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		END
+
 IF OBJECT_ID('[dss-goals-history]', 'U') IS NOT NULL 
 		BEGIN
 			DROP TABLE [dss-goals-history]
@@ -246,6 +302,34 @@ IF OBJECT_ID('[dss-interactions-history]', 'U') IS NOT NULL
 					[LastModifiedDate] datetime2 NULL,
 					[LastModifiedTouchpointId] VARCHAR (max) NULL, 
 					CONSTRAINT [PK_dss-interactions-history] PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		END
+
+IF OBJECT_ID('[dss-learningprogressions-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-learningprogressions-history]
+
+			CREATE TABLE [dbo].[dss-learningprogressions-history](
+					[HistoryId] [INT]				 IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp]				 DATETIME2(7) NOT NULL,
+					[id]                             UNIQUEIDENTIFIER NOT NULL,
+					[CustomerId]                     UNIQUEIDENTIFIER NULL,
+					[DateProgressionRecorded]        DATETIME2        NULL,
+					[CurrentLearningStatus]			 INT              NULL,
+					[LearningHours]					 INT			  NULL,
+					[DateLearningStarted]			 DATETIME2        NULL,
+					[CurrentQualificationLevel]      INT              NULL,
+					[DateQualificationLevelAchieved] DATETIME2        NULL,
+					[LastLearningProvidersUKPRN]     VARCHAR (MAX)    NULL,
+					[LastModifiedDate]               DATETIME2        NULL,
+					[LastModifiedTouchpointId]       VARCHAR (MAX)    NULL, 
+					[CreatedBy]					     VARCHAR (MAX)    NULL, 
+				 CONSTRAINT [PK_dss-learningprogressions-history] PRIMARY KEY CLUSTERED 
 				(
 					[HistoryId] ASC,
 					[CosmosTimeStamp] ASC,
