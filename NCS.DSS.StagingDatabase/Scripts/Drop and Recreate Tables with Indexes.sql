@@ -104,6 +104,20 @@ IF OBJECT_ID('[dss-contacts]', 'U') IS NOT NULL
 							   ON [PRIMARY]
 		END
 
+IF OBJECT_ID('[dss-collections]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-collections]
+		
+			CREATE TABLE [dbo].[dss-collections] (
+							   	[id]				UNIQUEIDENTIFIER NOT NULL,
+								[CollectionReports] VARCHAR (max) NULL,
+								[TouchpointId]		VARCHAR (max) NULL,
+								[Ukprn]				VARCHAR (max) NULL,
+								[LastModifiedDate]	DATETIME2 (7) NULL,
+							   CONSTRAINT [PK_dss-contacts] PRIMARY KEY ([id]))
+							   ON [PRIMARY]
+		END
+
 IF OBJECT_ID('[dss-customers]', 'U') IS NOT NULL 
 		BEGIN
 			DROP TABLE [dss-customers]
@@ -149,6 +163,34 @@ IF OBJECT_ID('[dss-diversitydetails]', 'U') IS NOT NULL
 							   CONSTRAINT [PK_dss-diversitydetails] PRIMARY KEY ([id]))
 							   ON [PRIMARY]
 		END
+		
+		
+IF OBJECT_ID('[dss-employmentprogressions]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-employmentprogressions]
+		
+			CREATE TABLE [dbo].[dss-employmentprogressions] (
+							   [id]                             UNIQUEIDENTIFIER NOT NULL,
+							   [CustomerId]                     UNIQUEIDENTIFIER NULL,
+							   [DateProgressionRecorded]        DATETIME2        NULL,
+							   [CurrentEmploymentStatus]		INT              NULL,
+							   [EconomicShockStatus]			INT              NULL,
+							   [EconomicShockCode]				VARCHAR (50)     NULL,
+							   [EmployerName]					VARCHAR (200)    NULL,
+							   [EmployerAddress]				VARCHAR (500)    NULL,
+							   [EmployerPostcode]               VARCHAR (10)     NULL,
+							   [Longitude]						FLOAT (53)       NULL,
+							   [Latitude]						FLOAT (53)       NULL,
+							   [EmploymentHours]				INT			     NULL,
+							   [DateOfEmployment]				DATETIME2        NULL,
+							   [DateOfLastEmployment]			DATETIME2        NULL,
+							   [LengthOfUnemployment]			INT              NULL,
+							   [LastModifiedDate]               DATETIME2        NULL,
+							   [LastModifiedTouchpointId]       VARCHAR (MAX)    NULL, 
+							   [CreatedBy]					    VARCHAR (MAX)    NULL, 
+							   CONSTRAINT [PK_dss-employmentprogressions] PRIMARY KEY ([id]))
+							   ON [PRIMARY]
+		END
 
 IF OBJECT_ID('[dss-goals]', 'U') IS NOT NULL 
 		BEGIN
@@ -188,6 +230,28 @@ IF OBJECT_ID('[dss-interactions]', 'U') IS NOT NULL
 							   CONSTRAINT [PK_dss-interactions] PRIMARY KEY ([id]))
 							   ON [PRIMARY]
 		END
+
+IF OBJECT_ID('[dss-learningprogression', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-learningprogression]
+		
+			CREATE TABLE [dbo].[dss-learningprogression] (
+							   [id]                             UNIQUEIDENTIFIER NOT NULL,
+							   [CustomerId]                     UNIQUEIDENTIFIER NULL,
+							   [DateProgressionRecorded]        DATETIME2        NULL,
+							   [CurrentLearningStatus]			INT              NULL,
+							   [LearningHours]					INT				 NULL,
+							   [DateLearningStarted]			DATETIME2        NULL,
+							   [CurrentQualificationLevel]      INT              NULL,
+							   [DateQualificationLevelAchieved] DATETIME2        NULL,
+							   [LastLearningProvidersUKPRN]     VARCHAR (MAX)    NULL,
+							   [LastModifiedDate]               DATETIME2        NULL,
+							   [LastModifiedTouchpointId]       VARCHAR (MAX)    NULL,
+							   [CreatedBy]					    VARCHAR (MAX)    NULL, 
+							   CONSTRAINT [PK_dss-learningprogression] PRIMARY KEY ([id]))
+							   ON [PRIMARY]
+		END
+
 
 IF OBJECT_ID('[dss-outcomes]', 'U') IS NOT NULL 
 		BEGIN
