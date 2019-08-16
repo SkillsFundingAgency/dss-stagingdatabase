@@ -11,7 +11,7 @@
 --            
 -- Copyright © 2019, ESFA, All Rights Reserved
 -------------------------------------------------------------------------------
-CREATE PROCEDURE usp_GetSatisfactionDataForIpsosMoriIntegration
+CREATE PROCEDURE [dbo].[usp_GetSatisfactionDataForIpsosMoriIntegration]
 @startDate AS DATE,  @endDate AS DATE
 AS							   
 BEGIN
