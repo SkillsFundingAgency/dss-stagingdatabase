@@ -1,7 +1,5 @@
 
-CREATE PROCEDURE usp_GetSatisfactionDataForIpsosMoriIntegration
-(@startDate AS DATE,  @endDate AS DATE)
-AS							   -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 -- Authors:      Kevin Brandon
 -- Created:      14/08/2019
 -- Purpose:      Produce Demographics data for Ipsos Mori integration.
@@ -13,10 +11,10 @@ AS							   --------------------------------------------------------------------
 --            
 -- Copyright © 2019, ESFA, All Rights Reserved
 -------------------------------------------------------------------------------
+CREATE PROCEDURE usp_GetSatisfactionDataForIpsosMoriIntegration
+@startDate AS DATE,  @endDate AS DATE
+AS							   
 BEGIN
-	SET @startDate = DATEADD(MONTH,datediff(MONTH,0,GETDATE())-1,0)
-	SET @endDate = DATEADD(MONTH, DATEDIFF(MONTH, -1, GETDATE())-1, -1)
-
 	SELECT 		c.id											AS 'Customer ID'
 				, c.GivenName									AS 'Given Name'
 				, c.FamilyName									AS 'Family Name'
