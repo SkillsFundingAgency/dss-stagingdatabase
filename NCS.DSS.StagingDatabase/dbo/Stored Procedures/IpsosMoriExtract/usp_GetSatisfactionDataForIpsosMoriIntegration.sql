@@ -15,6 +15,11 @@ CREATE PROCEDURE [dbo].[usp_GetSatisfactionDataForIpsosMoriIntegration]
 @startDate AS DATE,  @endDate AS DATE
 AS							   
 BEGIN
+
+	-- used to get latest address
+	DECLARE	@today DATE;
+	SET		@today = GETDATE()
+
 	SELECT 		c.id											AS 'Customer ID'
 				, c.GivenName									AS 'Given Name'
 				, c.FamilyName									AS 'Family Name'
@@ -106,6 +111,13 @@ BEGIN
 						WHEN 98 THEN 'Any other ethnic group'
 						ELSE 'Not provided'					
 					END
+				, 'Gender' = 
+					CASE c.Gender
+						WHEN 1 THEN 'Female'
+						WHEN 2 THEN  'Male'
+						WHEN 98 THEN 'Not applicable'
+						WHEN 99 THEN  'Not provided'
+					END
 				, 'Contracting Area' = 
 					CASE COALESCE(ap.CreatedBy, ap.LastModifiedTouchpointId)
 					WHEN '0000000101' THEN 'East of England and Bucks'
@@ -171,7 +183,7 @@ BEGIN
 				, CAST(s.DateandTimeOfSession AS DATE)				AS 'Session Date'
 				, 'True'											AS 'Participate Research Evaluation'
 				, 'Priority Group' = 
-					CASE o.ClaimedPriorityGroup
+					CASE ap.PriorityCustomer
 						WHEN 1 THEN '18 to 24 not in education, employment or training'
 						WHEN 2 THEN 'Low skilled adults without a level 2 qualification'
 						WHEN 3 THEN 'Adults who have been unemployed for more than 12 months'
@@ -192,10 +204,11 @@ BEGIN
 	LEFT JOIN	[dss-contacts] con ON con.CustomerId = c.id
 	LEFT JOIN	[dss-addresses] a ON a.CustomerId = c.Id
 	LEFT JOIN	[dss-diversitydetails] d ON d.CustomerId = c.Id
+	LEFT JOIN   [dss-employmentprogressions] ep on ep.CustomerId = c.id
+	LEFT JOIN   [dss-learningprogressions] lp on lp.CustomerId = c.id
 	INNER JOIN	[dss-actionplans] ap ON ap.CustomerId = c.id
 	INNER JOIN	[dss-interactions] i ON i.id = ap.InteractionId
 	INNER JOIN	[dss-sessions] s ON s.id = ap.SessionId
-	INNER JOIN	[dss-outcomes] o ON o.ActionPlanId = ap.id
 	WHERE		c.OptInMarketResearch = 1					-- true
 	AND			COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
 	AND			ap.DateActionPlanCreated BETWEEN @startDate AND @endDate
