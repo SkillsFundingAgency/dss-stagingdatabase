@@ -12,9 +12,13 @@
 -- Copyright © 2019, ESFA, All Rights Reserved
 -------------------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[usp_GetSatisfactionDataForIpsosMoriIntegration]
-@startDate AS DATE,  @endDate AS DATE
 AS							   
 BEGIN
+	DECLARE @startDate DATE
+	DECLARE @endDate DATE
+
+	SET @startDate = DATEADD(MONTH,datediff(MONTH,0,GETDATE())-1,0)
+	SET @endDate = DATEADD(MONTH, DATEDIFF(MONTH, -1, GETDATE())-1, -1)
 
 	-- used to get latest address
 	DECLARE	@today DATE;
@@ -132,11 +136,52 @@ BEGIN
 					WHEN '0000000999' THEN 'National Careers Helpline'
 				END		
 				, COALESCE(ap.SubcontractorId, '')						AS 'Subcontractor Name'
-				, ap.id													AS 'Action Plan ID'
-				, 'Add employment status here'							AS 'Employment Status'
-				, 'Add length of unemployment'							AS 'Length of unemployment'
-				, 'Add Learning Status'									AS 'Learning Status'
-				, 'Qualification leve;'									AS 'Qualification Level'
+				, ap.id													AS 'Action Plan ID'	
+				, 'Current Employment Status' = CASE ep.CurrentEmploymentStatus
+					WHEN 1 THEN 'Apprenticeship'
+					WHEN 2  THEN 'Economically Inactive'
+					WHEN 3 THEN 'Economically Inactive and voluntary work'
+					WHEN 4 THEN 'Employed'
+					WHEN 5 THEN 'Employed and voluntary work'
+					WHEN 6  THEN 'Employed at risk of redundancy'
+					WHEN 7 THEN 'Retired '
+					WHEN 8 THEN 'Retired and voluntary work'
+					WHEN 9 THEN 'Self employed'
+					WHEN 10 THEN 'Self employed and voluntary work'
+					WHEN 11 THEN 'Unemployed'
+					WHEN 12 THEN 'Unemployed and voluntary work'
+					WHEN 13 THEN 'Unemployed due to redundancy'
+					WHEN 99 THEN 'Not known'
+				  END 
+				, 'Length Of Unemployment' = CASE COALESCE(ep.LengthOfUnemployment,0)								
+					WHEN 1 THEN 'Less than 3 months '
+					WHEN 2 THEN '3-5 months '
+					WHEN 3 THEN '6-11 months'
+					WHEN 4 THEN '12-23 months'
+					WHEN 5 THEN '24-35 months'
+					WHEN 6 THEN 'over 36 months'
+					WHEN 98 THEN 'Prefer not to say '
+					WHEN 99 THEN 'Not known/not provided'
+				  END 		  
+				, 'Current Learning Status' = CASE lp.CurrentLearningStatus								
+					WHEN 1 THEN 'In learning'
+					WHEN 2 THEN 'Not in learning'
+					WHEN 3 THEN 'Traineeship'
+					WHEN 98 THEN 'Prefer not to say'
+					WHEN 99 THEN 'Not known'
+				  END
+				, 'Current Qualification Level' = CASE lp.CurrentQualificationLevel 							
+					WHEN 0 THEN 'Entry Level'
+					WHEN 1 THEN 'Qualification Level 1'
+					WHEN 2 THEN 'Qualification Level 2'
+					WHEN 3 THEN 'Qualification Level 3'
+					WHEN 4 THEN 'Qualification Level 4'
+					WHEN 5 THEN 'Qualification Level 5'
+					WHEN 6 THEN 'Qualification Level 6'
+					WHEN 7 THEN 'Qualification Level 7'
+					WHEN 8 THEN 'Qualification Level 8'
+					WHEN 99 THEN 'No qualifications'			   	  
+				  END
 				, 'Referral' =
 					CASE COALESCE(c.IntroducedBy, 0)
 						WHEN 1 THEN 'Advanced Learning Loans'
