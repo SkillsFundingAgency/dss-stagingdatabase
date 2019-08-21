@@ -10,12 +10,12 @@
 --------------------------------------------------------------------------------------
 */
 
-IF COL_LENGTH(N'dss-diversitydetails',  N'LastModifiedTouchpointId') IS NOT NULL
+IF COL_LENGTH(N'dbo.dss-diversitydetails',  N'LastModifiedTouchpointId') IS NOT NULL
 BEGIN
-	EXEC sp_rename 'dss-diversitydetails.LastModifiedTouchpointId', 'LastModifiedBy', 'COLUMN';  
+	EXEC sp_rename 'dbo.dss-diversitydetails.LastModifiedTouchpointId', 'LastModifiedBy', 'COLUMN';  
 END;
 
-IF COL_LENGTH(N'dss-diversitydetails-history',  N'LastModifiedTouchpointId') IS NOT NULL
+IF COL_LENGTH(N'dbo.dss-diversitydetails-history',  N'LastModifiedTouchpointId') IS NOT NULL
 BEGIN
-	EXEC sp_rename 'dss-diversitydetails-history.LastModifiedTouchpointId', 'LastModifiedBy', 'COLUMN';  
+	EXEC sp_rename 'dbo.dss-diversitydetails-history.LastModifiedTouchpointId', 'LastModifiedBy', 'COLUMN';  
 END;
