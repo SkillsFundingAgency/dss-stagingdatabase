@@ -16,7 +16,7 @@ BEGIN
 				,Ethnicity int
 				,DateAndTimeEthnicityCollected datetime2
 				,LastModifiedDate datetime2
-				,LastModifiedTouchpointId varchar(max)
+				,LastModifiedBy varchar(max)
 				)
 		) AS InputJSON
 		ON (diversity.id = InputJSON.id)
@@ -34,7 +34,7 @@ BEGIN
 				,diversity.Ethnicity = InputJSON.Ethnicity
 				,diversity.DateAndTimeEthnicityCollected = InputJSON.DateAndTimeEthnicityCollected
 				,diversity.LastModifiedDate = InputJSON.LastModifiedDate
-				,diversity.LastModifiedTouchpointId = InputJSON.LastModifiedTouchpointId
+				,diversity.LastModifiedBy = InputJSON.LastModifiedBy
 	WHEN NOT MATCHED
 		THEN
 			INSERT (
@@ -49,7 +49,7 @@ BEGIN
 				,Ethnicity
 				,DateAndTimeEthnicityCollected
 				,LastModifiedDate
-				,LastModifiedTouchpointId
+				,LastModifiedBy
 				)
 			VALUES (
 				InputJSON.id
@@ -63,7 +63,7 @@ BEGIN
 				,InputJSON.Ethnicity
 				,InputJSON.DateAndTimeEthnicityCollected
 				,InputJSON.LastModifiedDate
-				,InputJSON.LastModifiedTouchpointId
+				,InputJSON.LastModifiedBy
 				);
 
 	exec [dbo].[insert-dss-diversitydetails-history] @Json

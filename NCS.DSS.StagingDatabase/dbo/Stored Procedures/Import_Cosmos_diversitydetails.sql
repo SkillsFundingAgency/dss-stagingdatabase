@@ -39,7 +39,7 @@ BEGIN
 						 [Ethnicity] [varchar](max) NULL,
 						 [DateAndTimeEthnicityCollected] [varchar](max) NULL,
 						 [LastModifiedDate] [varchar](max) NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL
+						 [LastModifiedBy] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
 
@@ -58,7 +58,7 @@ BEGIN
 			Ethnicity VARCHAR(MAX) '$.Ethnicity',
 			DateAndTimeEthnicityCollected VARCHAR(MAX) '$.DateAndTimeEthnicityCollected',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId'
+			LastModifiedBy VARCHAR(MAX) '$.LastModifiedBy'
 			) as Coll
 
 
@@ -80,7 +80,7 @@ BEGIN
 						 [Ethnicity] int NULL,
 						 [DateAndTimeEthnicityCollected] datetime2 NULL,
 						 [LastModifiedDate] datetime2 NULL,
-						 [LastModifiedTouchpointId] [varchar](max) NULL,
+						 [LastModifiedBy] [varchar](max) NULL,
 						 CONSTRAINT [PK_dss-diversitydetails] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]
 		END
@@ -98,7 +98,7 @@ BEGIN
 				CONVERT(int, [Ethnicity]) as [Ethnicity],
 				CONVERT(datetime2, [DateAndTimeEthnicityCollected]) as [DateAndTimeEthnicityCollected],
 				CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
-				[LastModifiedTouchpointId]
+				[LastModifiedBy]
 				FROM #diversitydetails
 
 		DROP TABLE #diversitydetails
