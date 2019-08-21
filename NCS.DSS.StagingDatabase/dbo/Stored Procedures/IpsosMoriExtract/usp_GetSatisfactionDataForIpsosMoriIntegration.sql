@@ -119,7 +119,7 @@ BEGIN
 					CASE c.Gender
 						WHEN 1 THEN 'Female'
 						WHEN 2 THEN  'Male'
-						WHEN 98 THEN 'Not applicable'
+						WHEN 3 THEN 'Not applicable'
 						WHEN 99 THEN  'Not provided'
 					END
 				, 'Contracting Area' = 
