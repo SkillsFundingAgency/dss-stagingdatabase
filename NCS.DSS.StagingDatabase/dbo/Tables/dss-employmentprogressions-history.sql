@@ -6,7 +6,7 @@
     [DateProgressionRecorded]        DATETIME2        NULL,
     [CurrentEmploymentStatus]		 INT              NULL,
 	[EconomicShockStatus]			 INT              NULL,
-	[EconomicShockCode]				 INT              NULL,
+	[EconomicShockCode]				 VARCHAR (50)     NULL,
     [EmployerName]					 VARCHAR (200)    NULL,
 	[EmployerAddress]				 VARCHAR (500)    NULL,
 	[EmployerPostcode]               VARCHAR (max)    NULL,
