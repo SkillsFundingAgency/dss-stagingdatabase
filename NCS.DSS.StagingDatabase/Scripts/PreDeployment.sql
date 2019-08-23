@@ -19,3 +19,14 @@ IF COL_LENGTH(N'dbo.dss-diversitydetails-history',  N'LastModifiedTouchpointId')
 BEGIN
 	EXEC sp_rename 'dbo.dss-diversitydetails-history.LastModifiedTouchpointId', 'LastModifiedBy', 'COLUMN';  
 END;
+
+IF EXISTS(
+       SELECT 1
+       FROM   sys.columns
+       WHERE  NAME = 'EconomicShockCode'
+              AND [object_id] = OBJECT_ID('dbo.dss-employmentprogressions-history')
+              AND TYPE_NAME(system_type_id) = 'int'
+   )
+BEGIN
+	ALTER TABLE [dbo].[dss-employmentprogressions-history] ALTER COLUMN EconomicShockCode VARCHAR (50);
+END
