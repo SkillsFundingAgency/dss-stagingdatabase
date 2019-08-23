@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------
 -- Authors:      Kevin Brandon
 -- Created:      14/08/2019
--- Purpose:      Produce Demographics data for Ipsos Mori integration.
+-- Purpose:      Produce Satisfaction data for Ipsos Mori integration.
 --  
 -------------------------------------------------------------------------------
 -- Modification History
@@ -11,10 +11,19 @@
 --            
 -- Copyright © 2019, ESFA, All Rights Reserved
 -------------------------------------------------------------------------------
-CREATE PROCEDURE usp_GetSatisfactionDataForIpsosMoriIntegration
-@startDate AS DATE,  @endDate AS DATE
+CREATE PROCEDURE [dbo].[usp_GetSatisfactionDataForIpsosMoriIntegration]
 AS							   
 BEGIN
+	DECLARE @startDate DATE
+	DECLARE @endDate DATE
+
+	SET @startDate = DATEADD(MONTH,datediff(MONTH,0,GETDATE())-1,0)
+	SET @endDate = DATEADD(MONTH, DATEDIFF(MONTH, -1, GETDATE())-1, -1)
+
+	-- used to get latest address
+	DECLARE	@today DATE;
+	SET		@today = GETDATE()
+
 	SELECT 		c.id											AS 'Customer ID'
 				, c.GivenName									AS 'Given Name'
 				, c.FamilyName									AS 'Family Name'
@@ -106,6 +115,13 @@ BEGIN
 						WHEN 98 THEN 'Any other ethnic group'
 						ELSE 'Not provided'					
 					END
+				, 'Gender' = 
+					CASE c.Gender
+						WHEN 1 THEN 'Female'
+						WHEN 2 THEN  'Male'
+						WHEN 3 THEN 'Not applicable'
+						WHEN 99 THEN  'Not provided'
+					END
 				, 'Contracting Area' = 
 					CASE COALESCE(ap.CreatedBy, ap.LastModifiedTouchpointId)
 					WHEN '0000000101' THEN 'East of England and Bucks'
@@ -120,11 +136,52 @@ BEGIN
 					WHEN '0000000999' THEN 'National Careers Helpline'
 				END		
 				, COALESCE(ap.SubcontractorId, '')						AS 'Subcontractor Name'
-				, ap.id													AS 'Action Plan ID'
-				, 'Add employment status here'							AS 'Employment Status'
-				, 'Add length of unemployment'							AS 'Length of unemployment'
-				, 'Add Learning Status'									AS 'Learning Status'
-				, 'Qualification leve;'									AS 'Qualification Level'
+				, ap.id													AS 'Action Plan ID'	
+				, 'Current Employment Status' = CASE ep.CurrentEmploymentStatus
+					WHEN 1 THEN 'Apprenticeship'
+					WHEN 2  THEN 'Economically Inactive'
+					WHEN 3 THEN 'Economically Inactive and voluntary work'
+					WHEN 4 THEN 'Employed'
+					WHEN 5 THEN 'Employed and voluntary work'
+					WHEN 6  THEN 'Employed at risk of redundancy'
+					WHEN 7 THEN 'Retired '
+					WHEN 8 THEN 'Retired and voluntary work'
+					WHEN 9 THEN 'Self employed'
+					WHEN 10 THEN 'Self employed and voluntary work'
+					WHEN 11 THEN 'Unemployed'
+					WHEN 12 THEN 'Unemployed and voluntary work'
+					WHEN 13 THEN 'Unemployed due to redundancy'
+					WHEN 99 THEN 'Not known'
+				  END 
+				, 'Length Of Unemployment' = CASE COALESCE(ep.LengthOfUnemployment,0)								
+					WHEN 1 THEN 'Less than 3 months '
+					WHEN 2 THEN '3-5 months '
+					WHEN 3 THEN '6-11 months'
+					WHEN 4 THEN '12-23 months'
+					WHEN 5 THEN '24-35 months'
+					WHEN 6 THEN 'over 36 months'
+					WHEN 98 THEN 'Prefer not to say '
+					WHEN 99 THEN 'Not known/not provided'
+				  END 		  
+				, 'Current Learning Status' = CASE lp.CurrentLearningStatus								
+					WHEN 1 THEN 'In learning'
+					WHEN 2 THEN 'Not in learning'
+					WHEN 3 THEN 'Traineeship'
+					WHEN 98 THEN 'Prefer not to say'
+					WHEN 99 THEN 'Not known'
+				  END
+				, 'Current Qualification Level' = CASE lp.CurrentQualificationLevel 							
+					WHEN 0 THEN 'Entry Level'
+					WHEN 1 THEN 'Qualification Level 1'
+					WHEN 2 THEN 'Qualification Level 2'
+					WHEN 3 THEN 'Qualification Level 3'
+					WHEN 4 THEN 'Qualification Level 4'
+					WHEN 5 THEN 'Qualification Level 5'
+					WHEN 6 THEN 'Qualification Level 6'
+					WHEN 7 THEN 'Qualification Level 7'
+					WHEN 8 THEN 'Qualification Level 8'
+					WHEN 99 THEN 'No qualifications'			   	  
+				  END
 				, 'Referral' =
 					CASE COALESCE(c.IntroducedBy, 0)
 						WHEN 1 THEN 'Advanced Learning Loans'
@@ -171,7 +228,7 @@ BEGIN
 				, CAST(s.DateandTimeOfSession AS DATE)				AS 'Session Date'
 				, 'True'											AS 'Participate Research Evaluation'
 				, 'Priority Group' = 
-					CASE o.ClaimedPriorityGroup
+					CASE ap.PriorityCustomer
 						WHEN 1 THEN '18 to 24 not in education, employment or training'
 						WHEN 2 THEN 'Low skilled adults without a level 2 qualification'
 						WHEN 3 THEN 'Adults who have been unemployed for more than 12 months'
@@ -192,10 +249,11 @@ BEGIN
 	LEFT JOIN	[dss-contacts] con ON con.CustomerId = c.id
 	LEFT JOIN	[dss-addresses] a ON a.CustomerId = c.Id
 	LEFT JOIN	[dss-diversitydetails] d ON d.CustomerId = c.Id
+	LEFT JOIN   [dss-employmentprogressions] ep on ep.CustomerId = c.id
+	LEFT JOIN   [dss-learningprogressions] lp on lp.CustomerId = c.id
 	INNER JOIN	[dss-actionplans] ap ON ap.CustomerId = c.id
 	INNER JOIN	[dss-interactions] i ON i.id = ap.InteractionId
 	INNER JOIN	[dss-sessions] s ON s.id = ap.SessionId
-	INNER JOIN	[dss-outcomes] o ON o.ActionPlanId = ap.id
 	WHERE		c.OptInMarketResearch = 1					-- true
 	AND			COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
 	AND			ap.DateActionPlanCreated BETWEEN @startDate AND @endDate

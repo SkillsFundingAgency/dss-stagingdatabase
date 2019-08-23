@@ -7,4 +7,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="LastModifiedBy" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="0823095b-1ed3-49cf-be3d-aa41c613d577" ChangeDateTime="08/21/2019 10:19:45">
+    <Property Name="ElementName" Value="[dbo].[dss-diversitydetails].[LastModifiedTouchpointId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[dss-diversitydetails]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LastModifiedBy" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ebb2729a-0f6e-4d77-a9d6-0cd3944c3efa" ChangeDateTime="08/21/2019 10:19:52">
+    <Property Name="ElementName" Value="[dbo].[dss-diversitydetails-history].[LastModifiedTouchpointId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[dss-diversitydetails-history]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LastModifiedBy" />
+  </Operation>
 </Operations>

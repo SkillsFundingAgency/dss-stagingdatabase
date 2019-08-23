@@ -67,6 +67,7 @@
     <Folder Include="Scripts" />
     <Folder Include="dbo\Stored Procedures\ChangeHistory" />
     <Folder Include="dbo\Functions" />
+    <Folder Include="dbo\Stored Procedures\IpsosMoriExtract" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\dss-actionplans.sql" />
@@ -157,6 +158,8 @@
     <Build Include="dbo\Stored Procedures\Import_Cosmos_learningprogressions.sql" />
     <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-learningprogressions-history.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-learningprogressions.sql" />
+    <Build Include="dbo\Stored Procedures\IpsosMoriExtract\usp_GetSatisfactionDataForIpsosMoriIntegration.sql" />
+    <Build Include="dbo\Stored Procedures\IpsosMoriExtract\usp_GetDemographicsDataForIpsosMoriIntegration.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
@@ -165,5 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="NCS.DSS.StagingDatabase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\PreDeployment.sql" />
   </ItemGroup>
 </Project>

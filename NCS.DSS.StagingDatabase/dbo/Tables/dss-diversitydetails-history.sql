@@ -12,7 +12,7 @@
     [Ethnicity]                                 [INT]               NULL,
     [DateAndTimeEthnicityCollected]             [datetime2]         NULL,
     [LastModifiedDate]                          [datetime2]         NULL,
-    [LastModifiedTouchpointId]                  [VARCHAR] (max)     NULL,
+    [LastModifiedBy]                  [VARCHAR] (max)     NULL,
  CONSTRAINT [PK_dss-diversitydetails-history] PRIMARY KEY CLUSTERED 
 (
 	[HistoryId] ASC,
