@@ -2,8 +2,8 @@
 CREATE PROCEDURE [dbo].[CreateReferenceData]
 AS
 BEGIN
-    
-    SET NOCOUNT ON
+	
+	SET NOCOUNT ON
 
 
 	IF OBJECT_ID('dss-reference-data', 'U') IS NOT NULL 
@@ -311,4 +311,14 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Sessions', 'ReasonForNonAttendance', 'Rescheduled', 5, 'Rescheduled')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Sessions', 'ReasonForNonAttendance', 'NotKnown', 99, 'Not Known')
 	
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000101', 101,'East of England and Buckinghamshire')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000102', 102, 'East Midlands and Northamptonshire')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000103', 103, 'London')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000104', 104, 'West Midlands')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000105', 105, 'North West')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000106', 106, 'North East and Cumbria')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000107', 107, 'South East')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000108', 108, 'South West')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000109', 109, 'Yorkshire and Humber')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Touchpoints', 'Touchpoint', '0000000999', 999, 'National Careers Helpline')
 	END
