@@ -5,6 +5,7 @@
 --  
 -------------------------------------------------------------------------------
 -- Modification History
+-- Added null check, returning default value
 -- Initial creation.
 -- 
 --            
@@ -16,15 +17,20 @@ AS
 BEGIN
 	DECLARE @ret varchar(50);
 
-	SELECT @ret = description 
+	if (COALESCE(@criteria, 0) = 0 )
+		SET @ret = @default;
+	ELSE
+	BEGIN
+		SELECT @ret = description 
 				FROM [DBO].[dss-reference-data]  
 				WHERE 
 				[DBO].[dss-reference-data].[Resource] = @resource AND 
 				[DBO].[dss-reference-data].[name] = @name AND 
 				[DBO].[dss-reference-data].[value] = @criteria
 
-	IF (@ret IS NULL) 
-		SET @ret = @default;
+		IF (@ret IS NULL) 
+			SET @ret = @default;
+	END;
 
-	RETURN @ret;  
+	RETURN @ret;
 END;
