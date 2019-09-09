@@ -8,11 +8,11 @@ BEGIN
 
 	IF OBJECT_ID('dss-reference-data', 'U') IS NOT NULL 
 		BEGIN
-			TRUNCATE TABLE [dss-reference-data]
+			TRUNCATE TABLE [dbo].[dss-reference-data]
 		END
 	ELSE
 		BEGIN
-			CREATE TABLE [dss-reference-data]
+			CREATE TABLE [dbo].[dss-reference-data]
 			(
 						[resource] varchar(50) NULL,
 						[name] varchar(100) NULL,
