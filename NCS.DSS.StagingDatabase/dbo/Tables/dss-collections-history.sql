@@ -5,7 +5,7 @@
 	[ContainerName]		VARCHAR (max) NULL,
 	[ReportFileName]	VARCHAR (max) NULL,
 	[CollectionReports] VARCHAR (max) NULL,
-	[TouchpointId]		VARCHAR (max) NULL,
+	[TouchPointId]		VARCHAR (max) NULL,
 	[Ukprn]				VARCHAR (max) NULL,
 	[LastModifiedDate]	DATETIME2(7) NULL,
 PRIMARY KEY CLUSTERED 

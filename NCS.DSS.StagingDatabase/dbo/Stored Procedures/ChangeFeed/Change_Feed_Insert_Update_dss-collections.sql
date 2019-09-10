@@ -23,7 +23,7 @@ BEGIN
 				,collections.ContainerName = InputJSON.ContainerName
 				,collections.ReportFileName = InputJSON.ReportFileName
 				,collections.CollectionReports = InputJSON.CollectionReports
-				,collections.TouchpointId = InputJSON.TouchPointId
+				,collections.TouchPointId = InputJSON.TouchPointId
 				,collections.Ukprn = InputJSON.Ukprn
 				,collections.LastModifiedDate = InputJSON.LastModifiedDate
 
@@ -34,7 +34,7 @@ BEGIN
 				,ContainerName
 				,ReportFileName
 				,CollectionReports
-				,TouchpointId
+				,TouchPointId
 				,Ukprn				
 				,LastModifiedDate				
 				)
