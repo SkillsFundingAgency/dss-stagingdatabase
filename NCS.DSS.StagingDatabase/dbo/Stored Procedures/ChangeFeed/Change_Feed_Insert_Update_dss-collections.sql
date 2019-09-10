@@ -9,7 +9,7 @@ BEGIN
 				,ContainerName VARCHAR (MAX)
 				,ReportFileName VARCHAR (MAX)
 				,CollectionReports VARCHAR(MAX)
-				,TouchpointId VARCHAR(MAX)
+				,TouchPointId VARCHAR(MAX)
 				,Ukprn VARCHAR(MAX)
 				,LastModifiedDate DATETIME2
 				)
@@ -23,7 +23,7 @@ BEGIN
 				,collections.ContainerName = InputJSON.ContainerName
 				,collections.ReportFileName = InputJSON.ReportFileName
 				,collections.CollectionReports = InputJSON.CollectionReports
-				,collections.TouchpointId = InputJSON.TouchpointId
+				,collections.TouchpointId = InputJSON.TouchPointId
 				,collections.Ukprn = InputJSON.Ukprn
 				,collections.LastModifiedDate = InputJSON.LastModifiedDate
 
@@ -43,7 +43,7 @@ BEGIN
 				,InputJSON.ContainerName
 				,InputJSON.ReportFileName
 				,InputJSON.CollectionReports
-				,InputJSON.TouchpointId
+				,InputJSON.TouchPointId
 				,InputJSON.Ukprn
 				,InputJSON.LastModifiedDate
 				);
