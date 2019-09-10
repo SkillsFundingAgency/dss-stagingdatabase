@@ -23,6 +23,8 @@ BEGIN
 
 	CREATE TABLE [#collections](
 				[id] [varchar](max) NULL,
+				[ContainerName]	[varchar](max) NULL,
+				[ReportFileName] [varchar](max) NULL,
 				[CollectionReports] [varchar](max) NULL,
 				[TouchpointId] [varchar](max) NULL,
 				[Ukprn] [varchar](max) NULL,
@@ -35,8 +37,10 @@ BEGIN
 	FROM OPENJSON(@retvalue)
 		WITH (
 			id VARCHAR(MAX) '$.id', 
+			ContainerName VARCHAR(MAX) '$.ContainerName',
+			ReportFileName VARCHAR(MAX) '$.ReportFileName',
 			CollectionReports VARCHAR(MAX) '$.CollectionReports',
-			TouchpointId VARCHAR(MAX) '$.TouchpointId',
+			TouchpointId VARCHAR(MAX) '$.TouchPointId',
 			Ukprn VARCHAR(MAX) '$.Ukprn',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate'
 			) as Coll
@@ -50,6 +54,8 @@ BEGIN
 		BEGIN
 			CREATE TABLE [dss-collections](
 						[id]				UNIQUEIDENTIFIER NOT NULL,
+						[ContainerName]		VARCHAR (max) NULL,
+						[ReportFileName]	VARCHAR (max) NULL,
 						[CollectionReports] VARCHAR (max) NULL,
 						[TouchpointId]		VARCHAR (max) NULL,
 						[Ukprn]				VARCHAR (max) NULL,
@@ -61,6 +67,8 @@ BEGIN
 		INSERT INTO [dss-collections] 
 			SELECT  
 			CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+			[ContainerName],
+			[ReportFileName],
 			[CollectionReports],
 			[TouchpointId],
 			[Ukprn],

@@ -110,6 +110,8 @@ IF OBJECT_ID('[dss-collections]', 'U') IS NOT NULL
 		
 			CREATE TABLE [dbo].[dss-collections] (
 							   	[id]				UNIQUEIDENTIFIER NOT NULL,
+								[ContainerName]		VARCHAR (max) NULL,
+								[ReportFileName]	VARCHAR (max) NULL,
 								[CollectionReports] VARCHAR (max) NULL,
 								[TouchpointId]		VARCHAR (max) NULL,
 								[Ukprn]				VARCHAR (max) NULL,
