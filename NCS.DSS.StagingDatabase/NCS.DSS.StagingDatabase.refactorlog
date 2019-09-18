@@ -21,4 +21,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="LastModifiedBy" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="2ecc9f0c-2d46-46bd-bd03-284a245b53e0" ChangeDateTime="09/10/2019 13:32:01">
+    <Property Name="ElementName" Value="[dbo].[dss-collections].[TouchpointId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[dss-collections]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TouchPointId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0830fa89-2f2d-46ab-8ab5-674ceaa6a36d" ChangeDateTime="09/10/2019 13:32:48">
+    <Property Name="ElementName" Value="[dbo].[dss-collections-history].[TouchpointId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[dss-collections-history]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TouchPointId" />
+  </Operation>
 </Operations>

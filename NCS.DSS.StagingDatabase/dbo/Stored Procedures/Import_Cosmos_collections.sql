@@ -23,8 +23,10 @@ BEGIN
 
 	CREATE TABLE [#collections](
 				[id] [varchar](max) NULL,
+				[ContainerName]	[varchar](max) NULL,
+				[ReportFileName] [varchar](max) NULL,
 				[CollectionReports] [varchar](max) NULL,
-				[TouchpointId] [varchar](max) NULL,
+				[TouchPointId] [varchar](max) NULL,
 				[Ukprn] [varchar](max) NULL,
 				[LastModifiedDate] [varchar](max) NULL,
 			) ON [PRIMARY]									
@@ -35,8 +37,10 @@ BEGIN
 	FROM OPENJSON(@retvalue)
 		WITH (
 			id VARCHAR(MAX) '$.id', 
+			ContainerName VARCHAR(MAX) '$.ContainerName',
+			ReportFileName VARCHAR(MAX) '$.ReportFileName',
 			CollectionReports VARCHAR(MAX) '$.CollectionReports',
-			TouchpointId VARCHAR(MAX) '$.TouchpointId',
+			TouchPointId VARCHAR(MAX) '$.TouchPointId',
 			Ukprn VARCHAR(MAX) '$.Ukprn',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate'
 			) as Coll
@@ -50,8 +54,10 @@ BEGIN
 		BEGIN
 			CREATE TABLE [dss-collections](
 						[id]				UNIQUEIDENTIFIER NOT NULL,
+						[ContainerName]		VARCHAR (max) NULL,
+						[ReportFileName]	VARCHAR (max) NULL,
 						[CollectionReports] VARCHAR (max) NULL,
-						[TouchpointId]		VARCHAR (max) NULL,
+						[TouchPointId]		VARCHAR (max) NULL,
 						[Ukprn]				VARCHAR (max) NULL,
 						[LastModifiedDate]	DATETIME2 (7) NULL,
 						CONSTRAINT [PK_dss-collections] PRIMARY KEY ([id])) 
@@ -61,8 +67,10 @@ BEGIN
 		INSERT INTO [dss-collections] 
 			SELECT  
 			CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+			[ContainerName],
+			[ReportFileName],
 			[CollectionReports],
-			[TouchpointId],
+			[TouchPointId],
 			[Ukprn],
 			CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate]
 			FROM #collections

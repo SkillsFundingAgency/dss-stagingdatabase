@@ -6,8 +6,10 @@ BEGIN
 		SELECT *
 		FROM OPENJSON(@Json) WITH (
 				id UNIQUEIDENTIFIER
+				,ContainerName VARCHAR (MAX)
+				,ReportFileName VARCHAR (MAX)
 				,CollectionReports VARCHAR(MAX)
-				,TouchpointId VARCHAR(MAX)
+				,TouchPointId VARCHAR(MAX)
 				,Ukprn VARCHAR(MAX)
 				,LastModifiedDate DATETIME2
 				)
@@ -18,8 +20,10 @@ BEGIN
 
 			UPDATE
 			SET collections.id = InputJSON.id
+				,collections.ContainerName = InputJSON.ContainerName
+				,collections.ReportFileName = InputJSON.ReportFileName
 				,collections.CollectionReports = InputJSON.CollectionReports
-				,collections.TouchpointId = InputJSON.TouchpointId
+				,collections.TouchPointId = InputJSON.TouchPointId
 				,collections.Ukprn = InputJSON.Ukprn
 				,collections.LastModifiedDate = InputJSON.LastModifiedDate
 
@@ -27,15 +31,19 @@ BEGIN
 		THEN
 			INSERT (
 				id
+				,ContainerName
+				,ReportFileName
 				,CollectionReports
-				,TouchpointId
+				,TouchPointId
 				,Ukprn				
 				,LastModifiedDate				
 				)
 			VALUES (
 				InputJSON.id
+				,InputJSON.ContainerName
+				,InputJSON.ReportFileName
 				,InputJSON.CollectionReports
-				,InputJSON.TouchpointId
+				,InputJSON.TouchPointId
 				,InputJSON.Ukprn
 				,InputJSON.LastModifiedDate
 				);

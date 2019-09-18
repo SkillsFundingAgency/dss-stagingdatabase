@@ -20,6 +20,17 @@ BEGIN
 	EXEC sp_rename 'dbo.dss-diversitydetails-history.LastModifiedTouchpointId', 'LastModifiedBy', 'COLUMN';  
 END;
 
+IF COL_LENGTH(N'dbo.dss-collections',  N'TouchpointId') IS NOT NULL
+BEGIN
+	EXEC sp_rename 'dbo.dss-collections.TouchpointId', 'TouchPointId', 'COLUMN';  
+END;
+
+IF COL_LENGTH(N'dbo.dss-collections',  N'TouchpointId') IS NOT NULL
+BEGIN
+	EXEC sp_rename 'dbo.dss-collections.TouchpointId', 'TouchPointId', 'COLUMN';  
+END;
+
+
 IF EXISTS(
        SELECT 1
        FROM   sys.columns
