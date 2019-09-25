@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [dbo].[CreateReferenceData]
+CREATE PROCEDURE [dbo].[usp_CreateReferenceData]
 AS
 BEGIN
 	
