@@ -85,7 +85,7 @@
     <Build Include="dbo\Tables\dss-transfers.sql" />
     <Build Include="dbo\Tables\dss-webchats.sql" />
     <Build Include="dbo\Tables\dss-reference-data.sql" />
-    <Build Include="dbo\Stored Procedures\CreateReferenceData.sql" />
+    <Build Include="dbo\Stored Procedures\usp_CreateReferenceData.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_customers.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_actionplans.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_addresses.sql" />
@@ -172,5 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\PostDeployment.sql" />
   </ItemGroup>
 </Project>
