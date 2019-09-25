@@ -46,11 +46,10 @@ DECLARE @startDate DATE
 				, 'Current Employment Status' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','CurrentEmploymentStatus',ep.CurrentEmploymentStatus,'')
 				, 'Length Of Unemployment' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','LengthOfUnemployment',ep.LengthOfUnemployment,'')
 				, 'Current Learning Status' = dbo.udf_GetReferenceDataValue('LearningProgressions','CurrentLearningStatus',lp.CurrentLearningStatus,'')
-				, 'Current Qualification Level' = dbo.udf_GetReferenceDataValue('LearningProgressions','CurrentQualificationLevel',lp.CurrentQualificationLevel,'')
-				, 'Referral' = dbo.udf_GetReferenceDataValue('Customers','IntroducedBy',c.IntroducedBy,'Not provided')
+				, 'Current Qualification Level' = dbo.udf_GetReferenceDataValue('LearningProgressions','CurrentQualificationLevel',lp.CurrentQualificationLevel,'')				
 				, 'Channel' = dbo.udf_GetReferenceDataValue('Interactions','Channel',i.Channel,'')
 				, CONVERT(VARCHAR(10), s.DateandTimeOfSession, 23)				AS 'Session Date'
-				, 'True'											AS 'Participate Research Evaluation'
+				, 'Yes'											AS 'Participate Research Evaluation'
 				, 'Priority Group' = dbo.udf_GetReferenceDataValue('ActionPlans','PriorityCustomer', ap.PriorityCustomer, '')
 	
 	FROM		[dss-customers] c
