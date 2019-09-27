@@ -40,7 +40,7 @@ DECLARE @startDate DATE
 				, 'Learning Difficulty' =  dbo.udf_GetReferenceDataValue('DiversityDetails','SecondaryLearningDifficultyOrDisability',d.SecondaryLearningDifficultyOrDisability,'Not provided')
 				, 'Ethnicity' =  dbo.udf_GetReferenceDataValue('DiversityDetails','Ethnicity',d.Ethnicity,'Not provided')					
 				, 'Gender' = dbo.udf_GetReferenceDataValue('Customers','Gender',c.Gender,'')
-				, 'Contracting Area' = dbo.udf_GetReferenceDataValue('Touchpoints','Touchpoint', CAST(COALESCE(ap.CreatedBy, ap.LastModifiedTouchpointId) AS INT),'') 
+				, 'Contracting Area' = dbo.udf_GetReferenceDataValue('Touchpoints','Touchpoint', CAST(COALESCE(ap.CreatedBy, ap.LastModifiedTouchpointId) AS BIGINT),'') 
 				, COALESCE(ap.SubcontractorId, '')						AS 'Subcontractor Name'
 				, 'Yes'													AS 'Action Plan'	
 				, 'Current Employment Status' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','CurrentEmploymentStatus',ep.CurrentEmploymentStatus,'')
