@@ -85,6 +85,7 @@ BEGIN
 			group BY group_name, group_value, touchpointId
 		)
 		
+		INSERT @demographics_employment
 		select a.group_name,
 			   a.group_value,
 			   -- ROW_NUMBER() OVER(ORDER BY a.group_name ASC) AS RowNum,
@@ -98,7 +99,7 @@ BEGIN
 				IsNull(cast(g8.count as varchar(10)),'0') as 'touchpoint8',
 				IsNull(cast(g9.count as varchar(10)),'0') as 'touchpoint9',
 				IsNull(cast(g10.count as varchar(10)),'0') as 'touchpoint10'
-		from employment_group_base a  
+		from employment_group_base a
 			left join employment_groups g1 on a.group_value = g1.group_value and g1.touchpointId = '0000000101'
 			left join employment_groups g2 on a.group_value = g2.group_value and g2.touchpointId = '0000000102'
 			left join employment_groups g3 on a.group_value = g3.group_value and g3.touchpointId = '0000000103'

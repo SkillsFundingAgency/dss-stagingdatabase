@@ -80,7 +80,7 @@ BEGIN
 			group BY group_name, group_value, touchpointId
 	)
 
-	INSERT INTO @demographics_gender
+	INSERT @demographics_gender
 	select a.group_name,
 			   a.group_value,
 			IsNull(cast(g1.count as varchar(10)),'0') as 'touchpoint1',
