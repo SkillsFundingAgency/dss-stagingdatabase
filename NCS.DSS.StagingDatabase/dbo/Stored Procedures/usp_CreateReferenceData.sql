@@ -17,7 +17,7 @@ BEGIN
 						[resource] varchar(50) NULL,
 						[name] varchar(100) NULL,
 						[key] varchar(100) NULL,
-						[value] int NULL,
+						[value] bigint NULL,
 						[description] varchar(max) NULL
 
 			) ON [PRIMARY]									

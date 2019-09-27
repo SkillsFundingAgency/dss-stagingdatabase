@@ -10,7 +10,7 @@
 --            
 -- Copyright © 2019, ESFA, All Rights Reserved
 -------------------------------------------------------------------------------
-CREATE FUNCTION [dbo].[usp_DemographicsEmploymentReport]()
+CREATE FUNCTION [dbo].[udf_DemographicsEmploymentReport]()
 RETURNS @demographics_employment TABLE 
 ( 
 		group_name VARCHAR(50), 
