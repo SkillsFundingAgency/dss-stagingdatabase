@@ -165,6 +165,7 @@
     <Build Include="dbo\Functions\IpsosMoriExtract\udf_DemographicsGenderReport.sql" />
     <Build Include="dbo\Stored Procedures\IpsosMoriExtract\udf_GetReferenceDataValue.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateReferenceData.sql" />
+    <Build Include="dbo\Functions\IpsosMoriExtract\udf_DemographicsNCHReport.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
