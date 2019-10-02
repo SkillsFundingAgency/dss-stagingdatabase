@@ -43,7 +43,10 @@ BEGIN
 			FROM [dbo].[dss-customers] c
 			inner join [dss-employmentprogressions] ep on c.id = ep.CustomerId 
 			left join  [dbo].[dss-actionplans] ap on  c.id = ap.CustomerId
-			WHERE ap.DateActionPlanCreated BETWEEN @startDate AND @endDate
+			left join [dss-interactions] i on c.id = i.CustomerId
+			WHERE 
+				ap.DateActionPlanCreated BETWEEN @startDate AND @endDate AND ap.CreatedBy <> '0000000999'
+				OR i.DateandTimeOfInteraction  BETWEEN @startDate AND @endDate AND i.TouchpointId = '0000000999'
 	)
 ,
  employment_group_base AS
@@ -88,7 +91,6 @@ BEGIN
 		INSERT @demographics_employment
 		select a.group_name,
 			   a.group_value,
-			   -- ROW_NUMBER() OVER(ORDER BY a.group_name ASC) AS RowNum,
 				IsNull(cast(g1.count as varchar(10)),'0') as 'touchpoint1',
 				IsNull(cast(g2.count as varchar(10)),'0')  as'touchpoint2',
 				IsNull(cast(g3.count as varchar(10)),'0') as 'touchpoint3',

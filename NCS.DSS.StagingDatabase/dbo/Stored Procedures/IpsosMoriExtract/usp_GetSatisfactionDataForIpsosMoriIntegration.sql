@@ -22,7 +22,7 @@ DECLARE @startDate DATE
 
 	-- used to get latest address
 	DECLARE	@today DATE;
-	SET		@today = GETDATE()
+	SET	@today = GETDATE()
 
 	SELECT 		c.id											AS 'Customer ID'
 				, c.GivenName									AS 'Given Name'
@@ -58,10 +58,13 @@ DECLARE @startDate DATE
 	LEFT JOIN	[dss-diversitydetails] d ON d.CustomerId = c.Id
 	LEFT JOIN   [dss-employmentprogressions] ep on ep.CustomerId = c.id
 	LEFT JOIN   [dss-learningprogressions] lp on lp.CustomerId = c.id
-	INNER JOIN	[dss-actionplans] ap ON ap.CustomerId = c.id
+	LEFT JOIN	[dss-actionplans] ap ON ap.CustomerId = c.id
 	INNER JOIN	[dss-interactions] i ON i.id = ap.InteractionId
 	INNER JOIN	[dss-sessions] s ON s.id = ap.SessionId
 	WHERE		c.OptInMarketResearch = 1 -- true
 	AND			COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
 	AND			ap.DateActionPlanCreated BETWEEN @startDate AND @endDate
+
+	-- Added
+	OR			i.DateandTimeOfInteraction BETWEEN @startDate AND @endDate
 END
