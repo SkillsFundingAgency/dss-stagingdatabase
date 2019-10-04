@@ -92,7 +92,7 @@ BEGIN
 			LEFT JOIN   [dss-actionplans] ap ON ap.interactionId = i.id
 			WHERE       c.OptInMarketResearch = 1 -- true
 			AND         COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
-			AND         isnull(ap.DateActionPlanCreated,i.DateandTimeOfInteraction) BETWEEN @startDate AND @endDate
+			AND         cast ( isnull(ap.DateActionPlanCreated,i.DateandTimeOfInteraction) as DATE ) BETWEEN @startDate AND @endDate
 			AND         ( ap.id is not null OR i.TouchpointId = '0000000999' )
 	) rk
 	where
