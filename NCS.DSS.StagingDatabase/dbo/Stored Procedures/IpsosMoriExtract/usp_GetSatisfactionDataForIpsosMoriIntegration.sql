@@ -40,7 +40,19 @@ BEGIN
 		, 'Ethnicity' =  dbo.udf_GetReferenceDataValue('DiversityDetails','Ethnicity',rk.Ethnicity,'Not provided')                  
 		, 'Gender' = dbo.udf_GetReferenceDataValue('Customers','Gender',rk.Gender,'')
 		, 'Contracting Area' = dbo.udf_GetReferenceDataValue('Touchpoints','Touchpoint', CAST(COALESCE(rk.CreatedBy, rk.LastModifiedTouchpointId) AS BIGINT),'') 
-		, COALESCE(rk.SubcontractorId, '')                      AS 'Subcontractor Name'
+		, CASE COALESCE(rk.CreatedBy, rk.LastModifiedTouchpointId)
+			WHEN '0000000101' then 'Futures Advice'
+			WHEN '0000000102' then 'Futures Advice'
+			WHEN '0000000103' then 'Propects'
+			WHEN '0000000104' then 'Propects'
+		    WHEN '0000000105' then 'Growth Company'
+			WHEN '0000000106' then 'Education Development Trust '
+		    WHEN '0000000107' then 'CXK'
+			WHEN '0000000108' then 'Adviza'
+		    WHEN '0000000109' then 'Education Development Trust '
+			WHEN '0000000999' then 'National Careers Helpline'
+			else ''
+		 END as 'Subcontractor Name'
 		, iif(rk.ActionPlanId is not null,'Yes','No')               AS 'Action Plan'    
 		, 'Current Employment Status' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','CurrentEmploymentStatus',rk.CurrentEmploymentStatus,'')
 		, 'Length Of Unemployment' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','LengthOfUnemployment',rk.LengthOfUnemployment,'')
