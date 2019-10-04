@@ -12,7 +12,7 @@
 -- Copyright © 2019, ESFA, All Rights Reserved
 -------------------------------------------------------------------------------
 CREATE FUNCTION [dbo].[udf_GetReferenceDataValue]( @resource VARCHAR(50), @name VARCHAR(50), @criteria BIGINT, @default VARCHAR(50) )
-RETURNS VARCHAR(50)
+RETURNS VARCHAR(100)
 AS
 BEGIN
 	DECLARE @ret varchar(100);
