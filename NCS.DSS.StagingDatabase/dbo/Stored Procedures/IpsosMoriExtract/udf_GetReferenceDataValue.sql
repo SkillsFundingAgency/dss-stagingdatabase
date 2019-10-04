@@ -15,7 +15,7 @@ CREATE FUNCTION [dbo].[udf_GetReferenceDataValue]( @resource VARCHAR(50), @name 
 RETURNS VARCHAR(50)
 AS
 BEGIN
-	DECLARE @ret varchar(50);
+	DECLARE @ret varchar(100);
 
 	if (COALESCE(@criteria, 0) = 0 )
 		SET @ret = @default;
