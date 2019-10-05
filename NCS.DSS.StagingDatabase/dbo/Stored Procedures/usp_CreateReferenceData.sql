@@ -141,7 +141,7 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherAsianBackground', 43, 'Any Other Asian Background')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'African', 44, 'African')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'Caribbean', 45, 'Caribbean')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherBlackAfricanCaribbeanBackground', 46, 'Any Other Black African Caribbean Background')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherBlackAfricanCaribbeanBackground', 46, 'Any Other Black / African / Caribbean Background')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'Arab', 47, 'Arab')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherEthnicGroup', 98, 'Any Other Ethnic Group')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'NotProvided', 99, 'Not Provided')
