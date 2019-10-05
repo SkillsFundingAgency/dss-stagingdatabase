@@ -54,10 +54,10 @@ BEGIN
 			else ''
 		 END as 'Subcontractor Name'
 		, iif(rk.ActionPlanId is not null,'Yes','No')               AS 'Action Plan'    
-		, 'Current Employment Status' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','CurrentEmploymentStatus',rk.CurrentEmploymentStatus,'')
-		, 'Length Of Unemployment' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','LengthOfUnemployment',rk.LengthOfUnemployment,'')
-		, 'Current Learning Status' = dbo.udf_GetReferenceDataValue('LearningProgressions','CurrentLearningStatus',rk.CurrentLearningStatus,'')
-		, 'Current Qualification Level' = dbo.udf_GetReferenceDataValue('LearningProgressions','QualificationLevel',rk.CurrentQualificationLevel,'')                
+		, 'Current Employment Status' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','CurrentEmploymentStatus',rk.CurrentEmploymentStatus,'Not provided')
+		, 'Length Of Unemployment' = dbo.udf_GetReferenceDataValue('EmploymentProgressions','LengthOfUnemployment',rk.LengthOfUnemployment,'Not provided')
+		, 'Current Learning Status' = dbo.udf_GetReferenceDataValue('LearningProgressions','CurrentLearningStatus',rk.CurrentLearningStatus,'Not provided')
+		, 'Current Qualification Level' = dbo.udf_GetReferenceDataValue('LearningProgressions','QualificationLevel',rk.CurrentQualificationLevel,'Not provided')                
 		, 'Channel' = dbo.udf_GetReferenceDataValue('Interactions','Channel',rk.Channel,'')
 		, CONVERT(VARCHAR(10), rk.DateandTimeOfSession, 23)             AS 'Session Date'
 		, 'Yes'                                         AS 'Participate Research Evaluation'

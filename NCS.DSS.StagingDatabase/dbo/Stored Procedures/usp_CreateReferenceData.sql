@@ -241,7 +241,7 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Webchat', 3, 'Webchat')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Videochat', 4, 'Videochat')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Email', 5, 'Email')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'SocialMedia', 6, 'Social Media')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'SocialMedia',	6, 'Social Media')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'SMS', 7, 'SMS')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Post', 8, 'Post')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Cobrowse', 9, 'Co-browse')
