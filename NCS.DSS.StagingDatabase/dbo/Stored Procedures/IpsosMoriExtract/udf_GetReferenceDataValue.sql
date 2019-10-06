@@ -17,10 +17,10 @@ AS
 BEGIN
 	DECLARE @ret varchar(100);
 
-	if (COALESCE(@criteria, 0) = 0 )
-		SET @ret = @default;
-	ELSE
-	BEGIN
+	--if (COALESCE(@criteria, 0) = 0 )
+	--	SET @ret = @default;
+	--ELSE
+	--BEGIN
 		SELECT @ret = description 
 				FROM [DBO].[dss-reference-data]  
 				WHERE 
@@ -28,9 +28,9 @@ BEGIN
 				[DBO].[dss-reference-data].[name] = @name AND 
 				[DBO].[dss-reference-data].[value] = @criteria
 
-		IF (@ret IS NULL) 
-			SET @ret = @default;
-	END;
+	IF (@ret IS NULL) 
+		SET @ret = @default;
+
 
 	RETURN @ret;
 END;
