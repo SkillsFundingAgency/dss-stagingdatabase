@@ -81,7 +81,7 @@ BEGIN
 				,c.Gender
 				,ap.id as ActionPlanId
 				,ap.CreatedBy
-				,ap.LastModifiedTouchpointId
+				,COALESCE(ap.LastModifiedTouchpointId,i.LastModifiedTouchpointId) as LastModifiedTouchpointId
 				,ap.SubcontractorId
 				,ep.CurrentEmploymentStatus
 				,ep.LengthOfUnemployment
