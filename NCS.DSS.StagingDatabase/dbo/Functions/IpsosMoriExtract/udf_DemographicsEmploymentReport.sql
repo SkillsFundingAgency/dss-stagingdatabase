@@ -45,8 +45,8 @@ BEGIN
 			left join  [dbo].[dss-actionplans] ap on  c.id = ap.CustomerId
 			left join [dss-interactions] i on c.id = i.CustomerId
 			WHERE 
-				ap.DateActionPlanCreated BETWEEN @startDate AND @endDate AND ap.CreatedBy <> '0000000999'
-				OR i.DateandTimeOfInteraction  BETWEEN @startDate AND @endDate AND i.TouchpointId = '0000000999'
+				CAST(ap.DateActionPlanCreated AS DATE) BETWEEN @startDate AND @endDate AND ap.CreatedBy <> '0000000999'
+				OR CAST(i.DateandTimeOfInteraction AS DATE) BETWEEN @startDate AND @endDate AND i.TouchpointId = '0000000999'
 	)
 ,
  employment_group_base AS
