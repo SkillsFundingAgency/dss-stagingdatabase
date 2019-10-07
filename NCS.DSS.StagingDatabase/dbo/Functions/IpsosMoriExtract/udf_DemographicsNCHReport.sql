@@ -40,28 +40,41 @@ BEGIN
 		SELECT 
 			i.TouchpointId AS NCH
 			, c.LastModifiedTouchpointId AS touchpointId			
-			, ap.id
+			, ap.id as ap_id
+			, (select count(1) from [dss-interactions] i2 where i2.CustomerId = i.CustomerId and i2.DateAndTimeOfInteraction < @startDate )  as prev_interactions
+			, (select count(1) from [dss-actionplans] ap2 where ap2.CustomerId = i.CustomerId and ap2.DateActionPlanCreated < @startDate  ) as prev_actionplans
+			, rank () over ( partition by c.id order by iif(ap.id is null,2,1), i.DateandTimeOfInteraction, i.LastModifiedDate, i.id ) ro   
 
 		FROM [dbo].[dss-customers] c
 			inner join [dss-interactions] i on c.id = i.CustomerId
 			left join  [dbo].[dss-actionplans] ap on  c.id = ap.CustomerId 
 		WHERE 
-			CAST(ap.DateActionPlanCreated AS DATE) BETWEEN @startDate AND @endDate AND ap.CreatedBy <> '0000000999'
-			OR CAST(i.DateandTimeOfInteraction AS DATE) BETWEEN @startDate AND @endDate AND i.TouchpointId = '0000000999'
+		(
+				cast(ap.DateActionPlanCreated AS DATE) BETWEEN @startDate AND @endDate-- AND ap.CreatedBy <> '0000000999'
+				OR CAST(i.DateandTimeOfInteraction AS DATE) BETWEEN @startDate AND @endDate AND i.TouchpointId = '0000000999'
+		)
 	)
 	, nch_group_base AS
 	(
 		SELECT @iag_group_name AS group_name, 'Information Given' AS group_value
 		UNION
-		SELECT @iag_group_name AS group_name, 'Information, Guidance and Advice Given' AS group_value
+		SELECT @iag_group_name AS group_name, 'Information, Advice and Guidance Given' AS group_value
 	)
 	, nch_grouping AS
 		(   
 			SELECT 
 				@iag_group_name AS group_name, 
-				IIF (id  IS NULL, 'Information Given', 'Information, Guidance and Advice Given') AS group_value,
+				IIF (ap_id  IS NULL, 'Information Given', 'Information, Advice and Guidance Given') AS group_value,
 				touchpointId
 			FROM DemographicData
+			WHERE ro = 1 -- exclude duplicate rows within the reporting period
+					and (
+								-- if an action plan is present check no actions plans exist from before the reporting period
+							( ap_id is not null  AND prev_actionplans = 0 )
+							OR
+								-- if an action plan does not exists check no interactions exist from before the reporting period
+							( ap_id is null AND prev_interactions = 0 )
+						) 
 		)
 	, nch_groups AS
 		(
