@@ -28,8 +28,8 @@ BEGIN
 		, rk.FamilyName                                 AS 'Family Name'
 		, 'Primary Phone Number' = 
 			CASE COALESCE(rk.PreferredContactMethod, 0)
-				WHEN 3 THEN COALESCE(rk.HomeNumber,'')
-				ELSE COALESCE(rk.MobileNumber, '')
+				WHEN 3 THEN COALESCE('"' + rk.HomeNumber + '"','')
+				ELSE COALESCE('''' + rk.MobileNumber, '')
 			END
 		, COALESCE(rk.AlternativeNumber, '')            AS 'Alternative Phone Number'
 		, COALESCE(rk.PostCode, '')                     AS 'Postcode'
