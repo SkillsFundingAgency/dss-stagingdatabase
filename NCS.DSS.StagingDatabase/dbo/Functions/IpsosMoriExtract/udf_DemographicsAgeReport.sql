@@ -36,7 +36,7 @@ DECLARE @startDate DATE;
 	(
 		SELECT 
 			DATEDIFF(hour,DateOfBirth,GETDATE())/8766 AS Age
-			, c.LastModifiedTouchpointId AS touchpointId
+			, COALESCE(ap.CreatedBy, ap.LastModifiedTouchpointId, i.LastModifiedTouchPointId) AS touchpointId
 			, ap.id as ap_id
 			, (select count(1) from [dss-interactions] i2 where i2.CustomerId = i.CustomerId and i2.DateAndTimeOfInteraction < @startDate )  as prev_interactions
 			, (select count(1) from [dss-actionplans] ap2 where ap2.CustomerId = i.CustomerId and ap2.DateActionPlanCreated < @startDate  ) as prev_actionplans
