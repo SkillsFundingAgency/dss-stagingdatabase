@@ -53,7 +53,8 @@ INSERT INTO @Result
 									ELSE DATEADD(mm, 12, s.DateandTimeOfSession) 
 								END
 							,DATEADD(mm, -12, CONVERT(DATE,s.DateandTimeOfSession)) AS 'PriorSessionDate'		
-							,RANK() OVER(PARTITION BY s.CustomerID, IIF (o.OutcomeType < 3, o.OutcomeType, 3) ORDER BY o.OutcomeEffectiveDate, o.LastModifiedDate, o.id) AS 'Rank'  -- we rank to remove duplicates
+							,RANK() OVER(PARTITION BY s.CustomerID, IIF(s.DateandTimeOfSession < @startDate,100,0 ) + IIF (o.OutcomeType < 3, o.OutcomeType, 3) 
+							ORDER BY o.OutcomeEffectiveDate, o.LastModifiedDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 		FROM				[dss-sessions] s
 		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
 		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
