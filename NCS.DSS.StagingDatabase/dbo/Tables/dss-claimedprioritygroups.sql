@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[dss-claimedprioritygroups] (
-    [CustomerId]                     UNIQUEIDENTIFIER NOT NULL,
+    [OutcomeId]                     UNIQUEIDENTIFIER NOT NULL,
     [PriorityCustomer]               INT              NOT NULL,
-    PRIMARY KEY ([CustomerId], [PriorityCustomer]) 
+    PRIMARY KEY ([OutcomeId], [PriorityCustomer]) 
 );

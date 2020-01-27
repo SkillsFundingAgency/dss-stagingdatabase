@@ -50,7 +50,7 @@ DECLARE @startDate DATE
 				, 'Channel' = dbo.udf_GetReferenceDataValue('Interactions','Channel',i.Channel,'')
 				, CONVERT(VARCHAR(10), s.DateandTimeOfSession, 23)				AS 'Session Date'
 				, 'Yes'											AS 'Participate Research Evaluation'
-				, 'Priority Group' = dbo.udf_GetReferenceDataValue('ActionPlans','PriorityCustomer', ap.PriorityCustomer, '')
+				, 'Priority Group' = dbo.udf_GetReferenceDataValue('ActionPlans','PriorityCustomer', pg.PriorityGroup, '')
 	
 	FROM		[dss-customers] c
 	LEFT JOIN	[dss-contacts] con ON con.CustomerId = c.id
@@ -58,6 +58,7 @@ DECLARE @startDate DATE
 	LEFT JOIN	[dss-diversitydetails] d ON d.CustomerId = c.Id
 	LEFT JOIN   [dss-employmentprogressions] ep on ep.CustomerId = c.id
 	LEFT JOIN   [dss-learningprogressions] lp on lp.CustomerId = c.id
+	LEFT JOIN   [dss-prioritygroups] pg on pg.CustomerId = c.id
 	INNER JOIN	[dss-actionplans] ap ON ap.CustomerId = c.id
 	INNER JOIN	[dss-interactions] i ON i.id = ap.InteractionId
 	INNER JOIN	[dss-sessions] s ON s.id = ap.SessionId

@@ -45,7 +45,7 @@ INSERT INTO @Result
 							,o.id									AS 'OutcomeID'
 							,o.OutcomeType									AS 'OutcomeType'
 							,o.OutcomeEffectiveDate							AS 'OutcomeEffectiveDate'
-							,IIF(o.ClaimedPriorityGroup < 99, 1, 0)			AS 'OutcomePriorityCustomer'
+							,IIF(pg.PriorityCustomer < 99, 1, 0)			AS 'OutcomePriorityCustomer'
 							,o.OutcomeClaimedDate							AS 'OutcomeClaimedDate'
 							,SessionClosureDate = 
 								CASE o.OutcomeType
@@ -60,6 +60,7 @@ INSERT INTO @Result
 		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
 		INNER JOIN			[dss-interactions] i							ON i.id = ap.InteractionId
 		INNER JOIN			[dss-outcomes] o							ON o.ActionPlanId = ap.id
+		LEFT JOIN			[dss-claimedprioritygroups] pg				ON o.id = pg.OutcomeId
 		OUTER APPLY			(	SELECT TOP 1	PostCode
 								FROM			[dss-addresses] a
 								WHERE			a.CustomerId = s.CustomerId											-- Get the latest address for the customer record

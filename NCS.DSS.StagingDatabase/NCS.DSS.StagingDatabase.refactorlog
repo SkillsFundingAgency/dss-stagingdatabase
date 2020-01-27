@@ -35,4 +35,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="TouchPointId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="6dab1f4d-6c7c-482f-aa25-e87ee0600393" ChangeDateTime="01/27/2020 15:15:44">
+    <Property Name="ElementName" Value="[dbo].[dss-claimedprioritygroups].[CustomerId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[dss-claimedprioritygroups]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OutcomeId" />
+  </Operation>
 </Operations>
