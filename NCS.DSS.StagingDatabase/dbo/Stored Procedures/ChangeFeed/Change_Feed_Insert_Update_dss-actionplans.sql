@@ -16,7 +16,6 @@ BEGIN
 				,DateActionPlanSentToCustomer DATETIME2
 				,ActionPlanDeliveryMethod INT
 				,DateActionPlanAcknowledged DATETIME2
-				,PriorityCustomer INT
 				,CurrentSituation VARCHAR(MAX)
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(MAX)
@@ -38,7 +37,6 @@ BEGIN
 				,actionplans.DateActionPlanSentToCustomer = InputJSON.DateActionPlanSentToCustomer
 				,actionplans.ActionPlanDeliveryMethod = InputJSON.ActionPlanDeliveryMethod
 				,actionplans.DateActionPlanAcknowledged = InputJSON.DateActionPlanAcknowledged
-				,actionplans.PriorityCustomer = InputJSON.PriorityCustomer
 				,actionplans.CurrentSituation = InputJSON.CurrentSituation
 				,actionplans.LastModifiedDate = InputJSON.LastModifiedDate
 				,actionplans.LastModifiedTouchpointId = InputJSON.LastModifiedTouchpointId
@@ -57,7 +55,6 @@ BEGIN
 				,DateActionPlanSentToCustomer
 				,ActionPlanDeliveryMethod
 				,DateActionPlanAcknowledged
-				,PriorityCustomer
 				,CurrentSituation
 				,LastModifiedDate
 				,LastModifiedTouchpointId
@@ -75,7 +72,6 @@ BEGIN
 				,InputJSON.DateActionPlanSentToCustomer
 				,InputJSON.ActionPlanDeliveryMethod
 				,InputJSON.DateActionPlanAcknowledged
-				,InputJSON.PriorityCustomer
 				,InputJSON.CurrentSituation
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId

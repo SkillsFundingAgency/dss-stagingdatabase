@@ -10,7 +10,6 @@
     [DateActionPlanSentToCustomer]   datetime2         NULL,
     [ActionPlanDeliveryMethod]       INT              NULL,
     [DateActionPlanAcknowledged]     datetime2         NULL,
-    [PriorityCustomer]               INT              NULL,
     [CurrentSituation]               VARCHAR (MAX)     NULL,
     [LastModifiedDate]               datetime2         NULL,
     [LastModifiedTouchpointId]       VARCHAR (MAX)     NULL, 

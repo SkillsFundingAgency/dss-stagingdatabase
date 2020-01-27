@@ -24,6 +24,7 @@ BEGIN
     IF OBJECT_ID('#customers', 'U') IS NOT NULL 
 		BEGIN
 			TRUNCATE TABLE [#customers]
+			TRUNCATE TABLE [#prioritygroups]
 		END
 	ELSE
 		BEGIN
@@ -45,11 +46,18 @@ BEGIN
 						 [IntroducedByAdditionalInfo] [VARCHAR](MAX) NULL,
 						 [LastModifiedDate] [VARCHAR](MAX) NULL,
 						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
-						 [CreatedBy] [varchar](max) NULL
-			) ON [PRIMARY]									
+						 [CreatedBy] [varchar](max) NULL,
+						 [PriorityGroups] [VARCHAR](MAX) NULL
+			) ON [PRIMARY]		
+			
+			CREATE TABLE [#prioritygroups](
+				[CustomerId]  [VARCHAR](MAX) NULL,
+				[PriorityCustomer] [VARCHAR](MAX) NULL
+			) ON [PRIMARY]
+
 		END
 
-	INSERT INTO [#customers]
+
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
@@ -70,8 +78,39 @@ BEGIN
 			IntroducedByAdditionalInfo VARCHAR(MAX) '$.IntroducedByAdditionalInfo',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
 			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId',
+			CreatedBy VARCHAR(MAX) '$.CreatedBy',
+			PriorityGroups VARCHAR(MAX) AS JSON
+			)			
+			AS A
+			CROSS APPLY OPENJSON (A.PriorityGroups) WITH (PriorityGroup INT '$') AS B
+
+	INSERT INTO [#customers]
+	SELECT *
+	FROM OPENJSON(A)
+		WITH (
+			id VARCHAR(MAX) '$.id', 
+			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
+			DateOfRegistration VARCHAR(MAX) '$.DateOfRegistration',
+			Title VARCHAR(MAX) '$.Title',
+			GivenName VARCHAR(MAX) '$.GivenName',
+			FamilyName VARCHAR(MAX) '$.FamilyName',
+			DateofBirth VARCHAR(MAX) '$.DateofBirth',
+			Gender VARCHAR(MAX) '$.Gender',
+			UniqueLearnerNumber VARCHAR(MAX) '$.UniqueLearnerNumber',
+			OptInMarketResearch VARCHAR(MAX) '$.OptInMarketResearch',
+			OptInUserResearch VARCHAR(MAX) '$.OptInUserResearch',
+			DateOfTermination VARCHAR(MAX) '$.DateOfTermination',
+			ReasonForTermination VARCHAR(MAX) '$.ReasonForTermination',
+			IntroducedBy VARCHAR(MAX) '$.IntroducedBy',
+			IntroducedByAdditionalInfo VARCHAR(MAX) '$.IntroducedByAdditionalInfo',
+			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId',
 			CreatedBy VARCHAR(MAX) '$.CreatedBy'
-			) AS Coll
+			)			
+			AS C
+
+	INSERT INTO [#prioritygroups]
+	VALUES (A.id, B.PriorityGroup)
 
 	IF OBJECT_ID('[dss-customers]', 'U') IS NOT NULL 
 		BEGIN
@@ -100,6 +139,12 @@ BEGIN
 						 [CreatedBy] [VARCHAR](MAX) NULL,
 						 CONSTRAINT [PK_dss-customers] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]	
+
+			CREATE TABLE [dss-prioritygroups] (
+				[CustomerId]                     UNIQUEIDENTIFIER NOT NULL,
+				[PriorityGroup]                 INT              NOT NULL,
+				PRIMARY KEY ([CustomerId], [PriorityGroup]) 
+			)
 		END
 
 		INSERT INTO [dss-customers] 
@@ -124,6 +169,12 @@ BEGIN
 				[CreatedBy]
 				FROM #customers
 
-		DROP TABLE #customers
+		INSERT INTO [dss-prioritygroups] 
+				SELECT
+				CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+				CONVERT(int, [PriorityGroup]) as [PriorityGroup]
+				FROM #prioritygroups
 
+		DROP TABLE #customers
+		DROP TABLE #prioritygroups
 END
