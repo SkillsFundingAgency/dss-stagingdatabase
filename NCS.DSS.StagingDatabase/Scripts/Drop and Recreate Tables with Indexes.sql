@@ -350,3 +350,25 @@ IF OBJECT_ID('[dss-webchats]', 'U') IS NOT NULL
 							   CONSTRAINT [PK_dss-webchats] PRIMARY KEY ([id]))
 							   ON [PRIMARY]
 		END
+
+IF OBJECT_ID('[dss-prioritygroups]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-prioritygroups]
+		
+			CREATE TABLE [dbo].[dss-prioritygroups] (
+				[CustomerId]                     UNIQUEIDENTIFIER NOT NULL,
+				[PriorityGroup]                 INT              NOT NULL,
+				PRIMARY KEY ([CustomerId], [PriorityGroup]) 
+			);
+		END
+
+IF OBJECT_ID('[dss-claimedprioritygroups]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-claimedprioritygroups]
+		
+			CREATE TABLE [dbo].[dss-claimedprioritygroups] (
+				[OutcomeId]                     UNIQUEIDENTIFIER NOT NULL,
+				[PriorityCustomer]               INT              NOT NULL,
+				PRIMARY KEY ([OutcomeId], [PriorityCustomer]) 
+			);
+		END
