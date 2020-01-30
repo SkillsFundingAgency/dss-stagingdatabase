@@ -79,7 +79,7 @@ BEGIN
 			LastModifiedDate NVARCHAR(MAX) '$.LastModifiedDate',
 			LastModifiedTouchpointId NVARCHAR(MAX) '$.LastModifiedTouchpointId',
 			CreatedBy NVARCHAR(MAX) '$.CreatedBy',
-			PriorityGroups NNVARCHAR(MAX) AS JSON
+			PriorityGroups NVARCHAR(MAX) AS JSON
 			)			
 			AS A
 			CROSS APPLY OPENJSON (A.PriorityGroups) WITH (PriorityGroup INT '$') AS B
