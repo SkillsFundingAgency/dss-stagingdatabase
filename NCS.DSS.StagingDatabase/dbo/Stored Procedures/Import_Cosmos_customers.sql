@@ -86,7 +86,7 @@ BEGIN
 
 	INSERT INTO [#customers]
 	SELECT *
-	FROM OPENJSON(A)
+	FROM OPENJSON(@retvalue)
 		WITH (
 			id VARCHAR(MAX) '$.id', 
 			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
