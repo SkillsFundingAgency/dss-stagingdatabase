@@ -1,15 +1,15 @@
 ﻿CREATE PROCEDURE [dbo].[Import_Cosmos_customers]
 
-	@JsonFile NNVARCHAR(MAX),
-	@DataSource NNVARCHAR(MAX)
+	@JsonFile NVARCHAR(MAX),
+	@DataSource NVARCHAR(MAX)
 AS
 BEGIN
 	SET CONCAT_NULL_YIELDS_NULL OFF
 	SET NOCOUNT ON
 	
-	DECLARE @ORowSet AS NNVARCHAR(MAX)
-	DECLARE @retvalue NNVARCHAR(MAX)  
-	DECLARE @ParmDef NNVARCHAR(MAX);
+	DECLARE @ORowSet AS NVARCHAR(MAX)
+	DECLARE @retvalue NVARCHAR(MAX)  
+	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
 					OPENROWSET (BULK ''' + @JsonFile + ''', 
@@ -17,7 +17,7 @@ BEGIN
 					SINGLE_CLOB) 
 					as Customers)'
 	
-	SET @ParmDef = N'@retvalOUT NNVARCHAR(MAX) OUTPUT';
+	SET @ParmDef = N'@retvalOUT NVARCHAR(MAX) OUTPUT';
  
 	EXEC sp_executesql @ORowSet, @ParmDef, @retvalOUT=@retvalue OUTPUT;
 
