@@ -57,33 +57,6 @@ BEGIN
 
 		END
 
-
-	SELECT *
-	FROM OPENJSON(@retvalue)
-		WITH (
-			id NVARCHAR(MAX) '$.id', 
-			SubcontractorId NVARCHAR(MAX) '$.SubcontractorId',
-			DateOfRegistration NVARCHAR(MAX) '$.DateOfRegistration',
-			Title NVARCHAR(MAX) '$.Title',
-			GivenName NVARCHAR(MAX) '$.GivenName',
-			FamilyName NVARCHAR(MAX) '$.FamilyName',
-			DateofBirth NVARCHAR(MAX) '$.DateofBirth',
-			Gender NVARCHAR(MAX) '$.Gender',
-			UniqueLearnerNumber NVARCHAR(MAX) '$.UniqueLearnerNumber',
-			OptInMarketResearch NVARCHAR(MAX) '$.OptInMarketResearch',
-			OptInUserResearch NVARCHAR(MAX) '$.OptInUserResearch',
-			DateOfTermination NVARCHAR(MAX) '$.DateOfTermination',
-			ReasonForTermination NVARCHAR(MAX) '$.ReasonForTermination',
-			IntroducedBy NVARCHAR(MAX) '$.IntroducedBy',
-			IntroducedByAdditionalInfo NVARCHAR(MAX) '$.IntroducedByAdditionalInfo',
-			LastModifiedDate NVARCHAR(MAX) '$.LastModifiedDate',
-			LastModifiedTouchpointId NVARCHAR(MAX) '$.LastModifiedTouchpointId',
-			CreatedBy NVARCHAR(MAX) '$.CreatedBy',
-			PriorityGroups NVARCHAR(MAX) AS JSON
-			)			
-			AS A
-			CROSS APPLY OPENJSON (A.PriorityGroups) WITH (PriorityGroup INT '$') AS B
-
 	INSERT INTO [#customers]
 	SELECT *
 	FROM OPENJSON(@retvalue)
@@ -109,8 +82,15 @@ BEGIN
 			)			
 			AS C
 
+
 	INSERT INTO [#prioritygroups]
-	VALUES (A.id, B.PriorityGroup)
+	SELECT A.id, B.PriorityGroup
+	FROM OPENJSON(@retvalue)
+		WITH (
+			id NVARCHAR(MAX) '$.id', 
+			PriorityGroups NVARCHAR(MAX) AS JSON
+			) A
+			CROSS APPLY OPENJSON (A.PriorityGroups) WITH (PriorityGroup INT '$') B
 
 	IF OBJECT_ID('[dss-customers]', 'U') IS NOT NULL 
 		BEGIN
