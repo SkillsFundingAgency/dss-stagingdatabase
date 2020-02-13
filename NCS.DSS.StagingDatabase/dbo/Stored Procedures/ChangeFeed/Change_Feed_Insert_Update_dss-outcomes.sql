@@ -13,6 +13,7 @@ BEGIN
 				,OutcomeType INT
 				,OutcomeClaimedDate DATETIME2
 				,OutcomeEffectiveDate DATETIME2
+				,ClaimedPriorityGroup VARCHAR(MAX)
 				,TouchpointId VARCHAR(MAX)
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(MAX)
@@ -31,6 +32,7 @@ BEGIN
 				,outcomes.OutcomeType = InputJSON.OutcomeType
 				,outcomes.OutcomeClaimedDate = InputJSON.OutcomeClaimedDate
 				,outcomes.OutcomeEffectiveDate = InputJSON.OutcomeEffectiveDate
+				,outcomes.ClaimedPriorityGroup = InputJSON.ClaimedPriorityGroup
 				,outcomes.TouchpointId = InputJSON.TouchpointId
 				,outcomes.LastModifiedDate = InputJSON.LastModifiedDate
 				,outcomes.LastModifiedTouchpointId = InputJSON.LastModifiedTouchpointId
@@ -46,6 +48,7 @@ BEGIN
 				,OutcomeType
 				,OutcomeClaimedDate
 				,OutcomeEffectiveDate
+				,ClaimedPriorityGroup
 				,TouchpointId
 				,LastModifiedDate
 				,LastModifiedTouchpointId
@@ -60,6 +63,7 @@ BEGIN
 				,InputJSON.OutcomeType
 				,InputJSON.OutcomeClaimedDate
 				,InputJSON.OutcomeEffectiveDate
+				,InputJSON.ClaimedPriorityGroup
 				,InputJSON.TouchpointId
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
