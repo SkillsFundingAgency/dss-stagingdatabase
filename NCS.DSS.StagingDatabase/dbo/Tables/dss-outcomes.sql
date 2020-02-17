@@ -8,6 +8,7 @@
     [OutcomeClaimedDate]       datetime2         NULL,
     [OutcomeEffectiveDate]     datetime2         NULL,
     [ClaimedPriorityGroup]     INT               NULL,
+    [IsPriorityCustomer]       BIT               NULL,
     [TouchpointId]             VARCHAR (max)     NULL,
     [LastModifiedDate]         datetime2         NULL,
     [LastModifiedTouchpointId] VARCHAR (max)     NULL, 

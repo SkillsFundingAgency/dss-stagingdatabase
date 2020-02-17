@@ -10,6 +10,7 @@
 	[OutcomeClaimedDate] [datetime2](7) NULL,
 	[OutcomeEffectiveDate] [datetime2](7) NULL,
 	[ClaimedPriorityGroup] [int] NULL,
+	[IsPriorityCustomer] BIT NULL,
 	[TouchpointId] [varchar](max) NULL,
 	[LastModifiedDate] [datetime2](7) NULL,
 	[LastModifiedTouchpointId] [varchar](max) NULL,
