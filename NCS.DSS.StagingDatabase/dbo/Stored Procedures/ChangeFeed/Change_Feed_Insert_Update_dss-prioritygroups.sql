@@ -1,7 +1,4 @@
-﻿USE [dss-local-shared-stag-db]
-GO
-/****** Object:  StoredProcedure [dbo].[Change_Feed_Insert_Update_dss-prioritygroups]    Script Date: 17/02/2020 13:35:17 ******/
-CREATE PROCEDURE [dbo].[Change_Feed_Insert_Update_dss-prioritygroups] (@Json NVARCHAR(MAX))
+﻿CREATE PROCEDURE [dbo].[Change_Feed_Insert_Update_dss-prioritygroups] (@Json NVARCHAR(MAX))
 AS
 BEGIN
 
