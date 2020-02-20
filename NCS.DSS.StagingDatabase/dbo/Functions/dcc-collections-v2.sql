@@ -3,7 +3,7 @@
 RETURNS @Result TABLE(CustomerID UNIQUEIDENTIFIER, DateOfBirth DATE, HomePostCode VARCHAR(10), 
                                         ActionPlanId UNIQUEIDENTIFIER, SessionDate DATE, SubContractorId VARCHAR(50), 
                                         AdviserName VARCHAR(100), OutcomeId UNIQUEIDENTIFIER,
-                                        OutcomeType INT, OutcomeEffectiveDate DATE, OutcomePriorityCustomer INT)
+                                        OutcomeType INT, OutcomeEffectiveDate DATE, IsPriorityCustomer BIT)
 
 AS
 
@@ -31,21 +31,21 @@ INSERT INTO @Result
 		,OutcomeID
 		,OutcomeType
 		,OutcomeEffectiveDate
-		,OutcomePriorityCustomer
+		,IsPriorityCustomer
 	FROM
 	(
 		SELECT				o.CustomerId									AS 'CustomerID'
-							,s.id									AS 'SessionID'
+							,s.id											AS 'SessionID'
 							,c.DateofBirth									AS 'DateOfBirth'
 							,a.PostCode										AS 'HomePostCode'
-							,ap.id									AS 'ActionPlanId' 
+							,ap.id											AS 'ActionPlanId' 
 							,CONVERT(DATE, s.DateandTimeOfSession)			AS 'SessionDate'
 							,o.SubcontractorID								AS 'SubContractorId' 
 							,adv.AdviserName								AS 'AdviserName'
-							,o.id									AS 'OutcomeID'
+							,o.id											AS 'OutcomeID'
 							,o.OutcomeType									AS 'OutcomeType'
 							,o.OutcomeEffectiveDate							AS 'OutcomeEffectiveDate'
-							,IIF(pg.PriorityCustomer < 99, 1, 0)			AS 'OutcomePriorityCustomer'
+							,IsPriorityCustomer								AS 'IsPriorityCustomer'
 							,o.OutcomeClaimedDate							AS 'OutcomeClaimedDate'
 							,SessionClosureDate = 
 								CASE o.OutcomeType
@@ -60,7 +60,6 @@ INSERT INTO @Result
 		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
 		INNER JOIN			[dss-interactions] i							ON i.id = ap.InteractionId
 		INNER JOIN			[dss-outcomes] o							ON o.ActionPlanId = ap.id
-		LEFT JOIN			[dss-claimedprioritygroups] pg				ON o.id = pg.OutcomeId
 		OUTER APPLY			(	SELECT TOP 1	PostCode
 								FROM			[dss-addresses] a
 								WHERE			a.CustomerId = s.CustomerId											-- Get the latest address for the customer record
