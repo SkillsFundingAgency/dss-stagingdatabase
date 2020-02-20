@@ -81,7 +81,7 @@ INSERT INTO @Result
 									AND				priorO.OutcomeClaimedDate IS NOT NULL		-- and claimed
 									AND				priorO.CustomerId = o.CustomerId			-- and they belong to the same customer
 									AND				priorO.TouchpointId <> '0000000999'			-- and touchpoint is not helpline
-									AND				CONVERT(DATE,priorS.DateandTimeOfSession) >= o.PriorSessionDate	-- and the prior session date is more then 12 months before current session date
+									AND				CONVERT(DATE,priorS.DateandTimeOfSession) > o.PriorSessionDate	-- and the prior session date is more then 12 months before current session date
 									AND				(											-- check validity of the previous outcomes we are considering
 														( 
 															OutcomeType = 3							-- the previous outcome should have been claimed within 13 months of the previous session date for Outcome Type 3
