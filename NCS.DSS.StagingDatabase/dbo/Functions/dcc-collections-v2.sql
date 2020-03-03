@@ -45,7 +45,7 @@ INSERT INTO @Result
 							,o.id											AS 'OutcomeID'
 							,o.OutcomeType									AS 'OutcomeType'
 							,o.OutcomeEffectiveDate							AS 'OutcomeEffectiveDate'
-							,IsPriorityCustomer								AS 'IsPriorityCustomer'
+							,o.IsPriorityCustomer								AS 'OutcomePriorityCustomer'
 							,o.OutcomeClaimedDate							AS 'OutcomeClaimedDate'
 							,SessionClosureDate = 
 								CASE o.OutcomeType
