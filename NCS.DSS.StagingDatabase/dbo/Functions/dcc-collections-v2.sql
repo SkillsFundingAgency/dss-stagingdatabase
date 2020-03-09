@@ -34,19 +34,19 @@ INSERT INTO @Result
 		,OutcomePriorityCustomer
 	FROM
 	(
-		SELECT				o.CustomerId									AS 'CustomerID'
-							,s.id											AS 'SessionID'
-							,c.DateofBirth									AS 'DateOfBirth'
-							,a.PostCode										AS 'HomePostCode'
-							,ap.id											AS 'ActionPlanId' 
-							,CONVERT(DATE, s.DateandTimeOfSession)			AS 'SessionDate'
-							,o.SubcontractorID								AS 'SubContractorId' 
-							,adv.AdviserName								AS 'AdviserName'
-							,o.id											AS 'OutcomeID'
-							,o.OutcomeType									AS 'OutcomeType'
-							,o.OutcomeEffectiveDate							AS 'OutcomeEffectiveDate'
-							,o.IsPriorityCustomer							AS 'OutcomePriorityCustomer'
-							,o.OutcomeClaimedDate							AS 'OutcomeClaimedDate'
+		SELECT				o.CustomerId															AS 'CustomerID'
+							,s.id																	AS 'SessionID'
+							,c.DateofBirth															AS 'DateOfBirth'
+							,a.PostCode																AS 'HomePostCode'
+							,ap.id																	AS 'ActionPlanId' 
+							,CONVERT(DATE, s.DateandTimeOfSession)									AS 'SessionDate'
+							,o.SubcontractorID														AS 'SubContractorId' 
+							,adv.AdviserName														AS 'AdviserName'
+							,o.id																	AS 'OutcomeID'
+							,o.OutcomeType															AS 'OutcomeType'
+							,o.OutcomeEffectiveDate													AS 'OutcomeEffectiveDate'
+							,COALESCE(o.IsPriorityCustomer, IIF(o.ClaimedPriorityGroup < 99, 1, 0)) AS 'OutcomePriorityCustomer'
+							,o.OutcomeClaimedDate													AS 'OutcomeClaimedDate'
 							,SessionClosureDate = 
 								CASE o.OutcomeType
 									WHEN 3 THEN	DATEADD(mm, 13, s.DateandTimeOfSession) 
