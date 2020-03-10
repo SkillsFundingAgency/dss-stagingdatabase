@@ -124,7 +124,7 @@
     <Build Include="dbo\Tables\dss-goals-history.sql" />
     <Build Include="dbo\Tables\dss-outcomes-history.sql" />
     <Build Include="dbo\Tables\dss-sessions-history.sql" />
-    <Build Include="dbo\Functions\dcc-collections.sql" />
+    <Build Include="dbo\Functions\dcc-collections10.03.2020.sql" />
     <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-contacts-history.sql" />
     <Build Include="dbo\Tables\dss-contacts-history.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-contacts.sql" />
@@ -162,7 +162,7 @@
     <Build Include="dbo\Stored Procedures\IpsosMoriExtract\usp_GetDemographicsDataForIpsosMoriIntegration.sql" />
     <Build Include="dbo\Functions\udf_GetReferenceDataValue.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-prioritygroups.sql" />
-    <Build Include="dbo\Functions\dcc-collections-v2.sql" />
+    <Build Include="dbo\Functions\dcc-collections.sql" />
     <Build Include="dbo\Tables\dss-prioritygroups-history.sql" />
     <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-prioritygroups-history.sql" />
   </ItemGroup>
