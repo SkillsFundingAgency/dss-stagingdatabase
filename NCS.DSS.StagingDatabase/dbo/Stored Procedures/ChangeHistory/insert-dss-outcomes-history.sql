@@ -3,7 +3,7 @@ AS
 BEGIN
 	INSERT INTO [dss-outcomes-history]
 		SELECT DATEADD(MINUTE, _ts/60, DATEADD(SECOND, _ts%60, '19700101')) as CosmosTimeStamp, id, CustomerId, ActionPlanId, SessionId, SubcontractorId, OutcomeType, OutcomeClaimedDate,
-		       OutcomeEffectiveDate, ClaimedPriorityGroup, TouchpointId, LastModifiedDate, LastModifiedTouchpointId, CreatedBy
+		       OutcomeEffectiveDate, ClaimedPriorityGroup, IsPriorityCustomer, TouchpointId, LastModifiedDate, LastModifiedTouchpointId, CreatedBy
 			FROM OPENJSON(@Json) WITH (
 				_ts BIGINT
 				,id UNIQUEIDENTIFIER
@@ -15,6 +15,7 @@ BEGIN
 				,OutcomeClaimedDate DATETIME2
 				,OutcomeEffectiveDate DATETIME2
 				,ClaimedPriorityGroup VARCHAR(max)
+				,IsPriorityCustomer BIT
 				,TouchpointId VARCHAR(max)
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(max)

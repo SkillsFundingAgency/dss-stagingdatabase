@@ -90,5 +90,7 @@ BEGIN
 				,InputJSON.CreatedBy
 				);
 
+	exec [dbo].[Change_Feed_Insert_Update_dss-prioritygroups] @Json
+	exec [dbo].[insert-dss-prioritygroups-history] @Json
 	exec [dbo].[insert-dss-customers-history] @Json
 END

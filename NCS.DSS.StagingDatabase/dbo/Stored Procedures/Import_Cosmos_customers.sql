@@ -1,14 +1,14 @@
 ﻿CREATE PROCEDURE [dbo].[Import_Cosmos_customers]
 
-	@JsonFile NVarchar(Max),
-	@DataSource NVarchar(max)
+	@JsonFile NVARCHAR(MAX),
+	@DataSource NVARCHAR(MAX)
 AS
 BEGIN
 	SET CONCAT_NULL_YIELDS_NULL OFF
 	SET NOCOUNT ON
 	
-	DECLARE @ORowSet AS NVarchar(max)
-	DECLARE @retvalue NVarchar(max)  
+	DECLARE @ORowSet AS NVARCHAR(MAX)
+	DECLARE @retvalue NVARCHAR(MAX)  
 	DECLARE @ParmDef NVARCHAR(MAX);
 	
 	SET @ORowSet = '(SELECT @retvalOUT = [BulkColumn] FROM 
@@ -24,54 +24,73 @@ BEGIN
     IF OBJECT_ID('#customers', 'U') IS NOT NULL 
 		BEGIN
 			TRUNCATE TABLE [#customers]
+			TRUNCATE TABLE [#prioritygroups]
 		END
 	ELSE
 		BEGIN
 			CREATE TABLE [#customers](
-						 [id] [varchar](max) NULL,
-						 [SubcontractorId] [VARCHAR](MAX) NULL,
-						 [DateOfRegistration] [VARCHAR](MAX) NULL,
-						 [Title] [VARCHAR](MAX) NULL,
-						 [GivenName] [VARCHAR](MAX) NULL,
-						 [FamilyName] [VARCHAR](MAX) NULL,
-						 [DateofBirth] [VARCHAR](MAX) NULL,
-						 [Gender] [VARCHAR](MAX) NULL,
-						 [UniqueLearnerNumber] [VARCHAR](MAX) NULL,
-						 [OptInUserResearch] [VARCHAR](MAX) NULL,
-						 [OptInMarketResearch] [VARCHAR](MAX) NULL,
-						 [DateOfTermination] [VARCHAR](MAX) NULL,
-						 [ReasonForTermination] [VARCHAR](MAX) NULL,
-						 [IntroducedBy] [VARCHAR](MAX) NULL,
-						 [IntroducedByAdditionalInfo] [VARCHAR](MAX) NULL,
-						 [LastModifiedDate] [VARCHAR](MAX) NULL,
-						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
-						 [CreatedBy] [varchar](max) NULL
-			) ON [PRIMARY]									
+						 [id] [nvarchar](max) NULL,
+						 [SubcontractorId] [nvarchar](MAX) NULL,
+						 [DateOfRegistration] [nvarchar](MAX) NULL,
+						 [Title] [nvarchar](MAX) NULL,
+						 [GivenName] [nvarchar](MAX) NULL,
+						 [FamilyName] [nvarchar](MAX) NULL,
+						 [DateofBirth] [nvarchar](MAX) NULL,
+						 [Gender] [nvarchar](MAX) NULL,
+						 [UniqueLearnerNumber] [nvarchar](MAX) NULL,
+						 [OptInUserResearch] [nvarchar](MAX) NULL,
+						 [OptInMarketResearch] [nvarchar](MAX) NULL,
+						 [DateOfTermination] [nvarchar](MAX) NULL,
+						 [ReasonForTermination] [nvarchar](MAX) NULL,
+						 [IntroducedBy] [nvarchar](MAX) NULL,
+						 [IntroducedByAdditionalInfo] [nvarchar](MAX) NULL,
+						 [LastModifiedDate] [nvarchar](MAX) NULL,
+						 [LastModifiedTouchpointId] [nvarchar](MAX) NULL,
+						 [CreatedBy] [nvarchar](max) NULL,
+						 [PriorityGroups] [NVARCHAR](MAX) NULL
+			) ON [PRIMARY]		
+			
+			CREATE TABLE [#prioritygroups](
+				[CustomerId]  [NVARCHAR](MAX) NULL,
+				[PriorityCustomer] [NVARCHAR](MAX) NULL
+			) ON [PRIMARY]
+
 		END
 
 	INSERT INTO [#customers]
 	SELECT *
 	FROM OPENJSON(@retvalue)
 		WITH (
-			id VARCHAR(MAX) '$.id', 
-			SubcontractorId VARCHAR(MAX) '$.SubcontractorId',
-			DateOfRegistration VARCHAR(MAX) '$.DateOfRegistration',
-			Title VARCHAR(MAX) '$.Title',
-			GivenName VARCHAR(MAX) '$.GivenName',
-			FamilyName VARCHAR(MAX) '$.FamilyName',
-			DateofBirth VARCHAR(MAX) '$.DateofBirth',
-			Gender VARCHAR(MAX) '$.Gender',
-			UniqueLearnerNumber VARCHAR(MAX) '$.UniqueLearnerNumber',
-			OptInMarketResearch VARCHAR(MAX) '$.OptInMarketResearch',
-			OptInUserResearch VARCHAR(MAX) '$.OptInUserResearch',
-			DateOfTermination VARCHAR(MAX) '$.DateOfTermination',
-			ReasonForTermination VARCHAR(MAX) '$.ReasonForTermination',
-			IntroducedBy VARCHAR(MAX) '$.IntroducedBy',
-			IntroducedByAdditionalInfo VARCHAR(MAX) '$.IntroducedByAdditionalInfo',
-			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
-			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId',
-			CreatedBy VARCHAR(MAX) '$.CreatedBy'
-			) AS Coll
+			id NVARCHAR(MAX) '$.id', 
+			SubcontractorId NVARCHAR(MAX) '$.SubcontractorId',
+			DateOfRegistration NVARCHAR(MAX) '$.DateOfRegistration',
+			Title NVARCHAR(MAX) '$.Title',
+			GivenName NVARCHAR(MAX) '$.GivenName',
+			FamilyName NVARCHAR(MAX) '$.FamilyName',
+			DateofBirth NVARCHAR(MAX) '$.DateofBirth',
+			Gender NVARCHAR(MAX) '$.Gender',
+			UniqueLearnerNumber NVARCHAR(MAX) '$.UniqueLearnerNumber',
+			OptInMarketResearch NVARCHAR(MAX) '$.OptInMarketResearch',
+			OptInUserResearch NVARCHAR(MAX) '$.OptInUserResearch',
+			DateOfTermination NVARCHAR(MAX) '$.DateOfTermination',
+			ReasonForTermination NVARCHAR(MAX) '$.ReasonForTermination',
+			IntroducedBy NVARCHAR(MAX) '$.IntroducedBy',
+			IntroducedByAdditionalInfo NVARCHAR(MAX) '$.IntroducedByAdditionalInfo',
+			LastModifiedDate NVARCHAR(MAX) '$.LastModifiedDate',
+			LastModifiedTouchpointId NVARCHAR(MAX) '$.LastModifiedTouchpointId',
+			CreatedBy NVARCHAR(MAX) '$.CreatedBy'
+			)			
+			AS C
+
+
+	INSERT INTO [#prioritygroups]
+	SELECT A.id, B.PriorityGroup
+	FROM OPENJSON(@retvalue)
+		WITH (
+			id NVARCHAR(MAX) '$.id', 
+			PriorityGroups NVARCHAR(MAX) AS JSON
+			) A
+			CROSS APPLY OPENJSON (A.PriorityGroups) WITH (PriorityGroup INT '$') B
 
 	IF OBJECT_ID('[dss-customers]', 'U') IS NOT NULL 
 		BEGIN
@@ -84,22 +103,28 @@ BEGIN
 						 [SubcontractorId] VARCHAR(50) NULL,
 						 [DateOfRegistration] DATETIME2 NULL,
 						 [Title] INT NULL,
-						 [GivenName] [VARCHAR](MAX) NULL,
-						 [FamilyName] [VARCHAR](MAX) NULL,
+						 [GivenName] [varchar](MAX) NULL,
+						 [FamilyName] [varchar](MAX) NULL,
 						 [DateofBirth] DATETIME2 NULL,
 						 [Gender] INT NULL,
-						 [UniqueLearnerNumber] [VARCHAR](15) NULL,
+						 [UniqueLearnerNumber] [varchar](15) NULL,
 						 [OptInMarketResearch] BIT NULL,
 						 [OptInUserResearch] BIT NULL,
 						 [DateOfTermination] DATETIME2 NULL,
 						 [ReasonForTermination] INT NULL,
 						 [IntroducedBy] INT NULL,
-						 [IntroducedByAdditionalInfo] [VARCHAR](MAX) NULL,
+						 [IntroducedByAdditionalInfo] [varchar](MAX) NULL,
 						 [LastModifiedDate] DATETIME2 NULL,
-						 [LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
-						 [CreatedBy] [VARCHAR](MAX) NULL,
+						 [LastModifiedTouchpointId] [varchar](MAX) NULL,
+						 [CreatedBy] [varchar](MAX) NULL,
 						 CONSTRAINT [PK_dss-customers] PRIMARY KEY ([id])) 
 						 ON [PRIMARY]	
+
+			CREATE TABLE [dss-prioritygroups] (
+				[CustomerId]                     UNIQUEIDENTIFIER NOT NULL,
+				[PriorityGroup]                 INT              NOT NULL,
+				PRIMARY KEY ([CustomerId], [PriorityGroup]) 
+			)
 		END
 
 		INSERT INTO [dss-customers] 
@@ -124,6 +149,12 @@ BEGIN
 				[CreatedBy]
 				FROM #customers
 
-		DROP TABLE #customers
+		INSERT INTO [dss-prioritygroups] 
+				SELECT
+				CONVERT(UNIQUEIDENTIFIER, [id]) AS [id],
+				CONVERT(int, [PriorityGroup]) as [PriorityGroup]
+				FROM #prioritygroups
 
+		DROP TABLE #customers
+		DROP TABLE #prioritygroups
 END
