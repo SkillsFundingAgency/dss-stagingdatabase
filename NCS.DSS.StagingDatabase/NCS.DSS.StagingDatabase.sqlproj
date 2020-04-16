@@ -68,6 +68,7 @@
     <Folder Include="dbo\Stored Procedures\ChangeHistory" />
     <Folder Include="dbo\Functions" />
     <Folder Include="dbo\Stored Procedures\IpsosMoriExtract" />
+    <Folder Include="dbo\Functions\IpsosMoriExtract" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\dss-actionplans.sql" />
@@ -85,7 +86,6 @@
     <Build Include="dbo\Tables\dss-transfers.sql" />
     <Build Include="dbo\Tables\dss-webchats.sql" />
     <Build Include="dbo\Tables\dss-reference-data.sql" />
-    <Build Include="dbo\Stored Procedures\usp_CreateReferenceData.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_customers.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_actionplans.sql" />
     <Build Include="dbo\Stored Procedures\Import_Cosmos_addresses.sql" />
@@ -160,6 +160,12 @@
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-learningprogressions.sql" />
     <Build Include="dbo\Stored Procedures\IpsosMoriExtract\usp_GetSatisfactionDataForIpsosMoriIntegration.sql" />
     <Build Include="dbo\Stored Procedures\IpsosMoriExtract\usp_GetDemographicsDataForIpsosMoriIntegration.sql" />
+    <Build Include="dbo\Functions\IpsosMoriExtract\udf_DemographicsAgeReport.sql" />
+    <Build Include="dbo\Functions\IpsosMoriExtract\udf_DemographicsEmploymentReport.sql" />
+    <Build Include="dbo\Functions\IpsosMoriExtract\udf_DemographicsGenderReport.sql" />
+    <Build Include="dbo\Stored Procedures\IpsosMoriExtract\udf_GetReferenceDataValue.sql" />
+    <Build Include="dbo\Stored Procedures\usp_CreateReferenceData.sql" />
+    <Build Include="dbo\Functions\IpsosMoriExtract\udf_DemographicsNCHReport.sql" />
     <Build Include="dbo\Functions\udf_GetReferenceDataValue.sql" />
     <Build Include="dbo\Stored Procedures\ChangeFeed\Change_Feed_Insert_Update_dss-prioritygroups.sql" />
     <Build Include="dbo\Functions\dcc-collections.sql" />
