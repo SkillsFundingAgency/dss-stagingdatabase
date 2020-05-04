@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION [dbo].[dcc-collections](@touchpointId VARCHAR(10), @startDate DATE, @endDate DATE)
+﻿CREATE FUNCTION [dbo].[dcc-collections10.03.2020](@touchpointId VARCHAR(10), @startDate DATE, @endDate DATE)
 
 RETURNS @Result TABLE(CustomerID UNIQUEIDENTIFIER, DateOfBirth DATE, HomePostCode VARCHAR(10), 
                                         ActionPlanId UNIQUEIDENTIFIER, SessionDate DATE, SubContractorId VARCHAR(50), 
