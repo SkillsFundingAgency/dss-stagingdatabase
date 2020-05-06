@@ -3,7 +3,7 @@
 RETURNS @Result TABLE(CustomerID UNIQUEIDENTIFIER, DateOfBirth DATE, HomePostCode VARCHAR(10), 
                                         ActionPlanId UNIQUEIDENTIFIER, SessionDate DATE, SubContractorId VARCHAR(50), 
                                         AdviserName VARCHAR(100), OutcomeId UNIQUEIDENTIFIER,
-                                        OutcomeType INT, OutcomeEffectiveDate DATE, OutcomePriorityCustomer BIT)
+                                        OutcomeType INT, OutcomeEffectiveDate DATE, OutcomePriorityCustomer INT)
 
 AS
 
