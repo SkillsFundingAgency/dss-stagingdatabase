@@ -473,3 +473,30 @@ IF OBJECT_ID('[dss-webchats-history]', 'U') IS NOT NULL
 				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 		END
+
+IF OBJECT_ID('[dss-subscriptions-history]', 'U') IS NOT NULL 
+		BEGIN
+			DROP TABLE [dss-digitalidentities-history]
+
+			CREATE TABLE [dbo].[dss-digitalidentities-history] (
+					[HistoryId] [int] IDENTITY(1,1) NOT NULL,
+					[CosmosTimeStamp] [datetime2](7) NOT NULL,
+					[id]                         UNIQUEIDENTIFIER   NOT NULL,
+					[CustomerId]		         UNIQUEIDENTIFIER   NOT NULL,
+					[IdentityStoreId]		     UNIQUEIDENTIFIER,
+					[LegacyIdentity]             VARCHAR (9)        NULL,
+					[id_token]                   VARCHAR (max)       NULL,
+					[LastLoggedInDateTime]       datetime2          NULL,
+					[LastModifiedDate]           datetime2          NULL,
+					[LastModifiedTouchpointId]   VARCHAR (max)      NULL, 
+					[DateOfTermination]          datetime2          NULL,
+					[CreatedBy]					 VARCHAR (MAX)      NULL, 
+				PRIMARY KEY CLUSTERED 
+				(
+					[HistoryId] ASC,
+					[CosmosTimeStamp] ASC,
+					[id] ASC
+				)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+				) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+		END

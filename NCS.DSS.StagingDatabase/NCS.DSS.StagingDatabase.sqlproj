@@ -165,6 +165,9 @@
     <Build Include="dbo\Functions\dcc-collections.sql" />
     <Build Include="dbo\Tables\dss-prioritygroups-history.sql" />
     <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-prioritygroups-history.sql" />
+    <Build Include="dbo\Tables\dss-digitalidentities.sql" />
+    <Build Include="dbo\Tables\dss-digitalidentities-history.sql" />
+    <Build Include="dbo\Stored Procedures\Import_Cosmos_digitalidentities.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
