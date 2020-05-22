@@ -474,7 +474,7 @@ IF OBJECT_ID('[dss-webchats-history]', 'U') IS NOT NULL
 
 		END
 
-IF OBJECT_ID('[dss-subscriptions-history]', 'U') IS NOT NULL 
+IF OBJECT_ID('[dss-digitalidentities-history]', 'U') IS NOT NULL 
 		BEGIN
 			DROP TABLE [dss-digitalidentities-history]
 
