@@ -2,7 +2,7 @@
     [id]                         UNIQUEIDENTIFIER   NOT NULL,
 	[CustomerId]		         UNIQUEIDENTIFIER   NOT NULL,
     [IdentityStoreId]		     UNIQUEIDENTIFIER,
-    [LegacyIdentity]             VARCHAR (9)        NULL,
+    [LegacyIdentity]             VARCHAR (MAX)        NULL,
     [id_token]                   VARCHAR (max)       NULL,
     [LastLoggedInDateTime]       datetime2          NULL,
     [LastModifiedDate]           datetime2          NULL,
