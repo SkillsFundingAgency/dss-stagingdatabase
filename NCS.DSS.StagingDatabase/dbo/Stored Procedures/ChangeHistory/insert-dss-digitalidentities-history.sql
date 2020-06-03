@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[insert-dss-digitalidentities-history] (@Json NVARCHAR(MAX))
 AS
 BEGIN
-	INSERT INTO [dss-digitalidentities-history]
+	INSERT INTO [dss-digitalidentities-history] 
 		SELECT DATEADD(MINUTE, _ts/60, DATEADD(SECOND, _ts%60, '19700101')) as CosmosTimeStamp, id, CustomerId, IdentityStoreId,
 			   LegacyIdentity, id_token, LastLoggedInDateTime, LastModifiedDate, LastModifiedTouchpointId, DateOfTermination, CreatedBy	
 			FROM OPENJSON(@Json) WITH (
