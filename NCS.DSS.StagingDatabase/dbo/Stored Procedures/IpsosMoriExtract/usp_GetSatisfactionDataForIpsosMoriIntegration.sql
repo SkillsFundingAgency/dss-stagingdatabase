@@ -14,7 +14,7 @@
 CREATE PROCEDURE [dbo].[usp_GetSatisfactionDataForIpsosMoriIntegration]
 AS							   
 BEGIN
-								DECLARE @startDate DATE
+DECLARE @startDate DATE
 	DECLARE @endDate DATE
 	SET @startDate = DATEADD(MONTH,datediff(MONTH,0,GETDATE())-1,0)
 	SET @endDate = DATEADD(MONTH, DATEDIFF(MONTH, -1, GETDATE())-1, -1)
@@ -39,7 +39,9 @@ BEGIN
 		, 'Learning Difficulty' =  dbo.udf_GetReferenceDataValue('DiversityDetails','SecondaryLearningDifficultyOrDisability',rk.SecondaryLearningDifficultyOrDisability,'Not provided')
 		, 'Ethnicity' =  dbo.udf_GetReferenceDataValue('DiversityDetails','Ethnicity',rk.Ethnicity,'Not provided')                  
 		, 'Gender' = dbo.udf_GetReferenceDataValue('Customers','Gender',rk.Gender,'')
-		, 'Contracting Area' = dbo.udf_GetReferenceDataValue('Touchpoints','Touchpoint', CAST(COALESCE(rk.CreatedBy, rk.LastModifiedTouchpointId) AS BIGINT),'') 
+		, IIF( LEFT(COALESCE(rk.CreatedBy, rk.LastModifiedTouchpointId), 1) = '0',
+				dbo.udf_GetReferenceDataValue('Touchpoints','Touchpoint', CAST(COALESCE(rk.CreatedBy, rk.LastModifiedTouchpointId) AS BIGINT),''), '' )  
+		  AS 'Contracting Area' 
 		, CASE COALESCE(rk.CreatedBy, rk.LastModifiedTouchpointId)
 			WHEN '0000000101' then 'Futures Advice'
 			WHEN '0000000102' then 'Futures Advice'
