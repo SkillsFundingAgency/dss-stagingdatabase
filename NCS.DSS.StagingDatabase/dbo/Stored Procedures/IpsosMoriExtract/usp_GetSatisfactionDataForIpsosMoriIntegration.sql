@@ -63,7 +63,13 @@ DECLARE @startDate DATE
 		, 'Channel' = dbo.udf_GetReferenceDataValue('Interactions','Channel',rk.Channel,'')
 		, CONVERT(VARCHAR(10), rk.DateandTimeOfSession, 23)             AS 'Session Date'
 		, 'Yes'                                         AS 'Participate Research Evaluation'
-		, 'Priority Group' = dbo.udf_GetReferenceDataValue('ActionPlans','PriorityCustomer', rk.PriorityCustomer, '')
+		, 'Priority Group' = COALESCE((SELECT STRING_AGG (rd.description, ',') FROM [dss-customers] c
+INNER JOIN [dss-prioritygroups] pg on c.id = pg.CustomerId
+CROSS JOIN [dss-reference-data] rd
+where c.id = rk.id
+AND rd.name = 'PriorityCustomer' 
+AND rd.value = pg.PriorityGroup
+), dbo.udf_GetReferenceDataValue('ActionPlans','PriorityCustomer', rk.PriorityCustomer, ''))
 		 from 
 		(
 			SELECT
@@ -96,18 +102,20 @@ DECLARE @startDate DATE
 				, (select count(1) from [dss-actionplans] ap2 where ap2.CustomerId = i.CustomerId and ap2.DateActionPlanCreated < @startDate  ) as prev_actionplans
 				, rank () over (partition by c.id order by iif(ap.id is not null, 1,2 ), i.DateandTimeOfInteraction, i.LastModifiedDate, i.id ) ro  --make sure action plans are considered first and duplcates are excluded
 			FROM        [dss-customers] c
+			-- LEFT JOIN	[dss-prioritygroups] pg on c.id = pg.CustomerId
 			LEFT JOIN   [dss-contacts] con ON con.CustomerId = c.id
 			LEFT JOIN   [dss-addresses] a ON a.CustomerId = c.Id
 			LEFT JOIN   [dss-diversitydetails] d ON d.CustomerId = c.Id
 			LEFT JOIN   [dss-employmentprogressions] ep on ep.CustomerId = c.id
 			LEFT JOIN   [dss-learningprogressions] lp on lp.CustomerId = c.id
 			INNER JOIN  [dss-interactions] i ON i.CustomerId = c.id
-			INNER JOIN  [dss-sessions] s ON s.InteractionId = i.id
+			LEFT JOIN  [dss-sessions] s ON s.InteractionId = i.id
 			LEFT JOIN   [dss-actionplans] ap ON ap.interactionId = i.id
 			WHERE       c.OptInMarketResearch = 1 -- true
 			AND         COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
-			AND         cast ( isnull(ap.DateActionPlanCreated,i.DateandTimeOfInteraction) as DATE ) BETWEEN @startDate AND @endDate
-			AND         ( ap.id is not null OR i.TouchpointId = '0000000999' )
+			AND         COALESCE(ap.DateActionPlanCreated,i.DateandTimeOfInteraction) BETWEEN @startDate AND @endDate
+			--Take this out
+			--AND         ( ap.id is not null OR i.TouchpointId = '0000000999' )
 	) rk
 	where
 		rk.ro = 1 -- exclude duplicate rows within the reporting period
