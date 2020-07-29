@@ -3,7 +3,7 @@ AS
 BEGIN
 	INSERT INTO [dss-digitalidentities-history] 
 		SELECT DATEADD(MINUTE, _ts/60, DATEADD(SECOND, _ts%60, '19700101')) as CosmosTimeStamp, id, CustomerId, IdentityStoreId,
-			   LegacyIdentity, id_token, LastLoggedInDateTime, LastModifiedDate, LastModifiedTouchpointId, DateOfTermination, CreatedBy	
+			   LegacyIdentity, id_token, LastLoggedInDateTime, LastModifiedDate, LastModifiedTouchpointId, DateOfClosure, CreatedBy	
 			FROM OPENJSON(@Json) WITH (
 				_ts BIGINT
 				,id UNIQUEIDENTIFIER
@@ -14,7 +14,7 @@ BEGIN
 				,LastLoggedInDateTime DATETIME2
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(max)
-				,DateOfTermination DATETIME2
+				,DateOfClosure DATETIME2
 				,CreatedBy VARCHAR(MAX)
 				)
 END

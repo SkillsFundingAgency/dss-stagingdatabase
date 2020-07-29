@@ -7,7 +7,7 @@
     [LastLoggedInDateTime]       datetime2          NULL,
     [LastModifiedDate]           datetime2          NULL,
     [LastModifiedTouchpointId]   VARCHAR (max)      NULL, 
-    [DateOfTermination]          datetime2          NULL,
+    [DateOfClosure]          datetime2          NULL,
 	[CreatedBy]					 VARCHAR (MAX)      NULL, 
     CONSTRAINT [PK_dss-digitalidentities] PRIMARY KEY ([id])
 );

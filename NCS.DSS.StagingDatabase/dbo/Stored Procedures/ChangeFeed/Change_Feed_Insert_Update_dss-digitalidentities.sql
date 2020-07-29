@@ -13,7 +13,7 @@ BEGIN
 				,LastLoggedInDateTime DATETIME2
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(max)
-				,DateOfTermination DATETIME2
+				,DateOfClosure DATETIME2
 				,CreatedBy VARCHAR(MAX)
 				)
 		) AS InputJSON
@@ -29,7 +29,7 @@ BEGIN
 				,digitalidentities.LastLoggedInDateTime  = InputJSON.LastLoggedInDateTime
 				,digitalidentities.LastModifiedDate  = InputJSON.LastModifiedDate
 				,digitalidentities.LastModifiedTouchpointId  = InputJSON.LastModifiedTouchpointId
-				,digitalidentities.DateOfTermination  = InputJSON.DateOfTermination
+				,digitalidentities.DateOfClosure  = InputJSON.DateOfClosure
 				,digitalidentities.CreatedBy = InputJSON.CreatedBy
 	WHEN NOT MATCHED
 		THEN
@@ -42,7 +42,7 @@ BEGIN
 				,LastLoggedInDateTime
 				,LastModifiedDate
 				,LastModifiedTouchpointId
-				,DateOfTermination
+				,DateOfClosure
 				,CreatedBy
 				)
 			VALUES (
@@ -54,7 +54,7 @@ BEGIN
 				,InputJSON.LastLoggedInDateTime
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
-				,InputJSON.DateOfTermination
+				,InputJSON.DateOfClosure
 				,InputJSON.CreatedBy
 				);
 
