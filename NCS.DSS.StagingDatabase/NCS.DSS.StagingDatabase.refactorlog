@@ -42,4 +42,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="OutcomeId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="9bed80b1-cb8c-4481-959b-cc48aba2641e" ChangeDateTime="07/29/2020 15:27:50">
+    <Property Name="ElementName" Value="[dbo].[dss-digitalidentities].[DateOfTermination]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[dss-digitalidentities]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DateOfClosure" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="09457976-a8f5-49ea-9546-a8cfa34e024d" ChangeDateTime="07/29/2020 15:27:59">
+    <Property Name="ElementName" Value="[dbo].[dss-digitalidentities-history].[DateOfTermination]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[dss-digitalidentities-history]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DateOfClosure" />
+  </Operation>
 </Operations>
