@@ -36,7 +36,7 @@ BEGIN
 						 [LastLoggedInDateTime] [varchar](max) NULL,
 						 [LastModifiedDate] [varchar](max) NULL,
 						 [LastModifiedTouchpointId] [varchar](max) NULL,
-						 [DateOfTermination] [varchar](max) NULL,
+						 [DateOfClosure] [varchar](max) NULL,
 						 [CreatedBy] [varchar](max) NULL
 			) ON [PRIMARY]									
 		END
@@ -53,7 +53,7 @@ BEGIN
 			LastLoggedInDateTime VARCHAR(MAX) '$.LastLoggedInDateTime',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
 			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId',
-			DateOfTermination NVARCHAR(MAX) '$.DateOfTermination',
+			DateOfClosure NVARCHAR(MAX) '$.DateOfClosure',
 			CreatedBy VARCHAR(MAX) '$.CreatedBy'
 			) AS Coll
 
@@ -75,7 +75,7 @@ BEGIN
 				[LastLoggedInDateTime]       datetime2          NULL,
 				[LastModifiedDate]           datetime2          NULL,
 				[LastModifiedTouchpointId]   VARCHAR (max)      NULL, 
-				[DateOfTermination]          datetime2          NULL,
+				[DateOfClosure]				 datetime2          NULL,
 				[CreatedBy]					 VARCHAR (MAX)      NULL, 
 				CONSTRAINT [PK_dss-digitalidentities] PRIMARY KEY ([id]))
 				ON [PRIMARY]							
@@ -91,7 +91,7 @@ BEGIN
 				CONVERT(datetime2, [LastLoggedInDateTime]) as [LastLoggedInDateTime],
 				CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
 				[LastModifiedTouchpointId],
-				CONVERT(datetime2, [DateOfTermination]) as [DateOfTermination],
+				CONVERT(datetime2, [DateOfClosure]) as [DateOfClosure],
 				[CreatedBy]
 				FROM #digitalidentities
 
