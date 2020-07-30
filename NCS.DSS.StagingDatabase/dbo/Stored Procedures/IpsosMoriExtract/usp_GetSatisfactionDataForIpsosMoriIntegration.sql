@@ -14,16 +14,21 @@
 CREATE PROCEDURE [dbo].[usp_GetSatisfactionDataForIpsosMoriIntegration]
 AS							   
 BEGIN
-DECLARE @startDate DATE
-	DECLARE @endDate DATE
-	SET @startDate = DATEADD(MONTH,datediff(MONTH,0,GETDATE())-1,0)
-	SET @endDate = DATEADD(MONTH, DATEDIFF(MONTH, -1, GETDATE())-1, -1)
+DECLARE @startDate DATETIME
+DECLARE @endDate DATETIME
+SET @startDate = DATEADD(MONTH,datediff(MONTH,0,GETDATE())-1,0)
+SET @endDate = DATEADD(MONTH, DATEDIFF(MONTH, -1, GETDATE())-1, -1) + '23:59:59'
 
-	-- used to get latest address
-	DECLARE @today DATE;
-	SET     @today = GETDATE();
-	
-	SELECT   rk.id                                         AS 'Customer ID'
+-- used to get latest address
+DECLARE @today DATE;
+SET     @today = GETDATE();
+
+--PRINT N'Start date: ' + CAST(@startDate AS nvarchar(30));
+--PRINT N'End date: ' + CAST(@endDate AS nvarchar(30));
+
+		WITH OriginalTable AS
+		(	
+		SELECT   rk.id                                  AS 'Customer ID'
 		, rk.GivenName                                  AS 'Given Name'
 		, rk.FamilyName                                 AS 'Family Name'
 		, 'Primary Phone Number' = 
@@ -70,8 +75,9 @@ where c.id = rk.id
 AND rd.name = 'PriorityCustomer' 
 AND rd.value = pg.PriorityGroup
 ), dbo.udf_GetReferenceDataValue('ActionPlans','PriorityCustomer', rk.PriorityCustomer, ''))
-		 from 
-		(
+, DupeRowCount
+	from 
+	(
 			SELECT
 				  c.id
 				, c.GivenName                                   
@@ -100,9 +106,10 @@ AND rd.value = pg.PriorityGroup
 				,ap.PriorityCustomer
 				, (select count(1) from [dss-interactions] i2 where i2.CustomerId = i.CustomerId and i2.DateAndTimeOfInteraction < @startDate )  as prev_interactions
 				, (select count(1) from [dss-actionplans] ap2 where ap2.CustomerId = i.CustomerId and ap2.DateActionPlanCreated < @startDate  ) as prev_actionplans
-				, rank () over (partition by c.id order by iif(ap.id is not null, 1,2 ), i.DateandTimeOfInteraction, i.LastModifiedDate, i.id ) ro  --make sure action plans are considered first and duplcates are excluded
+				, rank () over (partition by c.id, i.id order by iif(ap.id is not null, 1,2 ), i.DateandTimeOfInteraction, i.LastModifiedDate, i.id ) ro  --make sure action plans are considered first and duplcates are excluded
+				, ROW_NUMBER() OVER (PARTITION BY c.id ORDER BY (c.id)) AS DupeRowCount
 			FROM        [dss-customers] c
-			-- LEFT JOIN	[dss-prioritygroups] pg on c.id = pg.CustomerId
+			LEFT JOIN	[dss-prioritygroups] pg on c.id = pg.CustomerId
 			LEFT JOIN   [dss-contacts] con ON con.CustomerId = c.id
 			LEFT JOIN   [dss-addresses] a ON a.CustomerId = c.Id
 			LEFT JOIN   [dss-diversitydetails] d ON d.CustomerId = c.Id
@@ -114,8 +121,9 @@ AND rd.value = pg.PriorityGroup
 			WHERE       c.OptInMarketResearch = 1 -- true
 			AND         COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
 			AND         COALESCE(ap.DateActionPlanCreated,i.DateandTimeOfInteraction) BETWEEN @startDate AND @endDate
-			--Take this out
-			--AND         ( ap.id is not null OR i.TouchpointId = '0000000999' )
+			--Was asked to take this out but it checks action plan nulls because of the left join
+			AND         ( ap.id is not null OR i.TouchpointId = '0000000999' )
+
 	) rk
 	where
 		rk.ro = 1 -- exclude duplicate rows within the reporting period
@@ -125,4 +133,12 @@ AND rd.value = pg.PriorityGroup
 			OR
 				( rk.ActionPlanId is null AND prev_interactions = 0 ) -- if an action plan does not exists check no interactions exist from before the reporting period
 		)
+
+		)
+		, TempTable AS
+		(
+			SELECT * FROM OriginalTable WHERE DupeRowCount = 1 -- exclude dupes
+		)
+
+		SELECT * FROM TempTable
 END;
