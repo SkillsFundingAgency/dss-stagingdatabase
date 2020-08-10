@@ -72,6 +72,7 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'AdultsWithSpecialEducationalNeedsAndOrDisabilities', 5, 'Adults with special educational needs and/or disabilities')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'AdultsAged50YearsOrOverWhoAreUnemployedOrAtDemonstrableRiskOfUnemployment', 6, 'Adults aged 50 years or over who are unemployed or at demonstrable risk of unemployment')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'AdultsAffectedByGovernmentDefinedEconomicShock', 7, 'Adults Affected By Government Defined Economic Shock')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'NotKnown', 98, 'Not known')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'NotAPriorityCustomer', 99, 'Not a priority customer')
 
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Contacts', 'PreferredContactMethod', 'Email', 1, 'Email')
@@ -118,9 +119,10 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'WordofMouth', 23, 'Word of Mouth')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'WorldSkillsUKLive', 24, 'World Skills UK Live')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'NationalRetrainingScheme', 25, 'National Retraining Scheme')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'RedundancySupportServiceforApprentices', 26, 'Redundancy Support Service for Apprentices')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'Other', 98, 'Other')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'NotProvided', 99, 'Not provided')
-
+	
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'ReasonForTermination', 'CustomerChoice', 1, 'Customer Choice')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'ReasonForTermination', 'Deceased', 2, 'Deceased')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'ReasonForTermination', 'Duplicate', 3, 'Duplicate')
