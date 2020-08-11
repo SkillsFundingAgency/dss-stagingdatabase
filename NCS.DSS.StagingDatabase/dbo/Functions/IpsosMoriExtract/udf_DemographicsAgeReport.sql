@@ -34,8 +34,11 @@ DECLARE @startDate DATE;
 
 	with DemographicData AS
 	(
-		SELECT 
-			DATEDIFF(hour,DateOfBirth,GETDATE())/8766 AS Age
+		SELECT CASE WHEN dateadd(year, datediff (year, DateOfBirth, getdate()), DateOfBirth) > getdate()
+            THEN datediff(year, DateOfBirth, getdate()) - 1
+            ELSE datediff(year, DateOfBirth, getdate())
+		END  AS Age
+			--DATEDIFF(hour,DateOfBirth,GETDATE())/8766 AS Age
 			, COALESCE(ap.CreatedBy, ap.LastModifiedTouchpointId, i.LastModifiedTouchPointId) AS touchpointId
 			, ap.id as ap_id
 			, (select count(1) from [dss-interactions] i2 where i2.CustomerId = i.CustomerId and i2.DateAndTimeOfInteraction < @startDate )  as prev_interactions
