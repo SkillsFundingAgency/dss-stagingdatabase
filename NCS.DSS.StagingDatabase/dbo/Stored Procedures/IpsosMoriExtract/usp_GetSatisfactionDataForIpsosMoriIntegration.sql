@@ -140,5 +140,9 @@ AND rd.value = pg.PriorityGroup
 			SELECT * FROM OriginalTable WHERE DupeRowCount = 1 -- exclude dupes
 		)
 
-		SELECT * FROM TempTable
+		SELECT [Customer ID], [Given Name], [Family Name], [Primary Phone Number], [Alternative Phone Number], Postcode, [Contact Email],
+				[Date of Birth], [Disability Type], [Learning Difficulty], Ethnicity, Gender, [Contracting Area], [Subcontractor Name], 
+				[Action Plan], [Current Employment Status], [Length Of Unemployment], [Current Learning Status], [Current Qualification Level],
+				Channel, [Session Date], [Participate Research Evaluation], [Priority Group]
+		FROM TempTable
 END;
