@@ -116,8 +116,8 @@ AND rd.value = pg.PriorityGroup
 			LEFT JOIN   [dss-employmentprogressions] ep on ep.CustomerId = c.id
 			LEFT JOIN   [dss-learningprogressions] lp on lp.CustomerId = c.id
 			INNER JOIN  [dss-interactions] i ON i.CustomerId = c.id
-			LEFT JOIN  [dss-sessions] s ON s.InteractionId = i.id
 			LEFT JOIN   [dss-actionplans] ap ON ap.interactionId = i.id
+			LEFT JOIN   [dss-sessions] s ON ap.SessionId = s.id
 			WHERE       c.OptInMarketResearch = 1 -- true
 			AND         COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
 			AND         COALESCE(ap.DateActionPlanCreated,i.DateandTimeOfInteraction) BETWEEN @startDate AND @endDate
