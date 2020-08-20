@@ -17,7 +17,7 @@ BEGIN
 						[resource] varchar(50) NULL,
 						[name] varchar(100) NULL,
 						[key] varchar(100) NULL,
-						[value] int NULL,
+						[value] bigint NULL,
 						[description] varchar(max) NULL
 
 			) ON [PRIMARY]									
@@ -72,6 +72,7 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'AdultsWithSpecialEducationalNeedsAndOrDisabilities', 5, 'Adults with special educational needs and/or disabilities')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'AdultsAged50YearsOrOverWhoAreUnemployedOrAtDemonstrableRiskOfUnemployment', 6, 'Adults aged 50 years or over who are unemployed or at demonstrable risk of unemployment')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'AdultsAffectedByGovernmentDefinedEconomicShock', 7, 'Adults Affected By Government Defined Economic Shock')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'NotKnown', 98, 'Not known')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'NotAPriorityCustomer', 99, 'Not a priority customer')
 
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Contacts', 'PreferredContactMethod', 'Email', 1, 'Email')
@@ -118,9 +119,10 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'WordofMouth', 23, 'Word of Mouth')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'WorldSkillsUKLive', 24, 'World Skills UK Live')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'NationalRetrainingScheme', 25, 'National Retraining Scheme')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'RedundancySupportServiceforApprentices', 26, 'Redundancy Support Service for Apprentices')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'Other', 98, 'Other')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'NotProvided', 99, 'Not provided')
-
+	
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'ReasonForTermination', 'CustomerChoice', 1, 'Customer Choice')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'ReasonForTermination', 'Deceased', 2, 'Deceased')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'ReasonForTermination', 'Duplicate', 3, 'Duplicate')
@@ -138,13 +140,13 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'Pakistani', 40, 'Pakistani')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'Bangladeshi', 41, 'Bangladeshi')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'Chinese', 42, 'Chinese')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherAsianBackground', 43, 'AnyOtherAsianBackground')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherAsianBackground', 43, 'Any Other Asian Background')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'African', 44, 'African')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'Caribbean', 45, 'Caribbean')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherBlackAfricanCaribbeanBackground', 46, 'AnyOtherBlackAfricanCaribbeanBackground')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherBlackAfricanCaribbeanBackground', 46, 'Any Other Black / African / Caribbean Background')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'Arab', 47, 'Arab')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherEthnicGroup', 98, 'AnyOtherEthnicGroup')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'NotProvided', 99, 'NotProvided')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'AnyOtherEthnicGroup', 98, 'Any Other Ethnic Group')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'Ethnicity', 'NotProvided', 99, 'Not Provided')
 
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'LearningDifficultyOrDisabilityDeclaration', 'CustomerConsidersThemselvesToHaveALearningDifficultyAndOrHealthProblem', 1, 'Customer Considers Themselves To Have A Learning Difficulty And/Or Health Problem')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('DiversityDetails', 'LearningDifficultyOrDisabilityDeclaration', 'CustomerDoesNotConsiderThemselvesToHaveALearningDifficultyAndOrHealthProblem', 2, 'Customer Does Not Consider Themselves To Have A Learning Difficulty And/Or Health Problem')
@@ -241,7 +243,7 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Webchat', 3, 'Webchat')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Videochat', 4, 'Videochat')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Email', 5, 'Email')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'SocialMedia', 6, 'Social Media')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'SocialMedia',	6, 'Social Media')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'SMS', 7, 'SMS')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Post', 8, 'Post')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Interactions', 'Channel', 'Cobrowse', 9, 'Co-browse')
