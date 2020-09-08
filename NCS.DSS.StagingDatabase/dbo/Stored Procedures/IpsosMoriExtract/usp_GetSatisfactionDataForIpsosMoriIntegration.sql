@@ -1,3 +1,5 @@
+
+
 CREATE PROCEDURE [dbo].[usp_GetSatisfactionDataForIpsosMoriIntegration]
 AS							   
 BEGIN
@@ -142,3 +144,4 @@ AND rd.value = pg.PriorityGroup
 		FROM TempTable
 		WHERE  ([Contact Email] <> null OR [Contact Email] <> '')
 			OR ([Primary Phone Number] <> null OR [Primary Phone Number] <> '')
+END;
