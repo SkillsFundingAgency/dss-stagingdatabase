@@ -1,16 +1,3 @@
- 
--------------------------------------------------------------------------------
--- Authors:      Kevin Brandon
--- Created:      14/08/2019
--- Purpose:      Produce Satisfaction data for Ipsos-Mori integration.
---  
--------------------------------------------------------------------------------
--- Modification History
--- Initial creation.
--- 
---            
--- Copyright © 2019, ESFA, All Rights Reserved
--------------------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[usp_GetSatisfactionDataForIpsosMoriIntegration]
 AS							   
 BEGIN
@@ -76,6 +63,8 @@ AND rd.name = 'PriorityCustomer'
 AND rd.value = pg.PriorityGroup
 ), dbo.udf_GetReferenceDataValue('ActionPlans','PriorityCustomer', rk.PriorityCustomer, ''))
 , DupeRowCount
+--'Priority Group' = dbo.udf_GetReferenceDataValue('ActionPlans','PriorityCustomer', rk.PriorityCustomer, '')
+, prev_actionplans, prev_interactions
 	from 
 	(
 			SELECT
@@ -102,12 +91,15 @@ AND rd.value = pg.PriorityGroup
 				,lp.CurrentLearningStatus
 				,lp.CurrentQualificationLevel
 				,i.Channel
+				,i.DateandTimeOfInteraction
 				,s.DateandTimeOfSession
 				,ap.PriorityCustomer
-				, (select count(1) from [dss-interactions] i2 where i2.CustomerId = i.CustomerId and i2.DateAndTimeOfInteraction < @startDate )  as prev_interactions
-				, (select count(1) from [dss-actionplans] ap2 where ap2.CustomerId = i.CustomerId and ap2.DateActionPlanCreated < @startDate  ) as prev_actionplans
-				, rank () over (partition by c.id, i.id order by iif(ap.id is not null, 1,2 ), i.DateandTimeOfInteraction, i.LastModifiedDate, i.id ) ro  --make sure action plans are considered first and duplcates are excluded
-				, ROW_NUMBER() OVER (PARTITION BY c.id ORDER BY (c.id)) AS DupeRowCount
+				,ap.DateActionPlanCreated
+				, (select count(1) from [dss-interactions] i2 where i2.CustomerId = i.CustomerId and i2.DateAndTimeOfInteraction > DATEADD(month, -3,  @startDate) AND i2.DateAndTimeOfInteraction < @startDate ) as prev_interactions -- Only report on a customer every 3 months
+				, (select count(1) from [dss-actionplans] ap2 where ap2.CustomerId = i.CustomerId and ap2.DateActionPlanCreated > DATEADD(month, -3,  @startDate) AND  ap2.DateActionPlanCreated < @startDate  ) as prev_actionplans
+				--, rank () over (partition by c.id, i.id order by iif(ap.id is not null, 1,2 ), i.DateandTimeOfInteraction, i.LastModifiedDate, i.id ) ro  --make sure action plans are considered first and duplcates are excluded
+				--, rank () over (partition by ap.id order by ap.DateActionPlanCreated asc) ro  --make sure action plans are considered first and duplcates are excluded
+				, ROW_NUMBER() OVER (PARTITION BY c.id ORDER BY c.id, i.DateAndTimeOfInteraction,  ap.DateActionPlanCreated) AS DupeRowCount
 			FROM        [dss-customers] c
 			LEFT JOIN	[dss-prioritygroups] pg on c.id = pg.CustomerId
 			LEFT JOIN   [dss-contacts] con ON con.CustomerId = c.id
@@ -115,19 +107,22 @@ AND rd.value = pg.PriorityGroup
 			LEFT JOIN   [dss-diversitydetails] d ON d.CustomerId = c.Id
 			LEFT JOIN   [dss-employmentprogressions] ep on ep.CustomerId = c.id
 			LEFT JOIN   [dss-learningprogressions] lp on lp.CustomerId = c.id
+			LEFT JOIN   [dss-actionplans] ap ON ap.CustomerId = c.id
 			INNER JOIN  [dss-interactions] i ON i.CustomerId = c.id
-			LEFT JOIN   [dss-actionplans] ap ON ap.interactionId = i.id
-			LEFT JOIN   [dss-sessions] s ON ap.SessionId = s.id
+
+			LEFT JOIN  [dss-sessions] s ON i.id = s.InteractionId
 			WHERE       c.OptInMarketResearch = 1 -- true
 			AND         COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
 			AND         COALESCE(ap.DateActionPlanCreated,i.DateandTimeOfInteraction) BETWEEN @startDate AND @endDate
-			--Was asked to take this out but it checks action plan nulls because of the left join
-			AND         ( ap.id is not null OR i.TouchpointId = '0000000999' )
+			--Take this out
+			--AND         ( ap.id is not null AND ap.DateActionPlanCreated is not null )
+
+
 
 	) rk
 	where
-		rk.ro = 1 -- exclude duplicate rows within the reporting period
-		AND 
+		--rk.ro = 1 -- exclude duplicate rows within the reporting period
+		--AND 
 		(
 				( rk.ActionPlanId is not null  AND prev_actionplans = 0 ) -- if an action plan is detected check no actions plans exist from before the reporting period
 			OR
@@ -145,4 +140,5 @@ AND rd.value = pg.PriorityGroup
 				[Action Plan], [Current Employment Status], [Length Of Unemployment], [Current Learning Status], [Current Qualification Level],
 				Channel, [Session Date], [Participate Research Evaluation], [Priority Group]
 		FROM TempTable
-END;
+		WHERE  ([Contact Email] <> null OR [Contact Email] <> '')
+			OR ([Primary Phone Number] <> null OR [Primary Phone Number] <> '')
