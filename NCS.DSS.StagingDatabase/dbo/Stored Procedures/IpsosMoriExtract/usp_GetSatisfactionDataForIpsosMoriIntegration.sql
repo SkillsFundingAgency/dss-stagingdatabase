@@ -144,4 +144,5 @@ AND rd.value = pg.PriorityGroup
 		FROM TempTable
 		WHERE  ([Contact Email] <> null OR [Contact Email] <> '')
 			OR ([Primary Phone Number] <> null OR [Primary Phone Number] <> '')
+			OR ([Alternative Phone Number] <> null OR [Alternative Phone Number] <> '')
 END;
