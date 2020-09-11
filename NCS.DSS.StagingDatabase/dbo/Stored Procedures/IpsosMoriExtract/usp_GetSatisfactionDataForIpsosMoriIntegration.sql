@@ -126,9 +126,9 @@ AND rd.value = pg.PriorityGroup
 		--rk.ro = 1 -- exclude duplicate rows within the reporting period
 		--AND 
 		(
-				( rk.ActionPlanId is not null  AND prev_actionplans = 0 ) -- if an action plan is detected check no actions plans exist from before the reporting period
-			OR
-				( rk.ActionPlanId is null AND prev_interactions = 0 ) -- if an action plan does not exists check no interactions exist from before the reporting period
+						(  prev_interactions = 0 ) -- if an action plan does not exists check no interactions exist from before the reporting period
+						--OR
+				--( rk.ActionPlanId is not null  AND prev_actionplans = 0 ) -- if an action plan is detected check no actions plans exist from before the reporting period
 		)
 
 		)
