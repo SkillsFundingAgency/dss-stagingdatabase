@@ -112,10 +112,11 @@ AND rd.value = pg.PriorityGroup
 			LEFT JOIN   [dss-actionplans] ap ON ap.CustomerId = c.id
 			INNER JOIN  [dss-interactions] i ON i.CustomerId = c.id
 
-			LEFT JOIN   [dss-sessions] s ON i.id = s.InteractionId
+			LEFT JOIN   [dss-sessions] s ON s.id = ap.SessionId OR i.id = s.InteractionId
 			WHERE       c.OptInMarketResearch = 1 -- true
 			AND         COALESCE(c.ReasonForTermination, 0) NOT IN (1,2)
-			AND         COALESCE(i.DateandTimeOfInteraction,ap.DateActionPlanCreated) BETWEEN @startDate AND @endDate
+			AND         (ap.DateActionPlanCreated BETWEEN @startDate AND @endDate
+			OR         i.DateandTimeOfInteraction BETWEEN @startDate AND @endDate)
 			--Take this out
 			--AND         ( ap.id is not null AND ap.DateActionPlanCreated is not null )
 
