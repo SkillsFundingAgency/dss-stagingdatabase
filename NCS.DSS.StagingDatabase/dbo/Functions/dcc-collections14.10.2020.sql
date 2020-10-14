@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION [dbo].[dcc-collections](@touchpointId VARCHAR(10), @startDate DATE, @endDate DATE)
+﻿CREATE FUNCTION [dbo].[dcc-collections14.10.2020](@touchpointId VARCHAR(10), @startDate DATE, @endDate DATE)
 
 RETURNS @Result TABLE(CustomerID UNIQUEIDENTIFIER, DateOfBirth DATE, HomePostCode VARCHAR(10), 
                                         ActionPlanId UNIQUEIDENTIFIER, SessionDate DATE, SubContractorId VARCHAR(50), 
@@ -44,7 +44,7 @@ INSERT INTO @Result
 							,adv.AdviserName														AS 'AdviserName'
 							,o.id																	AS 'OutcomeID'
 							,o.OutcomeType															AS 'OutcomeType'
-							,IIF(o.OutcomeType = 5, DATEADD(ss,1,o.OutcomeEffectiveDate), 	o.OutcomeEffectiveDate) AS 'OutcomeEffectiveDate'
+							,o.OutcomeEffectiveDate													AS 'OutcomeEffectiveDate'
 							,COALESCE(o.IsPriorityCustomer, IIF(o.ClaimedPriorityGroup < 99, 1, 0)) AS 'OutcomePriorityCustomer'
 							,o.OutcomeClaimedDate													AS 'OutcomeClaimedDate'
 							,SessionClosureDate = 
@@ -53,13 +53,13 @@ INSERT INTO @Result
 									ELSE DATEADD(mm, 12, s.DateandTimeOfSession) 
 								END
 							,DATEADD(mm, -12, CONVERT(DATE,s.DateandTimeOfSession)) AS 'PriorSessionDate'		
-							,RANK() OVER(PARTITION BY s.CustomerID, IIF(s.DateandTimeOfSession < @startDate,100,0 ), o.OutcomeType
+							,RANK() OVER(PARTITION BY s.CustomerID, IIF(s.DateandTimeOfSession < @startDate,100,0 ) + IIF (o.OutcomeType < 3, o.OutcomeType, 3) 
 							ORDER BY o.OutcomeEffectiveDate, o.LastModifiedDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 		FROM				[dss-sessions] s
 		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
 		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
 		INNER JOIN			[dss-interactions] i							ON i.id = ap.InteractionId
-		INNER JOIN			[dss-outcomes] o								ON o.ActionPlanId = ap.id
+		INNER JOIN			[dss-outcomes] o							ON o.ActionPlanId = ap.id
 		OUTER APPLY			(	SELECT TOP 1	PostCode
 								FROM			[dss-addresses] a
 								WHERE			a.CustomerId = s.CustomerId											-- Get the latest address for the customer record
@@ -103,9 +103,9 @@ INSERT INTO @Result
 														)
 														OR
 														(							-- check there are no outcomes of the same type (JLO)
-															o.OutcomeType IN (3,5)
+															o.OutcomeType IN (3,4,5)
 															AND
-															priorO.OutcomeType IN (3,5)
+															priorO.OutcomeType IN (3,4,5)
 														)
 													)
 								)
