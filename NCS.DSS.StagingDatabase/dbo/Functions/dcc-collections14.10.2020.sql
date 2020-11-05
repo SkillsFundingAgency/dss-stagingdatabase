@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION [dbo].[dcc-collections](@touchpointId VARCHAR(10), @startDate DATE, @endDate DATE)
+﻿CREATE FUNCTION [dbo].[dcc-collections14.10.2020](@touchpointId VARCHAR(10), @startDate DATE, @endDate DATE)
 
 RETURNS @Result TABLE(CustomerID UNIQUEIDENTIFIER, DateOfBirth DATE, HomePostCode VARCHAR(10), 
                                         ActionPlanId UNIQUEIDENTIFIER, SessionDate DATE, SubContractorId VARCHAR(50), 
@@ -19,7 +19,20 @@ SET		@today = GETDATE()
 SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));  
 
 
-	with TempData AS
+INSERT INTO @Result
+	SELECT			
+		 CustomerID
+		,DateOfBirth
+		,HomePostCode
+		,ActionPlanId
+		,SessionDate
+		,SubContractorId
+		,AdviserName
+		,OutcomeID
+		,OutcomeType
+		,OutcomeEffectiveDate
+		,OutcomePriorityCustomer
+	FROM
 	(
 		SELECT				o.CustomerId															AS 'CustomerID'
 							,s.id																	AS 'SessionID'
@@ -40,14 +53,13 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 									ELSE DATEADD(mm, 12, s.DateandTimeOfSession) 
 								END
 							,DATEADD(mm, -12, CONVERT(DATE,s.DateandTimeOfSession)) AS 'PriorSessionDate'		
-							,RANK() OVER(PARTITION BY s.CustomerID, IIF(s.DateandTimeOfSession < @startDate,100,0 ), o.OutcomeType
-							ORDER BY o.id, o.OutcomeEffectiveDate, o.LastModifiedDate) AS 'Rank'  -- we rank to remove duplicates
-
+							,RANK() OVER(PARTITION BY s.CustomerID, IIF(s.DateandTimeOfSession < @startDate,100,0 ) + IIF (o.OutcomeType < 3, o.OutcomeType, 3) 
+							ORDER BY o.OutcomeEffectiveDate, o.LastModifiedDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 		FROM				[dss-sessions] s
 		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
 		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
 		INNER JOIN			[dss-interactions] i							ON i.id = ap.InteractionId
-		INNER JOIN			[dss-outcomes] o								ON o.ActionPlanId = ap.id
+		INNER JOIN			[dss-outcomes] o							ON o.ActionPlanId = ap.id
 		OUTER APPLY			(	SELECT TOP 1	PostCode
 								FROM			[dss-addresses] a
 								WHERE			a.CustomerId = s.CustomerId											-- Get the latest address for the customer record
@@ -56,61 +68,10 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 		LEFT JOIN			[dss-adviserdetails] adv ON adv.id = i.AdviserDetailsId									-- join to get adviser details
 		WHERE				o.OutcomeEffectiveDate	BETWEEN @startDate AND @endDateTime								-- effective between period start and end date and time
 		AND					o.OutcomeClaimedDate	BETWEEN @startDate AND @endDateTime								-- claimed between period start and end date and time
-		--AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
-		--AND o.OutcomeType = 5 
-	), dupesRemoved AS (
-		SELECT *
-		FROM TempData
-		WHERE TempData.Rank = 1	
-	), lagged AS(
-		SELECT *
-		,LAG(OutcomeType) OVER (PARTITION BY CustomerID
-		ORDER BY OutcomeEffectiveDate, OutcomeType) AS 'PrevOutcomeType'
-		FROM dupesRemoved
-		WHERE OutcomeType = 3 OR OutcomeType = 5
-	), laggedRulesApplied AS(
-		SELECT *
-		FROM lagged
-		WHERE OutcomeType = 3 AND PrevOutcomeType IS  NULL
-		OR OutcomeType = 3 AND PrevOutcomeType <> 5
-		OR OutcomeType = 5 AND PrevOutcomeType IS  NULL
-		OR OutcomeType = 5  AND PrevOutcomeType <> 3
-	), oneTwoFourTypes AS(
-		SELECT *
-		FROM dupesRemoved
-		WHERE OutcomeType IN (1,2,4)
-	)
-
-	INSERT INTO @Result
-	SELECT			
-		 CustomerID
-		,DateOfBirth
-		,HomePostCode
-		,ActionPlanId
-		,SessionDate
-		,SubContractorId
-		,AdviserName
-		,OutcomeID
-		,OutcomeType
-		,OutcomeEffectiveDate
-		,OutcomePriorityCustomer
-	FROM laggedRulesApplied
-	UNION
-	SELECT			
-		 CustomerID
-		,DateOfBirth
-		,HomePostCode
-		,ActionPlanId
-		,SessionDate
-		,SubContractorId
-		,AdviserName
-		,OutcomeID
-		,OutcomeType
-		,OutcomeEffectiveDate
-		,OutcomePriorityCustomer
-	FROM oneTwoFourTypes AS o
-	WHERE 						
-	CONVERT(DATE,o.OutcomeEffectiveDate) <= o.SessionClosureDate								-- within 12 or 13 months of the session date date
+		AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
+	) o
+	WHERE					o.Rank = 1																				-- only send through 1 of each type of outcome	
+	AND						CONVERT(DATE,o.OutcomeEffectiveDate) <= o.SessionClosureDate											-- within 12 or 13 months of the session date date
 	AND						NOT EXISTS (
 									SELECT			priorO.id
 									FROM			[dss-sessions]  priorS
@@ -120,7 +81,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 									AND				priorO.OutcomeClaimedDate IS NOT NULL		-- and claimed
 									AND				priorO.CustomerId = o.CustomerId			-- and they belong to the same customer
 									AND				priorO.TouchpointId <> '0000000999'			-- and touchpoint is not helpline
-									AND				CONVERT(DATE,priorS.DateandTimeOfSession) >= o.PriorSessionDate	-- and the prior session date is more then 12 months before current session date
+									AND				CONVERT(DATE,priorS.DateandTimeOfSession) > o.PriorSessionDate	-- and the prior session date is more then 12 months before current session date
 									AND				(											-- check validity of the previous outcomes we are considering
 														( 
 															OutcomeType = 3							-- the previous outcome should have been claimed within 13 months of the previous session date for Outcome Type 3
@@ -129,10 +90,10 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 														)
 														OR											-- the previous outcome should have been claimed within 12 months of the previous session date for Outcome Types 1,2,4,5
 														(
-															OutcomeType IN ( 1,2,4,5)			
+															OutcomeType IN ( 1,2,4,5 )			
 															AND
 															DATEADD(mm, 12, Convert(DATE,priorS.DateandTimeOfSession))  >= CONVERT(DATE,priorO.OutcomeEffectiveDate)
-														)														
+														)
 													)
 									AND				(
 														(							-- Check there are no Outcomes of the same type (CSO and CMO)
@@ -142,9 +103,9 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 														)
 														OR
 														(							-- check there are no outcomes of the same type (JLO)
-															o.OutcomeType IN (3,5)
+															o.OutcomeType IN (3,4,5)
 															AND
-															priorO.OutcomeType IN (3,5)
+															priorO.OutcomeType IN (3,4,5)
 														)
 													)
 								)
