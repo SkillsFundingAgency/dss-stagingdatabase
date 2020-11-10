@@ -56,7 +56,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 		LEFT JOIN			[dss-adviserdetails] adv ON adv.id = i.AdviserDetailsId									-- join to get adviser details
 		WHERE				o.OutcomeEffectiveDate	BETWEEN @startDate AND @endDateTime								-- effective between period start and end date and time
 		AND					o.OutcomeClaimedDate	BETWEEN @startDate AND @endDateTime								-- claimed between period start and end date and time
-		--AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
+		AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
 		--AND o.OutcomeType = 5 
 	), dupesRemoved AS (
 		SELECT *
