@@ -57,7 +57,6 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 		WHERE				o.OutcomeEffectiveDate	BETWEEN @startDate AND @endDateTime								-- effective between period start and end date and time
 		AND					o.OutcomeClaimedDate	BETWEEN @startDate AND @endDateTime								-- claimed between period start and end date and time
 		AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
-		--AND o.OutcomeType = 5 
 	), dupesRemoved AS (
 		SELECT *
 		FROM TempData
@@ -120,7 +119,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 									AND				priorO.OutcomeClaimedDate IS NOT NULL		-- and claimed
 									AND				priorO.CustomerId = o.CustomerId			-- and they belong to the same customer
 									AND				priorO.TouchpointId <> '0000000999'			-- and touchpoint is not helpline
-									AND				CONVERT(DATE,priorS.DateandTimeOfSession) >= o.PriorSessionDate	-- and the prior session date is more then 12 months before current session date
+									AND				CONVERT(DATE,priorS.DateandTimeOfSession) > o.PriorSessionDate	-- and the prior session date is more then 12 months before current session date
 									AND				(											-- check validity of the previous outcomes we are considering
 														( 
 															OutcomeType = 3							-- the previous outcome should have been claimed within 13 months of the previous session date for Outcome Type 3
