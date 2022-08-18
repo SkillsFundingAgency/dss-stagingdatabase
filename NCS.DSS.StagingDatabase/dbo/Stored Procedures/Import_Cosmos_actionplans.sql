@@ -36,7 +36,8 @@ BEGIN
 				[CurrentSituation] [varchar](max) NULL,
 				[LastModifiedDate] [varchar](max) NULL,
 				[LastModifiedTouchpointId] [varchar](max) NULL,
-				[CreatedBy] [varchar](max) NULL
+				[CreatedBy] [varchar](max) NULL,
+				[CustomerSatisfaction] [varchar](max) NULL
 			) ON [PRIMARY]									
 
 
@@ -58,7 +59,8 @@ BEGIN
 			CurrentSituation VARCHAR(MAX) '$.CurrentSituation',
 			LastModifiedDate VARCHAR(MAX) '$.LastModifiedDate',
 			LastModifiedTouchpointId VARCHAR(MAX) '$.LastModifiedTouchpointId',
-			CreatedBy VARCHAR(MAX) '$.CreatedBy'
+			CreatedBy VARCHAR(MAX) '$.CreatedBy',
+			CustomerSatisfaction VARCHAR(MAX) '$.CustomerSatisfaction'
 			) as Coll
 
 	
@@ -84,6 +86,7 @@ BEGIN
 						[LastModifiedDate] DATETIME2 NULL,
 						[LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
 						[CreatedBy] [VARCHAR](MAX) NULL,
+						[CustomerSatisfaction] INT NULL,
 						CONSTRAINT [PK_dss-actionplans] PRIMARY KEY ([id])) 
 			ON [PRIMARY]
 		END
@@ -104,7 +107,8 @@ BEGIN
 			[CurrentSituation],
 			CONVERT(datetime2, [LastModifiedDate]) as [LastModifiedDate],
 			[LastModifiedTouchpointId],
-			[CreatedBy]
+			[CreatedBy],
+			CONVERT(int, CustomerSatisfaction) as [CustomerSatisfaction]
 			FROM #actionplans
 
 		DROP TABLE #actionplans
