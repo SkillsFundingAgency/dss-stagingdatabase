@@ -46,6 +46,7 @@ IF OBJECT_ID('[dss-actions-history]', 'U') IS NOT NULL
 					[DateActionActuallyCompleted] [DATETIME2](7) NULL,
 					[ActionSummary] [VARCHAR](MAX) NULL,
 					[SignpostedTo] [VARCHAR](MAX) NULL,
+					[SignpostedToCategory] [INT] NULL,
 					[ActionType] [INT] NULL,
 					[ActionStatus] [INT] NULL,
 					[PersonResponsible] [INT] NULL,

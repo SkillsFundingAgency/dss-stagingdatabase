@@ -14,6 +14,7 @@ BEGIN
 				,DateActionActuallyCompleted DATETIME2
 				,ActionSummary VARCHAR(max)
 				,SignpostedTo VARCHAR(max)
+				,SignpostedToCategory INT
 				,ActionType INT
 				,ActionStatus INT
 				,PersonResponsible INT
@@ -35,6 +36,7 @@ BEGIN
 				,actions.DateActionActuallyCompleted = InputJSON.DateActionActuallyCompleted
 				,actions.ActionSummary = InputJSON.ActionSummary
 				,actions.SignpostedTo = InputJSON.SignpostedTo
+				,actions.SignpostedToCategory = InputJSON.SignpostedToCategory
 				,actions.ActionType = InputJSON.ActionType
 				,actions.ActionStatus = InputJSON.ActionStatus
 				,actions.PersonResponsible = InputJSON.PersonResponsible
@@ -53,6 +55,7 @@ BEGIN
 				,DateActionActuallyCompleted
 				,ActionSummary
 				,SignpostedTo
+				,SignpostedToCategory
 				,ActionType
 				,ActionStatus
 				,PersonResponsible
@@ -70,6 +73,7 @@ BEGIN
 				,InputJSON.DateActionActuallyCompleted
 				,InputJSON.ActionSummary
 				,InputJSON.SignpostedTo
+				,InputJSON.SignpostedToCategory
 				,InputJSON.ActionType
 				,InputJSON.ActionStatus
 				,InputJSON.PersonResponsible

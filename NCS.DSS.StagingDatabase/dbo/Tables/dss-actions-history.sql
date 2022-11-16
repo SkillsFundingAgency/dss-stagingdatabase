@@ -10,6 +10,7 @@
 	[DateActionActuallyCompleted] [datetime2](7) NULL,
 	[ActionSummary] [varchar](max) NULL,
 	[SignpostedTo] [varchar](max) NULL,
+	[SignpostedToCategory] [int] NULL,
 	[ActionType] [int] NULL,
 	[ActionStatus] [int] NULL,
 	[PersonResponsible] [int] NULL,
