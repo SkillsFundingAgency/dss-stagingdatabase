@@ -20,6 +20,7 @@
 					[CurrentSituation] [VARCHAR](MAX) NULL,
 					[LastModifiedDate] [DATETIME2](7) NULL,
 					[LastModifiedTouchpointId] [VARCHAR](MAX) NULL,
+					[CustomerSatisfaction] INT NULL,
 			PRIMARY KEY CLUSTERED 
 			(
 				[HistoryId] ASC,

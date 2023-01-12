@@ -18,6 +18,7 @@
                          [CurrentSituation] VARCHAR (MAX) NULL,
                          [LastModifiedDate] datetime2 NULL,
                          [LastModifiedTouchpointId] VARCHAR (MAX) NULL, 
+						 [CustomerSatisfaction] INT NULL,
                          CONSTRAINT [PK_dss-actionplans] PRIMARY KEY ([id]))
 						 ON [PRIMARY]
 		END

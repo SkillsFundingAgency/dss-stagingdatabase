@@ -16,7 +16,8 @@
 	[CurrentSituation] [varchar](max) NULL,
 	[LastModifiedDate] [datetime2](7) NULL,
 	[LastModifiedTouchpointId] [varchar](max) NULL,
-	[CreatedBy] [varchar](max) NULL,  
+	[CreatedBy] [varchar](max) NULL,
+	[CustomerSatisfaction] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[HistoryId] ASC,
