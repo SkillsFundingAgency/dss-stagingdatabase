@@ -18,6 +18,7 @@
                          [CurrentSituation] VARCHAR (MAX) NULL,
                          [LastModifiedDate] datetime2 NULL,
                          [LastModifiedTouchpointId] VARCHAR (MAX) NULL, 
+						 [CustomerSatisfaction] INT NULL,
                          CONSTRAINT [PK_dss-actionplans] PRIMARY KEY ([id]))
 						 ON [PRIMARY]
 		END
@@ -35,7 +36,8 @@ IF OBJECT_ID('[dss-actions]', 'U') IS NOT NULL
 							   [DateActionAimsToBeCompletedBy] datetime2 NULL,
 							   [DateActionActuallyCompleted]   datetime2 NULL,
 							   [ActionSummary] VARCHAR (max) NULL,
-							   [SignpostedTo] VARCHAR (max) NULL,
+							   [SignpostedTo] VARCHAR (max) NULL, 
+							   [SignpostedToCategory] INT NULL,
 							   [ActionType] INT NULL,
 							   [ActionStatus] INT NULL,
 							   [PersonResponsible] INT NULL,
