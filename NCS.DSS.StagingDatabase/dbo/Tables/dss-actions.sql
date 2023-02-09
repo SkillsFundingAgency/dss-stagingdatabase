@@ -8,6 +8,7 @@
     [DateActionActuallyCompleted]   datetime2         NULL,
     [ActionSummary]                 VARCHAR (max)     NULL,
     [SignpostedTo]                  VARCHAR (max)     NULL,
+    [SignpostedToCategory]          INT               NULL,
     [ActionType]                    INT              NULL,
     [ActionStatus]                  INT              NULL,
     [PersonResponsible]             INT              NULL,
