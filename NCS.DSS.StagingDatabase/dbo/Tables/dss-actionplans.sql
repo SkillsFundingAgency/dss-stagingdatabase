@@ -19,3 +19,9 @@
     CONSTRAINT [PK_dss-actionplans] PRIMARY KEY ([id]) 
 );
 
+
+GO
+
+CREATE NONCLUSTERED INDEX [nci_dss-actionplans_customerid] ON [dbo].[dss-actionplans] ([CustomerId]) WITH (ONLINE = ON)
+
+GO
