@@ -227,6 +227,7 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-servicefeeperformance.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-summaryaverage.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-daily-performance.sql" />
+    <Build Include="PowerBI_Schema.sql"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />

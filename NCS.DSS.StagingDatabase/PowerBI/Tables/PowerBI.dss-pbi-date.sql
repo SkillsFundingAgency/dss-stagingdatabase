@@ -9,7 +9,6 @@ CREATE TABLE [PowerBI].[dss-pbi-date]
 	,[MonthRefId] INT NULL
     ,[WeekRefId] INT NULL
 	,CONSTRAINT [pk-dss-pbi-date] PRIMARY KEY CLUSTERED ([CalendarDate], [DateID])
-	,CONSTRAINT [v-dss-pbi-date-IDX] UNIQUE CLUSTERED ([Date],[Year],[Fiscal Year])
 )
 ;
 GO 
