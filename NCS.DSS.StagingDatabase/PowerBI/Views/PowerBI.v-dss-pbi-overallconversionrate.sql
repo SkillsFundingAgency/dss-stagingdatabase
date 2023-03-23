@@ -1,9 +1,8 @@
-CREATE VIEW [PowerBI].[v-dss-pbi-conversionrate] 
+CREATE VIEW [PowerBI].[v-dss-pbi-overallconversionrate] 
 AS 
 WITH MYPROFILE 
 (
-    [TouchpointID] 
-    ,[Outcome ID] 
+    [Outcome ID] 
     ,[FinancialYear] 
     ,[Date] 
     ,[Outcome number] 
@@ -12,24 +11,21 @@ WITH MYPROFILE
 AS 
 (
 	SELECT 
-		AF.[TouchpointID] 
-		,AF.[Outcome ID] 
+		AF.[Outcome ID] 
 		,FYA.[FinancialYear] 
 		,AF.[Date] 
 		,AF.[Outcome number] 
-		,SUM(AF.[Outcome number]) OVER(PARTITION BY AF.[TouchpointID], AF.[Outcome ID], FYA.[FinancialYear] 
+		,SUM(AF.[Outcome number]) OVER(PARTITION BY AF.[Outcome ID], FYA.[FinancialYear] 
 										ORDER BY AF.[Date]) AS [YTD Outcome number]
 	FROM 
     (
         SELECT 
-            [TouchpointID] 
-            ,[Outcome ID] 
+            [Outcome ID] 
             ,[Date] 
             ,SUM([Outcome number]) AS [Outcome number] 
         FROM [PowerBI].[v-dss-pbi-outcomeactualfact] 
         GROUP BY 
-            [TouchpointID] 
-            ,[Outcome ID] 
+            [Outcome ID] 
             ,[Date] 
     ) AS AF 
 	INNER JOIN [PowerBI].[dss-pbi-financialyear] AS FYA 
@@ -37,16 +33,14 @@ AS
 ) 
 
 SELECT 
-	AF.[TouchpointID]
-	,AF.[Outcome ID]
+	AF.[Outcome ID]
 	,AF.[Date]
 	,ROUND((AF.[Outcome number] / IIF(PF.[Outcome number] = 0, 1, PF.[Outcome number])) * 100, 2) AS [Performance] 
 	,ROUND((AF.[YTD Outcome number] / IIF(PF.[YTD Outcome number] = 0, 1, PF.[YTD Outcome number])) * 100, 2) AS [Performance YTD] 
 FROM 
 (
 	SELECT 
-		[TouchpointID] 
-		,[Outcome ID] 
+		[Outcome ID] 
 		,[FinancialYear] 
 		,[Date] 
 		,[Outcome number] 
@@ -56,8 +50,7 @@ FROM
 INNER JOIN 
 (
 	SELECT 
-		[TouchpointID] 
-		,[Outcome ID] 
+		[Outcome ID] 
 		,[FinancialYear] 
 		,[Date] 
 		,[Outcome number] 
@@ -65,7 +58,6 @@ INNER JOIN
 	FROM MYPROFILE 
     WHERE [Outcome ID] = 7 -- Customer Numbers
 ) AS PF 
-ON AF.[TouchpointID] = PF.[TouchpointID] 
-AND AF.[Date] = PF.[Date] 
+ON AF.[Date] = PF.[Date] 
 ;
 GO
