@@ -1,8 +1,3 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
 CREATE FUNCTION [PowerBI].[fun-dss-pbi-outcomeactualvolume] ()
 RETURNS @retTable TABLE (
     [TouchpointID] INT
