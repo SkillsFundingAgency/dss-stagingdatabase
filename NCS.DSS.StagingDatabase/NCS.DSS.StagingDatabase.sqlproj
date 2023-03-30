@@ -230,6 +230,8 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overallsummaryaverage.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-daily-performance.sql" />
+    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualfact.sql" />
+    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualvolume.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-financialyear.sql"/>
     <Build Include="Scripts\PowerBI_Schema.sql"/>
   </ItemGroup>
