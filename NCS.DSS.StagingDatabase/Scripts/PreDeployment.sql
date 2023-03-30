@@ -40,7 +40,7 @@ IF EXISTS(
    )
 BEGIN
 	ALTER TABLE [dbo].[dss-employmentprogressions-history] ALTER COLUMN EconomicShockCode VARCHAR (50);
-END
+END;
 
 DROP INDEX IF EXISTS [pbi-dss-actionplans-DAPC] ON [dbo].[dss-actionplans]
 Go
