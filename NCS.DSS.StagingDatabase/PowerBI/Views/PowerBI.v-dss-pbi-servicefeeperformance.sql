@@ -1,4 +1,4 @@
-CREATE VVIEW [PowerBI].[v-dss-pbi-servicefeeperformance] 
+CREATE VIEW [PowerBI].[v-dss-pbi-servicefeeperformance] 
 AS 
 SELECT 
 	SF.[TouchpointID]
