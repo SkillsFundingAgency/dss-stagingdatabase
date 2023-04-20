@@ -229,6 +229,8 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overallconversionrate.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overallsummaryaverage.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-RAG.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-reference.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-daily-performance.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualfact.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualvolume.sql" />
