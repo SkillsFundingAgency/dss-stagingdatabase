@@ -236,7 +236,8 @@
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualvolume.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeperffact.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-financialyear.sql"/>
-    <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-outcome-tables.sql" />
+     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-dss-pbi-outcome.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-outcomeactualvolume.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-outcomeperffact.sql"/>
     <Build Include="Scripts\PowerBI_Schema.sql"/>
   </ItemGroup>
