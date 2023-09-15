@@ -22,7 +22,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 	with TempData AS
 	(
 		SELECT				o.CustomerId															AS 'CustomerID'
-							,s.id																	AS 'SessionID'
+							,o.SessionId																AS 'SessionID'
 							,c.DateofBirth															AS 'DateOfBirth'
 							,a.PostCode																AS 'HomePostCode'
 							,ap.id																	AS 'ActionPlanId' 
