@@ -17,6 +17,7 @@
     [LastModifiedDate]           datetime2             NULL,
     [LastModifiedTouchpointId]   VARCHAR (max)     NULL, 
 	[CreatedBy]					 VARCHAR (MAX)     NULL, 
+    [DateOfRedaction]           datetime2             NULL,
     CONSTRAINT [PK_dss-customers] PRIMARY KEY ([id])
 );
 
