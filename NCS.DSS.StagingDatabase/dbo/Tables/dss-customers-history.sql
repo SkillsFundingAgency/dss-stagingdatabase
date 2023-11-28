@@ -19,7 +19,6 @@
 	[LastModifiedDate] [datetime2](7) NULL,
 	[LastModifiedTouchpointId] [varchar](max) NULL,
 	[CreatedBy]	[varchar](max) NULL,
-	[DateOfRedaction] [datetime2] NULL,
  CONSTRAINT [PK_dss-customers-history] PRIMARY KEY CLUSTERED 
 (
 	[HistoryId] ASC,
