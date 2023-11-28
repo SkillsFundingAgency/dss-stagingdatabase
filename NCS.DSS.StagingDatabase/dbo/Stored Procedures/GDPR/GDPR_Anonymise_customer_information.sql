@@ -6,7 +6,7 @@ AS
              GivenName = NULL,
              FamilyName = NULL,
              IntroducedByAdditionalInfo = NULL,
-             DateofBirth = Datetrunc('year', DateofBirth)
+             DateofBirth = DATE_TRUNC('year', DateofBirth)
       WHERE  id IN (SELECT I.CustomerId
                     FROM   (SELECT CustomerId,
                                    Max(DateandTimeOfInteraction) AS
@@ -118,7 +118,7 @@ AS
              GivenName = NULL,
              FamilyName = NULL,
              IntroducedByAdditionalInfo = NULL,
-             DateofBirth = Datetrunc('year', dateofbirth)
+             DateofBirth = DATE_TRUNC('year', dateofbirth)
       WHERE  id IN (SELECT I.CustomerId
                             FROM   (SELECT CustomerId,
                                            Max(DateandTimeOfInteraction) AS
