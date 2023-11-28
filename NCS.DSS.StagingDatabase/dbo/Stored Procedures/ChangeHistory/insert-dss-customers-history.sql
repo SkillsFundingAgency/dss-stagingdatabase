@@ -25,5 +25,6 @@ BEGIN
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(max)
 				,CreatedBy VARCHAR(MAX)
+				,DateOfRedaction DATETIME2
 				)
 END

@@ -190,6 +190,7 @@ IF OBJECT_ID('[dss-customers-history]', 'U') IS NOT NULL
 					[IntroducedByAdditionalInfo] [varchar](max) NULL,
 					[LastModifiedDate] [datetime2](7) NULL,
 					[LastModifiedTouchpointId] [varchar](max) NULL,
+					[DateOfRedaction] [datetime2](7) NULL,
 					CONSTRAINT [PK_dss-customers-history] PRIMARY KEY CLUSTERED 
 					(
 						[HistoryId] ASC,
