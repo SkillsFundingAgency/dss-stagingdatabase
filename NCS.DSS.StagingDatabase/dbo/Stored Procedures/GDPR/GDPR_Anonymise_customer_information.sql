@@ -1,228 +1,141 @@
 ﻿CREATE PROCEDURE [dbo].[GDPR_Anonymise_customer_information]
 AS
-  BEGIN
-      UPDATE [dss-customers]
-      SET    Title = NULL,
-             GivenName = NULL,
-             FamilyName = NULL,
-             IntroducedByAdditionalInfo = NULL,
-             DateofBirth = DATEFROMPARTS(YEAR(DateOfBirth), 1, 1)
-      WHERE  id IN (SELECT I.CustomerId
-                    FROM   (SELECT CustomerId,
-                                   Max(DateandTimeOfInteraction) AS
-                                   LatestInteraction
-                            FROM   [dss-interactions]
-                            GROUP  BY CustomerId) I
-                    WHERE  I.latestinteraction <= Dateadd(year, -6, Getdate()))
-             AND DateOfRedaction IS NOT NULL
+BEGIN
+    BEGIN TRANSACTION
 
-      UPDATE [dss-contacts]
-      SET    MobileNumber = NULL,
-             AlternativeNumber = NULL,
-             HomeNumber = NULL,
-             EmailAddress = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    -- Store how many days until the current financial date
+    DECLARE @DAYS_TO_FINANCIAL_DATE AS INT = DATEDIFF(day, DATEFROMPARTS(YEAR(GETDATE()), 4, 1), GETDATE());
 
-      UPDATE [dss-addresses]
-      SET    Address1 = NULL,
-             Address2 = NULL,
-             Address3 = NULL,
-             Address4 = NULL,
-             Address5 = NULL,
-             PostCode = LEFT(PostCode, Len(PostCode) - 3),
-             alternativepostcode = LEFT(AlternativePostCode,
-                                   Len(AlternativePostCode) - 3)
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    -- Drops the temporary table with the name #IdentifiedCustomers
+    IF OBJECT_ID('tempDB..#IdentifiedCustomers', 'U') IS NOT NULL   
+    DROP TABLE #IdentifiedCustomers
 
-      UPDATE [dss-employmentprogressions]
-      SET    EmployerName = NULL,
-             EmployerAddress = NULL,
-             EmployerPostcode = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    -- Create temporary table for identified customers
+    CREATE TABLE #IdentifiedCustomers (CustomerId UNIQUEIDENTIFIER PRIMARY KEY)
 
-      UPDATE [dss-actions]
-      SET    ActionSummary = NULL,
-             SignpostedTo = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    -- Identify customers for redaction and store in the temporary table
+    INSERT INTO #IdentifiedCustomers
+    EXEC GDPR_Anonymise_customer_information;
 
-      UPDATE [dss-goals]
-      SET    GoalSummary = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-customers]
+    SET Title = NULL,
+        GivenName = NULL,
+        FamilyName = NULL,
+        IntroducedByAdditionalInfo = NULL,
+        DateofBirth = DATEFROMPARTS(YEAR(DateOfBirth), 1, 1),
+        DateOfRedaction = GETDATE()
+    FROM [dss-customers] c
+        JOIN #IdentifiedCustomers I
+            ON c.id = I.CustomerId;
 
-      UPDATE [dss-actionplans]
-      SET    CurrentSituation = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-contacts]
+    SET MobileNumber = NULL,
+        AlternativeNumber = NULL,
+        HomeNumber = NULL,
+        EmailAddress = NULL
+    FROM [dss-contacts] c
+        JOIN #IdentifiedCustomers I
+            ON c.CustomerId = I.CustomerId;
 
-      UPDATE [dss-webchats]
-      SET    WebChatNarrative = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-addresses]
+    SET Address1 = NULL,
+        Address2 = NULL,
+        Address3 = NULL,
+        Address4 = NULL,
+        Address5 = NULL,
+        PostCode = LEFT(PostCode, LEN(PostCode) - 3),
+        alternativepostcode = LEFT(AlternativePostCode, LEN(AlternativePostCode) - 3)
+    FROM [dss-addresses] a
+        JOIN #IdentifiedCustomers I
+            ON a.CustomerId = I.CustomerId;
 
-      UPDATE [dss-customers-history]
-      SET    Title = NULL,
-             GivenName = NULL,
-             FamilyName = NULL,
-             IntroducedByAdditionalInfo = NULL,
-             DateofBirth = DATEFROMPARTS(YEAR(DateOfBirth), 1, 1)
-      WHERE  id IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-employmentprogressions]
+    SET EmployerName = NULL,
+        EmployerAddress = NULL,
+        EmployerPostcode = NULL
+    FROM [dss-employmentprogressions] e
+        JOIN #IdentifiedCustomers I
+            ON e.CustomerId = I.CustomerId;
 
-      UPDATE [dss-contacts-history]
-      SET    MobileNumber = NULL,
-             AlternativeNumber = NULL,
-             HomeNumber = NULL,
-             EmailAddress = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-actions]
+    SET ActionSummary = NULL,
+        SignpostedTo = NULL
+    FROM [dss-actions] a
+        JOIN #IdentifiedCustomers I
+            ON a.CustomerId = I.CustomerId;
 
-      UPDATE [dss-addresses-history]
-      SET    Address1 = NULL,
-             Address2 = NULL,
-             Address3 = NULL,
-             Address4 = NULL,
-             Address5 = NULL,
-             PostCode = LEFT(PostCode, Len(PostCode) - 3),
-             AlternativePostCode = LEFT(AlternativePostCode,
-                                   Len(AlternativePostCode) - 3)
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-goals]
+    SET GoalSummary = NULL
+    FROM [dss-goals] g
+        JOIN #IdentifiedCustomers I
+            ON g.CustomerId = I.CustomerId;
 
-      UPDATE [dss-employmentprogressions-history]
-      SET    EmployerName = NULL,
-             EmployerAddress = NULL,
-             EmployerPostcode = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-actionplans]
+    SET CurrentSituation = NULL
+    FROM [dss-actionplans] a
+        JOIN #IdentifiedCustomers I
+            ON a.CustomerId = I.CustomerId;
 
-      UPDATE [dss-actions-history]
-      SET    ActionSummary = NULL,
-             SignpostedTo = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-webchats]
+    SET WebChatNarrative = NULL
+    FROM [dss-webchats] w
+        JOIN #IdentifiedCustomers I
+            ON w.CustomerId = I.CustomerId;
 
-      UPDATE [dss-goals-history]
-      SET    GoalSummary = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    UPDATE [dss-customers-history]
+    SET Title = NULL,
+        GivenName = NULL,
+        FamilyName = NULL,
+        IntroducedByAdditionalInfo = NULL,
+        DateofBirth = DATEFROMPARTS(YEAR(DateOfBirth), 1, 1)
+    FROM [dss-customers-history] c
+        JOIN #IdentifiedCustomers I
+            ON c.id = I.CustomerId;
 
-      UPDATE [dss-actionplans-history]
-      SET    CurrentSituation = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
+    DELETE FROM [dss-contacts-history]
+    FROM [dss-contacts-history] c
+        JOIN #IdentifiedCustomers I
+            ON c.CustomerId = I.CustomerId
+    WHERE c.customerId = I.customerId
 
-      UPDATE [dss-webchats-history]
-      SET    WebChatNarrative = NULL
-      WHERE  CustomerId IN (SELECT I.CustomerId
-                            FROM   (SELECT CustomerId,
-                                           Max(DateandTimeOfInteraction) AS
-                                           LatestInteraction
-                                    FROM   [dss-interactions]
-                                    GROUP  BY CustomerId) I
-                            WHERE  I.LatestInteraction <=
-                                   Dateadd(year, -6, Getdate())
-                           )
-  END
+    DELETE FROM [dss-addresses-history]
+    FROM [dss-addresses-history] a
+        JOIN #IdentifiedCustomers I
+            ON a.CustomerId = I.CustomerId
+    WHERE a.customerId = I.customerId
+
+    DELETE FROM [dss-employmentprogressions-history]
+    FROM [dss-employmentprogressions-history] e
+        JOIN #IdentifiedCustomers I
+            ON e.CustomerId = I.CustomerId
+    WHERE e.customerId = I.customerId
+
+    DELETE FROM [dss-actions-history]
+    FROM [dss-actions-history] a
+        JOIN #IdentifiedCustomers I
+            ON a.CustomerId = I.CustomerId
+    WHERE a.customerId = I.customerId
+
+    DELETE FROM [dss-goals-history]
+    FROM [dss-goals-history] g
+        JOIN #IdentifiedCustomers I
+            ON g.CustomerId = I.CustomerId
+    WHERE g.customerId = I.customerId
+
+    DELETE FROM [dss-actionplans-history]
+    FROM [dss-actionplans-history] a
+        JOIN #IdentifiedCustomers I
+            ON a.CustomerId = I.CustomerId
+    WHERE a.customerId = I.customerId
+
+    DELETE FROM [dss-webchats-history]
+    FROM [dss-webchats-history] w
+        JOIN #IdentifiedCustomers I
+            ON w.CustomerId = I.CustomerId
+    WHERE w.customerId = I.customerId
+
+    -- Drop the temporary table
+    DROP TABLE #IdentifiedCustomers;
+
+    COMMIT;
+END
