@@ -3,9 +3,6 @@ AS
 BEGIN
     BEGIN TRANSACTION
 
-    -- Store how many days until the current financial date
-    DECLARE @DAYS_TO_FINANCIAL_DATE AS INT = DATEDIFF(day, DATEFROMPARTS(YEAR(GETDATE()), 4, 1), GETDATE());
-
     -- Drops the temporary table with the name #IdentifiedCustomers
     IF OBJECT_ID('tempDB..#IdentifiedCustomers', 'U') IS NOT NULL   
     DROP TABLE #IdentifiedCustomers
