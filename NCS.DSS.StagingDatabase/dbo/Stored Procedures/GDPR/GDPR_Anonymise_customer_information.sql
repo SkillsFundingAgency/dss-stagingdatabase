@@ -40,6 +40,8 @@ BEGIN
         Address3 = NULL,
         Address4 = NULL,
         Address5 = NULL,
+        Longitude = NULL,
+        Latitude = NULL,
         PostCode = LEFT(PostCode, LEN(PostCode) - 3),
         alternativepostcode = LEFT(AlternativePostCode, LEN(AlternativePostCode) - 3)
     FROM [dss-addresses] a
