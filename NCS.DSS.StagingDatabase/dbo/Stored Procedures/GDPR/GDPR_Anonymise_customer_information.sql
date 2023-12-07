@@ -12,7 +12,7 @@ BEGIN
 
     -- Identify customers for redaction and store in the temporary table
     INSERT INTO #IdentifiedCustomers
-    EXEC GDPR_Anonymise_customer_information;
+    EXEC GDPR_Identify_customers_for_redaction
 
     UPDATE [dss-customers]
     SET Title = NULL,
