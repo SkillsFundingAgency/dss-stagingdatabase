@@ -44,7 +44,7 @@ BEGIN
                     , SUM(dp.DailyPerformance) as ProfileToday
                 FROM [PowerBI].[v-dss-pbi-daily-performance] as dp
                 INNER JOIN [PowerBI].[v-dss-pbi-date] AS PD ON  PD.[Date] = dp.CalendarDate
-            where CalendarDate < GETDATE()
+            --where CalendarDate < GETDATE()
             group by dp.TouchpointID
                         ,pd.[Fiscal Year]
             ) as p on p.TouchpointID = eod.TouchpointID AND p.[Fiscal Year] = eod.[Fiscal Year]

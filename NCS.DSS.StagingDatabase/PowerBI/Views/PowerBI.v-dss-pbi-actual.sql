@@ -25,9 +25,7 @@ CREATE VIEW [PowerBI].[v-dss-pbi-actual]  AS
         ON PVC.[PeriodYear] = PF.[FinancialYear] 
         INNER JOIN PowerBI.[dss-pbi-contractyear] AS PC 
         ON PF.[FinancialYear] BETWEEN PC.[StartFinancialYear] AND PC.[EndFinancialYear] 
-        WHERE GETDATE() BETWEEN PR.[StartDateTime] AND PR.[EndDateTime] 
-        AND GETDATE() BETWEEN PF.[StartDateTime] AND PF.[EndDateTime] 
-        AND PVC.[PeriodMonth] >= CASE WHEN PC.[StartFinancialYear] = PF.[FinancialYear] THEN PC.[StartPeriodMonth] ELSE 4 END 
+        WHERE PVC.[PeriodMonth] >= CASE WHEN PC.[StartFinancialYear] = PF.[FinancialYear] THEN PC.[StartPeriodMonth] ELSE 1 END 
         AND PVC.[PeriodMonth] <= CASE WHEN PC.[EndFinancialYear] = PF.[FinancialYear] THEN PC.[EndPeriodMonth] ELSE 12 END 
         GROUP BY PR.[RegionName] 
         ,PF.[FinancialYear] 
