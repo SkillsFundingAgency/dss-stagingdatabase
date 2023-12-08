@@ -13,7 +13,7 @@ BEGIN
             FROM [dss-interactions]
             GROUP BY CustomerId
         ) I
-        WHERE I.LatestInteraction <= DATEADD(DAY, -365.25*5 -@DAYS_TO_FINANCIAL_DATE, GETDATE())
+        WHERE I.LatestInteraction <= DATEADD(DAY, -365.25*6 -@DAYS_TO_FINANCIAL_DATE, GETDATE())
     )
     AND DateOfRedaction IS NULL;
 END
