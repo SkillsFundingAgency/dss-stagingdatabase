@@ -29,6 +29,7 @@ AS
         JOIN [PowerBI].[dss-pbi-week-ref] wr on wr.WeekRefID = pd.WeekRefID
         JOIN [PowerBI].[dss-pbi-submission-pattern] as sp on wr.WeekName like '%'+ sp.WeekName +'%' 
         JOIN primeTotals as pt on sp.TouchpointID = pt.[TouchpointID] AND DATEPART(Month, pt.[DATE]) = pd.MonthID 
+		 AND DATEPART(YEAR, pt.[DATE]) = pd.CalendarYear 
     WHERE [WeekDay]= 1 
         AND BankHoliday = 0 
     UNION ALL
@@ -64,13 +65,18 @@ AS
                 JOIN [PowerBI].[dss-pbi-monthsinyear] as my on my.MonthID = pd.MonthID
                 JOIN [PowerBI].[dss-pbi-week-ref] wr on wr.WeekRefID = pd.WeekRefID 
                 JOIN [PowerBI].[dss-pbi-submission-pattern] as sp on wr.WeekName like '%'+ sp.WeekName +'%' and sp.WeekName = 'Week 1'
-                JOIN primeTotals as pt on sp.TouchpointID = pt.[TouchpointID] AND DATEPART(Month, pt.[DATE]) = pd.MonthID    
+                JOIN primeTotals as pt on sp.TouchpointID = pt.[TouchpointID] AND DATEPART(Month, pt.[DATE]) = pd.MonthID   AND DATEPART(YEAR, pt.[DATE]) = pd.CalendarYear 
+
+
             WHERE [WeekDay]= 1 
                 AND BankHoliday = 0 
         ) as res
         JOIN [PowerBI].[dss-pbi-submission-pattern] as sp1 on sp1.WeekName = 'Week 5' and sp1.TouchpointID = res.TouchpointID
-        JOIN primeTotals as pt1 on sp1.TouchpointID = pt1.[TouchpointID] AND DATEPART(Month, pt1.[DATE]) = res.MonthID
-        JOIN [PowerBI].[dss-pbi-monthsinyear] as my1 on my1.MonthID = res.MonthID
+        JOIN primeTotals as pt1 on sp1.TouchpointID = pt1.[TouchpointID] AND DATEPART(Month, pt1.[DATE]) = res.MonthID 	 AND DATEPART(YEAR, pt1.[DATE]) = res.CalendarYear 
+
+        JOIN [PowerBI].[dss-pbi-monthsinyear] as my1 on my1.MonthID = res.MonthID 
     ) as dp
     WHERE RankID < 6
 GO
+
+

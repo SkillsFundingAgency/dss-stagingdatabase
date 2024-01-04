@@ -18,12 +18,21 @@ AS
             ,PPP.[PriorityOrNot] 
             ,PNT.[PeriodMonth] 
             ,PPP.[FinancialYear] AS [PeriodYear] 
-            ,ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100, 2) AS [OutcomeNumber] 
-            ,SUM(ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100, 2)) 
-                OVER(PARTITION BY PPP.[TouchpointID], PPP.[ProfileCategory], PPP.[FinancialYear], PPP.[PriorityOrNot] 
-                    ORDER BY PNT.[PeriodMonth]) AS [YTD_OutcomeNumber] 
+            ,CONVERT(DECIMAL(11, 2), 
+			(PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			) AS [OutcomeNumber] 
+            ,SUM(CONVERT(DECIMAL(11, 2), 
+			(PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			)) OVER(PARTITION BY PPP.[TouchpointID], PPP.[FinancialYear], PPP.[ProfileCategory], PPP.[PriorityOrNot] 
+			ORDER BY PNT.[PeriodMonth]) AS [YTD_OutcomeNumber] 
         FROM [PowerBI].[dss-pbi-primeprofile] AS PPP 
-        INNER JOIN [PowerBI].[dss-pbi-nationaltarget] AS PNT 
+        INNER JOIN [PowerBI].[v-dss-pbi-nationaltarget] AS PNT 
         ON PPP.[ProfileCategory] = PNT.[TargetCategory] 
         AND PPP.[FinancialYear] = PNT.[FinancialYear] 
         AND PPP.[PriorityOrNot] = PNT.[PriorityOrNot] 
@@ -36,11 +45,22 @@ AS
             ,PPP.[PriorityOrNot] 
             ,PNT.[PeriodMonth] 
             ,PPP.[FinancialYear] AS [PeriodYear] 
-            ,ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 / [PRF].[ReferenceValue], 2) AS [OutcomeNumber] 
-            ,SUM(ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 / [PRF].[ReferenceValue], 2)) 
-                OVER(PARTITION BY PPP.[TouchpointID], PPP.[ProfileCategory], PPP.[FinancialYear], PPP.[PriorityOrNot] ORDER BY PNT.[PeriodMonth]) AS [YTD_OutcomeNumber] 
+			,CONVERT(DECIMAL(11, 2), 
+			((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			) / [PRF].[ReferenceValue]) AS [OutcomeNumber] 
+			,SUM(CONVERT(DECIMAL(11, 2), 
+			((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			) / [PRF].[ReferenceValue])) 
+			OVER(PARTITION BY PPP.[TouchpointID], PPP.[FinancialYear], PPP.[ProfileCategory], PPP.[PriorityOrNot] 
+			ORDER BY PNT.[PeriodMonth]) AS [YTD_OutcomeNumber]
         FROM [PowerBI].[dss-pbi-primeprofile] AS PPP 
-        INNER JOIN [PowerBI].[dss-pbi-nationaltarget] AS PNT 
+        INNER JOIN [PowerBI].[v-dss-pbi-nationaltarget] AS PNT 
         ON PPP.[ProfileCategory] = PNT.[TargetCategory] 
         AND PPP.[FinancialYear] = PNT.[FinancialYear] 
         AND PPP.[PriorityOrNot] = PNT.[PriorityOrNot] 
@@ -55,11 +75,21 @@ AS
             ,PPP.[PriorityOrNot] 
             ,PNT.[PeriodMonth] 
             ,PPP.[FinancialYear] AS [PeriodYear] 
-            ,ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100, 2) AS [OutcomeNumber] 
-            ,SUM(ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100, 2)) 
-                OVER(PARTITION BY PPP.[TouchpointID], PPP.[ProfileCategory], PPP.[FinancialYear], PPP.[PriorityOrNot] ORDER BY PNT.[PeriodMonth]) AS [YTD_OutcomeNumber] 
+            ,CONVERT(DECIMAL(11, 2), 
+			(PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			) AS [OutcomeNumber] 
+            ,SUM(CONVERT(DECIMAL(11, 2), 
+			(PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			)) OVER(PARTITION BY PPP.[TouchpointID], PPP.[FinancialYear], PPP.[ProfileCategory], PPP.[PriorityOrNot] 
+			ORDER BY PNT.[PeriodMonth]) AS [YTD_OutcomeNumber] 
         FROM [PowerBI].[dss-pbi-primeprofile] AS PPP 
-        INNER JOIN [PowerBI].[dss-pbi-nationaltarget] AS PNT 
+        INNER JOIN [PowerBI].[v-dss-pbi-nationaltarget] AS PNT 
         ON PPP.[ProfileCategory] = PNT.[TargetCategory] 
         AND PPP.[FinancialYear] = PNT.[FinancialYear] 
         AND PPP.[PriorityOrNot] = PNT.[PriorityOrNot] 
@@ -119,3 +149,5 @@ AS
     WHERE DATEPART(DAY, PT.[Date]) = 1 
 ;
 GO
+
+

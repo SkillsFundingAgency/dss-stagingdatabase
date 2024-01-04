@@ -1,3 +1,4 @@
+
 CREATE FUNCTION [PowerBI].[fun-dss-pbi-outcomeactualfact] ()
 RETURNS @retTable TABLE (
     [TouchpointID] INT

@@ -1,3 +1,4 @@
+/****** Object:  UserDefinedFunction [PowerBI].[fun-dss-pbi-outcomeactualvolume]    Script Date: 03/01/2024 14:27:50 ******/
 CREATE FUNCTION [PowerBI].[fun-dss-pbi-outcomeactualvolume] ()
 RETURNS @retTable TABLE (
     [TouchpointID] INT
@@ -38,7 +39,7 @@ BEGIN
                                                 ELSE PO.[OutcomeTypeGroup]
                                             END										
                                             ,PO.[PeriodYear], PO.[PriorityOrNot] ORDER BY PO.[PeriodMonth]) AS [YTD_OutcomeNumber]
-        FROM [PowerBI].[v-dss-pbi-outcome] AS PO 
+        FROM [PowerBI].[dss-pbi-outcome] AS PO 
         UNION ALL
         SELECT 
             PO.[TouchpointID] 
@@ -61,7 +62,7 @@ BEGIN
             ,SUM(CASE WHEN PO.[PriorityOrNot] = 'PG' THEN PO.[OutcomeNumber] ELSE 0 END) 
                 OVER(PARTITION BY PO.[TouchpointID], PO.[PeriodYear], PO.[PriorityOrNot] 
                     ORDER BY PO.[PeriodMonth]) AS [YTD_OutcomeNumber]
-        FROM [PowerBI].[v-dss-pbi-outcome] AS PO 
+        FROM [PowerBI].[dss-pbi-outcome] AS PO 
         WHERE PO.[OutcomeTypeGroup] = 'CMO' ;
     
     INSERT INTO @retTable
