@@ -11,16 +11,26 @@ WITH MYProfile
 ) 
 AS 
 (
-    SELECT PPP.[TouchpointID]
+   	SELECT PPP.[TouchpointID]
 		,PPP.[FinancialYear] 
         ,PPP.[ProfileCategory]
         ,PPP.[PriorityOrNot]
         ,PNT.[PeriodMonth]
-        ,ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100, 2) AS [Profile_Num]
-        ,SUM(ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100, 2)) 
+        ,CONVERT(DECIMAL(11, 2), 
+			(PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			) AS [Profile_Num]
+        ,SUM(CONVERT(DECIMAL(11, 2), 
+			(PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			)) 
             OVER(PARTITION BY PPP.[TouchpointID], PPP.[FinancialYear], PPP.[ProfileCategory], PPP.[PriorityOrNot] ORDER BY PNT.[PeriodMonth]) AS [YTD_Profile_Num]
     FROM [PowerBI].[dss-pbi-primeprofile] AS PPP 
-    INNER JOIN [PowerBI].[dss-pbi-nationaltarget] AS PNT 
+    INNER JOIN [PowerBI].[v-dss-pbi-nationaltarget] AS PNT 
     ON PPP.[ProfileCategory] = PNT.[TargetCategory] 
     AND PPP.[FinancialYear] = PNT.[FinancialYear] 
     AND PPP.[PriorityOrNot] = PNT.[PriorityOrNot] 
@@ -57,7 +67,7 @@ FROM
 				IIF(MY1.[YTD_Profile_Num] > (DP.[ProfileCategoryValue] * DRR.[ReferenceValue] / 100), 
 					MY1.[YTD_Profile_Num] - (DP.[ProfileCategoryValue] * DRR.[ReferenceValue] / 100), 0) 
 				ELSE 
-					MY1.[YTD_Profile_Num]
+					MY1.[Profile_Num] --MY1.[YTD_Profile_Num]
 				END AS DECIMAL(10, 2)) AS [PG_Profile_Num]
 		,CAST(CASE WHEN MY1.[ProfileCategory] = 'CMD' THEN 
 				IIF(MY1.[YTD_Profile_Num] > (DP.[ProfileCategoryValue] * DRR.[ReferenceValue] / 100), 
@@ -98,8 +108,8 @@ FROM
 				,'CUS' AS [ProfileCategory]
 				,[PriorityOrNot]
 				,[PeriodMonth]
-				,ROUND([Profile_Num] / CAST(DP.ReferenceValue AS decimal), 2) AS [Profile_Num]
-				,ROUND([YTD_Profile_Num] / CAST(DP.ReferenceValue AS decimal), 2) AS [YTD_Profile_Num]
+				,ROUND([Profile_Num] / CAST(DP.ReferenceValue AS DECIMAL(3, 2)), 2) AS [Profile_Num]
+				,ROUND([YTD_Profile_Num] / CAST(DP.ReferenceValue AS DECIMAL(3, 2)), 2) AS [YTD_Profile_Num]
 			FROM MYProfile 
 			INNER JOIN [PowerBI].[dss-pbi-reference] AS DP 
 			ON DP.[ReferenceCategory] = 'CUS' 
@@ -150,8 +160,8 @@ FROM
 				,'CUS' AS [ProfileCategory]
 				,[PriorityOrNot]
 				,[PeriodMonth]
-				,ROUND([Profile_Num] / CAST(DP.ReferenceValue AS decimal), 2) AS [Profile_Num]
-				,ROUND([YTD_Profile_Num] / CAST(DP.ReferenceValue AS decimal), 2) AS [YTD_Profile_Num]
+				,ROUND([Profile_Num] / CAST(DP.ReferenceValue AS DECIMAL(3, 2)), 2) AS [Profile_Num]
+				,ROUND([YTD_Profile_Num] / CAST(DP.ReferenceValue AS DECIMAL(3, 2)), 2) AS [YTD_Profile_Num]
 			FROM MYProfile 
 			INNER JOIN [PowerBI].[dss-pbi-reference] AS DP 
 			ON DP.[ReferenceCategory] = 'CUS' 
@@ -190,3 +200,5 @@ FROM
 ) AS MY
 ;
 GO
+
+

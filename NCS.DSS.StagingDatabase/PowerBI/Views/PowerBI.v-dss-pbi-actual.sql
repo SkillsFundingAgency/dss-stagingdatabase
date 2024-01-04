@@ -35,5 +35,6 @@ CREATE VIEW [PowerBI].[v-dss-pbi-actual]  AS
         ,PVC.[CustomerCount] 
     ) AS MY  
     ;
-
 GO
+
+
