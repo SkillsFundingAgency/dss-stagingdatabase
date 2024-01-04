@@ -1,4 +1,4 @@
-CREATE PROCEDURE [PowerBI].[sp-pbi-refresh-dss-pbi-outcomeactualfactday5](@pr1 int)
+CREATE PROCEDURE [PowerBI].[sp-pbi-refresh-dss-pbi-outcomeactualfactday5]
 AS
 BEGIN
     DECLARE @CalendarDate DATE = 
