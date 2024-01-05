@@ -1,4 +1,3 @@
-
 CREATE VIEW [PowerBI].[v-dss-pbi-profile] AS 
     SELECT MY.[TouchpointID]
         ,MY.[PeriodYear]
@@ -15,11 +14,21 @@ CREATE VIEW [PowerBI].[v-dss-pbi-profile] AS
             ,'CUS' AS [ProfileCategory]
             ,PPP.[PriorityOrNot]
             ,PNT.[PeriodMonth]
-            ,ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 / [PRF].[ReferenceValue], 2) AS CMO_Num
-            ,SUM(ROUND((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 / [PRF].[ReferenceValue], 2)) 
-                OVER(PARTITION BY PR.[RegionName], PPP.[FinancialYear], PPP.[PriorityOrNot] ORDER BY PNT.[PeriodMonth]) AS YTD_CustomerCount
+			,CONVERT(DECIMAL(11, 2), 
+			((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			) / [PRF].[ReferenceValue]) AS [CMO_Num]
+			,SUM(CONVERT(DECIMAL(11, 2), 
+			((PPP.[ProfileCategoryValue] * PNT.[TargetCategoryValue]) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ1] * PNT.[PMP1], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ2] * PNT.[PMP2], 0) / 100 
+			+ ISNULL(PPP.[ProfileCategoryValueQ3] * PNT.[PMP3], 0) / 100 
+			) / [PRF].[ReferenceValue])) 
+            OVER(PARTITION BY PR.[TouchpointID], PPP.[FinancialYear], PPP.[PriorityOrNot] ORDER BY PNT.[PeriodMonth]) AS [YTD_CustomerCount]
         FROM [PowerBI].[dss-pbi-primeprofile] AS PPP 
-        INNER JOIN [PowerBI].[dss-pbi-nationaltarget] AS PNT 
+        INNER JOIN [PowerBI].[v-dss-pbi-nationaltarget] AS PNT 
         ON PPP.[ProfileCategory] = PNT.[TargetCategory] 
         AND PPP.[FinancialYear] = PNT.[FinancialYear] 
         AND PPP.[PriorityOrNot] = PNT.[PriorityOrNot] 
@@ -33,5 +42,6 @@ CREATE VIEW [PowerBI].[v-dss-pbi-profile] AS
         AND PPP.[ProfileCategory] = 'CMO' 
     ) AS MY 
     ;
-
 GO
+
+
