@@ -67,3 +67,4 @@ ON A.[FinancialYear] = Q3.[FinancialYear]
 AND A.[ContractYear] = Q3.[ContractYear]
 AND A.[PriorityOrNot] = Q3.[PriorityOrNot] 
 AND A.[TargetCategory] = Q3.[TargetCategory];
+ 
