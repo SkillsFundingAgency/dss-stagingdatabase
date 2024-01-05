@@ -1,3 +1,10 @@
+/****** Object:  View [PowerBI].[v-dss-pbi-nationaltarget]    Script Date: 05/01/2024 12:22:16 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 CREATE VIEW [PowerBI].[v-dss-pbi-nationaltarget]
 AS 
 SELECT A.[FinancialYear]
@@ -67,4 +74,6 @@ ON A.[FinancialYear] = Q3.[FinancialYear]
 AND A.[ContractYear] = Q3.[ContractYear]
 AND A.[PriorityOrNot] = Q3.[PriorityOrNot] 
 AND A.[TargetCategory] = Q3.[TargetCategory];
- 
+GO
+
+
