@@ -11,8 +11,6 @@ CREATE TABLE [PowerBI].[dss-pbi-outcomeactualfactday5]
 	PRIMARY KEY ([TouchpointID],  [Outcome ID], [Group ID], [DATE])
 )
 ;
+GO
 
-INSERT INTO [PowerBI].[dss-pbi-outcomeactualfactday5] 
-SELECT * FROM [PowerBI].[v-dss-pbi-outcomeactualfact]
-;
 
