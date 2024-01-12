@@ -32,7 +32,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 							,o.id																	AS 'OutcomeID'
 							,o.OutcomeType															AS 'OutcomeType'
 							,o.OutcomeEffectiveDate													AS 'OutcomeEffectiveDate'
-							,IIF(ep.EconomicShockStatus = 2, 1, COALESCE(o.IsPriorityCustomer, IIF(o.ClaimedPriorityGroup < 99, 1, 0))) AS 'OutcomePriorityCustomer' AS 'OutcomePriorityCustomer'
+							,IIF(ep.EconomicShockStatus = 2, 1, COALESCE(o.IsPriorityCustomer, IIF(o.ClaimedPriorityGroup < 99, 1, 0))) AS 'OutcomePriorityCustomer'
 							,o.OutcomeClaimedDate													AS 'OutcomeClaimedDate'
 							,SessionClosureDate = 
 								CASE o.OutcomeType
