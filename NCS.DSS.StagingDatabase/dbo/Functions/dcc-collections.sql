@@ -32,7 +32,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 							,o.id																	AS 'OutcomeID'
 							,o.OutcomeType															AS 'OutcomeType'
 							,o.OutcomeEffectiveDate													AS 'OutcomeEffectiveDate'
-							,COALESCE(o.IsPriorityCustomer, IIF(o.ClaimedPriorityGroup < 99, 1, 0)) AS 'OutcomePriorityCustomer'
+							,IIF(ep.EconomicShockStatus = 2, 1, COALESCE(o.IsPriorityCustomer, IIF(o.ClaimedPriorityGroup < 99, 1, 0))) AS 'OutcomePriorityCustomer' AS 'OutcomePriorityCustomer'
 							,o.OutcomeClaimedDate													AS 'OutcomeClaimedDate'
 							,SessionClosureDate = 
 								CASE o.OutcomeType
@@ -41,7 +41,6 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 								END
 							,DATEADD(mm, -12, CONVERT(DATE,s.DateandTimeOfSession)) AS 'PriorSessionDate'		
 							,RANK() OVER(PARTITION BY s.CustomerID, IIF(s.DateandTimeOfSession < @startDate,100,0 ), o.OutcomeType
---							ORDER BY o.id, o.OutcomeEffectiveDate, o.LastModifiedDate) AS 'Rank'  -- Commented by Mridul Yadav to match the ranking order with Excel
 							ORDER BY o.OutcomeEffectiveDate, o.LastModifiedDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 
 		FROM				[dss-sessions] s
@@ -55,6 +54,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 								AND				@today BETWEEN ISNULL(a.EffectiveFrom, DATEADD(dd,-1,@today)) AND ISNULL(a.EffectiveTo, DATEADD(dd,1,@today))
 							) AS a
 		LEFT JOIN			[dss-adviserdetails] adv ON adv.id = i.AdviserDetailsId									-- join to get adviser details
+		LEFT JOIN			[dss-employmentprogressions] ep on ep.CustomerId = c.id AND ep.DateProgressionRecorded BETWEEN DATEADD(MONTH, -12, o.OutcomeEffectiveDate) AND o.OutcomeEffectiveDate	
 		WHERE				o.OutcomeEffectiveDate	BETWEEN @startDate AND @endDateTime								-- effective between period start and end date and time
 		AND					o.OutcomeClaimedDate	BETWEEN @startDate AND @endDateTime								-- claimed between period start and end date and time
 		AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
