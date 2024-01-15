@@ -67,3 +67,5 @@ AS
 	WHERE PP.ProfileCategory = 'SF' 
 	AND PP.FinancialsOrNot = 1 ;
 GO
+
+
