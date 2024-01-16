@@ -143,6 +143,7 @@ IF OBJECT_ID('[dss-customers]', 'U') IS NOT NULL
 							   [IntroducedByAdditionalInfo] VARCHAR (max) NULL,
 							   [LastModifiedDate] datetime2 NULL,
 							   [LastModifiedTouchpointId] VARCHAR (max) NULL, 
+							   [DateOfRedaction] datetime2 NULL,
 							   CONSTRAINT [PK_dss-customers] PRIMARY KEY ([id]))
 							   ON [PRIMARY]
 		END
