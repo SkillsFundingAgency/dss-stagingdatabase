@@ -17,7 +17,7 @@
     <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
@@ -25,6 +25,7 @@
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
     <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -74,6 +75,7 @@
     <Folder Include="PowerBI\Views\" />
     <Folder Include="PowerBI\Functions" />
     <Folder Include="dbo\Stored Procedures\GDPR" />
+    <Folder Include="PowerBI\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\dss-actionplans.sql" />
@@ -230,6 +232,8 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overallconversionrate.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overallsummaryaverage.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-RAG.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-reference.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-daily-performance.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualfact.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualvolume.sql" />
@@ -237,6 +241,15 @@
     <Build Include="Scripts\PowerBI_Schema.sql" />
     <Build Include="dbo\Stored Procedures\GDPR\GDPR_Identify_customers_for_redaction.sql" />
     <Build Include="dbo\Stored Procedures\GDPR\GDPR_Anonymise_customer_information.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeperffact.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.dss-pbi-financialyear.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp-dss-pbi-outcome.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-outcomeactualvolume.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-outcomeperffact.sql" />
+    <Build Include="Scripts\PowerBI_Schema.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-nationaltarget.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeactualfactday5.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-dss-pbi-outcomeactualfactday5.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
