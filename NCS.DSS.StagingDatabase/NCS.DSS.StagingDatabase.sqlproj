@@ -74,6 +74,7 @@
     <Folder Include="PowerBI\Tables\" />
     <Folder Include="PowerBI\Views\" />
     <Folder Include="PowerBI\Functions" />
+    <Folder Include="dbo\Stored Procedures\GDPR" />
     <Folder Include="PowerBI\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +237,10 @@
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-daily-performance.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualfact.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualvolume.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.dss-pbi-financialyear.sql" />
+    <Build Include="Scripts\PowerBI_Schema.sql" />
+    <Build Include="dbo\Stored Procedures\GDPR\GDPR_Identify_customers_for_redaction.sql" />
+    <Build Include="dbo\Stored Procedures\GDPR\GDPR_Anonymise_customer_information.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeperffact.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-financialyear.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-dss-pbi-outcome.sql" />

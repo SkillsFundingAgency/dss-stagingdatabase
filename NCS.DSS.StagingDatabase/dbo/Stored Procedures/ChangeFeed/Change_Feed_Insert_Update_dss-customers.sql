@@ -23,6 +23,7 @@ BEGIN
 				,LastModifiedDate DATETIME2
 				,LastModifiedTouchpointId VARCHAR(max)
 				,CreatedBy VARCHAR(MAX)
+				,DateOfRedaction DATETIME2
 				)
 		) AS InputJSON
 		ON (customers.id = InputJSON.id)
@@ -47,6 +48,7 @@ BEGIN
 				,customers.LastModifiedDate = InputJSON.LastModifiedDate
 				,customers.LastModifiedTouchpointId = InputJSON.LastModifiedTouchpointId
 				,customers.CreatedBy = InputJSON.CreatedBy
+				,customers.DateOfRedaction = InputJSON.DateOfRedaction
 	WHEN NOT MATCHED
 		THEN
 			INSERT (
@@ -68,6 +70,7 @@ BEGIN
 				,LastModifiedDate
 				,LastModifiedTouchpointId
 				,CreatedBy
+				,DateOfRedaction
 				)
 			VALUES (
 				InputJSON.id
@@ -88,6 +91,7 @@ BEGIN
 				,InputJSON.LastModifiedDate
 				,InputJSON.LastModifiedTouchpointId
 				,InputJSON.CreatedBy
+				,InputJSON.DateOfRedaction
 				);
 
 	exec [dbo].[Change_Feed_Insert_Update_dss-prioritygroups] @Json
