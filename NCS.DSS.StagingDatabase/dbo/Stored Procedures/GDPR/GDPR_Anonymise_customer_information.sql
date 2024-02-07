@@ -42,8 +42,18 @@ BEGIN
         Address5 = NULL,
         Longitude = NULL,
         Latitude = NULL,
-        PostCode = LEFT(PostCode, LEN(PostCode) - 3),
-        alternativepostcode = LEFT(AlternativePostCode, LEN(AlternativePostCode) - 3)
+        PostCode = 
+                    CASE 
+                    WHEN LEN(PostCode) >= 3 
+                    THEN LEFT(PostCode, LEN(PostCode) - 3) 
+                    ELSE PostCode 
+                    END,
+        AlternativePostCode = 
+                            CASE 
+                            WHEN LEN(AlternativePostCode) >= 3 
+                            THEN LEFT(AlternativePostCode, LEN(AlternativePostCode) - 3) 
+                            ELSE AlternativePostCode 
+                            END
     FROM [dss-addresses] a
         JOIN #IdentifiedCustomers I
             ON a.CustomerId = I.CustomerId;
