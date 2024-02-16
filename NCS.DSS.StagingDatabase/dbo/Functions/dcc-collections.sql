@@ -44,7 +44,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 							ORDER BY o.OutcomeEffectiveDate, o.LastModifiedDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 
 		FROM				[dss-sessions] s
-		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId AND c.ReasonForTermination != 3
+		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId AND c.ReasonForTermination != 3 OR c.ReasonForTermination IS NULL
 		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
 		INNER JOIN			[dss-interactions] i							ON i.id = ap.InteractionId
 		INNER JOIN			[dss-outcomes] o								ON o.ActionPlanId = ap.id
