@@ -44,7 +44,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 							ORDER BY o.OutcomeEffectiveDate, o.LastModifiedDate, o.id) AS 'Rank'  -- we rank to remove duplicates
 
 		FROM				[dss-sessions] s
-		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId AND c.ReasonForTermination != 3 OR c.ReasonForTermination IS NULL
+		INNER JOIN			[dss-customers] c								ON c.id = s.CustomerId
 		INNER JOIN			[dss-actionplans] ap							ON ap.SessionId = s.id
 		INNER JOIN			[dss-interactions] i							ON i.id = ap.InteractionId
 		INNER JOIN			[dss-outcomes] o								ON o.ActionPlanId = ap.id
@@ -58,6 +58,8 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 		WHERE				o.OutcomeEffectiveDate	BETWEEN @startDate AND @endDateTime								-- effective between period start and end date and time
 		AND					o.OutcomeClaimedDate	BETWEEN @startDate AND @endDateTime								-- claimed between period start and end date and time
 		AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
+		AND c.ReasonForTermination != 3																				--Excludes duplicate customer records
+		OR c.ReasonForTermination IS NULL																			-- Allows Null value customer records
 	), dupesRemoved AS (
 		SELECT *
 		FROM TempData
