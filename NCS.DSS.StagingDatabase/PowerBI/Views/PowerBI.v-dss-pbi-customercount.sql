@@ -27,7 +27,7 @@ AS
                 ,AP.id																AS 'ActionPlanId' 
                 ,P.PriorityGroup													AS 'PriorityCustomer'
                 ,AP.DateActionPlanCreated											AS 'DateActionPlanCreated'
-                ,CASE WHEN (IIF(p.PriorityGroup IN (1, 2, 3, 4, 5, 6), 1, 0)) = 1 
+                ,CASE WHEN IIF(p.PriorityGroup IN (1, 2, 3, 4, 5, 6), 1, 0) = 1
                     THEN 'PG' --Groups 1 to 6
                     ELSE 'NP' --should be none in this group
                 END	 																AS 'PriorityOrNot'

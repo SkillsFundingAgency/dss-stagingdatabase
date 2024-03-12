@@ -1,18 +1,19 @@
-CREATE TABLE [PowerBI].[dss-pbi-nationaltarget] 
+CREATE TABLE [PowerBI].[dss-pbi-nationaltarget](
+	[FinancialYear] [varchar](9) NOT NULL,
+	[ContractYear] [varchar](9) NOT NULL,
+	[PeriodMonth] [int] NOT NULL,
+	[PriorityOrNot] [varchar](2) NOT NULL,
+	[TargetCategory] [varchar](10) NOT NULL,
+	[TargetCategoryValue] [decimal](5, 2) NOT NULL,
+	[Comments] [varchar](max) NULL,
+ CONSTRAINT [pk-dss-pbi-nationaltarget] PRIMARY KEY CLUSTERED 
 (
-	[FinancialYear] VARCHAR(9) NOT NULL 
-	,[ContractYear] VARCHAR(9) NOT NULL 
-	,[PeriodMonth] INT NOT NULL 
-	,[PriorityOrNot] VARCHAR(2) 
-	,[TargetCategory] VARCHAR(10) NOT NULL 
-	,[TargetCategoryValue] DECIMAL(5, 2) NOT NULL 
-	,[Comments] VARCHAR(MAX) 
-	CONSTRAINT [pk-dss-pbi-nationaltarget] PRIMARY KEY CLUSTERED ([FinancialYear] 
-																	,[ContractYear] 
-																	,[PeriodMonth] 
-																	,[PriorityOrNot] 
-																	,[TargetCategory] 
-																	,[TargetCategoryValue] 
-																	) 
-)
+	[FinancialYear] ASC,
+	[ContractYear] ASC,
+	[PeriodMonth] ASC,
+	[PriorityOrNot] ASC,
+	[TargetCategory] ASC,
+	[TargetCategoryValue] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
