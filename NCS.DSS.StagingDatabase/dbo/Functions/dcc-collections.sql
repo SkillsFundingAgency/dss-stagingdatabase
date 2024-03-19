@@ -58,8 +58,7 @@ SET		@endDateTime = DATEADD(MS, -1, DATEADD(D, 1, CONVERT(DATETIME2,@endDate)));
 		WHERE				o.OutcomeEffectiveDate	BETWEEN @startDate AND @endDateTime								-- effective between period start and end date and time
 		AND					o.OutcomeClaimedDate	BETWEEN @startDate AND @endDateTime								-- claimed between period start and end date and time
 		AND					o.TouchpointID = @touchpointId															-- for the touchpoint requesting the collection
-		AND c.ReasonForTermination != 3																				--Excludes duplicate customer records
-		OR c.ReasonForTermination IS NULL																			-- Allows Null value customer records
+		AND (ReasonForTermination IS NULL OR ReasonForTermination <> 3)												--Excludes duplicate customer records
 	), dupesRemoved AS (
 		SELECT *
 		FROM TempData
