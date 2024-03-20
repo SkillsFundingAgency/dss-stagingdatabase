@@ -1,3 +1,4 @@
+
 CREATE VIEW [PowerBI].[v-dss-pbi-customercount] WITH SCHEMABINDING 
 AS 
     WITH RelevantData AS (
@@ -15,6 +16,7 @@ AS
     FROM [dbo].[dss-actionplans] AS AP 
     INNER JOIN [dbo].[dss-customers] AS C ON C.id = AP.CustomerId
     LEFT JOIN [dbo].[dss-prioritygroups] AS P ON P.CustomerId = AP.CustomerId
+		INNER JOIN PowerBI.[dss-pbi-financialyear] AS DR ON AP.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime
 )
 
 SELECT	
@@ -26,6 +28,8 @@ SELECT
 FROM RelevantData AS R
 JOIN PowerBI.[dss-pbi-financialyear] AS DR ON R.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime
 WHERE (R.Age >= 19 OR (R.PriorityCustomer = 1 AND R.Age >= 18 AND R.Age <= 24))
+   -- AND R.TouchpointID = 201
+ --AND R.PriorityOrNot = 'PG'
     AND R.RankID = 1
 GROUP BY R.TouchpointID, R.PeriodYear, R.PeriodMonth, R.PriorityOrNot;
 ;
