@@ -83,23 +83,24 @@ FROM
                                                                                       ELSE DATEADD(mm, 12, DS.[DateandTimeOfSession])
                                                                         END AS 'SessionClosureDate' --date limit for Effective Outcomes
                                                                         ,DATEADD(mm, -12, CONVERT(DATE, DS.[DateandTimeOfSession])) AS 'PriorSessionDate'              --12 months before current session (latest possible previous session)
-                                                                        ,RANK() OVER(PARTITION BY DS.[CustomerID], IIF(DS.[DateandTimeOfSession] < CONVERT(DATETIME, '01-10-2022', 103), 100, 0), DO.OutcomeType
-                                                                                                     ORDER BY DO.[OutcomeEffectiveDate], DO.[LastModifiedDate], DO.[id]) AS 'SessionRank'  -- we rank to remove duplicates
+                                                                        ,RANK() OVER(PARTITION BY DS.[CustomerID], FY.FinancialYear,IIF(DS.[DateandTimeOfSession] < CONVERT(DATETIME, '01-10-2022', 103), 100, 0),DO.OutcomeType
+                                                                                                     ORDER BY DO.OutcomeEffectiveDate, DO.[LastModifiedDate], DO.id) AS 'SessionRank'  -- we rank to remove duplicates
                                                                         -- ##### FUNDING RULES #####                             -- JLOs have been split into JOs and LOs since 1/Oct/2020
                                                                         ,PeriodMonth = CASE
-                                                                                      WHEN MONTH(DO.[OutcomeEffectiveDate]) < 4 THEN MONTH(DO.[OutcomeEffectiveDate]) + 9
-                                                                                      ELSE MONTH(DO.[OutcomeEffectiveDate]) - 3
+                                                                                      WHEN MONTH(DO.OutcomeEffectiveDate) < 4 THEN MONTH(DO.OutcomeEffectiveDate) + 9
+                                                                                      ELSE MONTH(DO.OutcomeEffectiveDate) - 3
                                                                         END
-                                                                        ,CASE
-                                                                                      WHEN MONTH(DO.[OutcomeEffectiveDate]) < 4
-                                                                                                     THEN CONCAT(CAST(YEAR(DO.[OutcomeEffectiveDate]) - 1 AS VARCHAR), '-', CAST(YEAR(DO.[OutcomeEffectiveDate]) AS VARCHAR)) 
-                                                                                      ELSE CONCAT(CAST(YEAR(DO.[OutcomeEffectiveDate]) AS VARCHAR), '-', CAST(YEAR(DO.[OutcomeEffectiveDate]) + 1 AS VARCHAR))
-                                                                        END                                                                                                                                                                                                                                             AS 'PeriodYear'
+                                                                        ,PeriodYear = CASE
+                                                                                      WHEN MONTH(DO.OutcomeEffectiveDate) < 4
+                                                                                                     THEN CONCAT(CAST(YEAR(DO.OutcomeEffectiveDate) - 1 AS VARCHAR), '-', CAST(YEAR(DO.OutcomeEffectiveDate) AS VARCHAR)) 
+                                                                                      ELSE CONCAT(CAST(YEAR(DO.OutcomeEffectiveDate) AS VARCHAR), '-', CAST(YEAR(DO.OutcomeEffectiveDate) + 1 AS VARCHAR))
+                                                                        END 
                                                           FROM [dbo].[dss-sessions] AS DS
                                                           INNER JOIN [dbo].[dss-customers] AS DC
                                                           ON DC.[id] = DS.[CustomerId]
                                                           INNER JOIN [dbo].[dss-actionplans] AS DA
                                                           ON DA.[SessionId] = DS.[id]
+														  --LEFT JOIN [dss-prioritygroups]p ON p.CustomerId = DA.CustomerId
                                                           INNER JOIN [dbo].[dss-interactions] AS DI
                                                           ON DI.[id] = DA.[InteractionId]
                                                           INNER JOIN [dbo].[dss-outcomes] AS DO
@@ -107,8 +108,7 @@ FROM
                                                           INNER JOIN [dbo].[dss-reference-data] AS DR
                                                           ON DR.[value] = DO.[OutcomeType]
                                                           AND DR.[name] = 'OutcomeType'
-                                                          WHERE CAST(DO.[OutcomeEffectiveDate] AS DATE) >= CONVERT(DATETIME, '01-10-2022', 103)                      -- effective between period start and end date and time
-                                                          AND              CAST(DO.[OutcomeClaimedDate] AS DATE) >= CONVERT(DATETIME, '01-10-2022', 103)                       -- claimed between period start and end date and time               
+                                                          JOIN PowerBI.[dss-pbi-financialyear] AS FY ON (CAST(DO.OutcomeEffectiveDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)					AND (CAST(DO.OutcomeClaimedDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)
                                            ) AS MY
                                            WHERE MY.[SessionRank] = 1
                              ) AS MY1
