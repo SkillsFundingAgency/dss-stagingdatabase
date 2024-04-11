@@ -108,7 +108,9 @@ FROM
                                                           INNER JOIN [dbo].[dss-reference-data] AS DR
                                                           ON DR.[value] = DO.[OutcomeType]
                                                           AND DR.[name] = 'OutcomeType'
-                                                          JOIN PowerBI.[dss-pbi-financialyear] AS FY ON (CAST(DO.OutcomeEffectiveDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)					AND (CAST(DO.OutcomeClaimedDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)
+                                                          --WHERE CAST(DA.DateActionPlanCreated AS DATE) >= CONVERT(DATETIME, '01-10-2022', 103)                      -- effective between period start and end date and time
+                                                          --AND              CAST(DA.DateActionPlanCreated AS DATE) >= CONVERT(DATETIME, '01-10-2022', 103)                       -- claimed between period start and end date and time       
+														  JOIN PowerBI.[dss-pbi-financialyear] AS FY ON (CAST(DO.OutcomeEffectiveDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)					AND (CAST(DO.OutcomeClaimedDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)
                                            ) AS MY
                                            WHERE MY.[SessionRank] = 1
                              ) AS MY1
