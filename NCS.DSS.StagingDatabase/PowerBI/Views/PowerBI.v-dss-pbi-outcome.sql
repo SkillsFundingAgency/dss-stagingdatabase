@@ -54,7 +54,7 @@ FROM
                                                           ,MY.[SessionRank]
                                                           ,MY.[PeriodMonth]
                                                           ,MY.[PeriodYear]
-                                                          ,LAG(MY.[OutcomeTypeValue]) OVER (PARTITION BY MY.[CustomerID] ORDER BY MY.[OutcomeEffectiveDate], MY.[OutcomeTypeValue]) AS [PrevOutcomeType]
+                                                          ,LAG(MY.[OutcomeTypeValue]) OVER (PARTITION BY MY.[CustomerID], MY.[PeriodYear] ORDER BY MY.[OutcomeEffectiveDate], MY.[OutcomeTypeValue]) AS [PrevOutcomeType]
                                            FROM
                                            (
                                                           SELECT
