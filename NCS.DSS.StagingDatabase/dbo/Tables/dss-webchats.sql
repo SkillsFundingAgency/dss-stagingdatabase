@@ -16,6 +16,6 @@
 
 GO
 
-CREATE NONCLUSTERED INDEX [dss-webchats_customerid] ON [dbo].[dss-webchats] ([CustomerId]) WITH (ONLINE = ON)
+CREATE NONCLUSTERED INDEX [nci_dss-webchats_customerid] ON [dbo].[dss-webchats] ([CustomerId]) WITH (ONLINE = ON)
 
 GO

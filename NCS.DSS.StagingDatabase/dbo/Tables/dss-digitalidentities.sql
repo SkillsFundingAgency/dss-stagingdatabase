@@ -14,6 +14,6 @@
 
 GO
 
-CREATE NONCLUSTERED INDEX [dss-digitalidentities_customerid] ON [dbo].[dss-digitalidentities] ([CustomerId]) WITH (ONLINE = ON)
+CREATE NONCLUSTERED INDEX [nci_dss-digitalidentities_customerid] ON [dbo].[dss-digitalidentities] ([CustomerId]) WITH (ONLINE = ON)
 
 GO

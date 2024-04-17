@@ -16,6 +16,6 @@ CONSTRAINT [PK_dss-subscriptions-history] PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-CREATE NONCLUSTERED INDEX [dss-subscriptions-history_customerid] ON [dbo].[dss-subscriptions-history] ([CustomerId]) WITH (ONLINE = ON)
+CREATE NONCLUSTERED INDEX [nci_dss-subscriptions-history_customerid] ON [dbo].[dss-subscriptions-history] ([CustomerId]) WITH (ONLINE = ON)
 
 GO

@@ -7,6 +7,6 @@
 )
 GO
 
-CREATE NONCLUSTERED INDEX [dss-prioritygroups-history_customerid] ON [dbo].[dss-prioritygroups-history] ([CustomerId]) WITH (ONLINE = ON)
+CREATE NONCLUSTERED INDEX [nci_dss-prioritygroups-history_customerid] ON [dbo].[dss-prioritygroups-history] ([CustomerId]) WITH (ONLINE = ON)
 
 GO

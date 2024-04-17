@@ -16,7 +16,7 @@
 
 GO
 
-CREATE NONCLUSTERED INDEX [dss-learningprogressions_customerid] ON [dbo].[dss-learningprogressions] ([CustomerId]) WITH (ONLINE = ON)
+CREATE NONCLUSTERED INDEX [nci_dss-learningprogressions_customerid] ON [dbo].[dss-learningprogressions] ([CustomerId]) WITH (ONLINE = ON)
 
 GO
 
