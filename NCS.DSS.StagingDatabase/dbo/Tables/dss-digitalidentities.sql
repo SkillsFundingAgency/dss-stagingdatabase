@@ -11,3 +11,9 @@
 	[CreatedBy]					 VARCHAR (MAX)      NULL, 
     CONSTRAINT [PK_dss-digitalidentities] PRIMARY KEY ([id])
 );
+
+GO
+
+CREATE NONCLUSTERED INDEX [dss-digitalidentities_customerid] ON [dbo].[dss-digitalidentities] ([CustomerId]) WITH (ONLINE = ON)
+
+GO

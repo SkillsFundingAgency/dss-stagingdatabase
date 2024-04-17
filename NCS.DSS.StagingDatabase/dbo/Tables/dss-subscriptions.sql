@@ -8,3 +8,8 @@
     CONSTRAINT [PK_dss-subscriptions] PRIMARY KEY ([id]) 
 );
 
+GO
+
+CREATE NONCLUSTERED INDEX [dss-subscriptions_customerid] ON [dbo].[dss-subscriptions] ([CustomerId]) WITH (ONLINE = ON)
+
+GO

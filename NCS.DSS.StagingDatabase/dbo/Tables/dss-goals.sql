@@ -15,3 +15,8 @@
     CONSTRAINT [PK_dss-goals] PRIMARY KEY ([id])
 );
 
+GO
+
+CREATE NONCLUSTERED INDEX [dss-goals_customerid] ON [dbo].[dss-goals] ([CustomerId]) WITH (ONLINE = ON)
+
+GO

@@ -14,3 +14,8 @@
     CONSTRAINT [PK_dss-transfers] PRIMARY KEY ([id])
 );
 
+GO
+
+CREATE NONCLUSTERED INDEX [dss-transfers_customerid] ON [dbo].[dss-transfers] ([CustomerId]) WITH (ONLINE = ON)
+
+GO

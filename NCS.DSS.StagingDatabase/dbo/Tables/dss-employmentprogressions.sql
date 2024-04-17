@@ -20,3 +20,8 @@
     CONSTRAINT [PK_dss-employmentprogressions] PRIMARY KEY ([id]) 
 );
 
+GO
+
+CREATE NONCLUSTERED INDEX [dss-employmentprogressions_customerid] ON [dbo].[dss-employmentprogressions] ([CustomerId]) WITH (ONLINE = ON)
+
+GO
