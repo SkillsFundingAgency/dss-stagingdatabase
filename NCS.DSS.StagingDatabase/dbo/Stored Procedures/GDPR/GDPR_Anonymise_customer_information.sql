@@ -100,44 +100,44 @@ BEGIN
     DELETE FROM [dss-contacts-history]
     FROM [dss-contacts-history] c
         JOIN #IdentifiedCustomers I
-            ON c.id = I.CustomerId
-    WHERE c.id = I.customerId
+            ON c.CustomerId = I.CustomerId
+    WHERE c.CustomerId = I.customerId
 
     DELETE FROM [dss-addresses-history]
     FROM [dss-addresses-history] a
         JOIN #IdentifiedCustomers I
-            ON a.id = I.CustomerId
-    WHERE a.id = I.customerId
+            ON a.CustomerId = I.CustomerId
+    WHERE a.CustomerId = I.customerId
 
     DELETE FROM [dss-employmentprogressions-history]
     FROM [dss-employmentprogressions-history] e
         JOIN #IdentifiedCustomers I
-            ON e.id = I.CustomerId
-    WHERE e.id = I.customerId
+            ON e.CustomerId = I.CustomerId
+    WHERE e.CustomerId = I.customerId
 
     DELETE FROM [dss-actions-history]
     FROM [dss-actions-history] a
         JOIN #IdentifiedCustomers I
-            ON a.id = I.CustomerId
-    WHERE a.id = I.customerId
+            ON a.CustomerId = I.CustomerId
+    WHERE a.CustomerId = I.customerId
 
     DELETE FROM [dss-goals-history]
     FROM [dss-goals-history] g
         JOIN #IdentifiedCustomers I
-            ON g.id = I.CustomerId
-    WHERE g.id = I.customerId
+            ON g.CustomerId = I.CustomerId
+    WHERE g.CustomerId = I.customerId
 
     DELETE FROM [dss-actionplans-history]
     FROM [dss-actionplans-history] a
         JOIN #IdentifiedCustomers I
-            ON a.id = I.CustomerId
-    WHERE a.id = I.customerId
+            ON a.CustomerId = I.CustomerId
+    WHERE a.CustomerId = I.customerId
 
     DELETE FROM [dss-webchats-history]
     FROM [dss-webchats-history] w
         JOIN #IdentifiedCustomers I
-            ON w.id = I.CustomerId
-    WHERE w.id = I.customerId
+            ON w.CustomerId = I.CustomerId
+    WHERE w.CustomerId = I.customerId
 
     -- Drop the temporary table
     DROP TABLE #IdentifiedCustomers;
