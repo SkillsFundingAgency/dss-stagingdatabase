@@ -27,3 +27,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
+CREATE NONCLUSTERED INDEX [nci_dss-actionplans-history_customerid] ON [dbo].[dss-actionplans-history] ([CustomerId]) WITH (ONLINE = ON)
+
+GO
+

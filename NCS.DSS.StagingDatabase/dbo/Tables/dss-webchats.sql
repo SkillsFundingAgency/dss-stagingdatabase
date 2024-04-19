@@ -14,3 +14,8 @@
     CONSTRAINT [PK_dss-webchats] PRIMARY KEY ([id])
 );
 
+GO
+
+CREATE NONCLUSTERED INDEX [nci_dss-webchats_customerid] ON [dbo].[dss-webchats] ([CustomerId]) WITH (ONLINE = ON)
+
+GO

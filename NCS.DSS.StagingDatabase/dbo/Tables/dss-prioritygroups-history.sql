@@ -6,3 +6,7 @@
 	CONSTRAINT [PK_dss-prioritygroups-history] PRIMARY KEY CLUSTERED ([HistoryId] ,[CosmosTimeStamp])
 )
 GO
+
+CREATE NONCLUSTERED INDEX [nci_dss-prioritygroups-history_customerid] ON [dbo].[dss-prioritygroups-history] ([CustomerId]) WITH (ONLINE = ON)
+
+GO
