@@ -246,6 +246,7 @@
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-dss-pbi-outcome.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-outcomeactualvolume.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-outcomeperffact.sql" />
+	<Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-outcome-tables.sql" />
     <Build Include="Scripts\PowerBI_Schema.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-nationaltarget.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeactualfactday5.sql" />
