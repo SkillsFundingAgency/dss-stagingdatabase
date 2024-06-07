@@ -1,4 +1,15 @@
-CREATE VIEW [PowerBI].[v-dss-pbi-outcome] AS
+CREATE VIEW [PowerBI].[v-dss-pbi-outcome] 
+AS
+
+SELECT [TouchpointID]
+	,[PriorityOrNot]
+	,[OutcomeTypeValue]
+	,[OutcomeTypeGroup]
+	,[PeriodMonth]
+	,[PeriodYear] 
+	,[OutcomeNumber]
+FROM [PowerBI].[pfy-dss-pbi-outcome]
+UNION
 SELECT
               MY3.[TouchpointID]
               ,MY3.[PriorityOrNot]
@@ -54,7 +65,7 @@ FROM
                                                           ,MY.[SessionRank]
                                                           ,MY.[PeriodMonth]
                                                           ,MY.[PeriodYear]
-                                                          ,LAG(MY.[OutcomeTypeValue]) OVER (PARTITION BY MY.[CustomerID] ORDER BY MY.[OutcomeEffectiveDate], MY.[OutcomeTypeValue]) AS [PrevOutcomeType]
+                                                          ,LAG(MY.[OutcomeTypeValue]) OVER (PARTITION BY MY.[CustomerID], MY.[PeriodYear]  ORDER BY MY.[OutcomeEffectiveDate], MY.[OutcomeTypeValue]) AS [PrevOutcomeType]
                                            FROM
                                            (
                                                           SELECT
@@ -83,7 +94,7 @@ FROM
                                                                                       ELSE DATEADD(mm, 12, DS.[DateandTimeOfSession])
                                                                         END AS 'SessionClosureDate' --date limit for Effective Outcomes
                                                                         ,DATEADD(mm, -12, CONVERT(DATE, DS.[DateandTimeOfSession])) AS 'PriorSessionDate'              --12 months before current session (latest possible previous session)
-                                                                        ,RANK() OVER(PARTITION BY DS.[CustomerID], IIF(DS.[DateandTimeOfSession] < CONVERT(DATETIME, '01-10-2022', 103), 100, 0), DO.OutcomeType
+                                                                        ,RANK() OVER(PARTITION BY DS.[CustomerID], FY.FinancialYear, IIF(DS.[DateandTimeOfSession] < CONVERT(DATETIME, '01-10-2022', 103), 100, 0), DO.OutcomeType
                                                                                                      ORDER BY DO.[OutcomeEffectiveDate], DO.[LastModifiedDate], DO.[id]) AS 'SessionRank'  -- we rank to remove duplicates
                                                                         -- ##### FUNDING RULES #####                             -- JLOs have been split into JOs and LOs since 1/Oct/2020
                                                                         ,PeriodMonth = CASE
@@ -107,10 +118,9 @@ FROM
                                                           INNER JOIN [dbo].[dss-reference-data] AS DR
                                                           ON DR.[value] = DO.[OutcomeType]
                                                           AND DR.[name] = 'OutcomeType'
-														  LEFT JOIN			[dss-employmentprogressions] ep on ep.CustomerId = DC.id AND ep.DateProgressionRecorded BETWEEN DATEADD(MONTH, -12, DO.OutcomeEffectiveDate) AND DO.OutcomeEffectiveDate
-                                                          WHERE CAST(DO.[OutcomeEffectiveDate] AS DATE) >= CONVERT(DATETIME, '01-10-2022', 103)                      -- effective between period start and end date and time
-                                                          AND              CAST(DO.[OutcomeClaimedDate] AS DATE) >= CONVERT(DATETIME, '01-10-2022', 103)                       -- claimed between period start and end date and time               
-                                                          AND (DC.ReasonForTermination IS NULL OR DC.ReasonForTermination <> 3)	
+														  LEFT JOIN [dss-employmentprogressions] ep on ep.CustomerId = DC.id AND ep.DateProgressionRecorded BETWEEN DATEADD(MONTH, -12, DO.OutcomeEffectiveDate) AND DO.OutcomeEffectiveDate
+														  JOIN PowerBI.[dss-pbi-financialyear] AS FY ON (CAST(DO.OutcomeEffectiveDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)					AND (CAST(DO.OutcomeClaimedDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)
+                                                          WHERE (DC.ReasonForTermination IS NULL OR DC.ReasonForTermination <> 3) AND FY.CurrentYear = 1													  
                                            ) AS MY
                                            WHERE MY.[SessionRank] = 1
                              ) AS MY1
@@ -162,7 +172,7 @@ FROM
                                            OR (MY1.[OutcomeTypeValue] = 5 AND MY1.[PrevOutcomeType] IS  NULL)
                                            OR (MY1.[OutcomeTypeValue] = 5 AND MY1.[PrevOutcomeType] <> 3)
                              )
-              ) AS MY2
+              ) AS MY2 			  
               GROUP BY
                              MY2.[TouchpointID]
                              ,MY2.[PriorityOrNot]
@@ -197,6 +207,8 @@ FROM
                              AND [Date] < GETDATE() 
               ) AS PD
 ) AS MY3
+ INNER JOIN [PowerBI].[dss-pbi-financialyear] PF on MY3.[PeriodYear]=PF.FinancialYear
+			  WHERE PF.CurrentYear = 1
 GROUP BY
     MY3.[TouchpointID]
     ,MY3.[PeriodYear]
