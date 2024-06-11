@@ -251,7 +251,7 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-nationaltarget.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeactualfactday5.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-dss-pbi-outcomeactualfactday5.sql" />
-    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeprofilefact.sql" />
+    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeprerffact.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcome.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeactualvolume.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeactualfact.sql" />
