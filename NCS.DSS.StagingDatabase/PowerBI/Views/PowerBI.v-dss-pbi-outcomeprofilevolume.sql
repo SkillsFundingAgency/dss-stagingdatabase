@@ -1,3 +1,4 @@
+
 CREATE VIEW [PowerBI].[v-dss-pbi-outcomeprofilevolume] 
 AS 
     WITH MYProfile 
@@ -36,8 +37,11 @@ AS
         ON PPP.[ProfileCategory] = PNT.[TargetCategory] 
         AND PPP.[FinancialYear] = PNT.[FinancialYear] 
         AND PPP.[PriorityOrNot] = PNT.[PriorityOrNot] 
+		inner join [powerbi].[dss-pbi-financialyear] as fy
+on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] IN ('CMO', 'JO', 'LO') 
+		and fy.CurrentYear=1
         UNION ALL 
         SELECT 
             PPP.[TouchpointID] 
@@ -66,8 +70,11 @@ AS
         AND PPP.[PriorityOrNot] = PNT.[PriorityOrNot] 
         INNER JOIN [PowerBI].[dss-pbi-reference] AS PRF 
         ON PRF.ReferenceCategory = 'CUS' 
+		inner join [powerbi].[dss-pbi-financialyear] as fy
+on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] = 'CMO' 
+		and fy.CurrentYear=1
         UNION ALL 
         SELECT 
             PPP.[TouchpointID] 
@@ -93,10 +100,14 @@ AS
         ON PPP.[ProfileCategory] = PNT.[TargetCategory] 
         AND PPP.[FinancialYear] = PNT.[FinancialYear] 
         AND PPP.[PriorityOrNot] = PNT.[PriorityOrNot] 
+		inner join [powerbi].[dss-pbi-financialyear] as fy
+on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] = 'CMO' 
+		and fy.CurrentYear=1
     )
-
+	select * from [PowerBI].[pfy-dss-pbi-outcomeprofilevolume]
+	union
     SELECT 
         MY.[TouchpointID]
         ,MY.[ProfileCategory]
