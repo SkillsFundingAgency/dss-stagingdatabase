@@ -255,6 +255,7 @@
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcome.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeactualvolume.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeactualfact.sql" />
+    <Build Include="PowerBI\Tables\pfy-dss-pbi-conversionrate.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
