@@ -18,19 +18,25 @@ AS
     LEFT JOIN [dbo].[dss-prioritygroups] AS P ON P.CustomerId = AP.CustomerId
 		INNER JOIN PowerBI.[dss-pbi-financialyear] AS DR ON AP.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime
 )
-
-SELECT	
-    R.TouchpointID,
-    R.PeriodYear,
-    R.PeriodMonth,
-    R.PriorityOrNot,
-    COUNT(DISTINCT R.CustomerID) AS CustomerCount
-FROM RelevantData AS R
-JOIN PowerBI.[dss-pbi-financialyear] AS DR ON R.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime
-WHERE (R.Age >= 19 OR (R.PriorityCustomer = 1 AND R.Age >= 18 AND R.Age <= 24))
-   -- AND R.TouchpointID = 201
- --AND R.PriorityOrNot = 'PG'
-    AND R.RankID = 1
-GROUP BY R.TouchpointID, R.PeriodYear, R.PeriodMonth, R.PriorityOrNot;
+	    SELECT [TouchpointID]
+          ,[PeriodYear]
+          ,[PeriodMonth]
+          ,[PriorityOrNot]
+          ,[CustomerCount]
+      FROM [PowerBI].[pfy-dss-pbi-customercount]
+      union all
+    SELECT	
+        R.TouchpointID,
+        R.PeriodYear,
+        R.PeriodMonth,
+        R.PriorityOrNot,
+        COUNT(DISTINCT R.CustomerID) AS CustomerCount
+    FROM RelevantData AS R
+    JOIN PowerBI.[dss-pbi-financialyear] AS DR ON R.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime
+    WHERE (R.Age >= 19 OR (R.PriorityCustomer = 1 AND R.Age >= 18 AND R.Age <= 24))
+       -- AND R.TouchpointID = 201
+     --AND R.PriorityOrNot = 'PG'
+        AND R.RankID = 1
+    GROUP BY R.TouchpointID, R.PeriodYear, R.PeriodMonth, R.PriorityOrNot;
 ;
 GO
