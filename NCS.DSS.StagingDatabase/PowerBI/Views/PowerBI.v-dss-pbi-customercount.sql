@@ -36,7 +36,7 @@ AS
     WHERE (R.Age >= 19 OR (R.PriorityCustomer = 1 AND R.Age >= 18 AND R.Age <= 24))
        -- AND R.TouchpointID = 201
      --AND R.PriorityOrNot = 'PG'
-        AND R.RankID = 1
+        AND R.RankID = 1 AND DR.CurrentYear = 1
     GROUP BY R.TouchpointID, R.PeriodYear, R.PeriodMonth, R.PriorityOrNot;
 ;
 GO
