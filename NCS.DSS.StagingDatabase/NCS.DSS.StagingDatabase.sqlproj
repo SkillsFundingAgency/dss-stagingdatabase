@@ -260,6 +260,7 @@
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-contractinformation.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-customercount.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeprofilevolume.sql" />
+    <Build Include="PowerBI\Stored Procedures\Populate_PFY_Data.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
