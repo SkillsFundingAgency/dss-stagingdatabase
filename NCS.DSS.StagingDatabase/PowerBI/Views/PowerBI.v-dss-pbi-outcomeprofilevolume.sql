@@ -106,8 +106,17 @@ on fy.FinancialYear=PPP.[FinancialYear]
         AND PPP.[ProfileCategory] = 'CMO' 
 		and fy.CurrentYear=1
     )
-	select * from [PowerBI].[pfy-dss-pbi-outcomeprofilevolume]
-	union
+	SELECT 
+         [TouchpointID]
+        ,[ProfileCategory]
+        ,[PriorityOrNot]
+        ,[PeriodMonth]
+        ,[Date]
+        ,[PeriodYear] 
+        ,[OutcomeNumber]
+        ,[YTD_OutcomeNumber]
+    FROM [PowerBI].[pfy-dss-pbi-outcomeprofilevolume]
+	UNION ALL
     SELECT 
         MY.[TouchpointID]
         ,MY.[ProfileCategory]
