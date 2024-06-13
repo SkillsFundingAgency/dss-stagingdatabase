@@ -44,7 +44,11 @@ on fy.FinancialYear=pd.[Fiscal Year]
 )
 
 
-select * from  [PowerBI].[pfy-dss-pbi-contractinformation]
+select [TouchpointID]
+           ,[ProfileCategory]
+           ,[Date]
+           ,[Fiscal Year]
+           ,[ProfileCategoryValue] from  [PowerBI].[pfy-dss-pbi-contractinformation]
 union  all
 SELECT 
 	PP.[TouchpointID] 
