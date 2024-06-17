@@ -1,11 +1,18 @@
 CREATE TABLE [PowerBI].[pfy-dss-pbi-actual](
-	[RegionName] [varchar](30) NULL,
-	[FinancialYear] [varchar](9) NULL,
-	[PriorityOrNot] [varchar](2) NULL,
-	[MonthShortName] [varchar](3) NULL,
-	[CustomerCount] [int] NULL,
-	[YTD_CustomerCount] [int] NULL
-) ON [PRIMARY]
+	[RegionName] [varchar](30) ,
+	[FinancialYear] [varchar](9) ,
+	[PriorityOrNot] [varchar](2) ,
+	[MonthShortName] [varchar](3) ,
+	[CustomerCount] [int] ,
+	[YTD_CustomerCount] [int] ,
+	CONSTRAINT [pfy-dss-pbi-actual] PRIMARY KEY CLUSTERED 
+	(
+		[RegionName] ASC,
+		[FinancialYear] ASC,
+		[PriorityOrNot] ASC,
+		[MonthShortName] ASC
+	 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)
+ON [PRIMARY]
 GO
-
 
