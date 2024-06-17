@@ -1,5 +1,5 @@
 CREATE TABLE [PowerBI].[pfy-dss-pbi-customercount](
-	TouchpointID varchar(max) not null,
+	TouchpointID varchar(4) not null,
 	PeriodYear varchar(61) not null,
 	PeriodMonth int not null,
 	PriorityOrNot varchar(2) not null,
