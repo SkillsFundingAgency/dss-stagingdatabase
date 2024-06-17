@@ -5,7 +5,7 @@ CREATE TABLE [PowerBI].[pfy-dss-pbi-actual](
 	[MonthShortName] [varchar](3) ,
 	[CustomerCount] [int] ,
 	[YTD_CustomerCount] [int] ,
-	CONSTRAINT [pfy-dss-pbi-actual] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [pk-pfy-dss-pbi-actual] PRIMARY KEY CLUSTERED 
 	(
 		[RegionName] ASC,
 		[FinancialYear] ASC,

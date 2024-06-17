@@ -4,7 +4,7 @@ CREATE TABLE [PowerBI].[pfy-dss-pbi-customercount](
 	PeriodMonth int,
 	PriorityOrNot varchar(2),
 	CustomerCount int,	
-CONSTRAINT [pfy-dss-pbi-customercount] PRIMARY KEY CLUSTERED 
+CONSTRAINT [pk-pfy-dss-pbi-customercount] PRIMARY KEY CLUSTERED 
 	(
 	TouchpointID ASC,
 	PeriodYear ASC,

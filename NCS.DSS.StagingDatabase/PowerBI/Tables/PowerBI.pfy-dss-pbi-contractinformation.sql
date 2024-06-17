@@ -5,7 +5,7 @@ CREATE TABLE [PowerBI].[pfy-dss-pbi-contractinformation](
 [Fiscal Year] varchar(9),
 [ProfileCategoryValue] decimal(38,2),
 	
-CONSTRAINT [pfy-dss-pbi-contractinformation] PRIMARY KEY CLUSTERED 
+CONSTRAINT [pk-pfy-dss-pbi-contractinformation] PRIMARY KEY CLUSTERED 
 	(
 		[TouchpointID] ASC,
 		[ProfileCategory] ASC,
