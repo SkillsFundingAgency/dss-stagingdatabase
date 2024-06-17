@@ -108,7 +108,7 @@ CREATE TABLE [PowerBI].[pfy-dss-pbi-actual](
 	[MonthShortName] [varchar](3) ,
 	[CustomerCount] [int] ,
 	[YTD_CustomerCount] [int] ,
-	CONSTRAINT [pfy-dss-pbi-actual] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [pk-pfy-dss-pbi-actual] PRIMARY KEY CLUSTERED 
 	(
 		[RegionName] ASC,
 		[FinancialYear] ASC,
@@ -129,7 +129,7 @@ CREATE TABLE [PowerBI].[pfy-dss-pbi-contractinformation](
 [Fiscal Year] varchar(9),
 [ProfileCategoryValue] decimal(38,2),
 	
-CONSTRAINT [pfy-dss-pbi-contractinformation] PRIMARY KEY CLUSTERED 
+CONSTRAINT [pk-pfy-dss-pbi-contractinformation] PRIMARY KEY CLUSTERED 
 	(
 		[TouchpointID] ASC,
 		[ProfileCategory] ASC,
@@ -150,7 +150,7 @@ CREATE TABLE [PowerBI].[pfy-dss-pbi-customercount](
 	PeriodMonth int not null,
 	PriorityOrNot varchar(2) not null,
 	CustomerCount int,	
-CONSTRAINT [pfy-dss-pbi-customercount] PRIMARY KEY CLUSTERED 
+CONSTRAINT [pk-pfy-dss-pbi-customercount] PRIMARY KEY CLUSTERED 
 	(
 	TouchpointID ASC,
 	PeriodYear ASC,
@@ -174,7 +174,7 @@ CREATE TABLE [PowerBI].[pfy-dss-pbi-outcomeprofilevolume](
         ,[PeriodYear] varchar(9) not null
         ,[OutcomeNumber] decimal(10,2)
         ,[YTD_OutcomeNumber] decimal(10,2)
-CONSTRAINT [pfy-dss-pbi-outcomeprofilevolume] PRIMARY KEY CLUSTERED 
+CONSTRAINT [pk-pfy-dss-pbi-outcomeprofilevolume] PRIMARY KEY CLUSTERED 
 	(
 	TouchpointID ASC,
 	[ProfileCategory] ASC,
