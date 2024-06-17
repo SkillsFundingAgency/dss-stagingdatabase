@@ -1,10 +1,10 @@
 CREATE TABLE [PowerBI].[pfy-dss-pbi-outcomeprofilevolume](
-	[TouchpointID] varchar(4)
-        ,[ProfileCategory] varchar(10)
-        ,[PriorityOrNot] varchar(2)
+	[TouchpointID] varchar(4) not null
+        ,[ProfileCategory] varchar(10) not null
+        ,[PriorityOrNot] varchar(2) not null
         ,[PeriodMonth] int not null
-		,[date] datetime2(7)
-        ,[PeriodYear] varchar(9)
+		,[date] datetime2(7) not null
+        ,[PeriodYear] varchar(9) not null
         ,[OutcomeNumber] decimal(10,2)
         ,[YTD_OutcomeNumber] decimal(10,2)
 CONSTRAINT [pk-pfy-dss-pbi-outcomeprofilevolume] PRIMARY KEY CLUSTERED 
