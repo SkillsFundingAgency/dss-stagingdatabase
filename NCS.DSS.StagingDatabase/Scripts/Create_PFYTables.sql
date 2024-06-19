@@ -1,4 +1,15 @@
 ﻿
+IF NOT EXISTS(
+       SELECT 1
+       FROM   sys.columns
+       WHERE  NAME = 'CurrentYear'
+              AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-financialyear')
+              AND TYPE_NAME(system_type_id) = 'bit'
+   )
+BEGIN
+	ALTER TABLE [PowerBI].[dss-pbi-financialyear] ALTER COLUMN CurrentYear bit null;
+END;
+
 IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcome' AND TABLE_SCHEMA = 'PowerBI')
 BEGIN	
 	CREATE TABLE [PowerBI].[pfy-dss-pbi-outcome](
