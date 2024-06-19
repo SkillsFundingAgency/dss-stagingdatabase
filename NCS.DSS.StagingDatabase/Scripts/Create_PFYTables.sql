@@ -9,7 +9,7 @@ IF NOT EXISTS(
 BEGIN
 	ALTER TABLE [PowerBI].[dss-pbi-financialyear] ADD CurrentYear bit null;
 END;
-
+GO
 ALTER VIEW [PowerBI].[v-dss-pbi-date] WITH SCHEMABINDING 
 AS 
     SELECT 
