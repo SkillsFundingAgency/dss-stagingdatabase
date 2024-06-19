@@ -7,7 +7,7 @@ IF NOT EXISTS(
               AND TYPE_NAME(system_type_id) = 'bit'
    )
 BEGIN
-	ALTER TABLE [PowerBI].[dss-pbi-financialyear] ALTER COLUMN CurrentYear bit null;
+	ALTER TABLE [PowerBI].[dss-pbi-financialyear] ADD CurrentYear bit null;
 END;
 
 IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcome' AND TABLE_SCHEMA = 'PowerBI')
