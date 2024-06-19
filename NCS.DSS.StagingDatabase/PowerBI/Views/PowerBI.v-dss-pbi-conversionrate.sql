@@ -24,18 +24,26 @@ AS
         SELECT 
             [TouchpointID] 
             ,[Outcome ID] 
-            ,[Date] 
+            ,oaf.[Date] 
             ,SUM([Outcome number]) AS [Outcome number] 
-        FROM [PowerBI].[v-dss-pbi-outcomeactualfact] 
+        FROM [PowerBI].[v-dss-pbi-outcomeactualfact] as oaf
+		inner join PowerBI.[v-dss-pbi-date] as pd on pd.Date= oaf.Date and pd.CurrentYear = 1
         GROUP BY 
             [TouchpointID] 
             ,[Outcome ID] 
-            ,[Date] 
+            ,oaf.[Date] 
     ) AS AF 
 	INNER JOIN [PowerBI].[dss-pbi-financialyear] AS FYA 
 	ON AF.[Date] BETWEEN FYA.[StartDateTime] AND FYA.[EndDateTime] 
 ) 
 
+SELECT [TouchpointID]
+      ,[Outcome ID]
+      ,[Date]
+      ,[Performance]
+      ,[Performance YTD]
+  FROM [PowerBI].[pfy-dss-pbi-conversionrate] 
+UNION ALL
 SELECT 
 	AF.[TouchpointID]
 	,AF.[Outcome ID]
@@ -69,3 +77,5 @@ ON AF.[TouchpointID] = PF.[TouchpointID]
 AND AF.[Date] = PF.[Date] 
 ;
 GO
+
+

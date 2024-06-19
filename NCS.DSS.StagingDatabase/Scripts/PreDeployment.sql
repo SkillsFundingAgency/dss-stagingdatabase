@@ -41,3 +41,10 @@ IF EXISTS(
 BEGIN
 	ALTER TABLE [dbo].[dss-employmentprogressions-history] ALTER COLUMN EconomicShockCode VARCHAR (50);
 END;
+
+--- CREATE TABLES REQUIRED TO STORE PFY DATA -----
+:r ./Create_PFYTables.sql
+
+--- POPULATE PFY DATA --------
+:r ./Populate_PFYData.sql
+
