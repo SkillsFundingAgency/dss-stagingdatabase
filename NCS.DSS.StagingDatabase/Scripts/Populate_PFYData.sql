@@ -1,4 +1,16 @@
-﻿--------------------- POPULATE [PowerBI].[pfy-dss-pbi-actual] WITH PREVIOUS FINANCIAL YEAR DATA --------------------------- 
+﻿----- UPDATE OUTCOME AND OUTCOME VOLUME TABLES
+
+    TRUNCATE TABLE [PowerBI].[dss-pbi-outcome]
+                ;
+                INSERT INTO [PowerBI].[dss-pbi-outcome]
+                SELECT * FROM [PowerBI].[v-dss-pbi-outcome]
+                ;
+                TRUNCATE TABLE [PowerBI].[dss-pbi-outcomeactualvolume]
+                ;
+                INSERT INTO [PowerBI].[dss-pbi-outcomeactualvolume]
+                SELECT * FROM [PowerBI].[v-dss-pbi-outcomeactualvolume] WHERE TouchpointID IS NOT NULL
+
+--------------------- POPULATE [PowerBI].[pfy-dss-pbi-actual] WITH PREVIOUS FINANCIAL YEAR DATA --------------------------- 
     MERGE INTO [PowerBI].[pfy-dss-pbi-actual] AS Target
     USING (
         SELECT [RegionName],
