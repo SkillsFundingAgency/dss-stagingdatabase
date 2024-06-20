@@ -68,7 +68,7 @@
                [CustomerCount]
         FROM [PowerBI].[v-dss-pbi-customercount] A
         INNER JOIN [PowerBI].[dss-pbi-financialyear] PF ON A.PeriodYear = PF.FinancialYear
-        WHERE PF.CurrentYear IS NULL
+        WHERE PF.CurrentYear IS NULL and [TouchpointID] is not null
     ) AS Source
     ON Target.[TouchpointID] = Source.[TouchpointID]
        AND Target.[PeriodYear] = Source.[PeriodYear]
@@ -76,7 +76,7 @@
        AND Target.[PriorityOrNot] = Source.[PriorityOrNot]
     WHEN MATCHED THEN
         UPDATE SET Target.[CustomerCount] = Source.[CustomerCount]
-    WHEN NOT MATCHED BY TARGET and Source.[TouchpointID]!=null THEN
+    WHEN NOT MATCHED BY TARGET  THEN
         INSERT ([TouchpointID], [PeriodYear], [PeriodMonth], [PriorityOrNot], [CustomerCount])
         VALUES (Source.[TouchpointID], Source.[PeriodYear], Source.[PeriodMonth], Source.[PriorityOrNot], Source.[CustomerCount]);
             
@@ -94,7 +94,7 @@
                [YTD_OutcomeNumber],[date]
         FROM [PowerBI].[v-dss-pbi-outcomeprofilevolume] A
         INNER JOIN [PowerBI].[dss-pbi-financialyear] PF ON A.PeriodYear = PF.FinancialYear
-        WHERE PF.CurrentYear IS NULL
+        WHERE PF.CurrentYear IS NULL  and [TouchpointID] is not null
     ) AS Source
     ON Target.[TouchpointID] = Source.[TouchpointID]
        AND Target.[ProfileCategory] = Source.[ProfileCategory]
@@ -106,7 +106,7 @@
     WHEN MATCHED THEN
         UPDATE SET Target.[OutcomeNumber] = Source.[OutcomeNumber],
                    Target.[YTD_OutcomeNumber] = Source.[YTD_OutcomeNumber]
-    WHEN NOT MATCHED BY TARGET and Source.[TouchpointID]!=null    THEN
+    WHEN NOT MATCHED BY TARGET  THEN
         INSERT ([TouchpointID], [ProfileCategory], [PriorityOrNot], [PeriodMonth], [PeriodYear], [OutcomeNumber], [YTD_OutcomeNumber],[date])
         VALUES (Source.[TouchpointID], Source.[ProfileCategory], Source.[PriorityOrNot], Source.[PeriodMonth], Source.[PeriodYear], Source.[OutcomeNumber], Source.[YTD_OutcomeNumber],Source.[date]);
 
@@ -151,7 +151,7 @@ MERGE INTO [PowerBI].[pfy-dss-pbi-outcome] AS Target
                [YTD_OutcomeNumber]
         FROM [PowerBI].[fun-dss-pbi-outcomeactualvolume]() AS oav
         INNER JOIN [PowerBI].[dss-pbi-financialyear] PF ON oav.[PeriodYear] = PF.FinancialYear
-        WHERE PF.CurrentYear IS NULL
+        WHERE PF.CurrentYear IS NULL  and [TouchpointID] is not null
     ) AS Source
     ON Target.[TouchpointID] = Source.[TouchpointID]
        AND Target.[ProfileCategory] = Source.[ProfileCategory]
@@ -162,7 +162,7 @@ MERGE INTO [PowerBI].[pfy-dss-pbi-outcome] AS Target
     WHEN MATCHED THEN
         UPDATE SET Target.[OutcomeNumber] = Source.[OutcomeNumber],
                    Target.[YTD_OutcomeNumber] = Source.[YTD_OutcomeNumber]
-    WHEN NOT MATCHED BY TARGET and Source.[TouchpointID]!=null  THEN
+    WHEN NOT MATCHED BY TARGET   THEN
         INSERT ([TouchpointID], [ProfileCategory], [PriorityOrNot], [PeriodMonth], [DATE], [PeriodYear], [OutcomeNumber], [YTD_OutcomeNumber])
         VALUES (Source.[TouchpointID], Source.[ProfileCategory], Source.[PriorityOrNot], Source.[PeriodMonth], Source.[DATE], Source.[PeriodYear], Source.[OutcomeNumber], Source.[YTD_OutcomeNumber]);
 
@@ -179,7 +179,7 @@ MERGE INTO [PowerBI].[pfy-dss-pbi-outcome] AS Target
                [YTD OutcomeFinance]
         FROM [PowerBI].[v-dss-pbi-outcomeactualfact] AS OAC
         JOIN [PowerBI].[v-dss-pbi-date] AS PD ON PD.Date = OAC.Date
-        WHERE PD.CurrentYear IS NULL
+        WHERE PD.CurrentYear IS NULL and [TouchpointID] is not null
     ) AS Source
     ON Target.[TouchpointID] = Source.[TouchpointID]
        AND Target.[Outcome ID] = Source.[Outcome ID]
@@ -190,7 +190,7 @@ MERGE INTO [PowerBI].[pfy-dss-pbi-outcome] AS Target
                    Target.[YTD OutcomeNumber] = Source.[YTD OutcomeNumber],
                    Target.[OutcomeFinance] = Source.[Outcome Finance],
                    Target.[YTD OutcomeFinance] = Source.[YTD OutcomeFinance]
-    WHEN NOT MATCHED BY TARGET and Source.[TouchpointID]!=null  THEN
+    WHEN NOT MATCHED BY TARGET  THEN
         INSERT ([TouchpointID], [Outcome ID], [Group ID], [Date], [OutcomeNumber], [YTD OutcomeNumber], [OutcomeFinance], [YTD OutcomeFinance])
         VALUES (Source.[TouchpointID], Source.[Outcome ID], Source.[Group ID], Source.[Date], Source.[Outcome number], Source.[YTD OutcomeNumber], Source.[Outcome Finance], Source.[YTD OutcomeFinance]);
     ---------- POPULATE [PowerBI].[pfy-dss-pbi-conversionrate] WITH PREVIOUS FINANCIAL YEAR DATA --------------
