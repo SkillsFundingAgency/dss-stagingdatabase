@@ -250,6 +250,7 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-nationaltarget.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeactualfactday5.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-dss-pbi-outcomeactualfactday5.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-customersatisfactioncount.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
