@@ -42,26 +42,9 @@ BEGIN
 	ALTER TABLE [dbo].[dss-employmentprogressions-history] ALTER COLUMN EconomicShockCode VARCHAR (50);
 END;
 
-DROP INDEX IF EXISTS [pbi-dss-actionplans-DAPC] ON [dbo].[dss-actionplans]
-Go
+--- CREATE TABLES REQUIRED TO STORE PFY DATA -----
+:r ./Create_PFYTables.sql
 
-CREATE NONCLUSTERED INDEX [pbi-dss-actionplans-DAPC] ON [dbo].[dss-actionplans] ([DateActionPlanCreated]) INCLUDE ([CustomerId], [LastModifiedDate], [CreatedBy])
-Go
+--- POPULATE PFY DATA --------
+:r ./Populate_PFYData.sql
 
-DROP INDEX IF EXISTS [pbi-dss-outcomes-sessionid] ON [dbo].[dss-outcomes]
-Go
-
-CREATE NONCLUSTERED INDEX [pbi-dss-outcomes-sessionid] ON [dbo].[dss-outcomes] ([SessionId], [ActionPlanId])
-Go
-
-DROP INDEX IF EXISTS [pbi-dss-outcomes-cust] ON [dbo].[dss-outcomes]
-Go
-
-CREATE NONCLUSTERED INDEX [pbi-dss-outcomes-cust] ON [dbo].[dss-outcomes] ([CustomerID]) INCLUDE ([OutcomeEffectiveDate], [OutcomeType])
-Go
-
-DROP INDEX IF EXISTS [pbi-dss-outcomes-date] ON [dbo].[dss-outcomes]
-Go
-
-CREATE NONCLUSTERED INDEX [pbi-dss-outcomes-date] ON [dbo].[dss-outcomes] ([OutcomeClaimedDate], [OutcomeEffectiveDate]) INCLUDE ([CustomerID], [ActionPlanID], [OutcomeType], [ClaimedPriorityGroup], [IsPriorityCustomer], [TouchPointID], [LastModifiedDate])
-GO

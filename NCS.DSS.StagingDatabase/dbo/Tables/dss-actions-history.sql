@@ -26,3 +26,7 @@
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
+CREATE NONCLUSTERED INDEX [nci_dss-actions-history_customerid] ON [dbo].[dss-actions-history] ([CustomerId]) WITH (ONLINE = ON)
+
+GO
+

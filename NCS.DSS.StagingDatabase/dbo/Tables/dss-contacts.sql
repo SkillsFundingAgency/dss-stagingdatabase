@@ -11,3 +11,9 @@
     CONSTRAINT [PK_dss-contacts] PRIMARY KEY ([id])
 );
 
+GO
+
+CREATE NONCLUSTERED INDEX [nci_dss-contacts_customerid] ON [dbo].[dss-contacts] ([CustomerId]) WITH (ONLINE = ON)
+
+GO
+
