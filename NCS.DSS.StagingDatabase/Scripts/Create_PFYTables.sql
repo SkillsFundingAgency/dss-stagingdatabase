@@ -1,4 +1,15 @@
 ﻿
+IF NOT EXISTS(
+       SELECT 1
+       FROM   sys.columns
+       WHERE  NAME = 'CurrentYear'
+              AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-financialyear')
+              AND TYPE_NAME(system_type_id) = 'bit'
+   )
+BEGIN
+	ALTER TABLE [PowerBI].[dss-pbi-financialyear] ADD CurrentYear bit null;
+END;
+GO
 ALTER VIEW [PowerBI].[v-dss-pbi-date] WITH SCHEMABINDING 
 AS 
     SELECT 
