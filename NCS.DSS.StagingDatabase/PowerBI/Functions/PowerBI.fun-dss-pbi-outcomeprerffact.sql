@@ -1,4 +1,4 @@
-CREATE FUNCTION [PowerBI].[fun-dss-pbi-outcomeprofilefact]()
+CREATE FUNCTION [PowerBI].[fun-dss-pbi-outcomeperffact]()
 RETURNS @funReturn Table
 (
     TouchpointID INT,

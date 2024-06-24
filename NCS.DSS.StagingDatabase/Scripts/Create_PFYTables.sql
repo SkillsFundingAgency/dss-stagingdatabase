@@ -1,15 +1,36 @@
-CREATE VIEW [PowerBI].[v-dss-pbi-outcome] 
-AS
+﻿
+IF NOT EXISTS(
+       SELECT 1
+       FROM   sys.columns
+       WHERE  NAME = 'CurrentYear'
+              AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-financialyear')
+              AND TYPE_NAME(system_type_id) = 'bit'
+   )
+BEGIN
+	ALTER TABLE [PowerBI].[dss-pbi-financialyear] ADD CurrentYear bit null;
+END;
+GO
+ALTER VIEW [PowerBI].[v-dss-pbi-date] WITH SCHEMABINDING 
+AS 
+    SELECT 
+        PD.[CalendarDate] AS [Date] 
+        ,PD.[CalendarYear] AS [Year]
+        ,PM.[MonthFullName] AS [Month]
+        ,PM.[MonthId] AS [Month Number]
+        ,PM.[PeriodMonth] AS [Fiscal Month Number]
+        ,PM.[Quarter] AS [Quarter]
+        ,PM.[PeriodQuarter] AS [Fiscal Quarter]
+        ,PF.[FinancialYear] AS [Fiscal Year]
+        ,PF.CurrentYear
+    FROM [PowerBI].[dss-pbi-date] AS PD 
+    INNER JOIN [PowerBI].[dss-pbi-monthsinyear] AS PM 
+    ON PM.[MonthId] = PD.[MonthID]
+    INNER JOIN [PowerBI].[dss-pbi-financialyear] AS PF 
+    ON PD.[CalendarDate] BETWEEN PF.[StartDateTime] AND PF.[EndDateTime] 
+;
+GO
 
-SELECT [TouchpointID]
-	,[PriorityOrNot]
-	,[OutcomeTypeValue]
-	,[OutcomeTypeGroup]
-	,[PeriodMonth]
-	,[PeriodYear] 
-	,[OutcomeNumber]
-FROM [PowerBI].[pfy-dss-pbi-outcome]
-UNION
+ALTER VIEW [PowerBI].[v-dss-pbi-outcome] AS
 SELECT
               MY3.[TouchpointID]
               ,MY3.[PriorityOrNot]
@@ -65,7 +86,7 @@ FROM
                                                           ,MY.[SessionRank]
                                                           ,MY.[PeriodMonth]
                                                           ,MY.[PeriodYear]
-                                                          ,LAG(MY.[OutcomeTypeValue]) OVER (PARTITION BY MY.[CustomerID], MY.[PeriodYear]  ORDER BY MY.[OutcomeEffectiveDate], MY.[OutcomeTypeValue]) AS [PrevOutcomeType]
+                                                          ,LAG(MY.[OutcomeTypeValue]) OVER (PARTITION BY MY.[CustomerID], MY.[PeriodYear] ORDER BY MY.[OutcomeEffectiveDate], MY.[OutcomeTypeValue]) AS [PrevOutcomeType]
                                            FROM
                                            (
                                                           SELECT
@@ -120,7 +141,7 @@ FROM
                                                           AND DR.[name] = 'OutcomeType'
 														  LEFT JOIN [dss-employmentprogressions] ep on ep.CustomerId = DC.id AND ep.DateProgressionRecorded BETWEEN DATEADD(MONTH, -12, DO.OutcomeEffectiveDate) AND DO.OutcomeEffectiveDate
 														  JOIN PowerBI.[dss-pbi-financialyear] AS FY ON (CAST(DO.OutcomeEffectiveDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)					AND (CAST(DO.OutcomeClaimedDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)
-                                                          WHERE (DC.ReasonForTermination IS NULL OR DC.ReasonForTermination <> 3) AND FY.CurrentYear = 1													  
+                                                          WHERE (DC.ReasonForTermination IS NULL OR DC.ReasonForTermination <> 3) 												  
                                            ) AS MY
                                            WHERE MY.[SessionRank] = 1
                              ) AS MY1
@@ -172,7 +193,7 @@ FROM
                                            OR (MY1.[OutcomeTypeValue] = 5 AND MY1.[PrevOutcomeType] IS  NULL)
                                            OR (MY1.[OutcomeTypeValue] = 5 AND MY1.[PrevOutcomeType] <> 3)
                              )
-              ) AS MY2 			  
+              ) AS MY2
               GROUP BY
                              MY2.[TouchpointID]
                              ,MY2.[PriorityOrNot]
@@ -207,8 +228,6 @@ FROM
                              AND [Date] < GETDATE() 
               ) AS PD
 ) AS MY3
- INNER JOIN [PowerBI].[dss-pbi-financialyear] PF on MY3.[PeriodYear]=PF.FinancialYear
-			  WHERE PF.CurrentYear = 1
 GROUP BY
     MY3.[TouchpointID]
     ,MY3.[PeriodYear]
@@ -218,3 +237,172 @@ GROUP BY
     ,MY3.[OutcomeTypeValue]
 ;
 GO
+
+
+IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcome' AND TABLE_SCHEMA = 'PowerBI')
+BEGIN	
+	CREATE TABLE [PowerBI].[pfy-dss-pbi-outcome](
+		[TouchpointID] [varchar](4) NOT NULL,
+		[PriorityOrNot] [varchar](2) NOT NULL,
+		[OutcomeTypeValue] [int] NOT NULL,
+		[OutcomeTypeGroup] [varchar](4) NOT NULL,
+		[PeriodMonth] [int] NOT NULL,
+		[PeriodYear] [varchar](9) NOT NULL,
+		[OutcomeNumber] [decimal](11, 2) NULL,
+		CONSTRAINT [pk-pfy-dss-pbi-outcome] PRIMARY KEY CLUSTERED 
+		(
+			[TouchpointID] ASC,
+			[PeriodYear] ASC,
+			[PeriodMonth] ASC,
+			[PriorityOrNot] ASC,
+			[OutcomeTypeGroup] ASC,
+			[OutcomeTypeValue] ASC
+		)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+	)
+END
+
+IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcome-actualvolume' AND TABLE_SCHEMA = 'PowerBI')
+BEGIN	
+	CREATE TABLE [PowerBI].[pfy-dss-pbi-outcome-actualvolume] (
+    [TouchpointID] INT
+	,[ProfileCategory] VARCHAR(4)
+	,[PriorityOrNot] VARCHAR(2)
+	,[PeriodMonth] INT
+	,[DATE] DATETIME
+	,[PeriodYear] VARCHAR(9)
+	,[OutcomeNumber] DECIMAL(9,2)
+	,[YTD_OutcomeNumber] DECIMAL(9,2)
+	CONSTRAINT [pk-pfy-dss-pbi-outcome-actualvolume] PRIMARY KEY CLUSTERED 
+	(
+		[TouchpointID] ASC,
+		[ProfileCategory] ASC,
+		[PeriodYear] ASC,
+		[PeriodMonth] ASC,
+		[PriorityOrNot] ASC,
+		[DATE] ASC
+	)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+
+	)
+END
+
+
+IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcomeactualfact' AND TABLE_SCHEMA = 'PowerBI')
+BEGIN	
+	CREATE TABLE [PowerBI].[pfy-dss-pbi-outcomeactualfact] (
+    [TouchpointID] INT
+	,[Outcome ID] INT
+	,[Group ID] INT
+	,[DATE] DATETIME
+	,[OutcomeNumber] DECIMAL(9,2)
+	,[YTD OutcomeNumber] DECIMAL(9,2)
+	,[Outcomefinance] DECIMAL(9,2)
+	,[YTD OutcomeFinance] DECIMAL(9,2)
+	CONSTRAINT [pk-pfy-dss-pbi-outcomeactualfact] PRIMARY KEY CLUSTERED 
+	(
+		[TouchpointID] ASC,
+		[Outcome ID] ASC,
+		[Group ID] ASC,
+		[DATE] ASC
+	)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+
+	)
+END
+
+
+IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-conversionrate' AND TABLE_SCHEMA = 'PowerBI')
+BEGIN	
+	CREATE TABLE [PowerBI].[pfy-dss-pbi-conversionrate] (
+    [TouchpointID] INT
+	,[Outcome ID] INT
+	,[DATE] DATETIME
+	,[Performance] DECIMAL(9,2)
+	,[Performance YTD] DECIMAL(9,2)
+	CONSTRAINT [pk-pfy-dss-pbi-conversionrate] PRIMARY KEY CLUSTERED 
+	(
+		[TouchpointID] ASC,
+		[Outcome ID] ASC,
+		[DATE] ASC
+	)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+	)
+END
+
+
+IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-actual' AND TABLE_SCHEMA = 'PowerBI')
+BEGIN	
+	CREATE TABLE [PowerBI].[pfy-dss-pbi-actual](
+		[RegionName] [varchar](30) ,
+		[FinancialYear] [varchar](9) ,
+		[PriorityOrNot] [varchar](2) ,
+		[MonthShortName] [varchar](3) ,
+		[CustomerCount] [int] ,
+		[YTD_CustomerCount] [int] ,
+		CONSTRAINT [pk-pfy-dss-pbi-actual] PRIMARY KEY CLUSTERED 
+		(
+			[RegionName] ASC,
+			[FinancialYear] ASC,
+			[PriorityOrNot] ASC,
+			[MonthShortName] ASC
+		 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+	)
+END
+
+IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-contractinformation' AND TABLE_SCHEMA = 'PowerBI')
+BEGIN	
+	CREATE TABLE [PowerBI].[pfy-dss-pbi-contractinformation](
+	[TouchpointID]int,
+	[ProfileCategory] varchar(23),
+	[Date] datetime,
+	[Fiscal Year] varchar(9),
+	[ProfileCategoryValue] decimal(38,2),
+	
+	CONSTRAINT [pk-pfy-dss-pbi-contractinformation] PRIMARY KEY CLUSTERED 
+		(
+			[TouchpointID] ASC,
+			[ProfileCategory] ASC,
+			[Date] ASC,
+			[Fiscal Year] ASC
+		 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+	)
+END
+
+IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-customercount' AND TABLE_SCHEMA = 'PowerBI')
+BEGIN	
+	CREATE TABLE [PowerBI].[pfy-dss-pbi-customercount](
+		TouchpointID varchar(4) not null,
+		PeriodYear varchar(61) not null,
+		PeriodMonth int not null,
+		PriorityOrNot varchar(2) not null,
+		CustomerCount int,	
+	CONSTRAINT [pk-pfy-dss-pbi-customercount] PRIMARY KEY CLUSTERED 
+		(
+		TouchpointID ASC,
+		PeriodYear ASC,
+		PeriodMonth ASC,
+		PriorityOrNot ASC
+		)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+	)
+END
+
+
+IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcomeprofilevolume' AND TABLE_SCHEMA = 'PowerBI')
+BEGIN	
+	CREATE TABLE [PowerBI].[pfy-dss-pbi-outcomeprofilevolume](
+		[TouchpointID] varchar(4) not null
+        ,[ProfileCategory] varchar(10) not null
+        ,[PriorityOrNot] varchar(2) not null
+        ,[PeriodMonth] int not null
+		,[date] datetime2(7) not null
+        ,[PeriodYear] varchar(9) not null
+        ,[OutcomeNumber] decimal(10,2)
+        ,[YTD_OutcomeNumber] decimal(10,2)
+	CONSTRAINT [pk-pfy-dss-pbi-outcomeprofilevolume] PRIMARY KEY CLUSTERED 
+	(
+		TouchpointID ASC,
+		[ProfileCategory] ASC,
+		[PriorityOrNot] ASC,
+		[PeriodMonth] ASC,
+		[date] ASC,
+		[PeriodYear] ASC
+		)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+	)
+END

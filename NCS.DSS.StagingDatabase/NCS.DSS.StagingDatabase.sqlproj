@@ -246,12 +246,24 @@
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-dss-pbi-outcome.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-outcomeactualvolume.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-outcomeperffact.sql" />
-	<Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-outcome-tables.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-outcome-tables.sql" />
     <Build Include="Scripts\PowerBI_Schema.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-nationaltarget.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeactualfactday5.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-dss-pbi-outcomeactualfactday5.sql" />
-    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeprofilefact.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-customersatisfactioncount.sql" />
+    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeprerffact.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcome.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeactualvolume.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeactualfact.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-conversionrate.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-actual.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-contractinformation.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-customercount.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeprofilevolume.sql" />
+    <Build Include="PowerBI\Stored Procedures\Populate_PFY_Data.sql" />
+    <None Include="Scripts\Populate_PFYData.sql" />
+    <None Include="Scripts\Create_PFYTables.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
