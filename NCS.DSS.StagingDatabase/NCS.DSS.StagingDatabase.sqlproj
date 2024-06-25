@@ -265,6 +265,16 @@
     <None Include="Scripts\Populate_PFYData.sql" />
     <None Include="Scripts\Create_PFYTables.sql" />
     <None Include="Scripts\Remove_CFYData.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-actual-FY.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-contractinformation-FY.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-customercount-FY.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcome-FY.sql" />
+    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualfact-FY.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeactualfact-FY.sql" />
+    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualvolume-FY.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeactualvolume-FY.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate-FY.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeprofilevolume-FY.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
