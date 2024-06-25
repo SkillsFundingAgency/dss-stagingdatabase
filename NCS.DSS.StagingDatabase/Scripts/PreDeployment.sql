@@ -45,9 +45,6 @@ END;
 --- CREATE TABLES REQUIRED TO STORE PFY DATA -----
 :r ./Create_PFYTables.sql
 
----- REMOVE CFY DATA IN PFY TABLES (IF DATA EXISTS) -------
-:r ./Remove_CFYData.sql
-
 --- POPULATE PFY DATA --------
 :r ./Populate_PFYData.sql
 

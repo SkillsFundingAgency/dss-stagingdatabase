@@ -264,7 +264,6 @@
     <Build Include="PowerBI\Stored Procedures\Populate_PFY_Data.sql" />
     <None Include="Scripts\Populate_PFYData.sql" />
     <None Include="Scripts\Create_PFYTables.sql" />
-    <None Include="Scripts\Remove_CFYData.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-actual-FY.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-contractinformation-FY.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-customercount-FY.sql" />
