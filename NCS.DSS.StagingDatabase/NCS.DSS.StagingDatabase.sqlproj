@@ -264,6 +264,7 @@
     <Build Include="PowerBI\Stored Procedures\Populate_PFY_Data.sql" />
     <None Include="Scripts\Populate_PFYData.sql" />
     <None Include="Scripts\Create_PFYTables.sql" />
+    <None Include="Scripts\Remove_CFYData.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
