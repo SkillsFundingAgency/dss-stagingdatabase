@@ -18,7 +18,7 @@ AS
 	    LEFT JOIN [dbo].[dss-outcomes] AS DO ON DO.[ActionPlanId] = AP.[id]
         LEFT JOIN [dbo].[dss-prioritygroups] AS P ON P.CustomerId = AP.CustomerId
 	    LEFT JOIN [dbo].[dss-employmentprogressions] ep on ep.CustomerId = C.id AND ep.DateProgressionRecorded BETWEEN DATEADD(MONTH, -12, DO.OutcomeEffectiveDate) AND DO.OutcomeEffectiveDate
-	    INNER JOIN PowerBI.[dss-pbi-financialyear] AS DR ON AP.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime --AND DR.CurrentYear = 1
+	    INNER JOIN PowerBI.[dss-pbi-financialyear] AS DR ON AP.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime AND DR.CurrentYear = 1
     WHERE (C.ReasonForTermination IS NULL OR C.ReasonForTermination <> 3)
     )
 	    SELECT [TouchpointID]
@@ -36,8 +36,6 @@ AS
         COUNT(DISTINCT R.CustomerID) AS CustomerCount
     FROM RelevantData AS R
     WHERE (R.Age >= 19 OR (R.PriorityCustomer = 1 AND R.Age >= 18 AND R.Age <= 24))
-       -- AND R.TouchpointID = 201
-     --AND R.PriorityOrNot = 'PG'
         AND R.RankID = 1 
     GROUP BY R.TouchpointID, R.PeriodYear, R.PeriodMonth, R.PriorityOrNot;
 ;
