@@ -274,6 +274,8 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeactualvolume-FY.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate-FY.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeprofilevolume-FY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpsertActualPaymentsMade.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpsertPrimeProfile.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
