@@ -1,5 +1,5 @@
 
-CREATE VIEW [PowerBI].[v-dss-pbi-outcomeprofilevolume] 
+CREATE VIEW [PowerBI].[v-dss-pbi-outcomeprofilevolume-FY] 
 AS 
     WITH MYProfile 
     (
@@ -41,7 +41,7 @@ AS
 on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] IN ('CMO', 'JO', 'LO') 
-		and fy.CurrentYear=1
+		
         UNION ALL 
         SELECT 
             PPP.[TouchpointID] 
@@ -74,7 +74,7 @@ on fy.FinancialYear=PPP.[FinancialYear]
 on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] = 'CMO' 
-		and fy.CurrentYear=1
+		
         UNION ALL 
         SELECT 
             PPP.[TouchpointID] 
@@ -104,19 +104,9 @@ on fy.FinancialYear=PPP.[FinancialYear]
 on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] = 'CMO' 
-		and fy.CurrentYear=1
+	
     )
-	SELECT 
-         [TouchpointID]
-        ,[ProfileCategory]
-        ,[PriorityOrNot]
-        ,[PeriodMonth]
-        ,[Date]
-        ,[PeriodYear] 
-        ,[OutcomeNumber]
-        ,[YTD_OutcomeNumber]
-    FROM [PowerBI].[pfy-dss-pbi-outcomeprofilevolume]
-	UNION ALL
+
     SELECT 
         MY.[TouchpointID]
         ,MY.[ProfileCategory]
