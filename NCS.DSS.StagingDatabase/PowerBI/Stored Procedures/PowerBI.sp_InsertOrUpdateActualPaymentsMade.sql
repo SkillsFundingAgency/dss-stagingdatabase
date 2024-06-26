@@ -7,8 +7,6 @@ Create PROCEDURE [PowerBI].[sp_InsertOrUpdateActualPaymentsMade]
 AS
 BEGIN
 
-    BEGIN TRANSACTION;
-
     UPDATE [PowerBI].[dss-pbi-actualpaymentsmade]
     SET [PaymentMade] = @PaymentMade
     WHERE [TouchpointID] = @TouchpointID
@@ -23,5 +21,4 @@ BEGIN
         VALUES
             (@TouchpointID, @FinancialYear, @MonthID, @CategoryName, @PaymentMade);
     END
-    COMMIT TRANSACTION;
 END
