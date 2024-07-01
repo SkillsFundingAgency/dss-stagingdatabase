@@ -110,8 +110,7 @@
    ---------- POPULATE [PowerBI].[pfy-dss-pbi-conversionrate] WITH PREVIOUS FINANCIAL YEAR DATA --------------
     TRUNCATE TABLE [PowerBI].[pfy-dss-pbi-conversionrate] ;
     INSERT INTO [PowerBI].[pfy-dss-pbi-conversionrate] 
-    SELECT  
-        SELECT [TouchpointID],
+    SELECT [TouchpointID],
                [Outcome ID],
                cr.[Date],
                [Performance],
