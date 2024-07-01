@@ -189,8 +189,4 @@ BEGIN
 		)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 	)
 END
-Else
-BEGIN	
-	Alter TABLE   [PowerBI].[pfy-dss-pbi-outcomeprofilevolume]
-		alter column [date] datetime not null
-END
+
