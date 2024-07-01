@@ -167,8 +167,12 @@ BEGIN
 END
 
 
-IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcomeprofilevolume' AND TABLE_SCHEMA = 'PowerBI')
+IF EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcomeprofilevolume' AND TABLE_SCHEMA = 'PowerBI')
 BEGIN	
+	DROP TABLE  [PowerBI].[pfy-dss-pbi-outcomeprofilevolume];
+END
+ELSE
+BEGIN
 	CREATE TABLE [PowerBI].[pfy-dss-pbi-outcomeprofilevolume](
 		[TouchpointID] varchar(4) not null
         ,[ProfileCategory] varchar(10) not null
