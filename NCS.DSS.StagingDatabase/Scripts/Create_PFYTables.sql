@@ -174,7 +174,7 @@ BEGIN
         ,[ProfileCategory] varchar(10) not null
         ,[PriorityOrNot] varchar(2) not null
         ,[PeriodMonth] int not null
-		,[date] datetime2(7) not null
+		,[date] datetime not null
         ,[PeriodYear] varchar(9) not null
         ,[OutcomeNumber] decimal(10,2)
         ,[YTD_OutcomeNumber] decimal(10,2)
@@ -189,6 +189,14 @@ BEGIN
 		)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 	)
 END
+Else
+BEGIN	
+	Alter TABLE   [PowerBI].[pfy-dss-pbi-outcomeprofilevolume]
+		alter column [date] datetime not null
+END
+
+
+
 IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'v-dss-pbi-actual-FY' AND TABLE_SCHEMA = 'PowerBI')
 BEGIN
 	CREATE VIEW [PowerBI].[v-dss-pbi-actual-FY]  AS 
