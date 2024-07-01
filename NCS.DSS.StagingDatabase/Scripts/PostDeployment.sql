@@ -11,3 +11,7 @@ Post-Deployment Script Template
 */
 
 EXECUTE [dbo].[usp_CreateReferenceData];
+
+
+--- POPULATE PFY DATA --------
+:r ./Populate_PFYData.sql
