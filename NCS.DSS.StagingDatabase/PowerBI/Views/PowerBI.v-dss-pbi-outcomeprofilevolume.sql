@@ -140,16 +140,16 @@ on fy.FinancialYear=PPP.[FinancialYear]
             ,MY1.[PriorityOrNot]
             ,MY1.[PeriodMonth]
             ,MY1.[PeriodYear] 
-            ,CAST(CASE WHEN MY1.[ProfileCategory] = 'CMD' THEN 
-                    IIF(MY1.[YTD_OutcomeNumber] > ((DP.[ProfileCategoryValue] + DP.[ProfileCategoryValueQ1] + DP.[ProfileCategoryValueQ2] + DP.[ProfileCategoryValueQ3])  * DRR.[ReferenceValue] / 100), 
-                        MY1.[YTD_OutcomeNumber] - ((DP.[ProfileCategoryValue] + DP.[ProfileCategoryValueQ1] + DP.[ProfileCategoryValueQ2] + DP.[ProfileCategoryValueQ3]) * DRR.[ReferenceValue] / 100), 0) 
+           ,CAST(CASE WHEN MY1.[ProfileCategory] = 'CMD' THEN 
+                    IIF(MY1.[YTD_OutcomeNumber] > ((DP.[ProfileCategoryValue] + ISNULL(DP.[ProfileCategoryValueQ1],0) + ISNULL(DP.[ProfileCategoryValueQ2],0) + ISNULL(DP.[ProfileCategoryValueQ3],0))  * DRR.[ReferenceValue] / 100), 
+                        MY1.[YTD_OutcomeNumber] - ((DP.[ProfileCategoryValue] + ISNULL(DP.[ProfileCategoryValueQ1],0) + ISNULL(DP.[ProfileCategoryValueQ2],0) + ISNULL(DP.[ProfileCategoryValueQ3],0)) * DRR.[ReferenceValue] / 100), 0) 
                     ELSE 
                         MY1.[OutcomeNumber]
                     END AS DECIMAL(10, 2)) AS [OutcomeNumber]
             ,CAST(CASE WHEN MY1.[ProfileCategory] = 'CMD' THEN 
-                    IIF(MY1.[YTD_OutcomeNumber] > ((DP.[ProfileCategoryValue] + DP.[ProfileCategoryValueQ1] + DP.[ProfileCategoryValueQ2] + DP.[ProfileCategoryValueQ3]) * DRR.[ReferenceValue] / 100), 
-                        MY1.[YTD_OutcomeNumber] - ((DP.[ProfileCategoryValue] + DP.[ProfileCategoryValueQ1] + DP.[ProfileCategoryValueQ2] + DP.[ProfileCategoryValueQ3]) * DRR.[ReferenceValue] / 100), 0) 
-                    ELSE 
+                    IIF(MY1.[YTD_OutcomeNumber] > ((DP.[ProfileCategoryValue] + ISNULL(DP.[ProfileCategoryValueQ1],0) + ISNULL(DP.[ProfileCategoryValueQ2],0) + ISNULL(DP.[ProfileCategoryValueQ3],0)) * DRR.[ReferenceValue] / 100), 
+                        MY1.[YTD_OutcomeNumber] - ((DP.[ProfileCategoryValue] +ISNULL(DP.[ProfileCategoryValueQ1],0) + ISNULL(DP.[ProfileCategoryValueQ2],0) + ISNULL(DP.[ProfileCategoryValueQ3],0)) * DRR.[ReferenceValue] / 100), 0) 
+                     ELSE 
                         MY1.[YTD_OutcomeNumber]
                     END AS DECIMAL(10, 2)) AS [YTD_OutcomeNumber]
         FROM MYProfile AS MY1 
