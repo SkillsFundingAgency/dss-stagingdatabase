@@ -1,4 +1,5 @@
-CREATE VIEW [PowerBI].[v-dss-pbi-customercount] WITH SCHEMABINDING 
+
+CREATE VIEW [PowerBI].[v-dss-pbi-customercount-FY] WITH SCHEMABINDING 
 AS 
     WITH RelevantData AS (
         SELECT	
@@ -17,16 +18,10 @@ AS
 	    LEFT JOIN [dbo].[dss-outcomes] AS DO ON DO.[ActionPlanId] = AP.[id]
         LEFT JOIN [dbo].[dss-prioritygroups] AS P ON P.CustomerId = AP.CustomerId
 	    LEFT JOIN [dbo].[dss-employmentprogressions] ep on ep.CustomerId = C.id AND ep.DateProgressionRecorded BETWEEN DATEADD(MONTH, -12, DO.OutcomeEffectiveDate) AND DO.OutcomeEffectiveDate
-	    INNER JOIN PowerBI.[dss-pbi-financialyear] AS DR ON AP.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime AND DR.CurrentYear = 1
+	    INNER JOIN PowerBI.[dss-pbi-financialyear] AS DR ON AP.DateActionPlanCreated BETWEEN DR.StartDateTime AND DR.EndDateTime 
     WHERE (C.ReasonForTermination IS NULL OR C.ReasonForTermination <> 3)
     )
-	    SELECT [TouchpointID]
-          ,[PeriodYear]
-          ,[PeriodMonth]
-          ,[PriorityOrNot]
-          ,[CustomerCount]
-      FROM [PowerBI].[pfy-dss-pbi-customercount]
-      union all
+
     SELECT	
         R.TouchpointID,
         R.PeriodYear,
