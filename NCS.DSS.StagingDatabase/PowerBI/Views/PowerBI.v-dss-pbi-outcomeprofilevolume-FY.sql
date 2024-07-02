@@ -1,5 +1,5 @@
 
-CREATE VIEW [PowerBI].[v-dss-pbi-outcomeprofilevolume] 
+CREATE VIEW [PowerBI].[v-dss-pbi-outcomeprofilevolume-FY] 
 AS 
     WITH MYProfile 
     (
@@ -41,7 +41,7 @@ AS
 on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] IN ('CMO', 'JO', 'LO') 
-		and fy.CurrentYear=1
+		
         UNION ALL 
         SELECT 
             PPP.[TouchpointID] 
@@ -74,7 +74,7 @@ on fy.FinancialYear=PPP.[FinancialYear]
 on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] = 'CMO' 
-		and fy.CurrentYear=1
+		
         UNION ALL 
         SELECT 
             PPP.[TouchpointID] 
@@ -104,19 +104,9 @@ on fy.FinancialYear=PPP.[FinancialYear]
 on fy.FinancialYear=PPP.[FinancialYear]
         WHERE PPP.[FinancialsOrNot] = 0 --Selecting the target/profile number set in the contract 
         AND PPP.[ProfileCategory] = 'CMO' 
-		and fy.CurrentYear=1
+	
     )
-	SELECT 
-         [TouchpointID]
-        ,[ProfileCategory]
-        ,[PriorityOrNot]
-        ,[PeriodMonth]
-        ,[Date]
-        ,[PeriodYear] 
-        ,[OutcomeNumber]
-        ,[YTD_OutcomeNumber]
-    FROM [PowerBI].[pfy-dss-pbi-outcomeprofilevolume]
-	UNION ALL
+
     SELECT 
         MY.[TouchpointID]
         ,MY.[ProfileCategory]
@@ -140,7 +130,7 @@ on fy.FinancialYear=PPP.[FinancialYear]
             ,MY1.[PriorityOrNot]
             ,MY1.[PeriodMonth]
             ,MY1.[PeriodYear] 
-           ,CAST(CASE WHEN MY1.[ProfileCategory] = 'CMD' THEN 
+            ,CAST(CASE WHEN MY1.[ProfileCategory] = 'CMD' THEN 
                     IIF(MY1.[YTD_OutcomeNumber] > ((DP.[ProfileCategoryValue] + ISNULL(DP.[ProfileCategoryValueQ1],0) + ISNULL(DP.[ProfileCategoryValueQ2],0) + ISNULL(DP.[ProfileCategoryValueQ3],0))  * DRR.[ReferenceValue] / 100), 
                         MY1.[YTD_OutcomeNumber] - ((DP.[ProfileCategoryValue] + ISNULL(DP.[ProfileCategoryValueQ1],0) + ISNULL(DP.[ProfileCategoryValueQ2],0) + ISNULL(DP.[ProfileCategoryValueQ3],0)) * DRR.[ReferenceValue] / 100), 0) 
                     ELSE 
@@ -149,7 +139,7 @@ on fy.FinancialYear=PPP.[FinancialYear]
             ,CAST(CASE WHEN MY1.[ProfileCategory] = 'CMD' THEN 
                     IIF(MY1.[YTD_OutcomeNumber] > ((DP.[ProfileCategoryValue] + ISNULL(DP.[ProfileCategoryValueQ1],0) + ISNULL(DP.[ProfileCategoryValueQ2],0) + ISNULL(DP.[ProfileCategoryValueQ3],0)) * DRR.[ReferenceValue] / 100), 
                         MY1.[YTD_OutcomeNumber] - ((DP.[ProfileCategoryValue] +ISNULL(DP.[ProfileCategoryValueQ1],0) + ISNULL(DP.[ProfileCategoryValueQ2],0) + ISNULL(DP.[ProfileCategoryValueQ3],0)) * DRR.[ReferenceValue] / 100), 0) 
-                     ELSE 
+                    ELSE 
                         MY1.[YTD_OutcomeNumber]
                     END AS DECIMAL(10, 2)) AS [YTD_OutcomeNumber]
         FROM MYProfile AS MY1 

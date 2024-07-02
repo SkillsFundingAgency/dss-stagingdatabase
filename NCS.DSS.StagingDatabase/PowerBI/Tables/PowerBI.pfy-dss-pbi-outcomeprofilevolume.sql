@@ -3,7 +3,7 @@ CREATE TABLE [PowerBI].[pfy-dss-pbi-outcomeprofilevolume](
         ,[ProfileCategory] varchar(10) not null
         ,[PriorityOrNot] varchar(2) not null
         ,[PeriodMonth] int not null
-		,[date] datetime2(7) not null
+		,[date] datetime not null
         ,[PeriodYear] varchar(9) not null
         ,[OutcomeNumber] decimal(10,2)
         ,[YTD_OutcomeNumber] decimal(10,2)

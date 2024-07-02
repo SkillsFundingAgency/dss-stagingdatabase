@@ -45,6 +45,4 @@ END;
 --- CREATE TABLES REQUIRED TO STORE PFY DATA -----
 :r ./Create_PFYTables.sql
 
---- POPULATE PFY DATA --------
-:r ./Populate_PFYData.sql
 
