@@ -9,17 +9,7 @@ IF NOT EXISTS(
 BEGIN
 	ALTER TABLE [PowerBI].[dss-pbi-financialyear] ADD CurrentYear bit null;
 END
-ELSE
-BEGIN   
-    UPDATE [PowerBI].[dss-pbi-financialyear]
-        SET CurrentYear = 1
-    WHERE GETDATE() BETWEEN StartDateTime AND EndDateTime;
 
-	UPDATE [PowerBI].[dss-pbi-financialyear]
-        SET CurrentYear = NULL
-    WHERE GETDATE() NOT BETWEEN StartDateTime AND EndDateTime;
-
-END;
 GO
 
 IF NOT EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pfy-dss-pbi-outcome' AND TABLE_SCHEMA = 'PowerBI')
