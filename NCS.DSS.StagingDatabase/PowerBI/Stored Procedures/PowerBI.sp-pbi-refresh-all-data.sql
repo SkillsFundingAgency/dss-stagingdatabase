@@ -1,4 +1,8 @@
-﻿--------------------- POPULATE [PowerBI].[pfy-dss-pbi-customercount] WITH PREVIOUS FINANCIAL YEAR DATA --------------------------- 
+﻿
+CREATE PROCEDURE [PowerBI].[sp-pbi-refresh-all-data](@pr1 int)
+AS
+BEGIN
+  --------------------- POPULATE [PowerBI].[pfy-dss-pbi-customercount] WITH PREVIOUS FINANCIAL YEAR DATA --------------------------- 
     TRUNCATE TABLE [PowerBI].[pfy-dss-pbi-customercount];
     INSERT INTO [PowerBI].[pfy-dss-pbi-customercount]
     SELECT  [TouchpointID],
@@ -120,3 +124,7 @@
         INNER JOIN PowerBI.[v-dss-pbi-date] AS pd ON pd.Date = cr.Date
         WHERE pd.CurrentYear IS NULL
   
+END
+GO
+
+
