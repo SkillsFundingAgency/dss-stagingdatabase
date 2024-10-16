@@ -277,6 +277,16 @@
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpsertActualPaymentsMade.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpsertPrimeProfile.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-all-data.sql" />
+    <Build Include="PowerBI\Stored Procedures\sp_UpsertNationalTarget.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_actual_PFY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_contractinformation_PFY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_conversionrate_PFY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_outcome_PFY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_outcomeactualfact_PFY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_outcomeactualvolume_PFY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_outcomeprofilevolume_PFY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_InsertOrUpdateActualPaymentsMade.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpdateCustomerCount_PFY.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
