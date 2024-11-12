@@ -4,7 +4,7 @@
     @PeriodMonth INT,
     @PriorityOrNot VARCHAR(2),
     @TargetCategory VARCHAR(10),
-    @TargetCategoryValue DECIMAL(5,2),
+    @TargetCategoryValue DECIMAL(8,5),
     @Comments VARCHAR(MAX)
 AS
 BEGIN

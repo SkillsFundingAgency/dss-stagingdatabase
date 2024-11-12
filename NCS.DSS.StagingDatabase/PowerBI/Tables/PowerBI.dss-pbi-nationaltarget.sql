@@ -4,7 +4,7 @@ CREATE TABLE [PowerBI].[dss-pbi-nationaltarget](
 	[PeriodMonth] [int] NOT NULL,
 	[PriorityOrNot] [varchar](2) NOT NULL,
 	[TargetCategory] [varchar](10) NOT NULL,
-	[TargetCategoryValue] [decimal](5, 2) NOT NULL,
+	[TargetCategoryValue] [decimal](8, 5) NOT NULL,
 	[Comments] [varchar](max) NULL,
  CONSTRAINT [pk-dss-pbi-nationaltarget] PRIMARY KEY CLUSTERED 
 (
