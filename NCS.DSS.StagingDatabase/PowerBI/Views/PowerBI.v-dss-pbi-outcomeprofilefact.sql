@@ -24,20 +24,15 @@ AS
             ,PPP.[PeriodYear] 
             ,PPP.[OutcomeNumber]
             ,PPP.[YTD_OutcomeNumber]
-            ,((PPP.[OutcomeNumber] - ISNULL(B.[OutcomeNumber], 0)) * PC.[ProfileCategoryValue]) AS [OutcomeFinance] 
-            ,((PPP.[YTD_OutcomeNumber] - ISNULL(B.[YTD_OutcomeNumber], 0)) * PC.[ProfileCategoryValue]) AS [YTD_OutcomeFinance] 
+            ,(PPP.[OutcomeNumber] * PC.[ProfileCategoryValue]) AS [OutcomeFinance] 
+            ,(PPP.[YTD_OutcomeNumber] * PC.[ProfileCategoryValue]) AS [YTD_OutcomeFinance] 
         FROM [PowerBI].[v-dss-pbi-outcomeprofilevolume] AS PPP 
         LEFT OUTER JOIN [PowerBI].[v-dss-pbi-contractrate] AS PC 
         ON PPP.[TouchpointID] = PC.[TouchpointID] 
         AND PPP.[PriorityOrNot] = PC.[PriorityOrNot]
         AND PPP.[ProfileCategory] = PC.[ProfileCategory] 
         AND PPP.[Date] = PC.[Date] 
-        LEFT OUTER JOIN [PowerBI].[v-dss-pbi-outcomeprofilevolume] AS B 
-        ON PPP.[TouchpointID] = B.[TouchpointID]
-        AND B.[ProfileCategory] = 'CMD' 
         AND PPP.[ProfileCategory] = 'CMO'
-        AND PPP.[PriorityOrNot] = B.[PriorityOrNot]
-        AND PPP.[Date] = B.[Date]
         UNION ALL 
         SELECT 
             PPP.[TouchpointID] 
