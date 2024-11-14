@@ -57,7 +57,7 @@ AS
                [PeriodMonth],
                [PriorityOrNot],
                [CustomerCount]
-        FROM [PowerBI].[v-dss-pbi-customercount] A
+        FROM [PowerBI].[dss-pbi-customercount] A
         INNER JOIN [PowerBI].[dss-pbi-financialyear] PF ON A.PeriodYear = PF.FinancialYear
         WHERE PF.CurrentYear IS NULL and [TouchpointID] is not null
     ) AS Source
