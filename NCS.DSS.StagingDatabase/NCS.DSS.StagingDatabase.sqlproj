@@ -204,7 +204,6 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-actualpaymentsmade.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-contractinformation.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-contractrate.sql" />
-    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-customercount.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-daily-performance-summary.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-daily-performance.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-date.sql" />
@@ -259,13 +258,12 @@
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-conversionrate.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-actual.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-contractinformation.sql" />
-    <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-customercount.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.dss-pbi-customercount.sql" />
     <Build Include="PowerBI\Tables\PowerBI.pfy-dss-pbi-outcomeprofilevolume.sql" />
     <Build Include="PowerBI\Stored Procedures\Populate_PFY_Data.sql" />
     <None Include="Scripts\Create_PFYTables.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-actual-FY.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-contractinformation-FY.sql" />
-    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-customercount-FY.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcome-FY.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-outcomeactualfact-FY.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeactualfact-FY.sql" />
@@ -285,7 +283,7 @@
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_outcomeactualvolume_PFY.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_outcomeprofilevolume_PFY.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_InsertOrUpdateActualPaymentsMade.sql" />
-    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpdateCustomerCount_PFY.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_refresh_customer_counts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
