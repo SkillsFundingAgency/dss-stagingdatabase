@@ -86,7 +86,7 @@ FROM
                                                                                       ELSE DATEADD(mm, 12, DS.[DateandTimeOfSession])
                                                                         END AS 'SessionClosureDate' --date limit for Effective Outcomes
                                                                         ,DATEADD(mm, -12, CONVERT(DATE, DS.[DateandTimeOfSession])) AS 'PriorSessionDate'              --12 months before current session (latest possible previous session)
-                                                                        ,RANK() OVER(PARTITION BY DS.[CustomerID], FY.FinancialYear, IIF(DS.[DateandTimeOfSession] < CONVERT(DATETIME, '01-10-2022', 103), 100, 0), DO.OutcomeType
+                                                                        ,RANK() OVER(PARTITION BY DS.[CustomerID], FY.FinancialYear, IIF(DS.[DateandTimeOfSession] < FY.[StartDateTime], 100, 0), DO.OutcomeType
                                                                                                      ORDER BY DO.[OutcomeEffectiveDate], DO.[LastModifiedDate], DO.[id]) AS 'SessionRank'  -- we rank to remove duplicates
                                                                         -- ##### FUNDING RULES #####                             -- JLOs have been split into JOs and LOs since 1/Oct/2020
                                                                         ,PeriodMonth = CASE
