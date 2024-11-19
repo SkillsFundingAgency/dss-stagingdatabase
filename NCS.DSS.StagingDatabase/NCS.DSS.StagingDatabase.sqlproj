@@ -277,6 +277,7 @@
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpsertActualPaymentsMade.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpsertPrimeProfile.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-all-data.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-profile-summary.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
