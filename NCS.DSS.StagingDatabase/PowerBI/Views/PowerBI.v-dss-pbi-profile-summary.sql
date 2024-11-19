@@ -1,48 +1,33 @@
-CREATE VIEW [PowerBI].[v-dss-pbi-actual]  AS 
+CREATE VIEW [PowerBI].[v-dss-pbi-profile-summary]
+AS
+WITH CTE_ProfileData AS (
     SELECT 
-        MY.RegionName
-        ,MY.FinancialYear
-        ,MY.PriorityOrNot
-        ,MY.MonthShortName
-        ,MY.CustomerCount
-        ,MY.YTD_CustomerCount
-    FROM
-    (
+        O2.[Outcome ID],
+        O2.[Date],
+        O2.TouchpointID,
+        O2.[Fiscal Year],
+        O2.[Group ID],
+        O2.[Profile Full Year],
+        O2.[Financial Profile Full Year],
+        O8.[Financial Profile Full Year] AS O8_FinancialProfile
+    FROM [PowerBI].[v-dss-pbi-profilefullyear] AS O2
+    LEFT OUTER JOIN [PowerBI].[v-dss-pbi-profilefullyear] AS O8 
+        ON O2.[Date] = O8.[Date]
+        AND O2.TouchpointID = O8.TouchpointID
+        AND O2.[Fiscal Year] = O8.[Fiscal Year]
+        AND O2.[Group ID] = O8.[Group ID]
+        AND O8.[Outcome ID] = 8
+    WHERE O2.TouchpointID > 200
+        AND O2.[Outcome ID] = 2
+)
 
-	select [RegionName]
-           ,[FinancialYear]
-           ,[PriorityOrNot]
-           ,[MonthShortName]
-           ,[CustomerCount]
-           ,[YTD_CustomerCount] from [PowerBI].[pfy-dss-pbi-actual]
-	union  
-        SELECT
-            PR.[RegionName]
-            ,PF.[FinancialYear]
-            ,PVC.[PriorityOrNot]
-            ,PM.[MonthShortName]
-            --,PVC.[PeriodMonth]
-            ,SUM(PVC.[CustomerCount]) AS CustomerCount
-            ,SUM(PVC.[CustomerCount]) OVER(PARTITION BY PR.[RegionName], PF.[FinancialYear], PVC.[PriorityOrNot] ORDER BY PVC.[PeriodMonth]) AS YTD_CustomerCount
-        FROM [PowerBI].[v-dss-pbi-customercount] AS PVC 
-        INNER JOIN PowerBI.[dss-pbi-region] AS PR
-        ON PVC.[TouchpointID] = PR.[TouchpointID]
-        INNER JOIN PowerBI.[dss-pbi-monthsinyear] AS PM
-        ON PVC.[PeriodMonth] = PM.[PeriodMonth] 
-        INNER JOIN PowerBI.[dss-pbi-financialyear] AS PF
-        ON PVC.[PeriodYear] = PF.[FinancialYear] 
-        INNER JOIN PowerBI.[dss-pbi-contractyear] AS PC 
-        ON PF.[FinancialYear] BETWEEN PC.[StartFinancialYear] AND PC.[EndFinancialYear] 
-        WHERE PVC.[PeriodMonth] >= CASE WHEN PC.[StartFinancialYear] = PF.[FinancialYear] THEN PC.[StartPeriodMonth] ELSE 1 END 
-        AND PVC.[PeriodMonth] <= CASE WHEN PC.[EndFinancialYear] = PF.[FinancialYear] THEN PC.[EndPeriodMonth] ELSE 12 END 
-		AND   PF.CurrentYear=1
-        GROUP BY PR.[RegionName] 
-        ,PF.[FinancialYear] 
-        ,PVC.[PriorityOrNot] 
-        ,PM.[MonthShortName] 
-        ,PVC.[PeriodMonth]
-        ,PVC.[CustomerCount] 
-    ) AS MY  
+SELECT 
+    [Outcome ID],
+    [Date],
+    SUM([Profile Full Year]) AS [Profile Full Year],
+    SUM(ISNULL([Financial Profile Full Year], 0) + ISNULL(O8_FinancialProfile, 0)) AS [Financial Profile Full Year]
+FROM CTE_ProfileData
+GROUP BY 
+    [Outcome ID],
+    [Date];
 GO
-
-
