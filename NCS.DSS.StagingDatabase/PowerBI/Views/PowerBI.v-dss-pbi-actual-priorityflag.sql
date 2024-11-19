@@ -13,7 +13,7 @@ FROM
 		,PM.[MonthShortName]
 		,PVC.[PriorityOrNot]
 		,SUM(PVC.[CustomerCount]) AS [CustomerCount] 
-	FROM [PowerBI].[v-dss-pbi-customercount] AS PVC
+	FROM [PowerBI].[dss-pbi-customercount] AS PVC
 	INNER JOIN [PowerBI].[dss-pbi-region] AS PR
 	ON PVC.[TouchpointID] = PR.[TouchpointID] 
 	INNER JOIN [PowerBI].[dss-pbi-monthsinyear] AS PM 

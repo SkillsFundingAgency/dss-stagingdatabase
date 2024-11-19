@@ -2,18 +2,9 @@
 CREATE PROCEDURE [PowerBI].[sp-pbi-refresh-all-data](@pr1 int)
 AS
 BEGIN
-  --------------------- POPULATE [PowerBI].[pfy-dss-pbi-customercount] WITH PREVIOUS FINANCIAL YEAR DATA --------------------------- 
-    TRUNCATE TABLE [PowerBI].[pfy-dss-pbi-customercount];
-    INSERT INTO [PowerBI].[pfy-dss-pbi-customercount]
-    SELECT  [TouchpointID],
-               [PeriodYear],
-               [PeriodMonth],
-               [PriorityOrNot],
-               [CustomerCount]
-        FROM [PowerBI].[v-dss-pbi-customercount-FY] A
-        INNER JOIN [PowerBI].[dss-pbi-financialyear] PF ON A.PeriodYear = PF.FinancialYear
-        WHERE PF.CurrentYear IS NULL and [TouchpointID] is not null
-    
+  --------------------- POPULATE [PowerBI].[dss-pbi-customercount] WITH PREVIOUS FINANCIAL YEAR DATA --------------------------- 
+
+    EXEC [PowerBI].[sp_refresh_customer_counts];
 --------------------- POPULATE [PowerBI].[pfy-dss-pbi-actual] WITH PREVIOUS FINANCIAL YEAR DATA --------------------------- 
 
     TRUNCATE TABLE [PowerBI].[pfy-dss-pbi-actual];
