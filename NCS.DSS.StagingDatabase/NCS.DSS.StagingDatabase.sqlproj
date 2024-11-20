@@ -285,6 +285,7 @@
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_outcomeprofilevolume_PFY.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_InsertOrUpdateActualPaymentsMade.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_refresh_customer_counts.sql" />
+    <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-financialProfile-summary.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
