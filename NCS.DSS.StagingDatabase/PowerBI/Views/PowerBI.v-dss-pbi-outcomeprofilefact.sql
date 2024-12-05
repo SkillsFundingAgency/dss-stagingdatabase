@@ -69,8 +69,8 @@ AS
         ,PD.[Outcome ID] AS 'Outcome ID'
         ,PG.[Group ID] AS 'Group ID'
         ,PT.[DATE] AS 'Date'
-        ,FLOOR(PO.[OutcomeNumber]) AS [Profile total]
-	    ,FLOOR(PO.[YTD_OutcomeNumber]) AS [Profile YTD]
+        ,Round(PO.[OutcomeNumber],0) AS [Profile total]
+	    ,Round(PO.[YTD_OutcomeNumber],0) AS [Profile YTD]
         ,PO.[OutcomeFinance] AS [Financial Profile total]
         ,PO.[YTD_OutcomeFinance] AS [Financial Profile YTD] 
     FROM 
