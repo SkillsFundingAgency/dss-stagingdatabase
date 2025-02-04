@@ -1,4 +1,4 @@
-CREATE PROCEDURE [PowerBI].[SP_Upsert_5thWorkingDayProfile]
+CREATE  PROCEDURE [PowerBI].[SP_Upsert_5thWorkingDayProfile]
     @TouchPointId INT,
     @FinancialYear INT,
     @MonthID INT,
@@ -7,7 +7,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    MERGE [PowerBI].[SP_Upsert_5thWorkingDayProfile] AS Target
+    MERGE [PowerBI].[dss-5thworkingDayProfile] AS Target
     USING (SELECT @TouchPointId AS TouchPointId, 
                   @FinancialYear AS FinancialYear, 
                   @MonthID AS MonthID) AS Source
@@ -20,5 +20,3 @@ BEGIN
         INSERT (TouchPointId, FinancialYear, MonthID, ProfileValue)
         VALUES (@TouchPointId, @FinancialYear, @MonthID, @ProfileValue);
 END;
-GO
-
