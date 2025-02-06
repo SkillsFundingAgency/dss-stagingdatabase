@@ -1,6 +1,6 @@
 CREATE  PROCEDURE [PowerBI].[SP_Upsert_5thWorkingDayProfile]
     @TouchPointId INT,
-    @FinancialYear INT,
+    @FinancialYear VARCHAR(9),
     @MonthID INT,
     @ProfileValue decimal(18, 5)
 AS
