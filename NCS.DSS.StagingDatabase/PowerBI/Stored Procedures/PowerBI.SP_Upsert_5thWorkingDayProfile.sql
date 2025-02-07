@@ -7,6 +7,24 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    IF @TouchPointId NOT BETWEEN 201 AND 209
+    BEGIN
+        RAISERROR ('Invalid TouchPointId. It must be between 201 and 209.', 16, 1);
+        RETURN;
+    END
+    
+    IF @FinancialYear NOT LIKE '[2][0-9][0-9][0-9]-[2][0-9][0-9][0-9]'
+    BEGIN
+        RAISERROR ('Invalid FinancialYear format. It must be in YYYY-YYYY format (e.g. 2024-2025).', 16, 1);
+        RETURN;
+    END
+
+	IF @MonthID NOT BETWEEN 1 AND 12
+    BEGIN
+        RAISERROR ('Invalid MonthID. It must be between 1 and 12.', 16, 1);
+        RETURN;
+    END
+
     MERGE [PowerBI].[dss-5thworkingDayProfile] AS Target
     USING (SELECT @TouchPointId AS TouchPointId, 
                   @FinancialYear AS FinancialYear, 
