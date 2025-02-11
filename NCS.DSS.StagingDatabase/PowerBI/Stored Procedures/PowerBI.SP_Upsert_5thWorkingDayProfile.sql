@@ -19,6 +19,13 @@ BEGIN
         RETURN;
     END
 
+     IF CAST(RIGHT(@FinancialYear, 4) AS INT) <> CAST(LEFT(@FinancialYear, 4) AS INT) + 1
+    BEGIN
+		RAISERROR ('Invalid FinancialYear range. The second year must be exactly one year apart.', 16, 1);
+		RETURN;
+	END
+
+
 	IF @MonthID NOT BETWEEN 1 AND 12
     BEGIN
         RAISERROR ('Invalid MonthID. It must be between 1 and 12.', 16, 1);
