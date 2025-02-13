@@ -103,7 +103,6 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'CommunityCentreLibrary', 7, 'Community Centre/Library')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'Employer', 8, 'Employer')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'Facebook', 9, 'Facebook')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'JobCentrePlus', 10, 'Job Centre Plus')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'LEP', 11, 'LEP')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'NationalCareersServiceWebsite', 12, 'National Careers Service Website')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'Newspapermagazine', 13, 'Newspaper/magazine')
