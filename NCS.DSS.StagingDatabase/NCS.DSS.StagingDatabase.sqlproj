@@ -286,6 +286,8 @@
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_InsertOrUpdateActualPaymentsMade.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_refresh_customer_counts.sql" />
     <Build Include="PowerBI\Functions\PowerBI.fun-dss-pbi-financialProfile-summary.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.dss-5thworkingDayProfile.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.SP_Upsert_5thWorkingDayProfile.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
