@@ -11,7 +11,7 @@ CREATE PROCEDURE [PowerBI].[sp_UpsertPrimeProfile]
     @ProfileCategoryValueQ1 DECIMAL(9, 2),
     @ProfileCategoryValueQ2 DECIMAL(9, 2),
     @ProfileCategoryValueQ3 DECIMAL(9, 2)
-ASBEGIN
+AS BEGIN
     SET NOCOUNT ON;
 
     IF @TouchPointId NOT BETWEEN 201 AND 209
