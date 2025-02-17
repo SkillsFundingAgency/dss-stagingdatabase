@@ -58,6 +58,8 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'SpecialistOrganisation', 7, 'Specialist Organisation')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'JCP', 8, 'JCP')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'Employer', 9, 'Employer')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'JCPWithData', 14, 'Job Centre Plus WITH Data')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'JCPWithoutData', 15, 'Job Centre Plus WITHOUT Data')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'Other', 99, 'Other')
 
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Paper', 1, 'Paper')
