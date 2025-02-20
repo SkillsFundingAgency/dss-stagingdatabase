@@ -3,7 +3,7 @@ Create PROCEDURE [PowerBI].[sp_UpsertActualPaymentsMade]
     @FinancialYear VARCHAR(9),
     @MonthID INT,
     @CategoryName VARCHAR(32),
-    @PaymentMade INT
+    @PaymentMade DECIMAL(18,5)
 AS
 BEGIN
 
