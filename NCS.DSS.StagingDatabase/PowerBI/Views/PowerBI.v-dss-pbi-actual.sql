@@ -24,7 +24,7 @@ CREATE VIEW [PowerBI].[v-dss-pbi-actual]  AS
             --,PVC.[PeriodMonth]
             ,SUM(PVC.[CustomerCount]) AS CustomerCount
             ,SUM(PVC.[CustomerCount]) OVER(PARTITION BY PR.[RegionName], PF.[FinancialYear], PVC.[PriorityOrNot] ORDER BY PVC.[PeriodMonth]) AS YTD_CustomerCount
-        FROM [PowerBI].[v-dss-pbi-customercount] AS PVC 
+        FROM [PowerBI].[dss-pbi-customercount] AS PVC 
         INNER JOIN PowerBI.[dss-pbi-region] AS PR
         ON PVC.[TouchpointID] = PR.[TouchpointID]
         INNER JOIN PowerBI.[dss-pbi-monthsinyear] AS PM
