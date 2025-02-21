@@ -56,4 +56,31 @@ END;
 --- CREATE TABLES REQUIRED TO STORE PFY DATA -----
 :r ./Create_PFYTables.sql
 
+--Increased decimal places to [TargetCategoryValue]
+ALTER TABLE [PowerBI].[dss-pbi-nationaltarget]
+DROP CONSTRAINT [pk-dss-pbi-nationaltarget];
+
+ALTER TABLE [PowerBI].[dss-pbi-nationaltarget]
+ALTER COLUMN [TargetCategoryValue] DECIMAL(8, 5) NOT NULL;
+
+ALTER TABLE [PowerBI].[dss-pbi-nationaltarget]
+ADD CONSTRAINT [pk-dss-pbi-nationaltarget] PRIMARY KEY CLUSTERED 
+(
+    [FinancialYear] ASC,
+    [ContractYear] ASC,
+    [PeriodMonth] ASC,
+    [PriorityOrNot] ASC,
+    [TargetCategory] ASC,
+    [TargetCategoryValue] ASC
+)
+WITH (
+    STATISTICS_NORECOMPUTE = OFF,
+    IGNORE_DUP_KEY = OFF,
+    ONLINE = OFF,
+    OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
+) ON [PRIMARY];
+
+SET ANSI_PADDING ON
+GO
+
 

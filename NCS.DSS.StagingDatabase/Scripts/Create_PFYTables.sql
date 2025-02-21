@@ -9,6 +9,15 @@ IF NOT EXISTS(
 BEGIN
 	ALTER TABLE [PowerBI].[dss-pbi-financialyear] ADD CurrentYear bit null;
 END
+ELSE
+BEGIN
+	UPDATE [PowerBI].[dss-pbi-financialyear]
+		SET CurrentYear = NULL;
+
+	UPDATE [PowerBI].[dss-pbi-financialyear]
+		SET CurrentYear = 1
+	WHERE GETDATE() BETWEEN StartDateTime AND EndDateTime;
+END
 
 GO
 

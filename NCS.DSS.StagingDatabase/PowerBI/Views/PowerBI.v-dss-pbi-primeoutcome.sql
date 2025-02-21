@@ -37,7 +37,7 @@ AS
         ,PO.[PeriodMonth] 
         ,PO.[CustomerCount] AS [Profile_Num]
         ,SUM(PO.[CustomerCount]) OVER(PARTITION BY PO.[TouchpointID], PO.[PeriodYear], PO.[PriorityOrNot] ORDER BY PO.[PeriodMonth]) AS [YTD_Profile_Num]
-    FROM [PowerBI].[v-dss-pbi-customercount] AS PO
+    FROM [PowerBI].[dss-pbi-customercount] AS PO
     UNION ALL 
     SELECT 
         PO.[TouchpointID] 
@@ -49,7 +49,7 @@ AS
         ,SUM(CASE WHEN PO.[PriorityOrNot] = 'PG' THEN PO.[CustomerCount] ELSE 0 END) 
 			OVER(PARTITION BY PO.[TouchpointID], PO.[PeriodYear], PO.[PriorityOrNot] 
 				ORDER BY PO.[PeriodMonth]) AS [YTD_Profile_Num]
-    FROM [PowerBI].[v-dss-pbi-customercount] AS PO
+    FROM [PowerBI].[dss-pbi-customercount] AS PO
 ) 
 
 SELECT 
