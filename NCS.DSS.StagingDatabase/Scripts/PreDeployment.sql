@@ -41,6 +41,17 @@ IF EXISTS(
 BEGIN
 	ALTER TABLE [dbo].[dss-employmentprogressions-history] ALTER COLUMN EconomicShockCode VARCHAR (50);
 END;
+--- ALTER PAYMENTS MADE COLUMN TYPE TO DECIMAL 
+IF EXISTS(
+       SELECT 1
+       FROM   sys.columns
+       WHERE  NAME = 'PaymentMade'
+              AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-actualpaymentsmade')
+              AND TYPE_NAME(system_type_id) = 'int'
+   )
+BEGIN
+	ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] ALTER COLUMN PaymentMade DECIMAL(18,5);
+END;
 
 --- CREATE TABLES REQUIRED TO STORE PFY DATA -----
 :r ./Create_PFYTables.sql
