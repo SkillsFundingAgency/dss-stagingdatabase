@@ -1,4 +1,4 @@
-CREATE PROCEDURE [PowerBI].[SP_Upsert_5thWorkingDayProfile]
+CREATE PROCEDURE [PowerBI].[sp_Upsert_5thWorkingDayProfile]
     @TouchPointId INT,
     @FinancialYear VARCHAR(9),
     @MonthID INT,
@@ -56,7 +56,7 @@ BEGIN
         VALUES (@TouchPointId, @FinancialYear, @MonthID, @ProfileValue)
     OUTPUT		 		 
 		GETDATE() AS LoggedOn,
-		'SP_Upsert_5thWorkingDayProfile' AS StoredProcedureName,
+		'sp_Upsert_5thWorkingDayProfile' AS StoredProcedureName,
 		@InputData AS InputParameters,
 		$action AS ActionType
 	INTO 

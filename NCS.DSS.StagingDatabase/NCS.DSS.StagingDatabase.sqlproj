@@ -275,7 +275,7 @@
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpsertPrimeProfile.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-all-data.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-profile-summary.sql" />
-    <Build Include="PowerBI\Stored Procedures\sp_UpsertNationalTarget.sql" />
+    <Build Include="PowerBI\Stored Procedures\PowerBI.sp_UpsertNationalTarget.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_actual_PFY.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_contractinformation_PFY.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp_dss_pbi_conversionrate_PFY.sql" />
