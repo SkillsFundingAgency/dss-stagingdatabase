@@ -50,6 +50,24 @@ AS BEGIN
      RETURN;
 	END
 
+    DECLARE @ActionType NVARCHAR(10);
+	DECLARE @InputData NVARCHAR(MAX);
+
+	SET @InputData = CONCAT(
+        '{"TouchpointID": "', @TouchpointID, '", ',
+        '"FinancialYear": "', @FinancialYear, '", ',
+        '"ProfileCategory": "', @ProfileCategory, '", ',
+        '"PriorityOrNot": "', @PriorityOrNot, '", ',
+        '"FinancialsOrNot": "', @FinancialsOrNot, '", ',
+        '"ProfileCategoryValue": "', @ProfileCategoryValue, '", ',
+        '"StartDateTime": "', FORMAT(@StartDateTime, 'yyyy-MM-dd HH:mm:ss'), '", ',
+        '"EndDateTime": "', FORMAT(@EndDateTime, 'yyyy-MM-dd HH:mm:ss'), '", ',
+        '"Comments": "', @Comments, '", ',
+        '"ProfileCategoryValueQ1": "', @ProfileCategoryValueQ1, '", ',
+        '"ProfileCategoryValueQ2": "', @ProfileCategoryValueQ2, '", ',
+        '"ProfileCategoryValueQ3": "', @ProfileCategoryValueQ3, '"}'
+    );
+
     MERGE INTO [PowerBI].[dss-pbi-primeprofile] AS target
     USING (SELECT 
                @TouchpointID AS TouchpointID, 
@@ -102,6 +120,13 @@ AS BEGIN
             source.ProfileCategoryValueQ1,
             source.ProfileCategoryValueQ2,
             source.ProfileCategoryValueQ3
-        );
+        )
+    OUTPUT		 		 
+		GETDATE() AS LoggedOn,
+		'sp_UpsertPrimeProfile' AS StoredProcedureName,
+		@InputData AS InputParameters,
+		$action AS ActionType
+	INTO 
+		[PowerBI].[dss-pbi-manualinputaudit];
 
 END;
