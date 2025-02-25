@@ -53,6 +53,19 @@ BEGIN
      RAISERROR('Invalid @PriorityOrNot. PriorityOrNot should be either PG,NP for TargetCategory CMO,JO,LO', 16, 1)
      RETURN;
 	END
+
+    DECLARE @ActionType NVARCHAR(10);
+	DECLARE @InputData NVARCHAR(MAX);
+
+	SET @InputData = CONCAT(
+		'{"FinancialYear": "', @FinancialYear, '", ',
+		'"ContractYear": "', @ContractYear, '", ',
+		'"PeriodMonth": "', @PeriodMonth, '", ',
+		'"PriorityOrNot": "', @PriorityOrNot, '", ',
+		'"TargetCategory": "', @TargetCategory, '", ',
+		'"TargetCategoryValue": "', @TargetCategoryValue, '", ',
+		'"Comments": "', @Comments, '"}'
+	);
 	
     MERGE INTO [PowerBI].[dss-pbi-nationaltarget] AS target
     USING (
@@ -76,7 +89,14 @@ BEGIN
             target.Comments = source.Comments
     WHEN NOT MATCHED THEN
         INSERT ([FinancialYear], [ContractYear], [PeriodMonth], [PriorityOrNot], [TargetCategory], [TargetCategoryValue], [Comments])
-        VALUES (source.FinancialYear, source.ContractYear, source.PeriodMonth, source.PriorityOrNot, source.TargetCategory, source.TargetCategoryValue, source.Comments);
+        VALUES (source.FinancialYear, source.ContractYear, source.PeriodMonth, source.PriorityOrNot, source.TargetCategory, source.TargetCategoryValue, source.Comments)
+    OUTPUT		 		 
+		GETDATE() AS LoggedOn,
+		'sp_UpsertNationalTarget' AS StoredProcedureName,
+		@InputData AS InputParameters,
+		$action AS ActionType
+	INTO 
+		[PowerBI].[dss-pbi-manualinputaudit];
 
     SET NOCOUNT OFF;
 END
