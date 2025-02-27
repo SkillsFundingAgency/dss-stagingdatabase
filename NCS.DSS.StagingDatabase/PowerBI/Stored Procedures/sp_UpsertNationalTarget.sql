@@ -10,50 +10,6 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-	
-    
-    IF @FinancialYear NOT LIKE '[2][0-9][0-9][0-9]-[2][0-9][0-9][0-9]'
-    BEGIN
-        RAISERROR ('Invalid FinancialYear format. It must be in YYYY-YYYY format (e.g. 2024-2025).', 16, 1);
-        RETURN;
-    END
-
-     IF CAST(RIGHT(@FinancialYear, 4) AS INT) <> CAST(LEFT(@FinancialYear, 4) AS INT) + 1
-    BEGIN
-		RAISERROR ('Invalid FinancialYear range. The second year must be exactly one year apart.', 16, 1);
-		RETURN;
-	END
-
-	IF @ContractYear NOT LIKE '[2][0-9][0-9][0-9]-[2][0-9][0-9][0-9]'
-    BEGIN
-        RAISERROR ('Invalid FinancialYear format. It must be in YYYY-YYYY format (e.g. 2024-2025).', 16, 1);
-        RETURN;
-    END
-	
-	IF @PeriodMonth NOT BETWEEN 1 AND 12
-    BEGIN
-        RAISERROR ('Invalid MonthID. It must be between 1 and 12.', 16, 1);
-        RETURN;
-    END
-
-	IF LOWER(@TargetCategory) NOT IN ('cmo', 'jo','lo', 'sf')
-	BEGIN
-     RAISERROR('Invalid TargetCategory. Allowed values: CMO,JO,LO,SF', 16, 1)
-     RETURN;
-	END
-	
-	IF LOWER(@TargetCategory) IN ('sf') and @PriorityOrNot!=''
-	BEGIN
-     RAISERROR('Invalid @PriorityOrNot. PriorityOrNot is empty for TargetCategory SF', 16, 1)
-     RETURN;
-	END
-
-	IF LOWER(@TargetCategory) IN ('cmo','jo','lo') and LOWER(@PriorityOrNot) not in ('pg','np')
-	BEGIN
-     RAISERROR('Invalid @PriorityOrNot. PriorityOrNot should be either PG,NP for TargetCategory CMO,JO,LO', 16, 1)
-     RETURN;
-	END
-	
     MERGE INTO [PowerBI].[dss-pbi-nationaltarget] AS target
     USING (
         VALUES
