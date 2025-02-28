@@ -56,7 +56,6 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'NationalRetrainingScheme', 5, 'National Retraining Scheme')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'ApprenticeshipService', 6, 'Apprenticeship Service')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'SpecialistOrganisation', 7, 'Specialist Organisation')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'JCP', 8, 'JCP')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'Employer', 9, 'Employer')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'SignpostedToCategory', 'Other', 99, 'Other')
 
