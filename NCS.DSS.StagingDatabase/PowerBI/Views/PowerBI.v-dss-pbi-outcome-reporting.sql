@@ -119,8 +119,8 @@ FROM
                                                           ON DR.[value] = DO.[OutcomeType]
                                                           AND DR.[name] = 'OutcomeType'
 														  LEFT JOIN [dss-employmentprogressions] ep on ep.CustomerId = DC.id AND ep.DateProgressionRecorded BETWEEN DATEADD(MONTH, -12, DO.OutcomeEffectiveDate) AND DO.OutcomeEffectiveDate
-														  JOIN PowerBI.[dss-pbi-financialyear] AS FY ON FY.CurrentYear = 1
-                                                          WHERE (DC.ReasonForTermination IS NULL OR DC.ReasonForTermination <> 3)												  
+														  JOIN PowerBI.[dss-pbi-financialyear] AS FY ON (CAST(DO.OutcomeEffectiveDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)					AND (CAST(DO.OutcomeClaimedDate as Date) BETWEEN fy.StartDateTime AND fy.EndDateTime)
+                                                          WHERE (DC.ReasonForTermination IS NULL OR DC.ReasonForTermination <> 3) AND FY.CurrentYear = 1													  
                                            ) AS MY
                                            WHERE MY.[SessionRank] = 1
                              ) AS MY1
