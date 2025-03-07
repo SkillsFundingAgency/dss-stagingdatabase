@@ -22,3 +22,5 @@ GO
 CREATE NONCLUSTERED INDEX [nci_v-dss-outcomes-filtered_OutcomeType_OutcomeClaimedDate_OutcomeEffectiveDate]
 ON [PowerBI].[v-dss-outcomes-filtered] ([OutcomeType],[OutcomeClaimedDate],[OutcomeEffectiveDate])
 INCLUDE ([ActionPlanId], [id], [TouchpointID], [CustomerId], [IsPriorityCustomer], [ClaimedPriorityGroup], [LastModifiedDate])
+
+GO
