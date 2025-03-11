@@ -67,6 +67,7 @@ BEGIN
 	ALTER TABLE [PowerBI].[dss-pbi-submission-pattern] ALTER COLUMN Percentage DECIMAL(18,5);
 END;
 
+
 --- CREATE TABLES REQUIRED TO STORE PFY DATA -----
 :r ./Create_PFYTables.sql
 

@@ -1,4 +1,4 @@
-CREATE PROCEDURE [PowerBI].[SP_Upsert_5thWorkingDayProfile]
+CREATE PROCEDURE [PowerBI].[sp_Upsert_5thWorkingDayProfile]
     @TouchPointId INT,
     @FinancialYear VARCHAR(9),
     @MonthID INT,
@@ -32,6 +32,16 @@ BEGIN
         RETURN;
     END
 
+    DECLARE @ActionType NVARCHAR(10);
+	DECLARE @InputData NVARCHAR(MAX);
+
+	SET @InputData = CONCAT(
+        '{"TouchpointID": "', @TouchPointId, '", ',
+        '"FinancialYear": "', @FinancialYear, '", ',
+        '"MonthID": "', @MonthID, '", ',
+        '"ProfileValue": "', @ProfileValue, '"}'
+    );
+
     MERGE [PowerBI].[dss-5thworkingDayProfile] AS Target
     USING (SELECT @TouchPointId AS TouchPointId, 
                   @FinancialYear AS FinancialYear, 
@@ -43,5 +53,14 @@ BEGIN
         UPDATE SET ProfileValue = @ProfileValue
     WHEN NOT MATCHED THEN
         INSERT (TouchPointId, FinancialYear, MonthID, ProfileValue)
-        VALUES (@TouchPointId, @FinancialYear, @MonthID, @ProfileValue);
+        VALUES (@TouchPointId, @FinancialYear, @MonthID, @ProfileValue)
+    OUTPUT		 		 
+		GETDATE() AS LoggedOn,
+		'sp_Upsert_5thWorkingDayProfile' AS StoredProcedureName,
+		@InputData AS InputParameters,
+		$action AS ActionType
+	INTO 
+        [PowerBI].[dss-pbi-manualinputaudit];
+
+
 END;

@@ -4,7 +4,6 @@ Create PROCEDURE [PowerBI].[sp_UpsertActualPaymentsMade]
     @MonthID INT,
     @CategoryName VARCHAR(32),
     @PaymentMade DECIMAL(18,5)
-
 AS
 BEGIN
 
@@ -37,20 +36,56 @@ IF @TouchPointId NOT BETWEEN 201 AND 209
      RAISERROR('Invalid CategoryName. Allowed values: Service Fee, Outcome Based, Outcome Based Manual Adjustments', 16, 1)
      RETURN;
 	END
+
+    DECLARE @ActionType NVARCHAR(10);
+	DECLARE @InputData NVARCHAR(MAX);
+
+	SET @InputData = CONCAT(
+		'{"TouchpointID": "', @TouchPointId, '", ',
+		'"FinancialYear": "', @FinancialYear, '", ',
+		'"MonthID": "', @MonthID, '", ',
+		'"CategoryName": "', @CategoryName, '", ',
+		'"PaymentMade": "', @PaymentMade, '"}'
+	);
 	
 
-    UPDATE [PowerBI].[dss-pbi-actualpaymentsmade]
-    SET [PaymentMade] = @PaymentMade
-    WHERE [TouchpointID] = @TouchpointID
-      AND [FinancialYear] = @FinancialYear
-      AND [MonthID] = @MonthID
-      AND [CategoryName] = @CategoryName;
+    MERGE [PowerBI].[dss-pbi-actualpaymentsmade] AS Target
+	USING (
+		SELECT 
+			@TouchpointID AS TouchpointID,
+			@FinancialYear AS FinancialYear,
+			@MonthID AS MonthID,
+			@CategoryName AS CategoryName,
+			@PaymentMade AS PaymentMade
+	) AS Source
+	ON Target.TouchpointID = Source.TouchpointID
+	   AND Target.FinancialYear = Source.FinancialYear
+	   AND Target.MonthID = Source.MonthID
+	   AND Target.CategoryName = Source.CategoryName
+	WHEN MATCHED THEN
+		UPDATE SET 
+			PaymentMade = Source.PaymentMade
+	WHEN NOT MATCHED THEN
+		INSERT (
+			TouchpointID, 
+			FinancialYear, 
+			MonthID, 
+			CategoryName, 
+			PaymentMade
+		)
+		VALUES (
+			Source.TouchpointID,
+			Source.FinancialYear,
+			Source.MonthID,
+			Source.CategoryName,
+			Source.PaymentMade
+		)
+	OUTPUT		 		 
+		GETDATE() AS LoggedOn,
+		'sp_UpsertActualPaymentsMade' AS StoredProcedureName,
+		@InputData AS InputParameters,
+		$action AS ActionType
+	INTO 
+		[PowerBI].[dss-pbi-manualinputaudit];
 
-    IF @@ROWCOUNT = 0
-    BEGIN
-        INSERT INTO [PowerBI].[dss-pbi-actualpaymentsmade]
-            ([TouchpointID], [FinancialYear], [MonthID], [CategoryName], [PaymentMade])
-        VALUES
-            (@TouchpointID, @FinancialYear, @MonthID, @CategoryName, @PaymentMade);
-    END
 END
