@@ -4,6 +4,7 @@ Create PROCEDURE [PowerBI].[sp_UpsertActualPaymentsMade]
     @MonthID INT,
     @CategoryName VARCHAR(32),
     @PaymentMade DECIMAL(18,5)
+
 AS
 BEGIN
 
