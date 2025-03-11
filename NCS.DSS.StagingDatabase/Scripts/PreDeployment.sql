@@ -53,6 +53,20 @@ BEGIN
 	ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] ALTER COLUMN PaymentMade DECIMAL(18,5);
 END;
 
+--- ALTER Percentage MADE COLUMN TYPE TO DECIMAL (18,5)
+IF EXISTS(
+       SELECT 1
+  FROM   sys.columns
+  WHERE  NAME = 'Percentage'
+         AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-submission-pattern')
+         AND TYPE_NAME(system_type_id) = 'decimal'
+		 and Precision =10
+		 and Scale =2
+   )
+BEGIN
+	ALTER TABLE [PowerBI].[dss-pbi-submission-pattern] ALTER COLUMN Percentage DECIMAL(18,5);
+END;
+
 --- CREATE TABLES REQUIRED TO STORE PFY DATA -----
 :r ./Create_PFYTables.sql
 
