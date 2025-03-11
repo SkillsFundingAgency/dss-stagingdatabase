@@ -120,8 +120,6 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'WorldSkillsUKLive', 24, 'World Skills UK Live')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'NationalRetrainingScheme', 25, 'National Retraining Scheme')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'RedundancySupportServiceforApprentices', 26, 'Redundancy Support Service for Apprentices')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'JCPWithData', 27, 'Job Centre Plus WITH Data')
-	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'JCPWithoutData', 28, 'Job Centre Plus WITHOUT Data')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'Other', 98, 'Other')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Customers', 'IntroducedBy', 'NotProvided', 99, 'Not provided')
 	
