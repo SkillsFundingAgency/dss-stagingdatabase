@@ -4,7 +4,7 @@ CREATE TABLE [PowerBI].[dss-pbi-actualpaymentsmade]
 	[FinancialYear] VARCHAR(9) NOT NULL,
     [MonthID] INT NOT NULL,
     [CategoryName] VARCHAR(32) NOT NULL,
-    [PaymentMade] INT NOT NULL, 
+    [PaymentMade] decimal(18, 5) NOT NULL,
 	CONSTRAINT [pk-dss-pbi-actualpaymentsmade] PRIMARY KEY CLUSTERED ([TouchpointID] ,[FinancialYear],[MonthID],[CategoryName]) 
 )
 
