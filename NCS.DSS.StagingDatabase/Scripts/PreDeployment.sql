@@ -74,8 +74,8 @@ IF EXISTS(
   WHERE  NAME = 'Percentage'
          AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-submission-pattern')
          AND TYPE_NAME(system_type_id) = 'decimal'
-		 and Precision =10
-		 and Scale =2
+		 and Precision in (10,18)
+		 and Scale in (2,5)
    )
 BEGIN
 	ALTER TABLE [PowerBI].[dss-pbi-submission-pattern] ALTER COLUMN Percentage DECIMAL(12,5);
