@@ -29,3 +29,17 @@ BEGIN
 	   ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade]
     ALTER COLUMN [PaymentMade] [decimal](12, 5) NOT NULL;
 END;
+
+
+IF EXISTS(
+       SELECT 1
+  FROM   sys.columns
+  WHERE  NAME = 'Percentage'
+         AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-submission-pattern')
+         AND TYPE_NAME(system_type_id) = 'decimal'
+		 and is_nullable=1
+   )
+BEGIN
+	   ALTER TABLE [PowerBI].[dss-pbi-submission-pattern]
+    ALTER COLUMN [Percentage] [decimal](12, 5) NOT NULL;
+END;
