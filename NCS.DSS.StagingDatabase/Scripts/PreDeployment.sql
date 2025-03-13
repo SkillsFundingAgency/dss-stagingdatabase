@@ -50,10 +50,10 @@ IF EXISTS(
               AND TYPE_NAME(system_type_id) = 'int'
    )
 BEGIN
-	ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] ALTER COLUMN PaymentMade DECIMAL(18,5);
+	ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] ALTER COLUMN PaymentMade DECIMAL(12,5);
 END;
 
---- ALTER Percentage MADE COLUMN TYPE TO DECIMAL (18,5)
+--- ALTER Percentage MADE COLUMN TYPE TO DECIMAL (12,5)
 IF EXISTS(
        SELECT 1
   FROM   sys.columns
@@ -64,7 +64,7 @@ IF EXISTS(
 		 and Scale =2
    )
 BEGIN
-	ALTER TABLE [PowerBI].[dss-pbi-submission-pattern] ALTER COLUMN Percentage DECIMAL(18,5);
+	ALTER TABLE [PowerBI].[dss-pbi-submission-pattern] ALTER COLUMN Percentage DECIMAL(12,5);
 END;
 
 
