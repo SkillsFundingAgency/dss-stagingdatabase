@@ -53,7 +53,7 @@ BEGIN
 	ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] ALTER COLUMN PaymentMade DECIMAL(12,5);
 END;
 
---- ALTER Percentage MADE COLUMN TYPE TO DECIMAL (12,5)
+--- ALTER PaymentMade MADE COLUMN TYPE TO DECIMAL (18,5)
 IF EXISTS(
        SELECT 1
   FROM   sys.columns
