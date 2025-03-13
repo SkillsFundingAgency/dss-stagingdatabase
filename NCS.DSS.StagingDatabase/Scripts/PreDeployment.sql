@@ -43,14 +43,32 @@ BEGIN
 END;
 --- ALTER PAYMENTS MADE COLUMN TYPE TO DECIMAL 
 IF EXISTS(
-       SELECT 1
-       FROM   sys.columns
-       WHERE  NAME = 'PaymentMade'
+        SELECT 1
+        FROM sys.columns
+        WHERE NAME = 'PaymentMade'
               AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-actualpaymentsmade')
               AND TYPE_NAME(system_type_id) = 'int'
-   )
+    )
 BEGIN
-	ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] ALTER COLUMN PaymentMade DECIMAL(18,5);
+    ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] 
+    ADD PaymentMade_Temp DECIMAL(18,5) NULL;
+
+    -- Use dynamic SQL to force schema refresh
+    DECLARE @sql NVARCHAR(MAX);
+    SET @sql = N'UPDATE [PowerBI].[dss-pbi-actualpaymentsmade] 
+                 SET PaymentMade_Temp = CAST(PaymentMade AS DECIMAL(18,5));';
+    EXEC sp_executesql @sql;  -- This prevents schema caching issues
+
+    -- Drop the old column
+    ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] 
+    DROP COLUMN PaymentMade;
+
+    -- Rename the new column
+    EXEC sp_rename 
+        '[PowerBI].[dss-pbi-actualpaymentsmade].PaymentMade_Temp', 
+        'PaymentMade', 
+        'COLUMN';
+
 END;
 
 --- ALTER Percentage MADE COLUMN TYPE TO DECIMAL (18,5)
