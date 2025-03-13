@@ -14,3 +14,18 @@ EXECUTE [dbo].[usp_CreateReferenceData];
 
 -- FULL REFRESHE OF PFY DATA FOLLOWING DEPLOYMENT --- 
 EXECUTE [PowerBI].[sp-pbi-refresh-all-data] @pr1 = 1;
+
+
+
+IF EXISTS(
+       SELECT 1
+  FROM   sys.columns
+  WHERE  NAME = 'PaymentMade'
+         AND [object_id] = OBJECT_ID('PowerBI.dss-pbi-actualpaymentsmade')
+         AND TYPE_NAME(system_type_id) = 'decimal'
+		 and is_nullable=1
+   )
+BEGIN
+	   ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade]
+    ALTER COLUMN [PaymentMade] [decimal](12, 5) NOT NULL;
+END;
