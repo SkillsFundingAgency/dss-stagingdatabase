@@ -51,12 +51,12 @@ IF EXISTS(
     )
 BEGIN
     ALTER TABLE [PowerBI].[dss-pbi-actualpaymentsmade] 
-    ADD PaymentMade_Temp DECIMAL(18,5) NULL;
+    ADD PaymentMade_Temp DECIMAL(12,5) NULL;
 
     -- Use dynamic SQL to force schema refresh
     DECLARE @sql NVARCHAR(MAX);
     SET @sql = N'UPDATE [PowerBI].[dss-pbi-actualpaymentsmade] 
-                 SET PaymentMade_Temp = CAST(PaymentMade AS DECIMAL(18,5));';
+                 SET PaymentMade_Temp = CAST(PaymentMade AS DECIMAL(12,5));';
     EXEC sp_executesql @sql;  -- This prevents schema caching issues
 
     -- Drop the old column
@@ -82,7 +82,7 @@ IF EXISTS(
 		 and Scale =2
    )
 BEGIN
-	ALTER TABLE [PowerBI].[dss-pbi-submission-pattern] ALTER COLUMN Percentage DECIMAL(18,5);
+	ALTER TABLE [PowerBI].[dss-pbi-submission-pattern] ALTER COLUMN Percentage DECIMAL(12,5);
 END;
 
 
