@@ -2,7 +2,14 @@
 
 AS 
 BEGIN
-    DECLARE @DAYS_TO_FINANCIAL_DATE AS INT = DATEDIFF(day, DATEFROMPARTS(YEAR(GETDATE()), 4, 5), GETDATE());
+    DECLARE @CurrentYear INT = YEAR(GETDATE());
+    DECLARE @FinancialYear INT = CASE 
+    WHEN GETDATE() < DATEFROMPARTS(@CurrentYear, 4, 5) 
+    THEN @CurrentYear - 1 
+    ELSE @CurrentYear 
+    END;
+
+    DECLARE @DAYS_TO_FINANCIAL_DATE AS INT = DATEDIFF(day, DATEFROMPARTS(@FinancialYear, 4, 5), GETDATE());
 
 	SELECT id
     FROM [dss-customers]
