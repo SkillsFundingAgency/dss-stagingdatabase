@@ -11,9 +11,62 @@ CREATE PROCEDURE [PowerBI].[sp_UpsertPrimeProfile]
     @ProfileCategoryValueQ1 DECIMAL(9, 2),
     @ProfileCategoryValueQ2 DECIMAL(9, 2),
     @ProfileCategoryValueQ3 DECIMAL(9, 2)
-AS
-BEGIN
+AS BEGIN
     SET NOCOUNT ON;
+
+    IF @TouchPointId NOT BETWEEN 201 AND 209
+    BEGIN
+        RAISERROR ('Invalid TouchPointId. It must be between 201 and 209.', 16, 1);
+        RETURN;
+    END
+
+	 IF @FinancialYear NOT LIKE '[2][0-9][0-9][0-9]-[2][0-9][0-9][0-9]'
+    BEGIN
+        RAISERROR ('Invalid FinancialYear format. It must be in YYYY-YYYY format (e.g. 2024-2025).', 16, 1);
+        RETURN;
+    END
+
+     IF CAST(RIGHT(@FinancialYear, 4) AS INT) <> CAST(LEFT(@FinancialYear, 4) AS INT) + 1
+    BEGIN
+		RAISERROR ('Invalid FinancialYear range. The second year must be exactly one year apart.', 16, 1);
+		RETURN;
+	END
+	
+	IF LOWER(@ProfileCategory) NOT IN ('cmr', 'cmo','cmd','jo','lo', 'lr','jr','sf')
+	BEGIN
+     RAISERROR('Invalid ProfileCategory. Allowed values: CMO,CMR,CMD,JO,LO,LR,JR,SF', 16, 1)
+     RETURN;
+	END
+	
+	IF LOWER(@PriorityOrNot) IN ('sf') and @PriorityOrNot!=''
+	BEGIN
+     RAISERROR('Invalid @PriorityOrNot. PriorityOrNot is empty for TargetCategory SF', 16, 1)
+     RETURN;
+	END
+
+	IF LOWER(@ProfileCategory) IN ('cmo','cmo','cmd','jo','lo','lr','jr') and LOWER(@PriorityOrNot) not in ('pg','np')
+	BEGIN
+     RAISERROR('Invalid @PriorityOrNot. PriorityOrNot should be either PG,NP for TargetCategory CMO,CMR,CMD,JO,LO,LR,JR', 16, 1)
+     RETURN;
+	END
+
+    DECLARE @ActionType NVARCHAR(10);
+	DECLARE @InputData NVARCHAR(MAX);
+
+	SET @InputData = CONCAT(
+        '{"TouchpointID": "', @TouchpointID, '", ',
+        '"FinancialYear": "', @FinancialYear, '", ',
+        '"ProfileCategory": "', @ProfileCategory, '", ',
+        '"PriorityOrNot": "', @PriorityOrNot, '", ',
+        '"FinancialsOrNot": "', @FinancialsOrNot, '", ',
+        '"ProfileCategoryValue": "', @ProfileCategoryValue, '", ',
+        '"StartDateTime": "', FORMAT(@StartDateTime, 'yyyy-MM-dd HH:mm:ss'), '", ',
+        '"EndDateTime": "', FORMAT(@EndDateTime, 'yyyy-MM-dd HH:mm:ss'), '", ',
+        '"Comments": "', @Comments, '", ',
+        '"ProfileCategoryValueQ1": "', @ProfileCategoryValueQ1, '", ',
+        '"ProfileCategoryValueQ2": "', @ProfileCategoryValueQ2, '", ',
+        '"ProfileCategoryValueQ3": "', @ProfileCategoryValueQ3, '"}'
+    );
 
     MERGE INTO [PowerBI].[dss-pbi-primeprofile] AS target
     USING (SELECT 
@@ -67,9 +120,13 @@ BEGIN
             source.ProfileCategoryValueQ1,
             source.ProfileCategoryValueQ2,
             source.ProfileCategoryValueQ3
-        );
+        )
+    OUTPUT		 		 
+		GETDATE() AS LoggedOn,
+		'sp_UpsertPrimeProfile' AS StoredProcedureName,
+		@InputData AS InputParameters,
+		$action AS ActionType
+	INTO 
+		[PowerBI].[dss-pbi-manualinputaudit];
 
 END;
-GO
-
-
