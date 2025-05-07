@@ -64,6 +64,7 @@ BEGIN
 
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Paper', 1, 'Paper')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Email', 2, 'Email')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Digital', 3, 'Digital')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Other', 99, 'Other')
 
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'EighteenToTwentyfourNotInEducationEmploymentOrTraining', 1, '18 to 24 not in education, employment or training')
