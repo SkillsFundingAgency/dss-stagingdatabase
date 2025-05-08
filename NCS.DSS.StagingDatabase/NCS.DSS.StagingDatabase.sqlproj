@@ -177,8 +177,6 @@
     <Build Include="dbo\Functions\dcc-collections.sql" />
     <Build Include="dbo\Tables\dss-prioritygroups-history.sql" />
     <Build Include="dbo\Stored Procedures\ChangeHistory\insert-dss-prioritygroups-history.sql" />
-    <Build Include="dbo\Tables\dss-digitalidentities.sql" />
-    <Build Include="dbo\Tables\dss-digitalidentities-history.sql" />
     <Build Include="dbo\Functions\dcc-collections14.10.2020.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-actualpaymentsmade.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-contractyear.sql" />
