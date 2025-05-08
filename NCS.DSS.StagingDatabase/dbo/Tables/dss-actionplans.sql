@@ -22,6 +22,22 @@
 
 GO
 
-CREATE NONCLUSTERED INDEX [nci_dss-actionplans_customerid] ON [dbo].[dss-actionplans] ([CustomerId]) WITH (ONLINE = ON)
+CREATE NONCLUSTERED INDEX [nci_dss-actionplans_customerid] 
+ON [dbo].[dss-actionplans] ([CustomerId]) 
+WITH (ONLINE = ON)
+
+GO
+
+CREATE NONCLUSTERED INDEX [dss-actionplans_DateActionPlanCreated]
+ON [dbo].[dss-actionplans] ([DateActionPlanCreated])
+INCLUDE ([CreatedBy], [CustomerId], [CustomerSatisfaction], [LastModifiedDate])
+WITH (ONLINE = ON);
+
+GO
+
+CREATE NONCLUSTERED INDEX [nci_dss-actionplans_id_interactionid] 
+ON [dbo].[dss-actionplans]([id],[InteractionId]) 
+INCLUDE ([SessionId])
+WITH (ONLINE = ON)
 
 GO
