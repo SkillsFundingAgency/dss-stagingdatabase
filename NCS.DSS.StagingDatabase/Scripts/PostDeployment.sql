@@ -43,3 +43,20 @@ BEGIN
 	   ALTER TABLE [PowerBI].[dss-pbi-submission-pattern]
     ALTER COLUMN [Percentage] [decimal](12, 5) NOT NULL;
 END;
+
+-- DROP PROCEDURES AND TABLES FOR DIGITAL IDENTITIES (USED FOR DIGITAL ACTION PLANS)
+
+DROP PROCEDURE IF EXISTS dbo.[Change_Feed_Insert_Update_dss-digitalidentities]
+GO
+
+DROP PROCEDURE IF EXISTS dbo.[Import_Cosmos_digitalidentities]
+GO
+
+DROP PROCEDURE IF EXISTS dbo.[insert-dss-digitalidentities-history]
+GO
+
+DROP TABLE IF EXISTS dbo.[dss-digitalidentities]
+GO
+
+DROP TABLE IF EXISTS dbo.[dss-digitalidentities-history]
+GO

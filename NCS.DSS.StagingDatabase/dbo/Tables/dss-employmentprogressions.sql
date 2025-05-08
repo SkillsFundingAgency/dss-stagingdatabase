@@ -22,6 +22,16 @@
 
 GO
 
-CREATE NONCLUSTERED INDEX [nci_dss-employmentprogressions_customerid] ON [dbo].[dss-employmentprogressions] ([CustomerId]) WITH (ONLINE = ON)
+CREATE NONCLUSTERED INDEX [nci_dss-employmentprogressions_customerid] 
+ON [dbo].[dss-employmentprogressions] ([CustomerId])
+WITH (ONLINE = ON)
 
 GO
+
+CREATE NONCLUSTERED INDEX [nci_dss-employmentprogressions_CustomerId_DateProgressionRecorded]
+ON [dbo].[dss-employmentprogressions]([CustomerID], [DateProgressionRecorded]) 
+INCLUDE ([EconomicShockStatus], [EconomicShockCode]) 
+WITH (ONLINE = ON)
+
+GO
+

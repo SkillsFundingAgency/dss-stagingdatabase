@@ -34,6 +34,7 @@ BEGIN
 
     DECLARE @ActionType NVARCHAR(10);
 	DECLARE @InputData NVARCHAR(MAX);
+    DECLARE @StoredProcedureName NVARCHAR(40) = 'sp_Upsert_5thWorkingDayProfile'
 
 	SET @InputData = CONCAT(
         '{"TouchpointID": "', @TouchPointId, '", ',
@@ -56,11 +57,17 @@ BEGIN
         VALUES (@TouchPointId, @FinancialYear, @MonthID, @ProfileValue)
     OUTPUT		 		 
 		GETDATE() AS LoggedOn,
-		'sp_Upsert_5thWorkingDayProfile' AS StoredProcedureName,
+		@StoredProcedureName AS StoredProcedureName,
 		@InputData AS InputParameters,
 		$action AS ActionType
 	INTO 
         [PowerBI].[dss-pbi-manualinputaudit];
+
+
+    -- Remove records from audit table that are older than 13 months
+    DELETE FROM [PowerBI].[dss-pbi-manualinputaudit]
+    WHERE StoredProcedureName = @StoredProcedureName
+        AND LoggedOn < DATEADD(MONTH,-13, GETDATE());
 
 
 END;
