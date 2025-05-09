@@ -239,7 +239,6 @@
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-financialyear.sql" />
     <Build Include="Scripts\PowerBI_Schema.sql" />
     <Build Include="dbo\Stored Procedures\GDPR\GDPR_Identify_customers_for_redaction.sql" />
-    <Build Include="dbo\Stored Procedures\GDPR\GDPR_Anonymise_customer_information.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-outcomeperffact.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-financialyear.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.sp-dss-pbi-outcome.sql" />

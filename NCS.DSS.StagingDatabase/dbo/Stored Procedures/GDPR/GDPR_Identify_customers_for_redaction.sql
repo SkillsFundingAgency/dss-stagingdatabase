@@ -3,6 +3,7 @@
 AS 
 BEGIN
     DECLARE @DAYS_TO_FINANCIAL_DATE AS INT = DATEDIFF(day, DATEFROMPARTS(YEAR(GETDATE()), 4, 5), GETDATE());
+    DECLARE @CURRENT_DATE_ZERO_TIME AS DATE = DATEADD(d,DATEDIFF(d,0,getdate()),0)
 
 	SELECT id
     FROM [dss-customers]
@@ -13,7 +14,6 @@ BEGIN
             FROM [dss-interactions]
             GROUP BY CustomerId
         ) I
-        WHERE I.LatestInteraction <= DATEADD(DAY, -365.25*6 -@DAYS_TO_FINANCIAL_DATE, GETDATE())
+        WHERE I.LatestInteraction <= DATEADD(DAY, -365.25*6 -@DAYS_TO_FINANCIAL_DATE, @CURRENT_DATE_ZERO_TIME)
     )
-    AND DateOfRedaction IS NULL;
 END
