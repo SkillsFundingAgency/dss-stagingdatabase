@@ -80,13 +80,13 @@ BEGIN
             @Comments)
     ) AS source (FinancialYear, ContractYear, PeriodMonth, PriorityOrNot, TargetCategory, TargetCategoryValue, Comments)
     ON (target.FinancialYear = source.FinancialYear AND
-        target.ContractYear = source.ContractYear AND
         target.PeriodMonth = source.PeriodMonth AND
         target.PriorityOrNot = source.PriorityOrNot AND
         target.TargetCategory = source.TargetCategory)
     WHEN MATCHED THEN
         UPDATE SET 
             target.TargetCategoryValue = source.TargetCategoryValue,
+	    target.ContractYear = source.ContractYear ,
             target.Comments = source.Comments
     WHEN NOT MATCHED THEN
         INSERT ([FinancialYear], [ContractYear], [PeriodMonth], [PriorityOrNot], [TargetCategory], [TargetCategoryValue], [Comments])

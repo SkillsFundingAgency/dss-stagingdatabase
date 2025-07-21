@@ -28,6 +28,7 @@ BEGIN
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'ActionStatus', 'Completed', 3, 'Completed')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'ActionStatus', 'NoLongerApplicable', 99, 'No Longer Applicable')
 
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'ActionType', 'SkillsHealthCheck', 1, 'Skills Health Check')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'ActionType', 'CreateOrUpdateCV', 2, 'Create or update CV')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'ActionType', 'InterviewSkillsWorkshop', 3, 'Interview Skills Workshop')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('Actions', 'ActionType', 'SearchForVacancy', 4, 'Search For Vacancy')
@@ -63,6 +64,7 @@ BEGIN
 
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Paper', 1, 'Paper')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Email', 2, 'Email')
+	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Digital', 3, 'Digital')
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'ActionPlanDeliveryMethod', 'Other', 99, 'Other')
 
 	INSERT INTO [dss-reference-data] ([Resource], [name], [key], [value], [description]) VALUES ('ActionPlans', 'PriorityCustomer', 'EighteenToTwentyfourNotInEducationEmploymentOrTraining', 1, '18 to 24 not in education, employment or training')
