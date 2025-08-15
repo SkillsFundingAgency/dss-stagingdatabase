@@ -286,6 +286,8 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overallconversionrate-myprofile.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overall-perffact-OutcomeActual.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overall-perffact-OutcomeProfile.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-profilefullyear-myprofile.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-servicefeeperformance-myservicefee.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
