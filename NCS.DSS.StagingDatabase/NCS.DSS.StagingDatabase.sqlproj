@@ -283,6 +283,9 @@
     <Build Include="PowerBI\Tables\PowerBI.dss-5thworkingDayProfile.sql" />
     <Build Include="PowerBI\Stored Procedures\PowerBI.SP_Upsert_5thWorkingDayProfile.sql" />
     <Build Include="PowerBI\Tables\PowerBI.dss-pbi-manualinputaudit.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overallconversionrate-myprofile.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overall-perffact-OutcomeActual.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-overall-perffact-OutcomeProfile.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
