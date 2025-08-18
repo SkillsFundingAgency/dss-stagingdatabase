@@ -289,6 +289,8 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-profilefullyear-myprofile.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-servicefeeperformance-myservicefee.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-contractinformation-outcomes.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate-outocmes.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate-myprofile.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
