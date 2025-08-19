@@ -1,4 +1,4 @@
-CREATE VIEW [PowerBI].[v-dss-pbi-contractinformation] 
+CREATE VIEW [PowerBI].[v-dss-pbi-contractinformation-outcomes]
 AS 
 SELECT 
 		AF.[TouchpointID] 
