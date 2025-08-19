@@ -291,6 +291,8 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-contractinformation-outcomes.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate-outocmes.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate-myprofile.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeprofilefact-summary.sql" />
+    <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeprofilefact-myprofile.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
