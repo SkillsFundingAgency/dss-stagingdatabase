@@ -3,9 +3,10 @@
 AS 
 BEGIN
     DECLARE @DAYS_TO_FINANCIAL_DATE AS INT = DATEDIFF(day, DATEFROMPARTS(YEAR(GETDATE()), 4, 5), GETDATE());
-    DECLARE @CURRENT_DATE_ZERO_TIME AS DATE = DATEADD(d,DATEDIFF(d,0,getdate()),0)
+    DECLARE @FINANCIAL_YEAR_OFSET AS INT = IIF(@DAYS_TO_FINANCIAL_DATE>=0,6,7) -- Need to subtract 7 years if date before this calendar year's financial year start
+    DECLARE @HISTORICAL_FINANCIAL_YEAR_START AS DATE = DATEFROMPARTS(YEAR(GETDATE())-@FINANCIAL_YEAR_OFSET, 4, 5)
 
-	SELECT id
+    SELECT id
     FROM [dss-customers]
     WHERE id IN (
         SELECT I.CustomerId
@@ -14,6 +15,6 @@ BEGIN
             FROM [dss-interactions]
             GROUP BY CustomerId
         ) I
-        WHERE I.LatestInteraction <= DATEADD(DAY, -365.25*6 -@DAYS_TO_FINANCIAL_DATE, @CURRENT_DATE_ZERO_TIME)
+        WHERE I.LatestInteraction <=  @HISTORICAL_FINANCIAL_YEAR_START
     )
 END
