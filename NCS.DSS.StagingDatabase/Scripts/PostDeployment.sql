@@ -13,7 +13,7 @@ Post-Deployment Script Template
 EXECUTE [dbo].[usp_CreateReferenceData];
 
 -- FULL REFRESHE OF PFY DATA FOLLOWING DEPLOYMENT --- 
-EXECUTE [PowerBI].[sp-pbi-refresh-all-data] @pr1 = 1;
+--EXECUTE [PowerBI].[sp-pbi-refresh-all-data] @pr1 = 1;
 
 
 
