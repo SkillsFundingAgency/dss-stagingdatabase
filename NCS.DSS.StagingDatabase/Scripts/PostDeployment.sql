@@ -44,19 +44,7 @@ BEGIN
     ALTER COLUMN [Percentage] [decimal](12, 5) NOT NULL;
 END;
 
--- DROP PROCEDURES AND TABLES FOR DIGITAL IDENTITIES (USED FOR DIGITAL ACTION PLANS)
+-- Convert records with Learning Difficulty or Disability fields set as 15 (Aspergers) to 14 (Autism)
 
-DROP PROCEDURE IF EXISTS dbo.[Change_Feed_Insert_Update_dss-digitalidentities]
-GO
-
-DROP PROCEDURE IF EXISTS dbo.[Import_Cosmos_digitalidentities]
-GO
-
-DROP PROCEDURE IF EXISTS dbo.[insert-dss-digitalidentities-history]
-GO
-
-DROP TABLE IF EXISTS dbo.[dss-digitalidentities]
-GO
-
-DROP TABLE IF EXISTS dbo.[dss-digitalidentities-history]
-GO
+UPDATE [dbo].[dss-diversitydetails] SET PrimaryLearningDifficultyOrDisability = 14 WHERE PrimaryLearningDifficultyOrDisability = 15
+UPDATE [dbo].[dss-diversitydetails] SET SecondaryLearningDifficultyOrDisability = 14 WHERE SecondaryLearningDifficultyOrDisability = 15
