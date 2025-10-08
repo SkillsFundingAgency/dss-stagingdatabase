@@ -1,49 +1,5 @@
 CREATE VIEW [PowerBI].[v-dss-pbi-contractinformation] 
 AS 
-WITH myQuery AS 
-(
-
-  SELECT 
-		AF.[TouchpointID] 
-		,'05. Value Achieved YTD' AS [ProfileCategory]
-		,PD.[Date] 
-		,PD.[Fiscal Year]
-		,SUM(AF.[YTD OutcomeFinance]) AS [ProfileCategoryValue] 
-	FROM [PowerBI].[v-dss-pbi-outcomeactualfact] AS AF 
-	INNER JOIN [PowerBI].[v-dss-pbi-date] AS PD 
-
-	ON AF.[Date] = PD.[Date] 
-			inner join [powerbi].[dss-pbi-financialyear] as fy
-on fy.FinancialYear=pd.[Fiscal Year]
-	WHERE AF.[Outcome ID] = 10 --Sum total of all payable values 
-	and  fy.CurrentYear=1
-	GROUP BY 
-		AF.[TouchpointID] 
-		,PD.[Date] 
-		,PD.[Fiscal Year]
-
-
-	UNION ALL
-	SELECT 
-		AF.[TouchpointID] 
-		,'04. YTD Profile Value' AS [ProfileCategory]
-		,PD.[Date] 
-		,PD.[Fiscal Year]
-		,SUM(AF.[Financial Profile YTD]) AS [ProfileCategoryValue] 
-	FROM [PowerBI].[v-dss-pbi-outcomeprofilefact] AS AF 
-	INNER JOIN [PowerBI].[v-dss-pbi-date] AS PD 
-	ON AF.[Date] = PD.[Date] 
-	inner join [powerbi].[dss-pbi-financialyear] as fy
-on fy.FinancialYear=pd.[Fiscal Year]
-	WHERE AF.[Outcome ID] = 10 --Sum total of all payable values 
-	and fy.CurrentYear=1
-	GROUP BY 
-		AF.[TouchpointID] 
-		,PD.[Date] 
-		,PD.[Fiscal Year]
-)
-
-
 select [TouchpointID]
            ,[ProfileCategory]
            ,[Date]
@@ -77,7 +33,7 @@ SELECT
 	,[Date] 
 	,[Fiscal Year]
 	,[ProfileCategoryValue]  
-FROM myQuery
+FROM [PowerBI].[v-dss-pbi-contractinformation-outcomes]
 UNION ALL
 SELECT 
 	a.[TouchpointID] 
@@ -85,8 +41,8 @@ SELECT
 	,a.[Date] 
 	,a.[Fiscal Year]
 	,(a.[ProfileCategoryValue] - b.[ProfileCategoryValue]) as [ProfileCategoryValue]  
-FROM myQuery AS a
-INNER JOIN myQuery as b ON a.[TouchpointID] = b.[TouchpointID] 
+FROM [PowerBI].[v-dss-pbi-contractinformation-outcomes] AS a
+INNER JOIN [PowerBI].[v-dss-pbi-contractinformation-outcomes] as b ON a.[TouchpointID] = b.[TouchpointID] 
 	AND a.[Date] = b.[Date] 
 	AND a.[Fiscal Year] = b.[Fiscal Year]
 	inner join [powerbi].[dss-pbi-financialyear] as fy
@@ -101,14 +57,13 @@ Select
 	,a.[Date] 
 	,a.[Fiscal Year]
 	,ROUND((a.[ProfileCategoryValue] / b.[ProfileCategoryValue]) * 100, 2) as [ProfileCategoryValue]  
-from myQuery as a
-INNER JOIN myQuery as b ON a.[TouchpointID] = b.[TouchpointID] 
+from [PowerBI].[v-dss-pbi-contractinformation-outcomes] as a
+INNER JOIN [PowerBI].[v-dss-pbi-contractinformation-outcomes] as b ON a.[TouchpointID] = b.[TouchpointID] 
 	AND a.[Date] = b.[Date] 
 	AND a.[Fiscal Year] = b.[Fiscal Year]
 	inner join [powerbi].[dss-pbi-financialyear] as fy
 on fy.FinancialYear=b.[Fiscal Year]
 WHERE a.[ProfileCategory] = '05. Value Achieved YTD'
 and fy.CurrentYear=1
-AND b.[ProfileCategory] = '04. YTD Profile Value'
-;
+AND b.[ProfileCategory] = '04. YTD Profile Value';
 GO

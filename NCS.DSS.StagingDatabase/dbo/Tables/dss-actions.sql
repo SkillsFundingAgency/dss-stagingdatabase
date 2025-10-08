@@ -21,6 +21,18 @@
 GO
 
 CREATE NONCLUSTERED INDEX [nci_dss-actions_customerid] ON [dbo].[dss-actions] ([CustomerId]) WITH (ONLINE = ON)
+GO
+
+CREATE NONCLUSTERED INDEX [nci_dss_actions_ReportingCoverage]ON [dbo].[dss-actions] 
+(
+    DateActionAgreed,
+    SignpostedToCategory
+)
+INCLUDE (
+    id,
+    CustomerId,
+    CreatedBy
+);
 
 GO
 
