@@ -9,11 +9,9 @@ CREATE TABLE [PowerBI].[dss-pbi-nationaltarget](
  CONSTRAINT [pk-dss-pbi-nationaltarget] PRIMARY KEY CLUSTERED 
 (
 	[FinancialYear] ASC,
-	[ContractYear] ASC,
 	[PeriodMonth] ASC,
 	[PriorityOrNot] ASC,
-	[TargetCategory] ASC,
-	[TargetCategoryValue] ASC
+	[TargetCategory] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
