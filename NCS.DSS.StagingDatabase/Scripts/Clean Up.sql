@@ -13,11 +13,6 @@ IF OBJECT_ID('[fnGetParameterValueAsDate]') IS NOT NULL
 			DROP FUNCTION [fnGetParameterValueAsDate]
 		END
 
-IF OBJECT_ID('[fnGetParameterValueAsDate]') IS NOT NULL 
-		BEGIN
-			DROP FUNCTION [fnGetParameterValueAsDate]
-		END
-
 IF OBJECT_ID('[fnGetParameterValueAsInteger]') IS NOT NULL 
 		BEGIN
 			DROP FUNCTION [fnGetParameterValueAsInteger]
