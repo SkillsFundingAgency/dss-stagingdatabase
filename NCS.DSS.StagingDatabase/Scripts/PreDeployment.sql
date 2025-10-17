@@ -25,12 +25,6 @@ BEGIN
 	EXEC sp_rename 'dbo.dss-collections.TouchpointId', 'TouchPointId', 'COLUMN';  
 END;
 
-IF COL_LENGTH(N'dbo.dss-collections',  N'TouchpointId') IS NOT NULL
-BEGIN
-	EXEC sp_rename 'dbo.dss-collections.TouchpointId', 'TouchPointId', 'COLUMN';  
-END;
-
-
 IF EXISTS(
        SELECT 1
        FROM   sys.columns
@@ -64,6 +58,7 @@ IF EXISTS(
 		 and Scale =5
    )
 BEGIN
+--is this wrong?
 	ALTER TABLE [PowerBI].[dss-pbi-submission-pattern] ALTER COLUMN Percentage DECIMAL(12,5);
 END;
 
