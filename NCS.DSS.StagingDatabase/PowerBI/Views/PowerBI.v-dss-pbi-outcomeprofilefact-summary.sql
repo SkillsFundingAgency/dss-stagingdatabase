@@ -30,24 +30,6 @@ AS
             ,[PeriodMonth]
             ,[PeriodYear] 
         UNION ALL 
-        	SELECT 
-            [TouchpointID]
-            ,'CMC' AS [ProfileCategory]
-            ,[PriorityOrNot]
-            ,[PeriodMonth]
-            ,[PeriodYear] 
-            ,SUM([OutcomeNumber]) AS [OutcomeNumber] 
-            ,SUM([YTD_OutcomeNumber]) AS [YTD_OutcomeNumber] 
-            ,SUM([OutcomeFinance]) AS [OutcomeFinance] 
-            ,SUM([YTD_OutcomeFinance]) AS [YTD_OutcomeFinance] 
-        FROM [PowerBI].[v-dss-pbi-outcomeprofilefact-myprofile] 
-        WHERE [ProfileCategory] IN ('CMO', 'CMD') 
-        GROUP BY 
-            [TouchpointID]
-            ,[PriorityOrNot]
-            ,[PeriodMonth]
-            ,[PeriodYear] 
-        UNION ALL 
         SELECT 
             [TouchpointID]
             ,'TOT' AS [ProfileCategory]
