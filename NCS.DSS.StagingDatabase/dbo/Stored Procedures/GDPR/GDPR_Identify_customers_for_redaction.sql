@@ -16,5 +16,8 @@ BEGIN
             GROUP BY CustomerId
         ) I
         WHERE I.LatestInteraction <=  @HISTORICAL_FINANCIAL_YEAR_START
+        AND (LastModifiedTouchpointId LIKE '%000000020%' 
+		OR LastModifiedTouchpointId Like '%000000010%' 
+		OR LastModifiedTouchpointId Like '%0000000997%')
     )
 END
