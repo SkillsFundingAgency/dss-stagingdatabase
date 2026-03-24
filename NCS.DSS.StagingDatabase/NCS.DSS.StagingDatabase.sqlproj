@@ -293,12 +293,18 @@
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-conversionrate-myprofile.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeprofilefact-summary.sql" />
     <Build Include="PowerBI\Views\PowerBI.v-dss-pbi-outcomeprofilefact-myprofile.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.OutcomeActualAgg.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.ProfileSummary_Not2_Staging.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.ProfileSummary_2_Staging.sql" />
+    <Build Include="PowerBI\Tables\PowerBI.ProfileSummary_O8_Staging.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Drop and Recreate Tables with Indexes.sql" />
     <None Include="Scripts\Clean Up.sql" />
     <None Include="Scripts\History Tables Drop and Recreate.sql" />
     <Build Include="dbo\Tables\dss-prioritygroups.sql" />
+    <None Include="PowerBI\Tables\PowerBI.OutcomeProfileAgg.sql" />
+    <None Include="PowerBI\Stored Procedures\PowerBI.sp-pbi-refresh-ProfileSummary-tables.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="NCS.DSS.StagingDatabase.refactorlog" />
