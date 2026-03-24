@@ -1,8 +1,3 @@
-/****** Object:  StoredProcedure [PowerBI].[sp-pbi-refresh-outcome-tables]    Script Date: 24/03/2026 10:37:07 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 Create PROCEDURE [PowerBI].[sp-pbi-refresh-ProfileSummary-tables](@pr1 int)
 AS
 BEGIN

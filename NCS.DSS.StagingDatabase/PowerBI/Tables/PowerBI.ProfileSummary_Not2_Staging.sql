@@ -1,4 +1,4 @@
-CREATE TABLE PowerBI.ProfileSummary_Not2_Staging (
+CREATE TABLE [PowerBI].[ProfileSummary_Not2_Staging] (
     OutcomeID int,
     [Date] date,
     ProfileFullYear decimal(18,2),

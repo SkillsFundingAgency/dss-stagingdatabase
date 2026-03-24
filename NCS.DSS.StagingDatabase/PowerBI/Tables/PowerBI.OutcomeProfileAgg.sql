@@ -1,4 +1,4 @@
-CREATE TABLE PowerBI.OutcomeProfileAgg (
+CREATE TABLE [PowerBI].[OutcomeProfileAgg] (
     OutcomeID int NOT NULL,
     [Date] date NOT NULL,
     ProfileTotal decimal(18,2),
