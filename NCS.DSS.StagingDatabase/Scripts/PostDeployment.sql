@@ -30,7 +30,7 @@ INSERT INTO [PowerBI].[dss-pbi-financialyear]
            ('2026-2027'
            ,'2026-04-01 00:00:00.0000000'
            ,'2027-03-31 23:59:00.0000000'
-           ,'September 2027',1)
+           ,'2026-2027-FinancialYearExtension',1)
 END
 ELSE
 BEGIN
