@@ -15,7 +15,7 @@ Post-Deployment Script Template
 Begin Tran Add20262027FinancialYear
 -- Update all records to set CurrentYear = 0
 UPDATE [PowerBI].[dss-pbi-financialyear]
-SET [CurrentYear] = 0;    
+SET [CurrentYear] = NULL;    
 GO
 
 IF NOT EXISTS ( SELECT 1 FROM [PowerBI].[dss-pbi-financialyear] WHERE [FinancialYear] = '2026-2027' )
